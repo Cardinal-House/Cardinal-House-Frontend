@@ -1,0 +1,23 @@
+.container {
+    padding: 0 2rem;
+}
+
+.headerTextGrid {
+    text-align: center;
+    margin-top: 4% !important;
+    color: var(--red-primary-color) !important;
+}
+
+.headerText {
+    border-bottom: 5px solid var(--red-primary-color);
+}
+
+.serviceHeaderText {
+    color: var(--red-primary-color) !important;
+    margin-top: 5% !important;
+    text-align: center !important;
+}
+
+.pricingText {
+    margin-top: 5% !important;
+}

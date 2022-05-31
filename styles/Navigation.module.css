@@ -1,0 +1,208 @@
+.navGrid {
+    background-color: #53e8ff !important; 
+}
+
+.navbarDarkCustom {
+    color: rgba(255,255,255,1) !important;
+  }
+  
+  .navbarLightCustom {
+    color: rgba(0,0,0,1) !important;
+  }
+
+.darkModeIcon {
+    color: var(--dark-theme-primary-color);
+}
+
+.lightModeIcon {
+    color: var(--red-primary-color);
+}
+
+nav .container {
+    padding-left: 0 !important;
+}
+
+.navGrid {
+    z-index: 1000000 !important;
+}
+
+.navBrandText {
+    margin-left: 5% !important;
+}
+
+.socialIcons {
+    display: flex !important;
+    align-items: center !important;
+}
+
+.iconSize {
+    font-size: 1.75rem !important;
+}
+
+.iconSizeTheme {
+    font-size: 2.2rem !important;
+}
+
+.socialIcon {
+    margin-left: 15% !important;
+}
+
+.navBarText {
+    font-size: 2px !important;
+}
+
+.navBrandText {
+    font-size: 18px !important;
+}
+
+.navText {
+    font-size: 16px !important;
+    margin-top: -1px !important;
+}
+
+.logoImage {
+    display: inline-block!important;
+}
+
+.connectBtnDiv {
+    margin-top: 0.6% !important;
+}
+
+.connectBtnDark:hover {
+    color: white !important;
+}
+  
+.connectBtnLight:hover {
+    color: white !important;
+}
+
+@media (max-width: 1350px) and (min-width: 1270px) {
+    .navBrandText {
+        font-size: 18px !important;
+    }
+
+    .navText {
+        font-size: 16px !important;
+        margin-top: 2px !important;
+    }
+
+    .iconSize {
+        font-size: 1.5rem !important;
+    }
+    
+    .iconSizeTheme {
+        font-size: 2rem !important;
+    }
+}
+
+@media (max-width: 1270px) and (min-width: 1150px) {
+    .navBrandText {
+        font-size: 16px !important;
+    }
+
+    .navText {
+        margin-top: 5px !important;
+        font-size: 14px !important;
+    }
+
+    .iconSize {
+        font-size: 1.25rem !important;
+    }
+    
+    .iconSizeTheme {
+        font-size: 1.75rem !important;
+    }
+}
+
+@media (max-width: 1150px) and (min-width: 1070px) {
+    .navBrandText {
+        font-size: 14px !important;
+    }
+
+    .navText {
+        font-size: 12px !important;
+        margin-top: 5px !important;
+    }
+
+    .iconSize {
+        font-size: 1.15rem !important;
+    }
+    
+    .iconSizeTheme {
+        font-size: 1.65rem !important;
+    }
+
+    .themeSwitch {
+        size: 10rem !important;
+    }
+}
+
+@media (max-width: 1070px) and (min-width: 992px) {
+    .navBrandText {
+        font-size: 12px !important;
+    }
+
+    .navText {
+        font-size: 11px !important;
+        margin-top: 8px !important;
+    }
+
+    .iconSize {
+        font-size: 1.15rem !important;
+    }
+    
+    .iconSizeTheme {
+        font-size: 1.65rem !important;
+    }
+}
+
+@media (min-width: 992px) {
+    .navBar {
+        width: 100% !important;
+        background-color: rgba(0, 0, 0, 0) !important;
+    }
+    .navBarItems {
+        margin-left: -15%;
+        display: flex !important;
+        justify-content: center !important;
+    }
+    
+    .navBarBrand {
+        padding-left: 10%;
+    }
+
+    .navPadding {
+        padding-right: 1rem !important;
+        padding-left: 0.5rem !important;
+    }
+
+    .changeThemeDiv {
+        margin-top: 0.2rem !important;
+        margin-left: 3rem !important;
+        margin-right: 0.5rem !important;
+    }
+  }
+
+@media (max-width: 992px) {
+    .socialIcons {
+        display: flex !important;
+        align-items: center !important;
+    }
+    .socialIcon {
+        margin-top: 5% !important;
+        margin-left: 1% !important;
+    }
+    .socialIconSpacing {
+        margin-left: 8% !important;
+    }
+  }
+
+@media (max-width: 1350px) {
+    .logoImage {
+        display: none !important;
+    }
+
+    .navBrandText {
+        margin-left: 0% !important;
+    }
+}

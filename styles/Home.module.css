@@ -1,0 +1,296 @@
+.introBackground {
+  background-image: url("../public/IntroBackground.jpg") !important;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.introGrid {
+  padding: 0 2rem !important;
+  min-height: 80vh !important;
+}
+
+.introText {
+  margin-top: 7% !important;
+  margin-left: 2% !important;
+}
+
+.teamBtnDark:hover {
+  color: white !important;
+}
+
+.teamBtnLight:hover {
+  color: white !important;
+}
+
+.boldTextDark {
+  color: var(--dark-theme-primary-color) !important;
+}
+
+.boldTextLight {
+  color: var(--red-primary-color) !important;
+}
+
+.forGrid {
+  padding: 0 2rem !important;
+  text-align: center !important;
+}
+
+.growthGrid {
+  padding: 0 2rem !important;
+}
+
+.customCard {
+  border-radius: 7% !important;
+  height: 350px !important;
+  margin-top: 10% !important;
+  margin-bottom: 10% !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+.customCardDark {
+  background-color: #1d263b !important;
+}
+
+.customCardLight {
+  background-color: #eaeef3 !important;
+}
+
+.customCardGrid {
+  flex-basis: 30% !important;
+  max-width: 30% !important;
+}
+
+.avatarDarkTheme {
+  background-color: var(--dark-theme-primary-color) !important;
+  border: 1px solid var(--dark-theme-primary-color) !important;
+  color: white !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  margin-top: 2% !important;
+  margin-bottom: 8% !important;
+}
+
+.avatarLightTheme {
+  background-color: var(--red-primary-color) !important;
+  border: 1px solid var(--red-primary-color) !important;
+  color: white !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  margin-top: 2% !important;
+  margin-bottom: 8% !important;
+}
+
+.communityGrid {
+  padding: 0 4rem !important;
+  margin-top: 3% !important;
+  margin-bottom: 3% !important;
+  padding-top: 5% !important;
+  padding-bottom: 5% !important;
+}
+
+.communityGridDark {
+  background-color: #eaeef3;
+}
+
+.communityGridLight {
+  background-color: #eaeef3;
+}
+
+.communityHeader {
+  color: var(--red-primary-color) !important;
+  margin-bottom: 5% !important;
+}
+
+.tokenomicsHeader {
+  color: var(--red-primary-color) !important;
+  text-align: center !important;
+  margin-bottom: 1% !important;
+}
+
+.tokenomicsSubHeader {
+  text-align: center !important;
+  margin-bottom: 1% !important;
+}
+
+.growthHeader {
+  color: var(--red-primary-color) !important;
+  text-align: center !important;
+  margin-top: 5% !important;
+}
+
+.growthCard {
+  color: white !important;
+  border-radius: 7% !important;
+  height: 500px !important;
+  margin-top: 10% !important;
+  margin-bottom: 10% !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+.growthCard1 {
+  background-image: url("../public/NatureClipArt.jpg") !important;
+}
+
+.growthTimeText {
+  margin-bottom: 20% !important;
+}
+
+.roadmapHeader {
+  color: var(--red-primary-color) !important;
+  text-align: center !important;
+  margin-top: 4% !important;
+  margin-bottom: 4% !important;
+}
+
+.verticalTimelineDiv {
+  text-align: left !important;
+}
+
+@media (max-width: 740px) {
+  .introText {
+    max-width: 70% !important;
+    flex: 70% !important;
+  }
+}
+
+@media (max-width: 550px) {
+  .introText {
+    max-width: 100% !important;
+    flex: 100% !important;
+  }
+
+  .introGrid {
+    min-height: 100vh !important;
+  }
+}
+
+@media (max-width: 500px) {
+  .communityGrid {
+    text-align: center !important;
+  }
+}
+
+
+
+
+
+
+.container {
+  padding: 0 2rem;
+}
+
+.main {
+  min-height: 100vh;
+  padding: 4rem 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer {
+  display: flex;
+  flex: 1;
+  padding: 2rem 0;
+  border-top: 1px solid #eaeaea;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.title a {
+  color: #0070f3;
+  text-decoration: none;
+}
+
+.title a:hover,
+.title a:focus,
+.title a:active {
+  text-decoration: underline;
+}
+
+.title {
+  margin: 0;
+  line-height: 1.15;
+  font-size: 4rem;
+}
+
+.title,
+.description {
+  text-align: center;
+}
+
+.description {
+  margin: 4rem 0;
+  line-height: 1.5;
+  font-size: 1.5rem;
+}
+
+.code {
+  background: #fafafa;
+  border-radius: 5px;
+  padding: 0.75rem;
+  font-size: 1.1rem;
+  font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
+    Bitstream Vera Sans Mono, Courier New, monospace;
+}
+
+.grid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 800px;
+}
+
+.card {
+  margin: 1rem;
+  padding: 1.5rem;
+  text-align: left;
+  color: inherit;
+  text-decoration: none;
+  border: 1px solid #eaeaea;
+  border-radius: 10px;
+  transition: color 0.15s ease, border-color 0.15s ease;
+  max-width: 300px;
+}
+
+.card:hover,
+.card:focus,
+.card:active {
+  color: #0070f3;
+  border-color: #0070f3;
+}
+
+.card h2 {
+  margin: 0 0 1rem 0;
+  font-size: 1.5rem;
+}
+
+.card p {
+  margin: 0;
+  font-size: 1.25rem;
+  line-height: 1.5;
+}
+
+.logo {
+  height: 1em;
+  margin-left: 0.5rem;
+}
+
+@media (max-width: 600px) {
+  .grid {
+    width: 100%;
+    flex-direction: column;
+  }
+}
