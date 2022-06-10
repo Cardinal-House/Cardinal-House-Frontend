@@ -1,8 +1,22 @@
+.lightThemeBackground {
+  background-image: url("../public/LightThemeBackground.png") !important;
+  background-position: center !important;
+  background-repeat: repeat-y !important;
+  background-size: cover !important;
+}
+
+.darkThemeBackground {
+  background-image: url("../public/DarkThemeBackground.png") !important;
+  background-position: center !important;
+  background-repeat: repeat-y !important;
+  background-size: cover !important;
+}
+
 .introBackground {
   background-image: url("../public/IntroBackground.jpg") !important;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
 }
 
 .introGrid {
@@ -36,8 +50,18 @@
   text-align: center !important;
 }
 
+.tokenomicsGrid {
+  padding: 0 2rem !important;
+  text-align: center !important;
+  margin-top: 4% !important;
+}
+
 .growthGrid {
   padding: 0 2rem !important;
+  margin-top: 2% !important;
+}
+.roadmapGrid {
+  margin-top: 2% !important;
 }
 
 .customCard {
@@ -147,6 +171,21 @@
 
 .verticalTimelineDiv {
   text-align: left !important;
+}
+
+@media (max-width: 899px) {
+  .customCard {
+    margin-top: 0% !important;
+    margin-bottom: 0% !important;
+  }
+
+  .forCard1 {
+    margin-top: 8% !important;
+  }
+
+  .forCard2 {
+    margin-bottom: 5% !important;
+  }
 }
 
 @media (max-width: 740px) {

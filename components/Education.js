@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { Grid, Button, Typography } from '@mui/material';
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
@@ -5,6 +6,8 @@ import { useEffect, useRef } from 'react';
 import clsx from 'clsx';
 
 import styles from '../styles/Home.module.css';
+
+import educationArt from '../public/educationArt.png';
 
 export default function Education(props) {
   gsap.registerPlugin(ScrollTrigger);
@@ -18,6 +21,7 @@ export default function Education(props) {
   useEffect(() => {
     gsap.fromTo(educationHeaderRef.current, {x: -1000, opacity: 0}, { x: 0, opacity: 1, duration: 0.7, scrollTrigger: { trigger: "#educationHeader", start: "bottom bottom" } });
     gsap.fromTo(edcuationTextRef.current, {x: -1000, opacity: 0}, { x: 0, opacity: 1, duration: 0.5, scrollTrigger: { trigger: "#educationText", start: "bottom bottom" } });
+    gsap.fromTo(educationImageRef.current, {x: 1000, opacity: 0}, { x: 0, opacity: 1, duration: 0.7, scrollTrigger: { trigger: "#educationImage", start: "bottom bottom" } });
     gsap.fromTo(educationBtnRef.current, {x: 1000, opacity: 0}, { x: 0, opacity: 1, duration: 0.7, scrollTrigger: { trigger: "#educationBtn", start: "bottom bottom" } });
   }, [])
   
@@ -37,10 +41,15 @@ export default function Education(props) {
         </div>
       </Grid>
       <Grid item lg={4} md={4} sm={12} xs={12}>
-        <Button id="educationBtn" ref={educationBtnRef} href="https://www.youtube.com/channel/UC1dUX-MzSWJ046vYP2215-g" target="_blank" rel="noreferrer" size="large" variant="contained" color="primary" 
+        <Grid container justifyContent="center" alignItems="center" spacing={4}>
+          <Grid item id="educationImage" ref={educationImageRef} className="mb-4" xs={8}>
+            <Image src={educationArt} layout="responsive" />
+          </Grid>
+          <Button id="educationBtn" ref={educationBtnRef} href="https://www.youtube.com/channel/UC1dUX-MzSWJ046vYP2215-g" target="_blank" rel="noreferrer" size="large" variant="contained" color="primary" 
             className={props.useDarkTheme ? styles.teamBtnDark : styles.teamBtnLight}>
             Check out our YouTube Channel!
           </Button>
+          </Grid>
       </Grid>
       
     </Grid>

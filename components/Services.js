@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { Grid, Button, Typography } from '@mui/material';
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
@@ -5,6 +6,8 @@ import { useEffect, useRef } from 'react';
 import clsx from 'clsx';
 
 import styles from '../styles/Home.module.css';
+
+import servicesArt from '../public/servicesArt.png';
 
 export default function Services(props) {
   gsap.registerPlugin(ScrollTrigger);
@@ -18,6 +21,7 @@ export default function Services(props) {
   useEffect(() => {
     gsap.fromTo(servicesHeaderRef.current, {x: -1000, opacity: 0}, { x: 0, opacity: 1, duration: 0.7, scrollTrigger: { trigger: "#servicesHeader", start: "bottom bottom" } });
     gsap.fromTo(servicesTextRef.current, {x: -1000, opacity: 0}, { x: 0, opacity: 1, duration: 0.5, scrollTrigger: { trigger: "#servicesText", start: "bottom bottom" } });
+    gsap.fromTo(servicesImageRef.current, {x: 1000, opacity: 0}, { x: 0, opacity: 1, duration: 0.7, scrollTrigger: { trigger: "#servicesImage", start: "bottom bottom" } });
     gsap.fromTo(servicesBtnRef.current, {x: 1000, opacity: 0}, { x: 0, opacity: 1, duration: 0.7, scrollTrigger: { trigger: "#servicesBtn", start: "bottom bottom" } });
   }, [])
   
@@ -38,10 +42,15 @@ export default function Services(props) {
         </div>
       </Grid>
       <Grid item lg={4} md={4} sm={12} xs={12}>
-        <Button id="servicesBtn" ref={servicesBtnRef} href="/dapp" target="_blank" rel="noreferrer" size="large" variant="contained" color="primary" 
+        <Grid container justifyContent="center" alignItems="center" spacing={4}>
+          <Grid item id="servicesImage" ref={servicesImageRef} className="mb-4" xs={8}>
+            <Image src={servicesArt} layout="responsive" />
+          </Grid>
+          <Button id="servicesBtn" ref={servicesBtnRef} href="/dapp" target="_blank" rel="noreferrer" size="large" variant="contained" color="primary" 
             className={props.useDarkTheme ? styles.teamBtnDark : styles.teamBtnLight}>
             View Services on Our DApp
           </Button>
+        </Grid>
       </Grid>
       
     </Grid>

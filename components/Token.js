@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { Grid, Button, Typography } from '@mui/material';
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
@@ -5,6 +6,8 @@ import { useEffect, useRef } from 'react';
 import clsx from 'clsx';
 
 import styles from '../styles/Home.module.css';
+
+import cardinalHouseLogo from '../public/CardinalHouseLogo.png';
 
 export default function Token(props) {
   gsap.registerPlugin(ScrollTrigger);
@@ -18,6 +21,7 @@ export default function Token(props) {
   useEffect(() => {
     gsap.fromTo(tokenHeaderRef.current, {x: -1000, opacity: 0}, { x: 0, opacity: 1, duration: 0.7, scrollTrigger: { trigger: "#tokenHeader", start: "bottom bottom" } });
     gsap.fromTo(tokenTextRef.current, {x: -1000, opacity: 0}, { x: 0, opacity: 1, duration: 0.5, scrollTrigger: { trigger: "#tokenText", start: "bottom bottom" } });
+    gsap.fromTo(tokenImageRef.current, {x: 1000, opacity: 0}, { x: 0, opacity: 1, duration: 0.7, scrollTrigger: { trigger: "#tokenImage", start: "bottom bottom" } });
     gsap.fromTo(tokenBtnRef.current, {x: 1000, opacity: 0}, { x: 0, opacity: 1, duration: 0.7, scrollTrigger: { trigger: "#tokenBtn", start: "bottom bottom" } });
   }, [])
   
@@ -39,10 +43,15 @@ export default function Token(props) {
         </div>
       </Grid>
       <Grid item lg={4} md={4} sm={12} xs={12}>
-        <Button id="tokenBtn" ref={tokenBtnRef} href="https://www.youtube.com/channel/UC1dUX-MzSWJ046vYP2215-g" target="_blank" rel="noreferrer" size="large" variant="contained" color="primary" 
-            className={props.useDarkTheme ? styles.teamBtnDark : styles.teamBtnLight}>
-            Check out our YouTube Channel!
-          </Button>
+        <Grid container justifyContent="center" alignItems="center" spacing={4}>
+          <Grid item id="tokenImage" ref={tokenImageRef} xs={8}>
+            <Image src={cardinalHouseLogo} layout="responsive" />
+          </Grid>
+            <Button id="tokenBtn" ref={tokenBtnRef} href="https://www.youtube.com/channel/UC1dUX-MzSWJ046vYP2215-g" target="_blank" rel="noreferrer" size="large" variant="contained" color="primary" 
+              className={props.useDarkTheme ? styles.teamBtnDark : styles.teamBtnLight}>
+              Check out our YouTube Channel!
+            </Button>
+        </Grid>
       </Grid>
       
     </Grid>

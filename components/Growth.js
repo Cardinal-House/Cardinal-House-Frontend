@@ -26,14 +26,13 @@ export default function Growth(props) {
   }, [])
   
   return (
-    <Grid container justify="center" alignItems="center" spacing={6} className={clsx(styles.growthGrid)}>
+    <Grid container justifyContent="center" alignItems="center" spacing={6} className={clsx(styles.growthGrid)}>
       <Grid item xs={12}>
         <Typography id="growthHeader" ref={growthHeaderRef} variant="h3" className={styles.growthHeader}>
           More Services Over Time = More Volume Over Time
         </Typography>
       </Grid>
-      <Grid item lg={2} md={1} xs={0}></Grid>
-        <Grid item lg={4} md={5} sm={10} xs={12} className={styles.forCard}>
+        <Grid item lg={5} md={5} sm={10} xs={12} className={styles.forCard}>
           <Card id="growthCard1" ref={growthCard1Ref} className={clsx(styles.growthCard, styles.growthCard1)}>
             <div>
               <CardContent>
@@ -50,7 +49,7 @@ export default function Growth(props) {
             </div>
           </Card>
         </Grid>
-        <Grid item lg={4} md={5} sm={10} xs={12} className={styles.forCard}>
+        <Grid item lg={5} md={5} sm={10} xs={12} className={styles.forCard}>
           <Card id="growthCard2" ref={growthCard2Ref} className={clsx(styles.growthCard, styles.growthCard1)}>
             <div>
               <CardContent>
@@ -70,9 +69,7 @@ export default function Growth(props) {
             </div>
           </Card>
         </Grid>
-        <Grid item lg={2} md={1} xs={0}></Grid>
-        <Grid item lg={2} md={1} xs={0}></Grid>
-        <Grid item lg={4} md={5} sm={10} xs={12} className={styles.forCard}>
+        <Grid item lg={5} md={5} sm={10} xs={12} className={styles.forCard}>
           <Card id="growthCard3" ref={growthCard3Ref} className={clsx(styles.growthCard, styles.growthCard1)}>
             <div>
               <CardContent>
@@ -98,7 +95,7 @@ export default function Growth(props) {
             </div>
           </Card>
         </Grid>
-        <Grid item lg={4} md={5} sm={10} xs={12} className={styles.forCard}>
+        <Grid item lg={5} md={5} sm={10} xs={12} className={styles.forCard}>
           <Card id="growthCard4" ref={growthCard4Ref} className={clsx(styles.growthCard, styles.growthCard1)}>
             <div>
               <CardContent>
@@ -130,7 +127,6 @@ export default function Growth(props) {
             </div>
           </Card>
         </Grid>
-        <Grid item lg={2} md={1} xs={0}></Grid>
     </Grid>
   )
 }

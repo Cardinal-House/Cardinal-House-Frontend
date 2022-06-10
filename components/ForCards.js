@@ -21,7 +21,7 @@ export default function ForCards(props) {
   
   return (
     <Grid container justifyContent="center" alignItems="center" spacing={6} className={clsx(styles.forGrid)}>
-        <Grid item lg={4} md={5} sm={10} xs={12} className={styles.forCard}>
+        <Grid item lg={4} md={5} sm={10} xs={12} className={styles.forCard1}>
           <Card id="forCard1" ref={forCard1Ref} className={clsx(styles.customCard, props.useDarkTheme ? styles.customCardDark : styles.customCardLight)}>
             <div>
               <CardContent>
@@ -40,7 +40,7 @@ export default function ForCards(props) {
             </div>
           </Card>
         </Grid>
-        <Grid item item lg={4} md={5} sm={10} xs={12} className={styles.forCard}>
+        <Grid item item lg={4} md={5} sm={10} xs={12} className={styles.forCard2}>
           <Card id="forCard2" ref={forCard2Ref} className={clsx(styles.customCard, props.useDarkTheme ? styles.customCardDark : styles.customCardLight)}>
             <div>
               <CardContent>

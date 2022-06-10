@@ -24,7 +24,7 @@ export default function ForCards(props) {
   }, [])
   
   return (
-    <Grid container justifyContent="center" alignItems="center" spacing={6} className={clsx(styles.forGrid)}>
+    <Grid container justifyContent="center" alignItems="center" spacing={6} className={clsx(styles.tokenomicsGrid)}>
       <Grid item xs={12}>
         <Typography id="tokenomicsHeader" ref={tokenomicsHeader} variant="h3" className={styles.tokenomicsHeader}>
           Tokenomics: How will Service Payments Help Everyone?

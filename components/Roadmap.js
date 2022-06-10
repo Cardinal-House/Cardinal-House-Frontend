@@ -24,7 +24,7 @@ export default function Roadmap(props) {
     }, [])
 
     return (
-        <Grid container id="roadmap" justifyContent="center" alignItems="center">
+        <Grid container id="roadmap" justifyContent="center" alignItems="center" className={styles.roadmapGrid}>
           <Grid item xs={12}>
             <Typography id="roadmapHeader" ref={roadmapHeaderRef} variant="h3" className={styles.roadmapHeader}>
             Cardinal House Roadmap
@@ -77,6 +77,10 @@ export default function Roadmap(props) {
               </Typography>
               <br/>
               <Typography variant="p">
+                <ArrowForwardIcon /> Fiat to Crypto Payment System
+              </Typography>
+              <br/>
+              <Typography variant="p">
                 <ArrowForwardIcon /> Release KYC service
               </Typography>
               <br/>
@@ -85,7 +89,7 @@ export default function Roadmap(props) {
               </Typography>
               <br/>
               <Typography variant="p">
-                <ArrowForwardIcon /> Grow Discord server to 10,000 through AMAs, giveaways, YouTube videos, and paid ads
+                <ArrowForwardIcon /> Grow Discord server to 5,000 through AMAs, giveaways, YouTube videos, and paid ads
               </Typography>
               <br/>
               <Typography variant="p">
@@ -123,7 +127,7 @@ export default function Roadmap(props) {
               </Typography>
               <br/>
               <Typography variant="p" className={styles.lastTimelineElement}>
-                <ArrowForwardIcon /> Grow to 20,000 members
+                <ArrowForwardIcon /> Grow to 10,000 members
               </Typography>
             </VerticalTimelineElement>
 
@@ -137,15 +141,11 @@ export default function Roadmap(props) {
               icon={<ArrowDownwardIcon />}
             >
               <Typography variant="p">
-                <ArrowForwardIcon /> Web3 Freelance Service Marketplace
+                <ArrowForwardIcon /> New Utilities to Expand the Cardinal House Ecosystem
               </Typography>
               <br/>
               <Typography variant="p">
-                <ArrowForwardIcon /> Grow to 50,000 members
-              </Typography>
-              <br/>
-              <Typography variant="p">
-                <ArrowForwardIcon /> Get Listed on Centralized Exchanges
+                <ArrowForwardIcon /> Grow to 20,000 members
               </Typography>
               <br/>
               <Typography variant="p" className={styles.lastTimelineElement}>

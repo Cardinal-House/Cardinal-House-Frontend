@@ -16,7 +16,7 @@ export default function Home(props) {
     <>
     <Navigation useDarkTheme={props.useDarkTheme} setUseDarkTheme={props.setUseDarkTheme} />
     <div>
-      <main>
+      <main className={props.useDarkTheme ? styles.darkThemeBackground : styles.lightThemeBackground}>
         {/* ~~~~~ Intro Text and Graphic ~~~~~ */}
         <Intro useDarkTheme={props.useDarkTheme} />
 
