@@ -1,235 +1,399 @@
 import Image from 'next/image';
-import { Grid, Button, Typography } from '@mui/material';
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
-import { useEffect, useRef } from 'react';
+import { Typography, Button, Drawer, Toolbar, List, Divider, Grid,
+    ListItem, ListItemIcon, ListItemText, CssBaseline, IconButton, Switch, dividerClasses } from '@mui/material';
+import MuiAppBar from '@mui/material/AppBar';
+import { styled, useTheme } from '@mui/material/styles';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
+import clsx from 'clsx';
+import { useState, useEffect } from "react";
+import { useEthers, useTokenBalance } from "@usedapp/core";
+import { useCoingeckoPrice } from '@usedapp/coingecko'
+import { constants, ethers } from "ethers";
+import WalletConnectProvider from '@walletconnect/web3-provider'
+import { FaInfoCircle, FaCrown } from "react-icons/fa";
 
+import LightModeIcon from '@mui/icons-material/LightMode';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
+import MenuIcon from '@mui/icons-material/Menu';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+
+import ServicesInfo from "../components/ServicesInfo";
+import OriginalCardinalNFT from "../components/OriginalCardinalNFT";
 import styles from '../styles/DApp.module.css';
-import Navigation from '../components/Navigation';
+import CardinalToken from "../contracts/CardinalToken.json";
+import chainConfig from "../chain-config.json";
+import metaMaskLogo from '../public/MetaMask.png';
+import walletConnectLogo from '../public/WalletConnect.png';
 
-import cardinalHouseLogo from '../public/CardinalHouseLogo.png';
+const drawerWidth = 240;
 
-export default function Home(props) {
-  gsap.registerPlugin(ScrollTrigger);
+  const AppBar = styled(MuiAppBar, {
+    shouldForwardProp: (prop) => prop !== 'open',
+  })(({ theme, open }) => ({
+    ...(open && {
+      width: `calc(100% - ${drawerWidth}px)`,
+      marginLeft: `${drawerWidth}px`,
+      transition: theme.transitions.create(['margin', 'width'], {
+        easing: theme.transitions.easing.easeOut,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+    }),
+  }));
+  
+  const DrawerHeader = styled('div')(({ theme }) => ({
+    display: 'flex',
+    alignItems: 'center',
+    padding: theme.spacing(0, 1),
+    // necessary for content to be below app bar
+    ...theme.mixins.toolbar,
+    justifyContent: 'flex-end',
+  }));
 
-  const nftMarketplaceHeaderRef = useRef();
-  const nftMarketplaceImageRef = useRef();
-  const nftMarketplaceTextRef = useRef();
+const networkData = [
+    {
+      chainId: "0x38",
+      chainName: "BSCMAINET",
+      rpcUrls: ["https://bsc-dataseed1.binance.org"],
+      nativeCurrency: {
+        name: "BINANCE COIN",
+        symbol: "BNB",
+        decimals: 18,
+      },
+      blockExplorerUrls: ["https://bscscan.com/"],
+    },
+];
 
-  const auditHeaderRef = useRef();
-  const auditImageRef = useRef();
-  const auditTextRef = useRef();
+const rpcEndpoint = "https://bsc-dataseed.binance.org/";
+const binanceChainId = 56;
 
-  const kycHeaderRef = useRef();
-  const kycImageRef = useRef();
-  const kycTextRef = useRef();
+export default function DApp(props) {
+    const theme = useTheme();
 
-  const amaHeaderRef = useRef();
-  const amaImageRef = useRef();
-  const amaTextRef = useRef();
+    const { account, activateBrowserWallet, deactivate, chainId } = useEthers();
+    const networkName = "bsctest";
+    const CardinalTokenAddress = chainId ? chainConfig["CardinalTokenAddresses"][networkName] : constants.AddressZero
+    const tokenBalance = useTokenBalance(CardinalTokenAddress, account);
+    // const tokenPriceCG = useCoingeckoPrice('cardinal-house', 'usd');
+    const isConnected = account !== undefined;
 
-  const liftOffHeaderRef = useRef();
-  const liftOffImageRef = useRef();
-  const liftOffTextRef = useRef();
+    const [currPage, setCurrPage] = useState("Services");
+    const [navDrawerOpen, setNavDrawerOpen] = useState(false);
+    const [isConnecting, setIsConnecting] = useState(false);
+    const [showWalletConnectionFailed, setShowWalletConnectionFailed] = useState(false);
+    const [showWrongNetwork, setShowWrongNetwork] = useState(false);
+    const [tempTokenBalance, setTempTokenBalance] = useState(0);
+    const [tokenPricePercentChange, setTokenPricePercentChange] = useState(0.0);
 
-  const cardinalPayHeaderRef = useRef();
-  const cardinalPayImageRef = useRef();
-  const cardinalPayTextRef = useRef();
+    if (account && chainId != "97" && chainId != 97 && !showWrongNetwork) {
+        setShowWrongNetwork(true);
+        window.ethereum.request({
 
-  // Loads animations for elements of the page.
-  useEffect(() => {
-    gsap.fromTo(nftMarketplaceHeaderRef.current, {opacity: 0}, { opacity: 1, duration: 1, scrollTrigger: { trigger: "#nftMarketplaceHeader", start: "bottom bottom" } });
-    gsap.fromTo(nftMarketplaceImageRef.current, {x: -1000, opacity: 0}, {x: 0, opacity: 1, duration: 0.7, scrollTrigger: { trigger: "#nftMarketplaceHeader", start: "bottom bottom" } });
-    gsap.fromTo(nftMarketplaceTextRef.current, {x: 1000, opacity: 0}, { x: 0, opacity: 1, duration: 0.7, scrollTrigger: { trigger: "#nftMarketplaceHeader", start: "bottom bottom" } });
+            method: "wallet_addEthereumChain",
+        
+            params: networkData,
+        
+          });
+    }
 
-    gsap.fromTo(auditHeaderRef.current, {opacity: 0}, { opacity: 1, duration: 1, scrollTrigger: { trigger: "#auditHeader", start: "bottom bottom" } });
-    gsap.fromTo(auditImageRef.current, {x: 1000, opacity: 0}, {x: 0, opacity: 1, duration: 0.7, scrollTrigger: { trigger: "#auditHeader", start: "bottom bottom" } });
-    gsap.fromTo(auditTextRef.current, {x: -1000, opacity: 0}, { x: 0, opacity: 1, duration: 0.7, scrollTrigger: { trigger: "#auditHeader", start: "bottom bottom" } });
+    /*
+    async function updateTempTokenBalance() {
+        const chesABI = CHESToken.abi;
+        const provider = new ethers.providers.JsonRpcProvider(rpcEndpoint, { name: networkName, chainId: binanceChainId });
+        const CHESContract = new ethers.Contract(CHESAddress, chesABI, provider);
+        const userBalance = await CHESContract.balanceOf(account);
+        setTempTokenBalance(userBalance);
+    }
+    
+    useEffect(() => {
+        if (account && (chainId == 56 || chainId == "56")) {
+            updateTempTokenBalance();
+        }
+    }, [chainId])
+    */
 
-    gsap.fromTo(kycHeaderRef.current, {opacity: 0}, { opacity: 1, duration: 1, scrollTrigger: { trigger: "#kycHeader", start: "bottom bottom" } });
-    gsap.fromTo(kycImageRef.current, {x: -1000, opacity: 0}, {x: 0, opacity: 1, duration: 0.7, scrollTrigger: { trigger: "#kycHeader", start: "bottom bottom" } });
-    gsap.fromTo(kycTextRef.current, {x: 1000, opacity: 0}, { x: 0, opacity: 1, duration: 0.7, scrollTrigger: { trigger: "#kycHeader", start: "bottom bottom" } });
+    const handleDrawerOpen = () => {
+        setNavDrawerOpen(true);
+    };
+    
+      const handleDrawerClose = () => {
+        setNavDrawerOpen(false);
+    };
 
-    gsap.fromTo(amaHeaderRef.current, {opacity: 0}, { opacity: 1, duration: 1, scrollTrigger: { trigger: "#amaHeader", start: "bottom bottom" } });
-    gsap.fromTo(amaImageRef.current, {x: 1000, opacity: 0}, {x: 0, opacity: 1, duration: 0.7, scrollTrigger: { trigger: "#amaHeader", start: "bottom bottom" } });
-    gsap.fromTo(amaTextRef.current, {x: -1000, opacity: 0}, { x: 0, opacity: 1, duration: 0.7, scrollTrigger: { trigger: "#amaHeader", start: "bottom bottom" } });
+    const connectBrowserWallet = () => {
+        try {
+            activateBrowserWallet();
+        }
+        catch {
+            setShowWalletConnectionFailed(true);
+        }
+        if (!window.ethereum) {
+            setShowWalletConnectionFailed(true);
+        }
+    }
 
-    gsap.fromTo(liftOffHeaderRef.current, {opacity: 0}, { opacity: 1, duration: 1, scrollTrigger: { trigger: "#liftOffHeader", start: "bottom bottom" } });
-    gsap.fromTo(liftOffImageRef.current, {x: -1000, opacity: 0}, {x: 0, opacity: 1, duration: 0.7, scrollTrigger: { trigger: "#liftOffHeader", start: "bottom bottom" } });
-    gsap.fromTo(liftOffTextRef.current, {x: 1000, opacity: 0}, { x: 0, opacity: 1, duration: 0.7, scrollTrigger: { trigger: "#liftOffHeader", start: "bottom bottom" } });
+    async function activateWalletConnect() {
+        try {
+          const provider = new WalletConnectProvider({
+            infuraId: '7ef885ccab1e40919b0e4e5b37df9fb2',
+          })
+          await provider.enable()
+          await activate(provider)
+        } catch (error) {
+          console.error(error)
+        }
+      }
 
-    gsap.fromTo(cardinalPayHeaderRef.current, {opacity: 0}, { opacity: 1, duration: 1, scrollTrigger: { trigger: "#cardinalPayHeader", start: "bottom bottom" } });
-    gsap.fromTo(cardinalPayImageRef.current, {x: 1000, opacity: 0}, {x: 0, opacity: 1, duration: 0.7, scrollTrigger: { trigger: "#cardinalPayHeader", start: "bottom bottom" } });
-    gsap.fromTo(cardinalPayTextRef.current, {x: -1000, opacity: 0}, { x: 0, opacity: 1, duration: 0.7, scrollTrigger: { trigger: "#cardinalPayHeader", start: "bottom bottom" } });
-  }, [])
+    const updatePage = (pageName, hash) => {
+        setCurrPage(pageName);
+        window.location.hash = hash;
+        window.scroll(0,0);
+    }
 
-  return (
-    <>
-    <Navigation useDarkTheme={props.useDarkTheme} setUseDarkTheme={props.setUseDarkTheme} />
-    <div className="mb-5">
-      <main className={styles.container}>
-        <Grid container justifyContent="center" alignItems="center" spacing={4}>
-          <Grid item lg={3} md={2} sm={1} xs={0}></Grid>
-          <Grid item lg={5} md={8} sm={10} xs={12} className={styles.headerTextGrid}>
-            <Typography variant="h4" className={styles.headerText}>
-              Cardinal House DApp Preview
-            </Typography>
-          </Grid>
-          <Grid item lg={3} md={2} sm={1} xs={0}></Grid>
+    const updatePageWithHashChange = () => {
+        const hash = window.location.hash;
+        
+        if (hash == "#services") {
+            setCurrPage("Services");
+        }
+        else if (hash == "#originalcardinalnft") {
+            setCurrPage("OriginalCardinalNFT");
+        }
+    }
 
-          <Grid item lg={2} md={2} sm={1} xs={0}></Grid>
-          <Grid item lg={8} md={8} sm={10} xs={12} className="mt-2 text-center">
-            <Typography variant="h6">
-              The Cardinal House DApp will be live next month starting with the NFT marketplace.
-              Below is a list of all services that will be released on the DApp with information
-              and pricing for each. All services will be paid for on the DApp using the Cardinal Token.
-            </Typography>
-          </Grid>
-          <Grid item lg={2} md={2} sm={1} xs={0}></Grid>
+    useEffect(() => {
+        updatePageWithHashChange();
 
-          <Grid item xs={12}>
-            <Typography variant="h4" id="nftMarketplaceHeader" ref={nftMarketplaceHeaderRef} className={styles.serviceHeaderText}>
-              NFT Marketplace
-            </Typography>
-          </Grid>
-          <Grid item id="nftMarketplaceImage" ref={nftMarketplaceImageRef} lg={3} md={4} sm={8} xs={10}>
-            <Image src={cardinalHouseLogo} layout="responsive" />
-          </Grid>
-          <Grid id="nftMarketplaceText" ref={nftMarketplaceTextRef} item lg={7} md={6} sm={12} xs={12}>
-            <Typography variant="h6">
-              Cardinal House will have our very own NFT marketplace for the membership NFTs,
-              Original Cardinal NFTs, and the services NFTs. The membership NFTs are how Cardinal House memberships
-              will be purchased to unlock exclusive content and perks throughout the entire ecosystem, 
-              the Original Cardinal NFTs are given to upstanding members
-              of the community and give the holder a free membership, and the services NFTs
-              will be given to projects that purchase services on our DApp as proof that they are audited by us,
-              KYC'd by us, used our launch pad for their pre-sale, etc.
+        window.onhashchange = function() {
+            updatePageWithHashChange();
+        }
+    }, [])
 
-            </Typography>
-            <Typography variant="h5" className={styles.pricingText}>
-              Membership NFT Price: $50/month in Cardinal Tokens
-            </Typography>
-          </Grid>
+    /*
+    useEffect(() => {
+        fetch('https://api.coingecko.com/api/v3/coins/chain-estate-dao')
+        .then(response => response.json())
+        .then(tokenInfo => setTokenPricePercentChange(parseFloat(tokenInfo.market_data.price_change_percentage_24h).toFixed(2)));
+    }, [tokenPriceCG])
+    */
 
-          <Grid item xs={12}>
-            <Typography id="auditHeader" ref={auditHeaderRef} variant="h4" className={styles.serviceHeaderText}>
-              Auditing
-            </Typography>
-          </Grid>
-          <Grid item id="auditText" ref={auditTextRef} lg={7} md={6} sm={12} xs={12}>
-            <Typography variant="h6">
-              Cardinal House will provide affordable and in-depth auditing services for Solidity
-              smart contracts. We will analyze and test for security vulnerabilities, determine any potential gas fee
-              optimizations, verify the tokenomics of the project, and create a list of any other improvements that could be made
-              or red flags that need to be addressed. 
-              Audit requests will be submitted right here on the DApp! Results for each project audit will also be displayed
-              on the DApp for anyone to see. The price of an audit depends on the number of smart contracts involved
-              as well as the complexity of each contract.
-            </Typography>
-            <Typography variant="h5" className={styles.pricingText}>
-              Auditing Price: Starting at $1000-$2500
-            </Typography>
-          </Grid>
-          <Grid item id="auditImage" ref={auditImageRef} lg={3} md={4} sm={8} xs={10}>
-            <Image src={cardinalHouseLogo} layout="responsive" />
-          </Grid>
+    return (
+        <div>
+            <CssBaseline />
 
-          <Grid item xs={12}>
-            <Typography variant="h4" id="kycHeader" ref={kycHeaderRef} className={styles.serviceHeaderText}>
-              KYC
-            </Typography>
-          </Grid>
-          <Grid item id="kycImage" ref={kycImageRef} lg={3} md={4} sm={8} xs={10}>
-            <Image src={cardinalHouseLogo} layout="responsive" />
-          </Grid>
-          <Grid item id="kycText" ref={kycTextRef} lg={7} md={6} sm={12} xs={12}>
-            <Typography variant="h6">
-              Cardinal House&#8216;s KYC service is a simple way to prove your identity as a project
-              owner without the need to reveal personal details to the public. All info for the KYC
-              will be submitted securely on the DApp and then any follow up communication will be
-              through email or Discord DMs. The DApp will also display a list
-              of all projects that are KCY&#8216;d through Cardinal House so that anyone can see
-              which projects have gone through the KYC process with us.
-            </Typography>
-            <Typography variant="h5" className={styles.pricingText}>
-              KYC Price: Starting at $500
-            </Typography>
-          </Grid>
+            <Snackbar open={showWalletConnectionFailed} autoHideDuration={6000} onClose={() => {setShowWalletConnectionFailed(false)}}>
+                <MuiAlert elevation={6} variant="filled" onClose={() => {setShowWalletConnectionFailed(false)}} severity="error" sx={{ width: '100%' }} >
+                    Failed to connect web3 wallet. Make sure you have a browser wallet like MetaMask installed.
+                </MuiAlert>
+            </Snackbar>
+            <Snackbar open={false && showWrongNetwork} autoHideDuration={6000} onClose={() => {setShowWrongNetwork(false)}}>
+                <MuiAlert elevation={6} variant="filled" onClose={() => {setShowWrongNetwork(false)}} severity="error" sx={{ width: '100%' }} >
+                    Failed to connect web3 wallet - wrong network. Please connect to the Binance Smart Chain and refresh the page.
+                </MuiAlert>
+            </Snackbar>
 
-          <Grid item xs={12}>
-            <Typography variant="h4" id="amaHeader" ref={amaHeaderRef} className={styles.serviceHeaderText}>
-              AMAs
-            </Typography>
-          </Grid>
-          <Grid item id="amaText" ref={amaTextRef} lg={7} md={6} sm={12} xs={12}>
-            <Typography variant="h6">
-              Want to share your project with the Cardinal House audience? We have multiple
-              AMAs every week so there will definitely be a spot open for you! You will sign up and pay
-              right here on the DApp, and then join our Discord community where your AMA will be hosted.
-              Most AMAs last roughly an hour but the length is flexible. The structure of the AMAs is
-              completely up to you as the project owner! Just to give a couple examples, you could present your project for 
-              30 mintues and then have 30 minutes for questions, have the Cardinal House team ask you questions for 45 minutes
-              and then have the community ask questions for 15 minutes, or just have the community ask questions the entire time.
-            </Typography>
-            <Typography variant="h5" className={styles.pricingText}>
-              AMA Price: Starting at $500
-            </Typography>
-          </Grid>
-          <Grid item id="amaImage" ref={amaImageRef} lg={3} md={4} sm={8} xs={10}>
-            <Image src={cardinalHouseLogo} layout="responsive" />
-          </Grid>
+            <AppBar position="fixed" open={navDrawerOpen}>
+                <Toolbar>
+                <IconButton
+                    color="inherit"
+                    aria-label="open drawer"
+                    onClick={handleDrawerOpen}
+                    edge="start"
+                    sx={{ mr: 2, ...(navDrawerOpen && { display: 'none' }) }}
+                >
+                    <MenuIcon />
+                </IconButton>
+                <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
+                    Cardinal House DApp
+                </Typography>
 
-          <Grid item xs={12}>
-            <Typography variant="h4" id="liftOffHeader" ref={liftOffHeaderRef} className={styles.serviceHeaderText}>
-              Lift-Off
-            </Typography>
-          </Grid>
-          <Grid item id="liftOffImage" ref={liftOffImageRef} lg={3} md={4} sm={8} xs={10}>
-            <Image src={cardinalHouseLogo} layout="responsive" />
-          </Grid>
-          <Grid item id="liftOffText" ref={liftOffTextRef} lg={7} md={6} sm={12} xs={12}>
-            <Typography variant="h6">
-              Lift-Off is Cardinal House&#8216;s launchpad service. With Lift-Off, you can easily and effeciently
-              fund your project through a pre-sale hosted on our platform where you are in charge of the tokenomics, vesting,
-              sell fees, the pre-sale period, and much more! You can also use Lift-Off to launch a token
-              without having to create your own contract! You control the tokenomics, the total supply of the token,
-              minting/burning functionality, and much more.
-            </Typography>
-            <Typography variant="h5" className={styles.pricingText}>
-              Lift-Off Presale Pricing: $1000
-            </Typography>
-            <Typography variant="h5" className={styles.pricingText}>
-              Lift-Off Token Launch Pricing: $500
-            </Typography>
-          </Grid>
+                {
+                    /*
+                    tokenPriceCG && (
+                        <Typography variant="h6" component="div" className={styles.CHESPrice}>
+                            CHES:&nbsp;
+                        </Typography>
+                    )
+                    */
+                }
+                {
+                    /*
+                    tokenPriceCG && (
+                        <Typography variant="h6" component="div" className={clsx(styles.CHESPrice, styles.CHESPriceVal, tokenPricePercentChange > 0 ? props.useDarkTheme ? styles.greenPriceDark : styles.greenPriceLight : styles.redPrice)}>
+                            ${tokenPriceCG} ({tokenPricePercentChange}%)
+                        </Typography>
+                    )
+                    */
+                }
 
-          <Grid item xs={12}>
-            <Typography variant="h4" id="cardinalPayHeader" ref={cardinalPayHeaderRef} className={styles.serviceHeaderText}>
-              Cardinal Pay
-            </Typography>
-          </Grid>
-          <Grid item id="cardinalPayText" ref={cardinalPayTextRef} lg={7} md={6} sm={12} xs={12}>
-            <Typography variant="h6">
-              Cardinal Pay is Cardinal House&#8216;s esgrow service.
-              An esgrow service is a way for one party to pay for the services of another party
-              without either needing to trust the other to uphold their end of the bargain.
-              The party receiving the service pays into a smart contract on the blockchain that holds
-              the funds until the party providing the services finishes the job. If both parties
-              agree that the job has been finished, then the smart contract releases the payment.
-              If there is a disagreement, then the Cardinal House team will intervene to resolve
-              the situation.
-            </Typography>
-            <Typography variant="h5" className={styles.pricingText}>
-              Cardinal Pay Price: 1% of Service Charge
-            </Typography>
-          </Grid>
-          <Grid item id="cardinalPayImage" ref={cardinalPayImageRef} lg={3} md={4} sm={8} xs={10}>
-            <Image src={cardinalHouseLogo} layout="responsive" />
-          </Grid>
+                {
+                    /*
+                    isConnected && (
+                        <Typography variant="h6" component="div" className={styles.CHESBalance}>
+                            Balance:&nbsp; 
+                            {tokenBalance && Number((+ethers.utils.formatEther(BigInt(tokenBalance._hex).toString(10))).toFixed(2)).toLocaleString()}
+                            {tempTokenBalance ? !tokenBalance ? Number((+ethers.utils.formatEther(BigInt(tempTokenBalance._hex).toString(10))).toFixed(2)).toLocaleString() : "" : 0}
+                            &nbsp;CHES
+                        </Typography>
+                    )
+                    */
+                }
 
-        </Grid>
-      </main>
-    </div>
-    </>
-  )
+                <div className={styles.changeThemeDiv}>
+                    {props.useDarkTheme ? <DarkModeIcon className={clsx(styles.darkModeIcon, styles.iconSizeTheme)} /> : <LightModeIcon className={styles.lightModeIcon} fontSize="large" />}
+                    <Switch checked={props.useDarkTheme} color="primary" onChange={e => props.setUseDarkTheme(e.target.checked)} />
+                </div>
+
+                {isConnected && (
+                    <Button size="small" variant="contained" color="primary" onClick={deactivate}
+                        className={clsx(styles.connectBtn, styles.largeScreenConnectBtn, props.useDarkTheme ? styles.connectBtnDark : styles.connectBtnLight)}>
+                        Disconnect
+                    </Button>
+                )} 
+
+                {!isConnected && !isConnecting && (
+                    <Button size="small" variant="contained" color="primary" onClick={() => setIsConnecting(true)}
+                        className={clsx(styles.connectBtn, styles.largeScreenConnectBtn, props.useDarkTheme ? styles.connectBtnDark : styles.connectBtnLight)}>
+                        Connect
+                    </Button> 
+                )}
+
+                {!isConnected && isConnecting && (
+                    <>
+                        <Button size="small" variant="contained" color="primary" onClick={() => connectBrowserWallet()}
+                            className={clsx(styles.metaMaskBtn, styles.connectBtn, styles.largeScreenConnectBtn, props.useDarkTheme ? styles.connectBtnDark : styles.connectBtnLight)}>
+                            <Image src={metaMaskLogo} width={25} height={25} layout="fixed" /> &nbsp; MetaMask
+                        </Button>
+                        <Button size="small" variant="contained" color="primary" onClick={() => activateWalletConnect()}
+                            className={clsx(styles.connectBtn, styles.largeScreenConnectBtn, props.useDarkTheme ? styles.connectBtnDark : styles.connectBtnLight)}>
+                            <Image src={walletConnectLogo} width={25} height={25} layout="fixed" /> &nbsp; WalletConnect
+                        </Button>
+                    </>
+                )}  
+                </Toolbar>
+            </AppBar>
+            <Drawer
+                sx={{
+                width: drawerWidth,
+                flexShrink: 0,
+                '& .MuiDrawer-paper': {
+                    width: drawerWidth,
+                    boxSizing: 'border-box',
+                },
+                }}
+                variant="persistent"
+                anchor="left"
+                open={navDrawerOpen}
+            >
+                <DrawerHeader>
+                <IconButton onClick={handleDrawerClose}>
+                    {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+                </IconButton>
+                </DrawerHeader>
+                <Divider />
+                <List>
+
+                <ListItem button onClick={() => updatePage("Services", "services")}>
+                    <ListItemIcon>
+                        <FaInfoCircle className={styles.navIcons} />
+                    </ListItemIcon>
+                    <ListItemText primary="Services Info" />
+                </ListItem>
+                <ListItem button onClick={() => updatePage("OriginalCardinalNFT", "originalcardinalnft")}>
+                    <ListItemIcon>
+                        <FaCrown className={styles.navIcons} />
+                    </ListItemIcon>
+                    <ListItemText primary="Original Cardinal NFTs" />
+                </ListItem>
+
+                <ListItem className={styles.navOptionsListItem}>
+                    <div>
+                        {props.useDarkTheme ? <DarkModeIcon className={clsx(styles.darkModeIcon, styles.iconSizeTheme)} /> : <LightModeIcon className={styles.lightModeIcon} fontSize="large" />}
+                        <Switch checked={props.useDarkTheme} color="primary" onChange={e => props.setUseDarkTheme(e.target.checked)} />
+                    </div>
+                </ListItem>
+                <ListItem className={styles.navOptionsListItem}>
+                    {isConnected && (
+                        <Button size="small" variant="contained" color="primary" onClick={deactivate}
+                            className={props.useDarkTheme ? styles.connectBtnDark : styles.connectBtnLight}>
+                            Disconnect
+                        </Button>
+                    )} 
+
+                    {!isConnected && !isConnecting && (
+                        <Button size="small" variant="contained" color="primary" onClick={() => setIsConnecting(true)}
+                            className={props.useDarkTheme ? styles.connectBtnDark : styles.connectBtnLight}>
+                            Connect
+                        </Button>
+                    )}
+
+                    {!isConnected && isConnecting && (
+                        <Button size="small" variant="contained" color="primary" onClick={() => connectBrowserWallet()}
+                            className={props.useDarkTheme ? styles.connectBtnDark : styles.connectBtnLight}>
+                            <Image src={metaMaskLogo} width={25} height={25} layout="fixed" /> &nbsp; MetaMask
+                        </Button>
+                    )}  
+                </ListItem>
+                <ListItem className={styles.navOptionsListItem}>
+                    {!isConnected && isConnecting && (
+                        <Button size="small" variant="contained" color="primary" onClick={() => connectBrowserWallet()}
+                            className={props.useDarkTheme ? styles.connectBtnDark : styles.connectBtnLight}>
+                            <Image src={walletConnectLogo} width={25} height={25} layout="fixed" /> &nbsp; WalletConnect
+                        </Button>
+                    )}  
+                </ListItem>
+                </List>
+
+                <Divider className={styles.CHESPriceSmall} />
+
+                {/*
+                <List>
+                {
+                    isConnected && (
+                        <ListItem>
+                            <Typography variant="p" component="div" className={clsx(styles.CHESBalanceSmall, "mb-2")}>
+                                Balance:&nbsp; 
+                                {tokenBalance && Number((+ethers.utils.formatEther(BigInt(tokenBalance._hex).toString(10))).toFixed(2)).toLocaleString()}
+                                {tempTokenBalance ? !tokenBalance ? Number((+ethers.utils.formatEther(BigInt(tempTokenBalance._hex).toString(10))).toFixed(2)).toLocaleString() : "" : 0}
+                                &nbsp;CHES
+                            </Typography>
+                        </ListItem>
+                    )
+                }
+
+                {
+                    tokenPriceCG && (
+                        <ListItem>
+                            <Typography variant="p" component="div" className={styles.CHESPriceSmall}>
+                                CHES:&nbsp;
+                            </Typography>
+                        </ListItem>
+                    )
+                }
+                {
+                    tokenPriceCG && (
+                        <ListItem>
+                            <Typography variant="p" component="div" className={clsx(styles.CHESPriceSmall, tokenPricePercentChange > 0 ? props.useDarkTheme ? styles.greenPriceDark : styles.greenPriceLight : styles.redPrice)}>
+                                ${tokenPriceCG} ({tokenPricePercentChange}%)
+                            </Typography>
+                        </ListItem>
+                    )
+                }
+                </List>
+                */}
+            </Drawer>
+
+            {
+                currPage == "Services" && (
+                    <ServicesInfo useDarkTheme={props.useDarkTheme} />
+                )
+            }
+            {
+                currPage == "OriginalCardinalNFT" && (
+                    <OriginalCardinalNFT useDarkTheme={props.useDarkTheme} />
+                )
+            }
+        </div>
+    )
 }

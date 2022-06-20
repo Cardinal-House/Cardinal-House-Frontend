@@ -1,0 +1,28 @@
+{
+    "chainIds": {
+        "40": "rinkeby",
+        "1337": "dev",
+        "97": "bsctest",
+        "56": "binance"
+    },
+    "CardinalTokenAddresses": {
+        "bsctest": "0x10FB763CD76f5EBD130E085EdFe20e8A1209E762",
+        "polygontest": "",
+        "polygon": ""
+    },
+    "CardinalPreSaleAddresses": {
+        "bsctest": "0x55381781106e5c0dE0A8615B5A69F51804B3f671",
+        "polygontest": "",
+        "polygon": ""
+    },
+    "CardinalNFTAddresses": {
+        "bsctest": "0xc0bf79fD187C1287419Ad5EA1bB0124ba6052919",
+        "polygontest": "",
+        "polygon": ""
+    },
+    "CardinalNFTMarketplaceAddresses": {
+        "bsctest": "0xED1A07b024Fad3e7AcE356e86C0bE5A76349E485",
+        "polygontest": "",
+        "polygon": ""
+    }
+}
