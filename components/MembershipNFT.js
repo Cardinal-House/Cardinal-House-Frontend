@@ -12,37 +12,30 @@ import chainConfig from "../chain-config.json";
 import cardinalHouseLogo from '../public/CardinalLogoLight.png';
 import CardinalNFT from "../contracts/CardinalNFT.json";
 
-export default function OriginalCardinalNFT(props) {
+const rpcEndpoint = "https://data-seed-prebsc-1-s1.binance.org:8545/";
+
+export default function MembershipNFT(props) {
     const { account, chainId } = useEthers();
     const networkName = "bsctest";
     const cardinalNFTABI = CardinalNFT.abi;
-    const CardinalNFTAddress = chainId ? chainConfig["CardinalNFTAddresses"][networkName] : constants.AddressZero
+    const CardinalNFTAddress = chainConfig["CardinalNFTAddresses"][networkName];
     const isConnected = account !== undefined && chainId == 97;
 
-  const [originalCardinalNFT, setOriginalCardinalNFT] = useState(null);
+  const [membershipTokenURI, setMembershipTokenURI] = useState(null);
 
-  async function getTokenURI() {
-    const web3Modal = new Web3Modal({
-      network: networkName,
-      cacheProvider: true,
-      })
-    const connection = await web3Modal.connect();
-    const provider = new ethers.providers.Web3Provider(connection);
+  async function getMembershipTokenURI() {
+    const provider = new ethers.providers.JsonRpcProvider(rpcEndpoint, { name: networkName, chainId: 97 });
     const nftContractReadOnly = new ethers.Contract(CardinalNFTAddress, cardinalNFTABI, provider);
 
-    const originalCardinalNFTs = await nftContractReadOnly.getUserOriginalCardinalTokenURIs(account);
-
-    if (originalCardinalNFTs.length > 0) {
-      const originalCardinalNFTData = await axios.get(originalCardinalNFTs[0]);
-      setOriginalCardinalNFT(originalCardinalNFTData.data);
-    }
+    const currMembershipTokenURI = await nftContractReadOnly.membershipTokenURI();
+    const membershipTokenURIData = await axios.get(currMembershipTokenURI);
+    console.log(membershipTokenURIData.data);
+    setMembershipTokenURI(membershipTokenURIData.data);
   }
 
     useEffect(() => {
-      if (isConnected) {
-        getTokenURI();
-      }
-    }, [isConnected]);
+      getMembershipTokenURI();
+    }, []);
 
   return (
     <div className={clsx("mt-5 mb-5", props.useDarkTheme ? styles.backgroundDark : styles.backgroundLight)}>
@@ -51,7 +44,7 @@ export default function OriginalCardinalNFT(props) {
           <Grid item lg={3} md={2} sm={1} xs={0}></Grid>
           <Grid item lg={5} md={8} sm={10} xs={12} className={styles.headerTextGrid}>
             <Typography variant="h4" className={styles.headerText}>
-              Original Cardinal NFTs
+              Purchase a Cardinal House Membership!
             </Typography>
           </Grid>
           <Grid item lg={3} md={2} sm={1} xs={0}></Grid>
@@ -68,19 +61,19 @@ export default function OriginalCardinalNFT(props) {
           <Grid item lg={2} md={2} sm={1} xs={0}></Grid>
 
           {
-            originalCardinalNFT && (
+            membershipTokenURI && (
               <Grid item xs={12} sm={6} md={4} lg={3} className={clsx("mt-3", styles.NFTGrid)}>
                 <Typography variant="h4" className={clsx("mb-3", styles.serviceHeaderText)}>
                   Your Original Cardinal NFT
                 </Typography>
                 <div className={clsx(styles.cardDiv, "rounded-xl overflow-hidden")}>
-                  <img src={originalCardinalNFT.image.replace("https", "http")} className={clsx(styles.NFTImage)} />
+                  <img src={membershipTokenURI.image.replace("https", "http")} className={clsx(styles.NFTImage)} />
                   <div className={clsx(props.useDarkTheme ? styles.NFTTextDark : styles.NFTTextLight, "p-4")}>
                     <Typography variant="p" component="div" className="text-2xl font-bold">
-                      {originalCardinalNFT.NFTName}
+                      {membershipTokenURI.NFTName}
                     </Typography>
                     <Typography variant="p" component="div" className={clsx(styles.nftDescriptionText,"font-bold mt-3")}>
-                      {originalCardinalNFT.NFTDescription}
+                      {membershipTokenURI.NFTDescription}
                     </Typography>
                   </div>
                 </div>

@@ -13,6 +13,7 @@ import { constants, ethers } from "ethers";
 import WalletConnectProvider from '@walletconnect/web3-provider'
 import { FaInfoCircle, FaCrown } from "react-icons/fa";
 import { AiFillHome } from "react-icons/ai";
+import { MdCardMembership } from "react-icons/md";
 
 import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
@@ -22,6 +23,7 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 
 import ServicesInfo from "../components/ServicesInfo";
 import OriginalCardinalNFT from "../components/OriginalCardinalNFT";
+import MembershipNFT from "../components/MembershipNFT";
 import styles from '../styles/DApp.module.css';
 import CardinalToken from "../contracts/CardinalToken.json";
 import chainConfig from "../chain-config.json";
@@ -163,6 +165,9 @@ export default function DApp(props) {
         else if (hash == "#originalcardinalnft") {
             setCurrPage("OriginalCardinalNFT");
         }
+        else if (hash == "#membership") {
+            setCurrPage("MembershipNFT");
+        }
     }
 
     useEffect(() => {
@@ -192,7 +197,7 @@ export default function DApp(props) {
             </Snackbar>
             <Snackbar open={false && showWrongNetwork} autoHideDuration={6000} onClose={() => {setShowWrongNetwork(false)}}>
                 <MuiAlert elevation={6} variant="filled" onClose={() => {setShowWrongNetwork(false)}} severity="error" sx={{ width: '100%' }} >
-                    Failed to connect web3 wallet - wrong network. Please connect to the Binance Smart Chain and refresh the page.
+                    Failed to connect web3 wallet - wrong network. Please connect to the Polygon Mainnet and refresh the page.
                 </MuiAlert>
             </Snackbar>
 
@@ -311,6 +316,12 @@ export default function DApp(props) {
                     </ListItemIcon>
                     <ListItemText primary="Original Cardinal NFTs" />
                 </ListItem>
+                <ListItem button onClick={() => updatePage("MembershipNFT", "membership")}>
+                    <ListItemIcon>
+                        <MdCardMembership className={styles.navIcons} />
+                    </ListItemIcon>
+                    <ListItemText primary="Cardinal House Membership" />
+                </ListItem>
                 <ListItem button onClick={() => {window.location.href = `${window.location.origin}`}}>
                     <ListItemIcon>
                         <AiFillHome className={styles.navIcons} />
@@ -405,6 +416,11 @@ export default function DApp(props) {
             {
                 currPage == "OriginalCardinalNFT" && (
                     <OriginalCardinalNFT useDarkTheme={props.useDarkTheme} />
+                )
+            }
+            {
+                currPage == "MembershipNFT" && (
+                    <MembershipNFT useDarkTheme={props.useDarkTheme} />
                 )
             }
         </div>

@@ -32,7 +32,7 @@ export default function team(props) {
                             Zach Medin
                         </Typography>
                         <p className={styles.bioText}>
-                            Networking Master
+                            Chief Executive Officer
                         </p>
                         <div className={styles.iconDiv}>
                             <a href="https://www.linkedin.com/in/zach-medin-183455230/" target="_blank" rel="noreferrer">
@@ -46,10 +46,39 @@ export default function team(props) {
                             Cole Medin
                         </Typography>
                         <p className={styles.bioText}>
-                            Web3 Developer
+                            Chief Technology Officer
                         </p>
                         <div className={styles.iconDiv}>
                             <a href="https://www.linkedin.com/in/cole-medin-727752184/" target="_blank" rel="noreferrer">
+                                <FaLinkedin className={styles.linkedInIcon} />
+                            </a>
+                        </div>                        
+                    </Grid>
+                    <Grid item xs={3} className={clsx(styles.teamGrid, styles.lastTeammate)}>
+                        <Image src={jojoPic} layout="responsive" className={styles.teamImage} />
+                        <Typography variant="h5" className={styles.headerText}>
+                            Jojo Beale
+                        </Typography>
+                        <p className={styles.bioText}>
+                            Chief Marketing Officer
+                        </p>
+                        <div className={styles.iconDiv}>
+                            <a href="https://www.linkedin.com/in/jojo-beale-0b473223b/" target="_blank" rel="noreferrer">
+                                <FaLinkedin className={styles.linkedInIcon} />
+                            </a>
+                        </div>                        
+                    </Grid>
+                    <Grid className={styles.spacingGrid} item lg={1} md={1} sm={0} xs={0}></Grid>
+                    <Grid item xs={3} className={clsx(styles.teamGrid, styles.lastTeammate)}>
+                        <Image src={chrisPic} layout="responsive" className={styles.teamImage} />
+                        <Typography variant="h5" className={styles.headerText}>
+                            Chris Beale
+                        </Typography>
+                        <p className={styles.bioText}>
+                            Chief Operating Officer
+                        </p>
+                        <div className={styles.iconDiv}>
+                            <a href="https://www.linkedin.com/in/chris-beale-7ab40b227/" target="_blank" rel="noreferrer">
                                 <FaLinkedin className={styles.linkedInIcon} />
                             </a>
                         </div>                        
@@ -64,35 +93,6 @@ export default function team(props) {
                         </p>
                         <div className={styles.iconDiv}>
                             <a href="https://www.linkedin.com/in/sydney-medin-ab607b203/" target="_blank" rel="noreferrer">
-                                <FaLinkedin className={styles.linkedInIcon} />
-                            </a>
-                        </div>                        
-                    </Grid>
-                    <Grid className={styles.spacingGrid} item lg={1} md={1} sm={0} xs={0}></Grid>
-                    <Grid item xs={3} className={clsx(styles.teamGrid, styles.lastTeammate)}>
-                        <Image src={jojoPic} layout="responsive" className={styles.teamImage} />
-                        <Typography variant="h5" className={styles.headerText}>
-                            Jojo Beale
-                        </Typography>
-                        <p className={styles.bioText}>
-                            Graphic Designer
-                        </p>
-                        <div className={styles.iconDiv}>
-                            <a href="https://www.linkedin.com/in/jojo-beale-0b473223b/" target="_blank" rel="noreferrer">
-                                <FaLinkedin className={styles.linkedInIcon} />
-                            </a>
-                        </div>                        
-                    </Grid>
-                    <Grid item xs={3} className={clsx(styles.teamGrid, styles.lastTeammate)}>
-                        <Image src={chrisPic} layout="responsive" className={styles.teamImage} />
-                        <Typography variant="h5" className={styles.headerText}>
-                            Chris Beale
-                        </Typography>
-                        <p className={styles.bioText}>
-                            Graphic Designer
-                        </p>
-                        <div className={styles.iconDiv}>
-                            <a href="https://www.linkedin.com/in/jojo-beale-0b473223b/" target="_blank" rel="noreferrer">
                                 <FaLinkedin className={styles.linkedInIcon} />
                             </a>
                         </div>                        

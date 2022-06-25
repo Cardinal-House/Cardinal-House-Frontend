@@ -26,10 +26,6 @@ function MyApp({ Component, pageProps }) {
     },
     typography: {
       fontFamily: [
-        'Lucida Handwriting',
-        'cursive',
-        '-apple-system',
-        'BlinkMacSystemFont', 
         'Segoe UI', 
         'Roboto', 
         'Oxygen',
