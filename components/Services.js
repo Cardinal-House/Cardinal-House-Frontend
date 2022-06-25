@@ -12,22 +12,26 @@ import servicesArt from '../public/servicesArt.png';
 export default function Services(props) {
   gsap.registerPlugin(ScrollTrigger);
 
+  const servicesGridRef = useRef();
   const servicesHeaderRef = useRef();
   const servicesTextRef = useRef();
   const servicesImageRef = useRef();
   const servicesBtnRef = useRef();
+  const servicesSplitterRef = useRef();
 
   // Loads animations for elements of the page.
   useEffect(() => {
+    gsap.fromTo(servicesGridRef.current, {opacity: 0}, { opacity: 1, duration: 0.7, scrollTrigger: { trigger: "#servicesHeader", start: "bottom bottom" } });
     gsap.fromTo(servicesHeaderRef.current, {x: -1000, opacity: 0}, { x: 0, opacity: 1, duration: 0.7, scrollTrigger: { trigger: "#servicesHeader", start: "bottom bottom" } });
     gsap.fromTo(servicesTextRef.current, {x: -1000, opacity: 0}, { x: 0, opacity: 1, duration: 0.5, scrollTrigger: { trigger: "#servicesText", start: "bottom bottom" } });
     gsap.fromTo(servicesImageRef.current, {x: 1000, opacity: 0}, { x: 0, opacity: 1, duration: 0.7, scrollTrigger: { trigger: "#servicesImage", start: "bottom bottom" } });
     gsap.fromTo(servicesBtnRef.current, {x: 1000, opacity: 0}, { x: 0, opacity: 1, duration: 0.7, scrollTrigger: { trigger: "#servicesBtn", start: "bottom bottom" } });
+    gsap.fromTo(servicesSplitterRef.current, {opacity: 0}, { opacity: 1, duration: 1.2, scrollTrigger: { trigger: "#servicesSplitter", start: "bottom bottom" } });
   }, [])
   
   return (
-    <Grid container id="services" justifyContent="center" alignItems="center" spacing={6} className={clsx(styles.communityGrid, props.useDarkTheme ? styles.communityGridDark : styles.communityGridLight)}>
-      <Grid item lg={8} md={8} sm={12} xs={12}>
+    <Grid container id="services" ref={servicesGridRef} justifyContent="center" alignItems="center" spacing={6} className={clsx(styles.communityGrid, styles.transparentBackground, props.useDarkTheme ? styles.communityGridDark : styles.communityGridLight)}>
+      <Grid item lg={8} md={8} sm={12} xs={12} className={styles.communityGridInfo}>
         <Typography id="servicesHeader" ref={servicesHeaderRef} variant="h3" className={styles.communityHeader}>
           Services
         </Typography>
@@ -52,6 +56,7 @@ export default function Services(props) {
           </Button>
         </Grid>
       </Grid>
+      <Grid item id="servicesSplitter" ref={servicesSplitterRef} xs={10} className={styles.sectionSplitter}></Grid>
       
     </Grid>
   )

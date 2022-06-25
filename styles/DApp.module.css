@@ -2,9 +2,13 @@
     padding: 0 2rem;
 }
 
+.serviceInfoDiv {
+    padding-bottom: 10% !important;
+}
+
 .headerTextGrid {
     text-align: center;
-    margin-top: 4% !important;
+    margin-top: 6% !important;
     color: var(--red-primary-color) !important;
 }
 
@@ -19,7 +23,40 @@
 }
 
 .pricingText {
-    margin-top: 5% !important;
+    margin-bottom: 5% !important;
+    padding-top: 3% !important;
+    padding-bottom: 3% !important;
+    text-align: center !important;
+    border: 3px solid var(--red-primary-color) !important;
+    border-radius: 10px !important;
+}
+
+.backgroundLight {
+    background-image: url("../public/LightThemeBackground.png") !important;
+    background-repeat: no-repeat !important;
+    background-size: cover;
+}
+  
+.backgroundDark {
+background-image: url("../public/DarkThemeBackground.png") !important;
+background-repeat: no-repeat !important;
+background-size: cover;
+}
+
+.cardinalPayGrid {
+    margin-bottom: 50% !important;
+}
+
+@media (max-width: 900px) {
+    .desktopImage {
+        display: none !important;
+    }
+}
+
+@media (min-width: 900px) {
+    .mobileImage {
+        display: none !important;
+    }
 }
 
 
@@ -106,11 +143,16 @@
 }
 
 .darkModeIcon {
-    color: var(--dark-theme-primary-color);
+    color: var(--red-primary-color);
+}
+
+.lightThemeAppBar {
+    background-color: #5decff !important;
+    color: black !important;
 }
 
 .lightModeIcon {
-    color: gray;
+    color: var(--red-primary-color);
 }
 
 .iconSizeTheme {

@@ -7,7 +7,6 @@ import MuiAlert from '@mui/material/Alert';
 import { useState, useEffect } from 'react';
 import { useEthers } from "@usedapp/core";
 import { constants, ethers } from "ethers";
-import { Contract } from "@ethersproject/contracts";
 import Web3Modal from 'web3modal';
 
 import styles from '../styles/DApp.module.css';
@@ -20,7 +19,7 @@ export default function OriginalCardinalNFT(props) {
     const networkName = "bsctest";
     const cardinalNFTABI = CardinalNFT.abi;
     const CardinalNFTAddress = chainId ? chainConfig["CardinalNFTAddresses"][networkName] : constants.AddressZero
-    const isConnected = account !== undefined;
+    const isConnected = account !== undefined && chainId == 97;
 
   const [originalCardinalNFT, setOriginalCardinalNFT] = useState(null);
 
@@ -42,13 +41,13 @@ export default function OriginalCardinalNFT(props) {
   }
 
     useEffect(() => {
-      if (account !== undefined) {
+      if (isConnected) {
         getTokenURI();
       }
-    }, [account]);
+    }, [isConnected]);
 
   return (
-    <div className="mt-5 mb-5">
+    <div className={clsx("mt-5 mb-5", props.useDarkTheme ? styles.backgroundDark : styles.backgroundLight)}>
       <main className={styles.container}>
         <Grid container justifyContent="center" alignItems="center" spacing={4}>
           <Grid item lg={3} md={2} sm={1} xs={0}></Grid>
@@ -72,7 +71,7 @@ export default function OriginalCardinalNFT(props) {
 
           {
             originalCardinalNFT && (
-              <Grid item xs={12} sm={8} md={6} lg={4} className={clsx("mt-3", styles.NFTGrid)}>
+              <Grid item xs={12} sm={6} md={4} lg={3} className={clsx("mt-3", styles.NFTGrid)}>
                 <Typography variant="h4" className={clsx("mb-3", styles.serviceHeaderText)}>
                   Your Original Cardinal NFT
                 </Typography>

@@ -1,14 +1,13 @@
 import Image from 'next/image';
 import { Grid, Button, Typography } from '@mui/material';
-import Snackbar from '@mui/material/Snackbar';
-import MuiAlert from '@mui/material/Alert';
+import clsx from 'clsx';
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { useEffect, useRef } from 'react';
 
 import styles from '../styles/DApp.module.css';
 import cardinalHouseLogo from '../public/CardinalHouseLogo.png';
-import CardinalToken from "../contracts/CardinalToken.json";
+import liftOffImage from '../public/LiftOff.png';
 
 export default function ServicesInfo(props) {
   gsap.registerPlugin(ScrollTrigger);
@@ -65,11 +64,11 @@ export default function ServicesInfo(props) {
   }, [])
 
   return (
-    <div className="mt-5 mb-5">
+    <div className={clsx("mt-5", styles.serviceInfoDiv, props.useDarkTheme ? styles.backgroundDark : styles.backgroundLight)}>
       <main className={styles.container}>
         <Grid container justifyContent="center" alignItems="center" spacing={4}>
           <Grid item lg={3} md={2} sm={1} xs={0}></Grid>
-          <Grid item lg={5} md={8} sm={10} xs={12} className={styles.headerTextGrid}>
+          <Grid item lg={6} md={8} sm={10} xs={12} className={styles.headerTextGrid}>
             <Typography variant="h4" className={styles.headerText}>
               Cardinal House DApp Services Preview
             </Typography>
@@ -100,11 +99,13 @@ export default function ServicesInfo(props) {
               Original Cardinal NFTs, and the services NFTs. The membership NFTs are how Cardinal House memberships
               will be purchased to unlock exclusive content and perks throughout the entire ecosystem, 
               the Original Cardinal NFTs are given to upstanding members
-              of the community and give the holder a free membership, and the services NFTs
+              of the community and give the holder a free lifetime membership, and the services NFTs
               will be given to projects that purchase services on our DApp as proof that they are audited by us,
               KYC'd by us, used our launch pad for their pre-sale, etc.
 
             </Typography>
+          </Grid>
+          <Grid item lg={6} md={8} sm={10} xs={10}>
             <Typography variant="h5" className={styles.pricingText}>
               Membership NFT Price: $50/month in Cardinal Tokens
             </Typography>
@@ -114,6 +115,9 @@ export default function ServicesInfo(props) {
             <Typography id="auditHeader" ref={auditHeaderRef} variant="h4" className={styles.serviceHeaderText}>
               Auditing
             </Typography>
+          </Grid>
+          <Grid item id="auditImage" ref={auditImageRef} className={styles.mobileImage} lg={3} md={4} sm={8} xs={10}>
+            <Image src={cardinalHouseLogo} layout="responsive" />
           </Grid>
           <Grid item id="auditText" ref={auditTextRef} lg={7} md={6} sm={12} xs={12}>
             <Typography variant="h6">
@@ -125,12 +129,14 @@ export default function ServicesInfo(props) {
               on the DApp for anyone to see. The price of an audit depends on the number of smart contracts involved
               as well as the complexity of each contract.
             </Typography>
-            <Typography variant="h5" className={styles.pricingText}>
-              Auditing Price: Starting at $1000-$2500
-            </Typography>
           </Grid>
-          <Grid item id="auditImage" ref={auditImageRef} lg={3} md={4} sm={8} xs={10}>
+          <Grid item id="auditImage" ref={auditImageRef} className={styles.desktopImage} lg={3} md={4} sm={8} xs={10}>
             <Image src={cardinalHouseLogo} layout="responsive" />
+          </Grid>
+          <Grid item lg={6} md={8} sm={10} xs={10}>
+            <Typography variant="h5" className={styles.pricingText}>
+              Auditing Price: Starting at $2500-$5000
+            </Typography>
           </Grid>
 
           <Grid item xs={12}>
@@ -150,6 +156,8 @@ export default function ServicesInfo(props) {
               of all projects that are KCY&#8216;d through Cardinal House so that anyone can see
               which projects have gone through the KYC process with us.
             </Typography>
+          </Grid>
+          <Grid item lg={6} md={8} sm={10} xs={10}>
             <Typography variant="h5" className={styles.pricingText}>
               KYC Price: Starting at $500
             </Typography>
@@ -159,6 +167,9 @@ export default function ServicesInfo(props) {
             <Typography variant="h4" id="amaHeader" ref={amaHeaderRef} className={styles.serviceHeaderText}>
               AMAs
             </Typography>
+          </Grid>
+          <Grid item id="amaImage" ref={amaImageRef} className={styles.mobileImage} lg={3} md={4} sm={8} xs={10}>
+            <Image src={cardinalHouseLogo} layout="responsive" />
           </Grid>
           <Grid item id="amaText" ref={amaTextRef} lg={7} md={6} sm={12} xs={12}>
             <Typography variant="h6">
@@ -170,12 +181,14 @@ export default function ServicesInfo(props) {
               30 mintues and then have 30 minutes for questions, have the Cardinal House team ask you questions for 45 minutes
               and then have the community ask questions for 15 minutes, or just have the community ask questions the entire time.
             </Typography>
+          </Grid>
+          <Grid item id="amaImage" ref={amaImageRef} className={styles.desktopImage} lg={3} md={4} sm={8} xs={10}>
+            <Image src={cardinalHouseLogo} layout="responsive" />
+          </Grid>
+          <Grid item lg={6} md={8} sm={10} xs={10}>
             <Typography variant="h5" className={styles.pricingText}>
               AMA Price: Starting at $500
             </Typography>
-          </Grid>
-          <Grid item id="amaImage" ref={amaImageRef} lg={3} md={4} sm={8} xs={10}>
-            <Image src={cardinalHouseLogo} layout="responsive" />
           </Grid>
 
           <Grid item xs={12}>
@@ -184,7 +197,7 @@ export default function ServicesInfo(props) {
             </Typography>
           </Grid>
           <Grid item id="liftOffImage" ref={liftOffImageRef} lg={3} md={4} sm={8} xs={10}>
-            <Image src={cardinalHouseLogo} layout="responsive" />
+            <Image src={liftOffImage} layout="responsive" />
           </Grid>
           <Grid item id="liftOffText" ref={liftOffTextRef} lg={7} md={6} sm={12} xs={12}>
             <Typography variant="h6">
@@ -194,6 +207,8 @@ export default function ServicesInfo(props) {
               without having to create your own contract! You control the tokenomics, the total supply of the token,
               minting/burning functionality, and much more.
             </Typography>
+          </Grid>
+          <Grid item lg={6} md={8} sm={10} xs={10}>
             <Typography variant="h5" className={styles.pricingText}>
               Lift-Off Presale Pricing: $1000
             </Typography>
@@ -207,6 +222,9 @@ export default function ServicesInfo(props) {
               Cardinal Pay
             </Typography>
           </Grid>
+          <Grid item id="cardinalPayImage" ref={cardinalPayImageRef} className={styles.mobileImage} lg={3} md={4} sm={8} xs={10}>
+            <Image src={cardinalHouseLogo} layout="responsive" />
+          </Grid>
           <Grid item id="cardinalPayText" ref={cardinalPayTextRef} lg={7} md={6} sm={12} xs={12}>
             <Typography variant="h6">
               Cardinal Pay is Cardinal House&#8216;s esgrow service.
@@ -218,12 +236,14 @@ export default function ServicesInfo(props) {
               If there is a disagreement, then the Cardinal House team will intervene to resolve
               the situation.
             </Typography>
+          </Grid>
+          <Grid item id="cardinalPayImage" ref={cardinalPayImageRef} className={styles.desktopImage} lg={3} md={4} sm={8} xs={10}>
+            <Image src={cardinalHouseLogo} layout="responsive" />
+          </Grid>
+          <Grid item lg={6} md={8} sm={10} xs={10}>
             <Typography variant="h5" className={styles.pricingText}>
               Cardinal Pay Price: 1% of Service Charge
             </Typography>
-          </Grid>
-          <Grid item id="cardinalPayImage" ref={cardinalPayImageRef} lg={3} md={4} sm={8} xs={10}>
-            <Image src={cardinalHouseLogo} layout="responsive" />
           </Grid>
 
         </Grid>

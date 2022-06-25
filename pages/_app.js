@@ -9,25 +9,42 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 function MyApp({ Component, pageProps }) {
   const lightTheme = createTheme({
-    // Primary - #70c1ff
+    // Primary - #70c1ff, previous c50a0a
     // Secondary - #48494f
     // Paper/card - #dbf1ff
     mode: 'light',
     palette: {
       background: {
-        paper: '#dbf1ff',
+        paper: '#5decff',
       },
       primary: {
-        main: '#c50a0a',
+        main: '#ff0000',
       },
       secondary: {
-        main: '#c50a0a',
+        main: '#ff0000',
       },
-    }
+    },
+    typography: {
+      fontFamily: [
+        'Lucida Handwriting',
+        'cursive',
+        '-apple-system',
+        'BlinkMacSystemFont', 
+        'Segoe UI', 
+        'Roboto', 
+        'Oxygen',
+        'Ubuntu', 
+        'Cantarell', 
+        'Fira Sans', 
+        'Droid Sans', 
+        'Helvetica Neue', 
+        'sans-serif'
+      ].join(','),
+    },
   });
 
   const darkTheme = createTheme({
-    // Primary - #1649ff, previous - #0a0af0
+    // Primary - #c50a0a, previous - #1649ff
     // Secondary - #cfcfcf
     // Paper/card - #141a2a
     palette: {
@@ -36,11 +53,28 @@ function MyApp({ Component, pageProps }) {
         paper: '#141a2a',
       },
       primary: {
-        main: '#1649ff',
+        main: '#c50a0a',
       },
       secondary: {
         main: '#cfcfcf',
       },
+    },
+    typography: {
+      fontFamily: [
+        'Lucida Handwriting',
+        'cursive',
+        '-apple-system',
+        'BlinkMacSystemFont', 
+        'Segoe UI', 
+        'Roboto', 
+        'Oxygen',
+        'Ubuntu', 
+        'Cantarell', 
+        'Fira Sans', 
+        'Droid Sans', 
+        'Helvetica Neue', 
+        'sans-serif'
+      ].join(','),
     },
   });
 

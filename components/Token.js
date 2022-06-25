@@ -7,7 +7,7 @@ import clsx from 'clsx';
 
 import styles from '../styles/Home.module.css';
 
-import cardinalHouseLogo from '../public/CardinalHouseLogo.png';
+import cardinalLogoLight from '../public/CardinalLogoLight.png';
 
 export default function Token(props) {
   gsap.registerPlugin(ScrollTrigger);
@@ -16,6 +16,7 @@ export default function Token(props) {
   const tokenTextRef = useRef();
   const tokenImageRef = useRef();
   const tokenBtnRef = useRef();
+  const tokenSplitterRef = useRef();
 
   // Loads animations for elements of the page.
   useEffect(() => {
@@ -23,11 +24,12 @@ export default function Token(props) {
     gsap.fromTo(tokenTextRef.current, {x: -1000, opacity: 0}, { x: 0, opacity: 1, duration: 0.5, scrollTrigger: { trigger: "#tokenText", start: "bottom bottom" } });
     gsap.fromTo(tokenImageRef.current, {x: 1000, opacity: 0}, { x: 0, opacity: 1, duration: 0.7, scrollTrigger: { trigger: "#tokenImage", start: "bottom bottom" } });
     gsap.fromTo(tokenBtnRef.current, {x: 1000, opacity: 0}, { x: 0, opacity: 1, duration: 0.7, scrollTrigger: { trigger: "#tokenBtn", start: "bottom bottom" } });
+    gsap.fromTo(tokenSplitterRef.current, {opacity: 0}, { opacity: 1, duration: 1.2, scrollTrigger: { trigger: "#tokenSplitter", start: "bottom bottom" } });
   }, [])
   
   return (
     <Grid container justifyContent="center" alignItems="center" spacing={6} className={clsx(styles.communityGrid, props.useDarkTheme ? styles.educationGridDark : styles.educationGridLight)}>
-      <Grid item lg={8} md={8} sm={12} xs={12}>
+      <Grid item lg={8} md={8} sm={12} xs={12} className={styles.communityGridInfo}>
         <Typography id="tokenHeader" ref={tokenHeaderRef} variant="h3" className={styles.communityHeader}>
           Tying it All Together: The Cardinal Token
         </Typography>
@@ -45,7 +47,7 @@ export default function Token(props) {
       <Grid item lg={4} md={4} sm={12} xs={12}>
         <Grid container justifyContent="center" alignItems="center" spacing={4}>
           <Grid item id="tokenImage" ref={tokenImageRef} xs={8}>
-            <Image src={cardinalHouseLogo} layout="responsive" />
+            <Image src={cardinalLogoLight} layout="responsive" />
           </Grid>
             <Button id="tokenBtn" ref={tokenBtnRef} href="https://www.youtube.com/channel/UC1dUX-MzSWJ046vYP2215-g" target="_blank" rel="noreferrer" size="large" variant="contained" color="primary" 
               className={props.useDarkTheme ? styles.teamBtnDark : styles.teamBtnLight}>
@@ -53,6 +55,7 @@ export default function Token(props) {
             </Button>
         </Grid>
       </Grid>
+      <Grid item id="tokenSplitter" ref={tokenSplitterRef} xs={10} className={styles.sectionSplitter}></Grid>
       
     </Grid>
   )

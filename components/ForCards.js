@@ -4,6 +4,7 @@ import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { useEffect, useRef } from 'react';
 import clsx from 'clsx';
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 
 import styles from '../styles/Home.module.css';
 
@@ -45,7 +46,7 @@ export default function ForCards(props) {
             <div>
               <CardContent>
                 <Avatar className={props.useDarkTheme ? styles.avatarDarkTheme : styles.avatarLightTheme} sx={{ width: 70, height: 70 }}>
-                  <AccountBalanceWalletIcon sx={{ width: 40, height: 40 }} />
+                  <ManageAccountsIcon sx={{ width: 40, height: 40 }} />
                 </Avatar>
                 <Typography variant="h5" component="div">
                   For Project Owners

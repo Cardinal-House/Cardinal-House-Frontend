@@ -1,4 +1,4 @@
-import { Grid, Typography, Switch } from '@mui/material';
+import { Grid, Typography, Switch, Tooltip } from '@mui/material';
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import { useEffect } from 'react';
 import clsx from 'clsx';
@@ -20,7 +20,7 @@ export default function Navigation({useDarkTheme, setUseDarkTheme}) {
         if (window.location.pathname == "/") {
             // gsap.to(window, {duration: 0.1, scrollTo:`#${section}`});
             
-            gsap.to(window, 0.1, {scrollTo: {y: `#${section}`, offsetY: 150}});
+            gsap.to(window, 0.1, {scrollTo: {y: `#${section}`, offsetY: 75}});
         }
         else {
             window.location.href = `${window.location.origin}/?section=${section}`;
@@ -39,12 +39,12 @@ export default function Navigation({useDarkTheme, setUseDarkTheme}) {
     }, []);
 
     return (
-        <Grid container justifyContent="center" className={styles.navGrid}>
+        <Grid container justifyContent="center">
             <Navbar expand="lg" bg={useDarkTheme ? "custom-dark" : "custom-light"} variant={useDarkTheme ? "dark" : "light"} className={clsx("m-auto", styles.navBar)}>
                 <Navbar.Text className={styles.navBarBrand}>
                     <Container>
                         <Navbar.Brand href="/">
-                            <img alt="" src="/CardinalHouseLogo.png" width="35" height="35" className={clsx(styles.logoImage, "align-top")} />
+                            <img alt="" src="/CardinalLogoLight.png" width="35" height="35" className={clsx(styles.logoImage, "align-top")} />
                             <Typography variant="p" className={styles.navBrandText}>
                                 Cardinal House
                             </Typography>
@@ -90,11 +90,13 @@ export default function Navigation({useDarkTheme, setUseDarkTheme}) {
                                 DApp
                             </Typography>
                         </Nav.Link>
-                        <div className={styles.changeThemeDiv}>
-                            {useDarkTheme ? <DarkModeIcon className={clsx(styles.darkModeIcon, styles.iconSizeTheme)} /> : <LightModeIcon className={styles.lightModeIcon} fontSize="large" />}
-                            <Switch checked={useDarkTheme} color="primary" onChange={e => setUseDarkTheme(e.target.checked)} />
-                        </div>
-                        <IconContext.Provider value={{ color: useDarkTheme ? "#1649ff" : "#c50a0a" }} className={styles.socialIcons}>
+                        <Tooltip title="Dark Theme Coming Soon!">
+                            <div className={styles.changeThemeDiv}>
+                                {useDarkTheme ? <DarkModeIcon className={clsx(styles.darkModeIcon, styles.iconSizeTheme)} /> : <LightModeIcon className={styles.lightModeIcon} fontSize="large" />}
+                                <Switch checked={useDarkTheme} disabled={true} color="primary" onChange={e => setUseDarkTheme(e.target.checked)} />
+                            </div>
+                        </Tooltip>
+                        <IconContext.Provider value={{ color: useDarkTheme ? "#ff0000" : "#ff0000" }} className={styles.socialIcons}>
                             <div className={styles.socialIcons}>
                                 <div className={styles.socialIcon}>
                                     <a href="https://discord.gg/Sw5qsDx2kr" target="_blank" rel="noreferrer">

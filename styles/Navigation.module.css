@@ -1,6 +1,4 @@
-.navGrid {
-    background-color: #53e8ff !important; 
-}
+
 
 .navbarDarkCustom {
     color: rgba(255,255,255,1) !important;
@@ -11,7 +9,7 @@
   }
 
 .darkModeIcon {
-    color: var(--dark-theme-primary-color);
+    color: var(--red-primary-color);
 }
 
 .lightModeIcon {

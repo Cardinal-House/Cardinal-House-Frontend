@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { Typography, Button, Drawer, Toolbar, List, Divider, Grid,
+import { Typography, Button, Drawer, Toolbar, List, Divider, Grid, Tooltip,
     ListItem, ListItemIcon, ListItemText, CssBaseline, IconButton, Switch, dividerClasses } from '@mui/material';
 import MuiAppBar from '@mui/material/AppBar';
 import { styled, useTheme } from '@mui/material/styles';
@@ -12,6 +12,7 @@ import { useCoingeckoPrice } from '@usedapp/coingecko'
 import { constants, ethers } from "ethers";
 import WalletConnectProvider from '@walletconnect/web3-provider'
 import { FaInfoCircle, FaCrown } from "react-icons/fa";
+import { AiFillHome } from "react-icons/ai";
 
 import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
@@ -87,6 +88,7 @@ export default function DApp(props) {
     const [tokenPricePercentChange, setTokenPricePercentChange] = useState(0.0);
 
     if (account && chainId != "97" && chainId != 97 && !showWrongNetwork) {
+        console.log("test")
         setShowWrongNetwork(true);
         window.ethereum.request({
 
@@ -131,6 +133,7 @@ export default function DApp(props) {
         if (!window.ethereum) {
             setShowWalletConnectionFailed(true);
         }
+        setIsConnecting(false);
     }
 
     async function activateWalletConnect() {
@@ -193,7 +196,7 @@ export default function DApp(props) {
                 </MuiAlert>
             </Snackbar>
 
-            <AppBar position="fixed" open={navDrawerOpen}>
+            <AppBar position="fixed" open={navDrawerOpen} className={props.useDarkTheme ? styles.darkThemeAppBar : styles.lightThemeAppBar}>
                 <Toolbar>
                 <IconButton
                     color="inherit"
@@ -240,10 +243,12 @@ export default function DApp(props) {
                     */
                 }
 
-                <div className={styles.changeThemeDiv}>
-                    {props.useDarkTheme ? <DarkModeIcon className={clsx(styles.darkModeIcon, styles.iconSizeTheme)} /> : <LightModeIcon className={styles.lightModeIcon} fontSize="large" />}
-                    <Switch checked={props.useDarkTheme} color="primary" onChange={e => props.setUseDarkTheme(e.target.checked)} />
-                </div>
+                <Tooltip title="Dark Theme Coming Soon!">
+                    <div className={styles.changeThemeDiv}>
+                        {props.useDarkTheme ? <DarkModeIcon className={clsx(styles.darkModeIcon, styles.iconSizeTheme)} /> : <LightModeIcon className={styles.lightModeIcon} fontSize="large" />}
+                        <Switch checked={props.useDarkTheme} disabled={true} color="primary" onChange={e => props.setUseDarkTheme(e.target.checked)} />
+                    </div>
+                </Tooltip>
 
                 {isConnected && (
                     <Button size="small" variant="contained" color="primary" onClick={deactivate}
@@ -306,12 +311,20 @@ export default function DApp(props) {
                     </ListItemIcon>
                     <ListItemText primary="Original Cardinal NFTs" />
                 </ListItem>
+                <ListItem button onClick={() => {window.location.href = `${window.location.origin}`}}>
+                    <ListItemIcon>
+                        <AiFillHome className={styles.navIcons} />
+                    </ListItemIcon>
+                    <ListItemText primary="Back to Home Page" />
+                </ListItem>
 
                 <ListItem className={styles.navOptionsListItem}>
-                    <div>
-                        {props.useDarkTheme ? <DarkModeIcon className={clsx(styles.darkModeIcon, styles.iconSizeTheme)} /> : <LightModeIcon className={styles.lightModeIcon} fontSize="large" />}
-                        <Switch checked={props.useDarkTheme} color="primary" onChange={e => props.setUseDarkTheme(e.target.checked)} />
-                    </div>
+                    <Tooltip title="Dark Theme Coming Soon!">
+                        <div>
+                            {props.useDarkTheme ? <DarkModeIcon className={clsx(styles.darkModeIcon, styles.iconSizeTheme)} /> : <LightModeIcon className={styles.lightModeIcon} fontSize="large" />}
+                            <Switch checked={props.useDarkTheme} disabled={true} color="primary" onChange={e => props.setUseDarkTheme(e.target.checked)} />
+                        </div>
+                    </Tooltip>
                 </ListItem>
                 <ListItem className={styles.navOptionsListItem}>
                     {isConnected && (

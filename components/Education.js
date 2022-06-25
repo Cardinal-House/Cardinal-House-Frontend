@@ -16,6 +16,7 @@ export default function Education(props) {
   const edcuationTextRef = useRef();
   const educationImageRef = useRef();
   const educationBtnRef = useRef();
+  const educationSplitterRef = useRef();
 
   // Loads animations for elements of the page.
   useEffect(() => {
@@ -23,11 +24,12 @@ export default function Education(props) {
     gsap.fromTo(edcuationTextRef.current, {x: -1000, opacity: 0}, { x: 0, opacity: 1, duration: 0.5, scrollTrigger: { trigger: "#educationText", start: "bottom bottom" } });
     gsap.fromTo(educationImageRef.current, {x: 1000, opacity: 0}, { x: 0, opacity: 1, duration: 0.7, scrollTrigger: { trigger: "#educationImage", start: "bottom bottom" } });
     gsap.fromTo(educationBtnRef.current, {x: 1000, opacity: 0}, { x: 0, opacity: 1, duration: 0.7, scrollTrigger: { trigger: "#educationBtn", start: "bottom bottom" } });
+    gsap.fromTo(educationSplitterRef.current, {opacity: 0}, { opacity: 1, duration: 1.2, scrollTrigger: { trigger: "#educationSplitter", start: "bottom bottom" } });
   }, [])
   
   return (
     <Grid container id="education" justifyContent="center" alignItems="center" spacing={6} className={clsx(styles.communityGrid, props.useDarkTheme ? styles.educationGridDark : styles.educationGridLight)}>
-      <Grid item lg={8} md={8} sm={12} xs={12}>
+      <Grid item lg={8} md={8} sm={12} xs={12} className={styles.communityGridInfo}>
         <Typography id="educationHeader" ref={educationHeaderRef} variant="h3" className={styles.communityHeader}>
           Education
         </Typography>
@@ -51,6 +53,7 @@ export default function Education(props) {
           </Button>
           </Grid>
       </Grid>
+      <Grid item id="educationSplitter" ref={educationSplitterRef} xs={10} className={styles.sectionSplitter}></Grid>
       
     </Grid>
   )

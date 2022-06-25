@@ -16,10 +16,9 @@ export default function Home(props) {
     <>
     <Navigation useDarkTheme={props.useDarkTheme} setUseDarkTheme={props.setUseDarkTheme} />
     <div>
+      {/* ~~~~~ Intro Text and Graphic ~~~~~ */}
+      <Intro useDarkTheme={props.useDarkTheme} />
       <main className={props.useDarkTheme ? styles.darkThemeBackground : styles.lightThemeBackground}>
-        {/* ~~~~~ Intro Text and Graphic ~~~~~ */}
-        <Intro useDarkTheme={props.useDarkTheme} />
-
         {/* ~~~~~ For Investors and For Project Owners Cards ~~~~~ */}
         <ForCards useDarkTheme={props.useDarkTheme} />
 
@@ -39,7 +38,11 @@ export default function Home(props) {
         <Tokenomics useDarkTheme={props.useDarkTheme} />
 
         {/* ~~~~~ Growth Visual ~~~~~ */}
-        <Growth useDarkTheme={props.useDarkTheme} />
+        {
+          /*
+          <Growth useDarkTheme={props.useDarkTheme} />
+          */
+        }
 
         {/* ~~~~~ Roadmap ~~~~~ */}
         <Roadmap useDarkTheme={props.useDarkTheme} />

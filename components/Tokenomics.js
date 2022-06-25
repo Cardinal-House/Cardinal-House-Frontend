@@ -3,7 +3,8 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { useEffect, useRef } from 'react';
 import clsx from 'clsx';
-import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
+import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
+import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
 
 import styles from '../styles/Home.module.css';
 
@@ -45,7 +46,7 @@ export default function ForCards(props) {
           <div>
             <CardContent>
               <Avatar className={props.useDarkTheme ? styles.avatarDarkTheme : styles.avatarLightTheme} sx={{ width: 70, height: 70 }}>
-                <AccountBalanceWalletIcon sx={{ width: 40, height: 40 }} />
+                <CurrencyExchangeIcon sx={{ width: 40, height: 40 }} />
               </Avatar>
               <Typography variant="h5" component="div">
                 5% Transaction Fee
@@ -68,7 +69,7 @@ export default function ForCards(props) {
           <div>
             <CardContent>
               <Avatar className={props.useDarkTheme ? styles.avatarDarkTheme : styles.avatarLightTheme} sx={{ width: 70, height: 70 }}>
-                <AccountBalanceWalletIcon sx={{ width: 40, height: 40 }} />
+                <LocalFireDepartmentIcon sx={{ width: 40, height: 40 }} />
               </Avatar>
               <Typography variant="h5" component="div">
                 Token Burning
