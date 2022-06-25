@@ -6,7 +6,7 @@ import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { useEffect, useRef } from 'react';
 
 import styles from '../styles/DApp.module.css';
-import cardinalHouseLogo from '../public/CardinalHouseLogo.png';
+import cardinalHouseLogo from '../public/CardinalLogoLight.png';
 import liftOffImage from '../public/LiftOff.png';
 
 export default function ServicesInfo(props) {

@@ -11,7 +11,7 @@ import Web3Modal from 'web3modal';
 
 import styles from '../styles/DApp.module.css';
 import chainConfig from "../chain-config.json";
-import cardinalHouseLogo from '../public/CardinalHouseLogo.png';
+import cardinalHouseLogo from '../public/CardinalLogoLight.png';
 import CardinalNFT from "../contracts/CardinalNFT.json";
 
 export default function OriginalCardinalNFT(props) {
