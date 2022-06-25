@@ -15,7 +15,7 @@ export default function Intro(props) {
             Cardinal House is a blockchain ecosystem with a focus on education, community, and
             crypto services that benefit everyone involved
         </Typography>
-        <Grid container justify="center">
+        <Grid container justifyContent="left">
           <Grid item lg={3} md={4} sm={12} xs={12} >
             <div className="mt-4">
               <Button href="/team" target="_blank" rel="noreferrer" size="small" variant="contained" color="primary" 
@@ -24,7 +24,7 @@ export default function Intro(props) {
               </Button>
             </div>
           </Grid>
-          <Grid item lg={3} md={6} sm={12} xs={12}>
+          <Grid item lg={4} md={6} sm={12} xs={12}>
             <div className="mt-4">
               <Button href="https://discord.gg/Sw5qsDx2kr" target="_blank" rel="noreferrer" size="small" variant="contained" color="primary" 
                 className={props.useDarkTheme ? styles.teamBtnDark : styles.teamBtnLight}>

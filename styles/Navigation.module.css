@@ -54,8 +54,8 @@ nav .container {
 }
 
 .navText {
-    font-size: 16px !important;
-    margin-top: -1px !important;
+    font-size: 15px !important;
+    margin-top: 0px !important;
 }
 
 .logoImage {
@@ -74,13 +74,13 @@ nav .container {
     color: white !important;
 }
 
-@media (max-width: 1350px) and (min-width: 1270px) {
+@media (max-width: 1400px) and (min-width: 1350px) {
     .navBrandText {
         font-size: 18px !important;
     }
 
     .navText {
-        font-size: 16px !important;
+        font-size: 15px !important;
         margin-top: 2px !important;
     }
 
@@ -93,7 +93,7 @@ nav .container {
     }
 }
 
-@media (max-width: 1270px) and (min-width: 1150px) {
+@media (max-width: 1350px) and (min-width: 1200px) {
     .navBrandText {
         font-size: 16px !important;
     }
@@ -112,7 +112,7 @@ nav .container {
     }
 }
 
-@media (max-width: 1150px) and (min-width: 1070px) {
+@media (max-width: 1200px) and (min-width: 1110px) {
     .navBrandText {
         font-size: 14px !important;
     }
@@ -135,7 +135,7 @@ nav .container {
     }
 }
 
-@media (max-width: 1070px) and (min-width: 992px) {
+@media (max-width: 1100px) and (min-width: 992px) {
     .navBrandText {
         font-size: 12px !important;
     }
