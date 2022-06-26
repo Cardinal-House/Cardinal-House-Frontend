@@ -16,6 +16,7 @@ export default function Education(props) {
   const edcuationTextRef = useRef();
   const educationImageRef = useRef();
   const educationBtnRef = useRef();
+  const educationBtn2Ref = useRef();
   const educationSplitterRef = useRef();
 
   // Loads animations for elements of the page.
@@ -24,6 +25,7 @@ export default function Education(props) {
     gsap.fromTo(edcuationTextRef.current, {x: -1000, opacity: 0}, { x: 0, opacity: 1, duration: 0.5, scrollTrigger: { trigger: "#educationText", start: "bottom bottom" } });
     gsap.fromTo(educationImageRef.current, {x: 1000, opacity: 0}, { x: 0, opacity: 1, duration: 0.7, scrollTrigger: { trigger: "#educationImage", start: "bottom bottom" } });
     gsap.fromTo(educationBtnRef.current, {x: 1000, opacity: 0}, { x: 0, opacity: 1, duration: 0.7, scrollTrigger: { trigger: "#educationBtn", start: "bottom bottom" } });
+    gsap.fromTo(educationBtn2Ref.current, {x: 1000, opacity: 0}, { x: 0, opacity: 1, duration: 0.7, scrollTrigger: { trigger: "#educationBtn2", start: "bottom bottom" } });
     gsap.fromTo(educationSplitterRef.current, {opacity: 0}, { opacity: 1, duration: 1.2, scrollTrigger: { trigger: "#educationSplitter", start: "bottom bottom" } });
   }, [])
   
@@ -47,14 +49,18 @@ export default function Education(props) {
           <Grid item id="educationImage" ref={educationImageRef} className="mb-4" xs={8}>
             <Image src={educationArt} layout="responsive" />
           </Grid>
-          <Button id="educationBtn" ref={educationBtnRef} href="https://www.youtube.com/channel/UC1dUX-MzSWJ046vYP2215-g" target="_blank" rel="noreferrer" size="large" variant="contained" color="primary" 
-            className={props.useDarkTheme ? styles.teamBtnDark : styles.teamBtnLight}>
-            Explore our YouTube Channel
-          </Button>
-          <Button id="educationBtn" ref={educationBtnRef} href="https://www.facebook.com/groups/1863413517182310/?ref=share" target="_blank" rel="noreferrer" size="large" variant="contained" color="primary" 
-            className={clsx("mt-3", props.useDarkTheme ? styles.teamBtnDark : styles.teamBtnLight)}>
-            Check out our FaceBook Group
-          </Button>
+          <Grid item className={styles.btnGrid} xs={12}>
+            <Button id="educationBtn" ref={educationBtnRef} href="https://www.youtube.com/channel/UC1dUX-MzSWJ046vYP2215-g" target="_blank" rel="noreferrer" size="large" variant="contained" color="primary" 
+              className={props.useDarkTheme ? styles.teamBtnDark : styles.teamBtnLight}>
+              Explore our YouTube Channel
+            </Button>
+          </Grid>
+          <Grid item className={clsx(styles.btnGrid, styles.bottomBtn)} xs={12}>
+            <Button id="educationBtn2" ref={educationBtn2Ref} href="https://www.facebook.com/groups/1863413517182310/?ref=share" target="_blank" rel="noreferrer" size="large" variant="contained" color="primary" 
+              className={clsx("mt-3", props.useDarkTheme ? styles.teamBtnDark : styles.teamBtnLight)}>
+              Check out our FaceBook Group
+            </Button>
+          </Grid>
           </Grid>
       </Grid>
       <Grid item id="educationSplitter" ref={educationSplitterRef} xs={10} className={styles.sectionSplitter}></Grid>

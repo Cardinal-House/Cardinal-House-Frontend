@@ -38,8 +38,19 @@
   margin-left: 2% !important;
 }
 
+.btnGrid {
+  display: flex !important;
+  justify-content: center !important;
+  padding-left: 0px !important;
+}
+
+.bottomBtn {
+  padding-top: 10px !important;
+}
+
 .teamBtnDark {
   text-align: center !important;
+  margin: auto !important;
 }
 
 .teamBtnLight {
