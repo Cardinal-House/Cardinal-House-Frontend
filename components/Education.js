@@ -49,9 +49,9 @@ export default function Education(props) {
           </Grid>
           <Button id="educationBtn" ref={educationBtnRef} href="https://www.youtube.com/channel/UC1dUX-MzSWJ046vYP2215-g" target="_blank" rel="noreferrer" size="large" variant="contained" color="primary" 
             className={props.useDarkTheme ? styles.teamBtnDark : styles.teamBtnLight}>
-            Check out our YouTube Channel
+            Explore our YouTube Channel
           </Button>
-          <Button id="educationBtn" ref={educationBtnRef} href="https://www.youtube.com/channel/UC1dUX-MzSWJ046vYP2215-g" target="_blank" rel="noreferrer" size="large" variant="contained" color="primary" 
+          <Button id="educationBtn" ref={educationBtnRef} href="https://www.facebook.com/groups/1863413517182310/?ref=share" target="_blank" rel="noreferrer" size="large" variant="contained" color="primary" 
             className={clsx("mt-3", props.useDarkTheme ? styles.teamBtnDark : styles.teamBtnLight)}>
             Check out our FaceBook Group
           </Button>

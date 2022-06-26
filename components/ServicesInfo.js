@@ -9,6 +9,7 @@ import styles from '../styles/DApp.module.css';
 import cardinalHouseLogo from '../public/CardinalLogoLight.png';
 import auditingImage from '../public/Auditing.png';
 import kycImage from '../public/KYC.png';
+import amaImage from '../public/Ama.png';
 import liftOffImage from '../public/LiftOff.png';
 
 export default function ServicesInfo(props) {
@@ -171,7 +172,7 @@ export default function ServicesInfo(props) {
             </Typography>
           </Grid>
           <Grid item id="amaImage" ref={amaImageRef} className={styles.mobileImage} lg={3} md={4} sm={8} xs={10}>
-            <Image src={cardinalHouseLogo} layout="responsive" />
+            <Image src={amaImage} layout="responsive" />
           </Grid>
           <Grid item id="amaText" ref={amaTextRef} lg={7} md={6} sm={12} xs={12}>
             <Typography variant="h6">
@@ -185,7 +186,7 @@ export default function ServicesInfo(props) {
             </Typography>
           </Grid>
           <Grid item id="amaImage" ref={amaImageRef} className={styles.desktopImage} lg={3} md={4} sm={8} xs={10}>
-            <Image src={cardinalHouseLogo} layout="responsive" />
+            <Image src={amaImage} layout="responsive" />
           </Grid>
           <Grid item lg={6} md={8} sm={10} xs={10}>
             <Typography variant="h5" className={styles.pricingText}>
