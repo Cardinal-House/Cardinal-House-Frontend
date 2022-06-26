@@ -39,12 +39,12 @@ export default function Navigation({useDarkTheme, setUseDarkTheme}) {
     }, []);
 
     return (
-        <Grid container justifyContent="center">
+        <Grid container justifyContent="center" alignItems="center">
             <Navbar expand="lg" bg={useDarkTheme ? "custom-dark" : "custom-light"} variant={useDarkTheme ? "dark" : "light"} className={clsx("m-auto", styles.navBar)}>
                 <Navbar.Text className={styles.navBarBrand}>
                     <Container>
-                        <Navbar.Brand href="/">
-                            <img alt="" src="/CardinalLogoLight.png" width="35" height="35" className={clsx(styles.logoImage, "align-top")} />
+                        <Navbar.Brand className={styles.navBarBrand}>
+                            <img alt="" src="/CardinalLogoLight.png" width="50" height="50" className={clsx(styles.logoImage)} />
                             <Typography variant="p" className={styles.navBrandText}>
                                 <b>Cardinal House</b>
                             </Typography>

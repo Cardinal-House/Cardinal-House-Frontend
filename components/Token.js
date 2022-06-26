@@ -49,9 +49,9 @@ export default function Token(props) {
           <Grid item id="tokenImage" ref={tokenImageRef} xs={8}>
             <Image src={cardinalLogoLight} layout="responsive" />
           </Grid>
-            <Button id="tokenBtn" ref={tokenBtnRef} href="https://www.youtube.com/channel/UC1dUX-MzSWJ046vYP2215-g" target="_blank" rel="noreferrer" size="large" variant="contained" color="primary" 
+            <Button id="tokenBtn" ref={tokenBtnRef} href="https://chain-estate.gitbook.io/cardinal-house-whitepaper/" target="_blank" rel="noreferrer" size="large" variant="contained" color="primary" 
               className={props.useDarkTheme ? styles.teamBtnDark : styles.teamBtnLight}>
-              Check out our YouTube Channel!
+              Learn More on Our Whitepaper
             </Button>
         </Grid>
       </Grid>

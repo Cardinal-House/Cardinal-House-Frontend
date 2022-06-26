@@ -52,7 +52,7 @@ export default function Community(props) {
           </Grid>
           <Button id="communityBtn" ref={communityBtnRef} href="https://discord.gg/Sw5qsDx2kr" target="_blank" rel="noreferrer" size="large" variant="contained" color="primary" 
             className={props.useDarkTheme ? styles.teamBtnDark : styles.teamBtnLight}>
-            Join Our Discord Server!
+            Join Our Discord Server
           </Button>
           </Grid>
       </Grid>

@@ -7,6 +7,8 @@ import { useEffect, useRef } from 'react';
 
 import styles from '../styles/DApp.module.css';
 import cardinalHouseLogo from '../public/CardinalLogoLight.png';
+import auditingImage from '../public/Auditing.png';
+import kycImage from '../public/KYC.png';
 import liftOffImage from '../public/LiftOff.png';
 
 export default function ServicesInfo(props) {
@@ -117,7 +119,7 @@ export default function ServicesInfo(props) {
             </Typography>
           </Grid>
           <Grid item id="auditImage" ref={auditImageRef} className={styles.mobileImage} lg={3} md={4} sm={8} xs={10}>
-            <Image src={cardinalHouseLogo} layout="responsive" />
+            <Image src={auditingImage} layout="responsive" />
           </Grid>
           <Grid item id="auditText" ref={auditTextRef} lg={7} md={6} sm={12} xs={12}>
             <Typography variant="h6">
@@ -131,7 +133,7 @@ export default function ServicesInfo(props) {
             </Typography>
           </Grid>
           <Grid item id="auditImage" ref={auditImageRef} className={styles.desktopImage} lg={3} md={4} sm={8} xs={10}>
-            <Image src={cardinalHouseLogo} layout="responsive" />
+            <Image src={auditingImage} layout="responsive" />
           </Grid>
           <Grid item lg={6} md={8} sm={10} xs={10}>
             <Typography variant="h5" className={styles.pricingText}>
@@ -145,7 +147,7 @@ export default function ServicesInfo(props) {
             </Typography>
           </Grid>
           <Grid item id="kycImage" ref={kycImageRef} lg={3} md={4} sm={8} xs={10}>
-            <Image src={cardinalHouseLogo} layout="responsive" />
+            <Image src={kycImage} layout="responsive" />
           </Grid>
           <Grid item id="kycText" ref={kycTextRef} lg={7} md={6} sm={12} xs={12}>
             <Typography variant="h6">

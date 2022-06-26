@@ -16,24 +16,20 @@ export default function Intro(props) {
             crypto services that benefit everyone involved
         </Typography>
         <Grid container justifyContent="left">
-          <Grid item lg={3} md={4} sm={12} xs={12} >
-            <div className="mt-4">
+            <div className={styles.floated}>
               <Button href="/team" target="_blank" rel="noreferrer" size="small" variant="contained" color="primary" 
                 className={props.useDarkTheme ? styles.teamBtnDark : styles.teamBtnLight}>
                 Meet the Team
               </Button>
             </div>
-          </Grid>
-          <Grid item lg={4} md={6} sm={12} xs={12}>
-            <div className="mt-4">
+            <div className={styles.floated}>
               <Button href="https://discord.gg/Sw5qsDx2kr" target="_blank" rel="noreferrer" size="small" variant="contained" color="primary" 
                 className={props.useDarkTheme ? styles.teamBtnDark : styles.teamBtnLight}>
                 Join Our Community
               </Button>
             </div>
-          </Grid>
         </Grid>
-        </Grid>
+      </Grid>
     </Grid>
   )
 }

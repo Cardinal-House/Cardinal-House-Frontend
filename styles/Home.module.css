@@ -23,6 +23,12 @@
   min-height: 100vh !important;
 }
 
+.floated {
+  float: left;
+  margin-right: 15px;
+  margin-top: 5% !important;
+}
+
 .imageGrid {
   padding: 0 !important;
 }
