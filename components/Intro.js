@@ -20,7 +20,7 @@ export default function Intro(props) {
             <div className="mt-4">
               <Button href="/team" target="_blank" rel="noreferrer" size="small" variant="contained" color="primary" 
                 className={props.useDarkTheme ? styles.teamBtnDark : styles.teamBtnLight}>
-                Meet the Team!
+                Meet the Team
               </Button>
             </div>
           </Grid>
@@ -28,7 +28,7 @@ export default function Intro(props) {
             <div className="mt-4">
               <Button href="https://discord.gg/Sw5qsDx2kr" target="_blank" rel="noreferrer" size="small" variant="contained" color="primary" 
                 className={props.useDarkTheme ? styles.teamBtnDark : styles.teamBtnLight}>
-                Join Our Community!
+                Join Our Community
               </Button>
             </div>
           </Grid>

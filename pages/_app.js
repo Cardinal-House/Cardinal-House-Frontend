@@ -26,6 +26,7 @@ function MyApp({ Component, pageProps }) {
     },
     typography: {
       fontFamily: [
+        'maritime_tropicalbold',
         'Segoe UI', 
         'Roboto', 
         'Oxygen',

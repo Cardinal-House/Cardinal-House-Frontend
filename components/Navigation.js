@@ -46,7 +46,7 @@ export default function Navigation({useDarkTheme, setUseDarkTheme}) {
                         <Navbar.Brand href="/">
                             <img alt="" src="/CardinalLogoLight.png" width="35" height="35" className={clsx(styles.logoImage, "align-top")} />
                             <Typography variant="p" className={styles.navBrandText}>
-                                Cardinal House
+                                <b>Cardinal House</b>
                             </Typography>
                         </Navbar.Brand>
                     </Container>
@@ -55,11 +55,6 @@ export default function Navigation({useDarkTheme, setUseDarkTheme}) {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav" className={styles.navBarItems}>
                     <Nav>
-                        <Nav.Link href="/" className={styles.navPadding}>
-                            <Typography variant="h6" className={clsx(useDarkTheme ? styles.navbarDarkCustom : styles.navbarLightCustom, styles.navText)}>
-                                Home
-                            </Typography>
-                        </Nav.Link>
                         <Nav.Link className={styles.navPadding} onClick={() => moveToSection("community")}>
                             <Typography variant="h6" className={clsx(useDarkTheme ? styles.navbarDarkCustom : styles.navbarLightCustom, styles.navText)}>
                                 Community
