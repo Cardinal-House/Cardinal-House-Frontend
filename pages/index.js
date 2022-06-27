@@ -38,11 +38,7 @@ export default function Home(props) {
         <Tokenomics useDarkTheme={props.useDarkTheme} />
 
         {/* ~~~~~ Growth Visual ~~~~~ */}
-        {
-          /*
-          <Growth useDarkTheme={props.useDarkTheme} />
-          */
-        }
+        <Growth useDarkTheme={props.useDarkTheme} />
 
         {/* ~~~~~ Roadmap ~~~~~ */}
         <Roadmap useDarkTheme={props.useDarkTheme} />

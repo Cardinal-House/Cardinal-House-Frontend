@@ -194,7 +194,7 @@
 .growthCard {
   color: white !important;
   border-radius: 7% !important;
-  height: 500px !important;
+  height: 676px !important;
   margin-top: 10% !important;
   margin-bottom: 10% !important;
   display: flex !important;
@@ -202,7 +202,32 @@
 }
 
 .growthCard1 {
-  background-image: url("../public/NatureClipArt.jpg") !important;
+  background-image: url("../public/Tree1.png") !important;
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
+  background-position-x: right !important;
+  background-position-y: bottom !important;
+}
+.growthCard2 {
+  background-image: url("../public/Tree2.png") !important;
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
+  background-position-x: right !important;
+  background-position-y: bottom !important;
+}
+.growthCard3 {
+  background-image: url("../public/Tree3.png") !important;
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
+  background-position-x: right !important;
+  background-position-y: bottom !important;
+}
+.growthCard4 {
+  background-image: url("../public/Tree4.png") !important;
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
+  background-position-x: right !important;
+  background-position-y: bottom !important;
 }
 
 .growthTimeText {
@@ -218,6 +243,21 @@
 
 .verticalTimelineDiv {
   text-align: left !important;
+}
+
+@media (max-width: 1350px) {
+  .growthCard1 {
+    background-image: url("../public/Tree1Grey.png") !important;
+  }
+  .growthCard2 {
+    background-image: url("../public/Tree2Grey.png") !important;
+  }
+  .growthCard3 {
+    background-image: url("../public/Tree3Grey.png") !important;
+  }
+  .growthCard4 {
+    background-image: url("../public/Tree4Grey.png") !important;
+  }
 }
 
 @media (min-width: 1200px) {

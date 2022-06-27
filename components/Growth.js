@@ -19,10 +19,10 @@ export default function Growth(props) {
   // Loads animations for elements of the page.
   useEffect(() => {
     gsap.fromTo(growthHeaderRef.current, {opacity: 0}, { opacity: 1, duration: 1, scrollTrigger: { trigger: "#growthHeader", start: "bottom bottom" } });
-    gsap.fromTo(growthCard1Ref.current, {opacity: 0}, { opacity: 1, duration: 1, scrollTrigger: { trigger: "#growthCard1", start: "bottom bottom" } });
-    gsap.fromTo(growthCard2Ref.current, {opacity: 0}, { opacity: 1, duration: 1, scrollTrigger: { trigger: "#growthCard2", start: "bottom bottom" } });
-    gsap.fromTo(growthCard3Ref.current, {opacity: 0}, { opacity: 1, duration: 1, scrollTrigger: { trigger: "#growthCard3", start: "bottom bottom" } });
-    gsap.fromTo(growthCard4Ref.current, {opacity: 0}, { opacity: 1, duration: 1, scrollTrigger: { trigger: "#growthCard4", start: "bottom bottom" } });
+    gsap.fromTo(growthCard1Ref.current, {opacity: 0}, { opacity: 1, duration: 1, scrollTrigger: { trigger: "#growthCard1", start: "top bottom" } });
+    gsap.fromTo(growthCard2Ref.current, {opacity: 0}, { opacity: 1, duration: 1, scrollTrigger: { trigger: "#growthCard2", start: "top bottom" } });
+    gsap.fromTo(growthCard3Ref.current, {opacity: 0}, { opacity: 1, duration: 1, scrollTrigger: { trigger: "#growthCard3", start: "top bottom" } });
+    gsap.fromTo(growthCard4Ref.current, {opacity: 0}, { opacity: 1, duration: 1, scrollTrigger: { trigger: "#growthCard4", start: "top bottom" } });
   }, [])
   
   return (
@@ -50,7 +50,7 @@ export default function Growth(props) {
           </Card>
         </Grid>
         <Grid item lg={5} md={5} sm={10} xs={12} className={styles.forCard}>
-          <Card id="growthCard2" ref={growthCard2Ref} className={clsx(styles.growthCard, styles.growthCard1)}>
+          <Card id="growthCard2" ref={growthCard2Ref} className={clsx(styles.growthCard, styles.growthCard2)}>
             <div>
               <CardContent>
                 <Typography variant="h4" component="div" className={styles.growthTimeText}>
@@ -70,7 +70,7 @@ export default function Growth(props) {
           </Card>
         </Grid>
         <Grid item lg={5} md={5} sm={10} xs={12} className={styles.forCard}>
-          <Card id="growthCard3" ref={growthCard3Ref} className={clsx(styles.growthCard, styles.growthCard1)}>
+          <Card id="growthCard3" ref={growthCard3Ref} className={clsx(styles.growthCard, styles.growthCard3)}>
             <div>
               <CardContent>
                 <Typography variant="h4" component="div" className={styles.growthTimeText}>
@@ -96,7 +96,7 @@ export default function Growth(props) {
           </Card>
         </Grid>
         <Grid item lg={5} md={5} sm={10} xs={12} className={styles.forCard}>
-          <Card id="growthCard4" ref={growthCard4Ref} className={clsx(styles.growthCard, styles.growthCard1)}>
+          <Card id="growthCard4" ref={growthCard4Ref} className={clsx(styles.growthCard, styles.growthCard4)}>
             <div>
               <CardContent>
                 <Typography variant="h4" component="div" className={styles.growthTimeText}>

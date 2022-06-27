@@ -7,10 +7,12 @@ import { useEffect, useRef } from 'react';
 
 import styles from '../styles/DApp.module.css';
 import cardinalHouseLogo from '../public/CardinalLogoLight.png';
+import marketplaceImage from '../public/MarketplaceArt.png';
 import auditingImage from '../public/Auditing.png';
 import kycImage from '../public/KYC.png';
 import amaImage from '../public/Ama.png';
 import liftOffImage from '../public/LiftOff.png';
+import cardinalPayImage from '../public/CardinalPay.png';
 
 export default function ServicesInfo(props) {
   gsap.registerPlugin(ScrollTrigger);
@@ -69,7 +71,7 @@ export default function ServicesInfo(props) {
   return (
     <div className={clsx("mt-5", styles.serviceInfoDiv, props.useDarkTheme ? styles.backgroundDark : styles.backgroundLight)}>
       <main className={styles.container}>
-        <Grid container justifyContent="center" alignItems="center" spacing={4}>
+        <Grid container justifyContent="center" alignItems="center" spacing={8}>
           <Grid item lg={3} md={2} sm={1} xs={0}></Grid>
           <Grid item lg={6} md={8} sm={10} xs={12} className={styles.headerTextGrid}>
             <Typography variant="h4" className={styles.headerText}>
@@ -94,7 +96,7 @@ export default function ServicesInfo(props) {
             </Typography>
           </Grid>
           <Grid item id="nftMarketplaceImage" ref={nftMarketplaceImageRef} lg={3} md={4} sm={8} xs={10}>
-            <Image src={cardinalHouseLogo} layout="responsive" />
+            <Image src={marketplaceImage} layout="responsive" />
           </Grid>
           <Grid id="nftMarketplaceText" ref={nftMarketplaceTextRef} item lg={7} md={6} sm={12} xs={12}>
             <Typography variant="h6">
@@ -226,7 +228,7 @@ export default function ServicesInfo(props) {
             </Typography>
           </Grid>
           <Grid item id="cardinalPayImage" ref={cardinalPayImageRef} className={styles.mobileImage} lg={3} md={4} sm={8} xs={10}>
-            <Image src={cardinalHouseLogo} layout="responsive" />
+            <Image src={cardinalPayImage} layout="responsive" />
           </Grid>
           <Grid item id="cardinalPayText" ref={cardinalPayTextRef} lg={7} md={6} sm={12} xs={12}>
             <Typography variant="h6">
@@ -241,7 +243,7 @@ export default function ServicesInfo(props) {
             </Typography>
           </Grid>
           <Grid item id="cardinalPayImage" ref={cardinalPayImageRef} className={styles.desktopImage} lg={3} md={4} sm={8} xs={10}>
-            <Image src={cardinalHouseLogo} layout="responsive" />
+            <Image src={cardinalPayImage} layout="responsive" />
           </Grid>
           <Grid item lg={6} md={8} sm={10} xs={10}>
             <Typography variant="h5" className={styles.pricingText}>
