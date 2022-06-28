@@ -282,10 +282,38 @@
   }
 }
 
-@media (max-width: 740px) {
+@media (max-width: 730px) {
   .introText {
-    max-width: 70% !important;
-    flex: 70% !important;
+    text-align: center !important;
+    max-width: 100% !important;
+    flex: 100% !important;
+  }
+
+  .introBtnGrid {
+    display: flex !important;
+    justify-content: center !important;
+  }
+
+  .introBackground {
+    height: 125vh !important;
+    text-align: center !important;
+    background-image: url("../public/IntroBackgroundTablet.png") !important;
+    background-position: right !important;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+  }
+}
+
+@media (max-width: 425px) {
+  .introBackground {
+    height: 175vh !important;
+    background-image: url("../public/IntroBackgroundMobile.png") !important;
+  }
+}
+
+@media (max-width: 400px) {
+  .introBackground {
+    height: 150vh !important;
   }
 }
 
