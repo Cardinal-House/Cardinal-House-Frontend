@@ -87,6 +87,10 @@ export default function Roadmap(props) {
               </Typography>
               <br/>
               <Typography variant="p">
+                <ArrowForwardIcon /> Cardinal Consultant Service
+              </Typography>
+              <br/>
+              <Typography variant="p">
                 <ArrowForwardIcon /> Release smart contract auditing service
               </Typography>
               <br/>

@@ -166,7 +166,7 @@ export default function ServicesInfo(props) {
           </Grid>
           <Grid item lg={6} md={8} sm={10} xs={10}>
             <Typography variant="h5" className={styles.pricingText}>
-              KYC Price: Starting at $500
+              KYC Price: Starting at $1500
             </Typography>
           </Grid>
 
@@ -194,7 +194,7 @@ export default function ServicesInfo(props) {
           </Grid>
           <Grid item lg={6} md={8} sm={10} xs={10}>
             <Typography variant="h5" className={styles.pricingText}>
-              AMA Price: Starting at $500
+              AMA Price: Reach Out to Us on Discord
             </Typography>
           </Grid>
 
