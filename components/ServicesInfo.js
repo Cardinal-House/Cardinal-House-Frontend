@@ -217,7 +217,7 @@ export default function ServicesInfo(props) {
           </Grid>
           <Grid item lg={6} md={8} sm={10} xs={10}>
             <Typography variant="h5" className={styles.pricingText}>
-              Lift-Off Presale Pricing: $1000
+              Lift-Off Presale Pricing: 2% of Funds Raised
             </Typography>
             <Typography variant="h5" className={styles.pricingText}>
               Lift-Off Token Launch Pricing: $500
