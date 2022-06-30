@@ -36,7 +36,7 @@ export default function ForCards(props) {
         <Typography id="tokenomicsSubHeader" ref={tokenomicsSubHeader} variant="h5" className={styles.tokenomicsSubHeader}>
           Each time someone pays for a Cardinal House service, they are using the Cardinal Token
           and thus they are generating volume for the project. Volume helps everyone for two reasons - 
-          transaction fees for marketing and member giveaways, and token burning to increase the scarcity of
+          transaction fees for marketing and member giveaways, and token burning to increase the scarcity, thus the value, of
           the Cardinal Token.
         </Typography>
       </Grid>

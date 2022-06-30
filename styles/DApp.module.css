@@ -2,6 +2,11 @@
     padding: 0 2rem;
 }
 
+.minHeightContainer {
+    min-height: 100vh !important;
+    padding-bottom: 10% !important;
+}
+
 .serviceInfoDiv {
     padding-bottom: 10% !important;
 }
@@ -31,6 +36,27 @@
     border-radius: 10px !important;
 }
 
+.discordBtnGrid {
+    text-align: center !important;
+}
+
+.discordBtnDark {
+    text-align: center !important;
+    margin: auto !important;
+}
+  
+.discordBtnLight {
+    text-align: center !important;
+}
+
+.discordBtnDark:hover {
+    color: white !important;
+}
+
+.discordBtnLight:hover {
+    color: white !important;
+}
+
 .backgroundLight {
     background-image: url("../public/LightThemeBackground.png") !important;
     background-repeat: no-repeat !important;
@@ -48,6 +74,16 @@ background-size: cover;
 }
 
 @media (max-width: 900px) {
+    .spacingGrid {
+        display: none !important;
+    }
+
+    .headerText {
+        margin-top: 5% !important;
+    }
+}
+
+@media (max-width: 900px) {
     .desktopImage {
         display: none !important;
     }
@@ -56,6 +92,12 @@ background-size: cover;
 @media (min-width: 900px) {
     .mobileImage {
         display: none !important;
+    }
+}
+
+@media (max-width: 475px) {
+    .serviceInfoDiv {
+        text-align: center !important;
     }
 }
 
@@ -163,7 +205,7 @@ background-size: cover;
     margin-top: 10% !important;
 }
 
-.CHESBalance {
+.CRNLBalance {
     margin-right: 2% !important;
 }
 
@@ -295,7 +337,7 @@ background-size: cover;
     margin: auto !important;
 }
 
-.CHESPurchaseInput {
+.CRNLPurchaseInput {
     margin-top: 8% !important;
     margin-bottom: 5% !important;
 }
@@ -426,7 +468,7 @@ background-size: cover;
 }
 
 @media (max-width: 1050px) {
-    .CHESBalance {
+    .CRNLBalance {
         display: none !important;
     }
 }
@@ -438,21 +480,21 @@ background-size: cover;
     .tokenClaimV2BalanceGrid {
         display: none !important;
     }
-    .CHESBalanceSmall {
+    .CRNLBalanceSmall {
         display: none !important;
     }
 }
 @media (max-width: 1250px) {
-    .CHESPrice {
+    .CRNLPrice {
         display: none !important;
     }
 }
 
 @media (min-width: 1250px) {
-    .CHESPriceSmall {
+    .CRNLPriceSmall {
         display: none !important;
     }
-    .CHESPriceVal {
+    .CRNLPriceVal {
         margin-right: 2% !important;
     }
 }

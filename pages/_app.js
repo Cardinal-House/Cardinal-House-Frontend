@@ -102,9 +102,9 @@ function MyApp({ Component, pageProps }) {
   }, [useDarkTheme]);
 
   const config = {
-    readOnlyChainId: BSC.chainID,
+    readOnlyChainId: Polygon.chainId,
     readOnlyUrls: {
-      [BSC.chainID]: 'https://bsc-dataseed.binance.org/',
+      [Polygon.chainID]: 'https://speedy-nodes-nyc.moralis.io/870774d741e3ec64b96b2a83/polygon/mainnet',
     },
     networks: [BSC, BSCTestnet, Polygon, Mumbai],
   }

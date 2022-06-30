@@ -56,26 +56,26 @@ const drawerWidth = 240;
 
 const networkData = [
     {
-      chainId: "0x38",
-      chainName: "BSCMAINET",
-      rpcUrls: ["https://bsc-dataseed1.binance.org"],
+      chainId: "0x89",  // Polygon is chain ID 137 which is 0x89 in hex
+      chainName: "POLYGON",
+      rpcUrls: ["https://speedy-nodes-nyc.moralis.io/870774d741e3ec64b96b2a83/polygon/mainnet"],
       nativeCurrency: {
-        name: "BINANCE COIN",
-        symbol: "BNB",
+        name: "MATIC",
+        symbol: "MATIC",
         decimals: 18,
       },
-      blockExplorerUrls: ["https://bscscan.com/"],
+      blockExplorerUrls: ["https://polygonscan.com/"],
     },
 ];
 
-const rpcEndpoint = "https://bsc-dataseed.binance.org/";
-const binanceChainId = 56;
+const rpcEndpoint = "https://speedy-nodes-nyc.moralis.io/870774d741e3ec64b96b2a83/polygon/mainnet";
+const polygonChainId = 137;
 
 export default function DApp(props) {
     const theme = useTheme();
 
     const { account, activateBrowserWallet, deactivate, chainId } = useEthers();
-    const networkName = "bsctest";
+    const networkName = "polygon";
     const CardinalTokenAddress = chainId ? chainConfig["CardinalTokenAddresses"][networkName] : constants.AddressZero
     const tokenBalance = useTokenBalance(CardinalTokenAddress, account);
     // const tokenPriceCG = useCoingeckoPrice('cardinal-house', 'usd');
@@ -89,8 +89,7 @@ export default function DApp(props) {
     const [tempTokenBalance, setTempTokenBalance] = useState(0);
     const [tokenPricePercentChange, setTokenPricePercentChange] = useState(0.0);
 
-    if (account && chainId != "97" && chainId != 97 && !showWrongNetwork) {
-        console.log("test")
+    if (account && chainId != "137" && chainId != 137 && !showWrongNetwork) {
         setShowWrongNetwork(true);
         window.ethereum.request({
 
@@ -103,15 +102,15 @@ export default function DApp(props) {
 
     /*
     async function updateTempTokenBalance() {
-        const chesABI = CHESToken.abi;
-        const provider = new ethers.providers.JsonRpcProvider(rpcEndpoint, { name: networkName, chainId: binanceChainId });
-        const CHESContract = new ethers.Contract(CHESAddress, chesABI, provider);
-        const userBalance = await CHESContract.balanceOf(account);
+        const cardinalTokenABI = CardinalToken.abi;
+        const provider = new ethers.providers.JsonRpcProvider(rpcEndpoint, { name: networkName, chainId: polygonChainId });
+        const CardinalTokenContract = new ethers.Contract(CardinalTokenAddress, cardinalTokenABI, provider);
+        const userBalance = await CardinalTokenContract.balanceOf(account);
         setTempTokenBalance(userBalance);
     }
     
     useEffect(() => {
-        if (account && (chainId == 56 || chainId == "56")) {
+        if (account && (chainId == 137 || chainId == "137")) {
             updateTempTokenBalance();
         }
     }, [chainId])
@@ -219,8 +218,8 @@ export default function DApp(props) {
                 {
                     /*
                     tokenPriceCG && (
-                        <Typography variant="h6" component="div" className={styles.CHESPrice}>
-                            CHES:&nbsp;
+                        <Typography variant="h6" component="div" className={styles.CRNLPrice}>
+                            CRNL:&nbsp;
                         </Typography>
                     )
                     */
@@ -228,7 +227,7 @@ export default function DApp(props) {
                 {
                     /*
                     tokenPriceCG && (
-                        <Typography variant="h6" component="div" className={clsx(styles.CHESPrice, styles.CHESPriceVal, tokenPricePercentChange > 0 ? props.useDarkTheme ? styles.greenPriceDark : styles.greenPriceLight : styles.redPrice)}>
+                        <Typography variant="h6" component="div" className={clsx(styles.CRNLPrice, styles.CRNLPriceVal, tokenPricePercentChange > 0 ? props.useDarkTheme ? styles.greenPriceDark : styles.greenPriceLight : styles.redPrice)}>
                             ${tokenPriceCG} ({tokenPricePercentChange}%)
                         </Typography>
                     )
@@ -238,11 +237,11 @@ export default function DApp(props) {
                 {
                     /*
                     isConnected && (
-                        <Typography variant="h6" component="div" className={styles.CHESBalance}>
+                        <Typography variant="h6" component="div" className={styles.CRNLBalance}>
                             Balance:&nbsp; 
                             {tokenBalance && Number((+ethers.utils.formatEther(BigInt(tokenBalance._hex).toString(10))).toFixed(2)).toLocaleString()}
                             {tempTokenBalance ? !tokenBalance ? Number((+ethers.utils.formatEther(BigInt(tempTokenBalance._hex).toString(10))).toFixed(2)).toLocaleString() : "" : 0}
-                            &nbsp;CHES
+                            &nbsp;CRNL
                         </Typography>
                     )
                     */
@@ -369,18 +368,18 @@ export default function DApp(props) {
                 </ListItem>
                 </List>
 
-                <Divider className={styles.CHESPriceSmall} />
+                <Divider className={styles.CRNLPriceSmall} />
 
                 {/*
                 <List>
                 {
                     isConnected && (
                         <ListItem>
-                            <Typography variant="p" component="div" className={clsx(styles.CHESBalanceSmall, "mb-2")}>
+                            <Typography variant="p" component="div" className={clsx(styles.CRNLBalanceSmall, "mb-2")}>
                                 Balance:&nbsp; 
                                 {tokenBalance && Number((+ethers.utils.formatEther(BigInt(tokenBalance._hex).toString(10))).toFixed(2)).toLocaleString()}
                                 {tempTokenBalance ? !tokenBalance ? Number((+ethers.utils.formatEther(BigInt(tempTokenBalance._hex).toString(10))).toFixed(2)).toLocaleString() : "" : 0}
-                                &nbsp;CHES
+                                &nbsp;CRNL
                             </Typography>
                         </ListItem>
                     )
@@ -389,8 +388,8 @@ export default function DApp(props) {
                 {
                     tokenPriceCG && (
                         <ListItem>
-                            <Typography variant="p" component="div" className={styles.CHESPriceSmall}>
-                                CHES:&nbsp;
+                            <Typography variant="p" component="div" className={styles.CRNLPriceSmall}>
+                                CRNL:&nbsp;
                             </Typography>
                         </ListItem>
                     )
@@ -398,7 +397,7 @@ export default function DApp(props) {
                 {
                     tokenPriceCG && (
                         <ListItem>
-                            <Typography variant="p" component="div" className={clsx(styles.CHESPriceSmall, tokenPricePercentChange > 0 ? props.useDarkTheme ? styles.greenPriceDark : styles.greenPriceLight : styles.redPrice)}>
+                            <Typography variant="p" component="div" className={clsx(styles.CRNLPriceSmall, tokenPricePercentChange > 0 ? props.useDarkTheme ? styles.greenPriceDark : styles.greenPriceLight : styles.redPrice)}>
                                 ${tokenPriceCG} ({tokenPricePercentChange}%)
                             </Typography>
                         </ListItem>

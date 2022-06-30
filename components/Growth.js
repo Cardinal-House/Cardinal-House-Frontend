@@ -43,7 +43,7 @@ export default function Growth(props) {
                   <IoMdCheckmarkCircleOutline /> Memberships
                 </Typography>
                 <Typography variant="h5" component="div" className="mt-2">
-                  <IoMdCheckmarkCircleOutline /> NFT marketplace
+                  <IoMdCheckmarkCircleOutline /> AMAs
                 </Typography>
               </CardContent>
             </div>
@@ -58,6 +58,9 @@ export default function Growth(props) {
                 </Typography>
                 <Typography variant="h5" component="div">
                   <IoMdCheckmarkCircleOutline /> Memberships
+                </Typography>
+                <Typography variant="h5" component="div" className="mt-2">
+                  <IoMdCheckmarkCircleOutline /> AMAs
                 </Typography>
                 <Typography variant="h5" component="div" className="mt-2">
                   <IoMdCheckmarkCircleOutline /> NFT marketplace
@@ -78,6 +81,9 @@ export default function Growth(props) {
                 </Typography>
                 <Typography variant="h5" component="div">
                   <IoMdCheckmarkCircleOutline /> Memberships
+                </Typography>
+                <Typography variant="h5" component="div" className="mt-2">
+                  <IoMdCheckmarkCircleOutline /> AMAs
                 </Typography>
                 <Typography variant="h5" component="div" className="mt-2">
                   <IoMdCheckmarkCircleOutline /> NFT marketplace
@@ -104,6 +110,9 @@ export default function Growth(props) {
                 </Typography>
                 <Typography variant="h5" component="div">
                   <IoMdCheckmarkCircleOutline /> Memberships
+                </Typography>
+                <Typography variant="h5" component="div" className="mt-2">
+                  <IoMdCheckmarkCircleOutline /> AMAs
                 </Typography>
                 <Typography variant="h5" component="div" className="mt-2">
                   <IoMdCheckmarkCircleOutline /> NFT marketplace

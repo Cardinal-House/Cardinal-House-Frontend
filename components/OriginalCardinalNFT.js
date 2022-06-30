@@ -14,7 +14,7 @@ import CardinalNFT from "../contracts/CardinalNFT.json";
 
 export default function OriginalCardinalNFT(props) {
     const { account, chainId } = useEthers();
-    const networkName = "bsctest";
+    const networkName = "polygon";
     const cardinalNFTABI = CardinalNFT.abi;
     const CardinalNFTAddress = chainId ? chainConfig["CardinalNFTAddresses"][networkName] : constants.AddressZero
     const isConnected = account !== undefined && chainId == 97;
@@ -100,7 +100,7 @@ export default function OriginalCardinalNFT(props) {
             <Typography variant="h6">
               There are many benefits to being a Cardinal House member, including exclusive educational content,
               Cardinal Token giveaways, whitelist spots for projects that come into the community for AMAs,
-              and special events hosted for members only such as technical analysis sessions, interviews with project
+              special events hosted for members only such as technical analysis sessions, interviews with project
               owners, and so much more!
             </Typography>
           </Grid>

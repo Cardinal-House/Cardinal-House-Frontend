@@ -72,23 +72,23 @@ export default function ServicesInfo(props) {
     <div className={clsx("mt-5", styles.serviceInfoDiv, props.useDarkTheme ? styles.backgroundDark : styles.backgroundLight)}>
       <main className={styles.container}>
         <Grid container justifyContent="center" alignItems="center" spacing={8}>
-          <Grid item lg={3} md={2} sm={1} xs={0}></Grid>
-          <Grid item lg={6} md={8} sm={10} xs={12} className={styles.headerTextGrid}>
+          <Grid item lg={3} md={2} sm={0} xs={0} className={styles.spacingGrid}></Grid>
+          <Grid item lg={6} md={8} sm={12} xs={12} className={styles.headerTextGrid}>
             <Typography variant="h4" className={styles.headerText}>
               Cardinal House DApp Services Preview
             </Typography>
           </Grid>
-          <Grid item lg={3} md={2} sm={1} xs={0}></Grid>
+          <Grid item lg={3} md={2} sm={0} xs={0} className={styles.spacingGrid}></Grid>
 
-          <Grid item lg={2} md={2} sm={1} xs={0}></Grid>
-          <Grid item lg={8} md={8} sm={10} xs={12} className="mt-2 text-center">
+          <Grid item lg={2} md={2} sm={0} xs={0} className={styles.spacingGrid}></Grid>
+          <Grid item lg={8} md={8} sm={12} xs={12} className="mt-2 text-center">
             <Typography variant="h6">
               The Cardinal House DApp will be live next month starting with the NFT marketplace.
               Below is a list of all services that will be released on the DApp with information
               and pricing for each. All services will be paid for on the DApp using the Cardinal Token.
             </Typography>
           </Grid>
-          <Grid item lg={2} md={2} sm={1} xs={0}></Grid>
+          <Grid item lg={2} md={2} sm={0} xs={0} className={styles.spacingGrid}></Grid>
 
           <Grid item xs={12}>
             <Typography variant="h4" id="nftMarketplaceHeader" ref={nftMarketplaceHeaderRef} className={styles.serviceHeaderText}>

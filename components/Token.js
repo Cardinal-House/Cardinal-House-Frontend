@@ -35,7 +35,7 @@ export default function Token(props) {
         </Typography>
         <div id="tokenText" ref={tokenTextRef}>
           <Typography variant="p">
-            Each part of the Cardinal House ecosystem is tied together through the Cardinal Token.
+            Each part of the Cardinal House ecosystem is tied together through the Cardinal Token, which will launch in August later this year.
             This token will be used for purchasing memberships, AMAs, and our crypto services on the DApp.
             The growth of Cardinal House will be driven in many ways by the Cardinal Token, as it is
             the currency of our ecosystem. The two main purposes of the Cardinal Token are to have a transaction
