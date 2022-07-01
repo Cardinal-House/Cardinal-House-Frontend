@@ -234,8 +234,8 @@ export default function ServicesInfo(props) {
           </Grid>
           <Grid item id="cardinalPayText" ref={cardinalPayTextRef} lg={7} md={6} sm={12} xs={12}>
             <Typography variant="h6">
-              Cardinal Pay is Cardinal House&#8216;s esgrow service.
-              An esgrow service is a way for one party to pay for the services of another party
+              Cardinal Pay is Cardinal House&#8216;s escrow service.
+              An escrow service is a way for one party to pay for the services of another party
               without either needing to trust the other to uphold their end of the bargain.
               The party receiving the service pays into a smart contract on the blockchain that holds
               the funds until the party providing the services finishes the job. If both parties
