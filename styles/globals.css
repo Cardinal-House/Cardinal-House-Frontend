@@ -4,6 +4,7 @@
   --red-primary-color: #ff0000;
 }
 
+/*
 @font-face {
   font-family: 'maritime_tropicalmedium';
   src: url('../font/maritime_tropical-webfont.woff2') format('woff2'),
@@ -19,6 +20,7 @@
   font-weight: normal;
   font-style: normal;
 }
+*/
 
 html,
 body {
@@ -26,8 +28,8 @@ body {
   margin: 0;
   /*font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;*/
-  font-family: maritime_tropicalbold, Segoe UI, Roboto, Oxygen,
-  Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif !important;
+  font-family: Nunito Sans, sans-serif, Segoe UI, Roboto, Oxygen,
+  Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue !important;
 }
 
 a {

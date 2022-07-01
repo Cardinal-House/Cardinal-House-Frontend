@@ -26,7 +26,8 @@ function MyApp({ Component, pageProps }) {
     },
     typography: {
       fontFamily: [
-        'maritime_tropicalbold',
+        'Nunito Sans',
+        'sans-serif',
         'Segoe UI', 
         'Roboto', 
         'Oxygen',
@@ -34,8 +35,7 @@ function MyApp({ Component, pageProps }) {
         'Cantarell', 
         'Fira Sans', 
         'Droid Sans', 
-        'Helvetica Neue', 
-        'sans-serif'
+        'Helvetica Neue'
       ].join(','),
     },
   });
@@ -58,10 +58,8 @@ function MyApp({ Component, pageProps }) {
     },
     typography: {
       fontFamily: [
-        'Lucida Handwriting',
-        'cursive',
-        '-apple-system',
-        'BlinkMacSystemFont', 
+        'Nunito Sans',
+        'sans-serif',
         'Segoe UI', 
         'Roboto', 
         'Oxygen',
@@ -69,8 +67,7 @@ function MyApp({ Component, pageProps }) {
         'Cantarell', 
         'Fira Sans', 
         'Droid Sans', 
-        'Helvetica Neue', 
-        'sans-serif'
+        'Helvetica Neue'
       ].join(','),
     },
   });
@@ -116,6 +113,9 @@ function MyApp({ Component, pageProps }) {
           <title>Cardinal House</title>
           <meta name="description" content="Cardinal House" />
           <link rel="icon" href="/favicon.ico" />
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+          <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@600&display=swap" rel="stylesheet" />
         </Head>
         <Paper className="mainPaper">
           <Component {...pageProps} useDarkTheme={useDarkTheme} setUseDarkTheme={setUseDarkTheme} />
