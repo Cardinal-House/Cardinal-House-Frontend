@@ -106,7 +106,7 @@ export default function ServicesInfo(props) {
               the Original Cardinal NFTs are given to upstanding members
               of the community and give the holder a free lifetime membership, and the services NFTs
               will be given to projects that purchase services on our DApp as proof that they are audited by us,
-              KYC'd by us, used our launch pad for their pre-sale, etc. Before out token launch, memberships will
+              KYC'd by us, used our launch pad for their pre-sale, etc. Before our token launch, memberships will
               be purchased on our Discord server. But once the Cardinal Token is launched, you'll purchase
               your memberships here on the Cardinal House Marketplace!
 
