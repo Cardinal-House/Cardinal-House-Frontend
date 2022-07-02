@@ -38,7 +38,7 @@ export default function Services(props) {
         <div id="servicesText" ref={servicesTextRef}>
           <Typography variant="p">
             Cardinal House will offer many crypto services such as auditing, marketing, an NFT marketplace, 
-            a KYC service, a launchpad service (Lift-Off), and an esgrow service (Cardinal Pay). 
+            a KYC service, a launchpad service (Lift-Off), and an escrow service (Cardinal Pay). 
             These services will be added to our ecosystem over time and will be a way for projects that come
             into our community for AMAs to further use our platform for the benefit of their project 
             <i> and</i> the Cardinal House community.
