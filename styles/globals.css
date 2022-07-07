@@ -2,6 +2,7 @@
   --dark-theme-primary-color: #1649ff;
   --light-theme-primary-color: #70c1ff;
   --red-primary-color: #ff0000;
+  --education-center-primary: #d6f8f5;
 }
 
 /*
@@ -28,7 +29,7 @@ body {
   margin: 0;
   /*font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;*/
-  font-family: Nunito Sans, sans-serif, Segoe UI, Roboto, Oxygen,
+  font-family: Kanit, Merriweather Sans, Nunito Sans, sans-serif, Segoe UI, Roboto, Oxygen,
   Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue !important;
 }
 
@@ -73,4 +74,41 @@ a {
 .timeline-light-theme .vertical-timeline-element-icon {
   /*box-shadow: 0 0 0 4px #06277d !important;*/
   box-shadow: 0 0 0 4px #48494f !important;
+}
+
+.educationCenterBox .MuiToolbar-gutters {
+  background-color: black !important;
+  margin-right: 0px !important;
+}
+
+.educationCenterBox .MuiDrawer-paper {
+  background-color: var(--education-center-primary) !important;
+  box-shadow: 2px 0 10px -5px #000000;
+}
+
+.EducationCenter_drawerContainer__tlsws .MuiDrawer-paper {
+  background-color: var(--education-center-primary) !important;
+  box-shadow: 2px 0 10px -5px #000000;
+}
+
+.css-h4y409-MuiList-root {
+  padding-top: 0 !important;
+}
+
+.introBtn .MuiListItemText-primary {
+  font-size: 18px !important;
+}
+
+.categoryBtn .MuiListItemText-primary {
+  font-size: 18px !important;
+  margin-bottom: 3% !important;
+}
+
+.videoBtn .MuiListItemText-primary {
+  margin-bottom: 3% !important;
+}
+
+.videoPlayer {
+  margin-left: auto !important;
+  margin-right: auto !important;
 }

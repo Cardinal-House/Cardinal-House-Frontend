@@ -6,6 +6,10 @@
     justify-content: center;
     align-items: center;
 }
+
+.lightFooter {
+    background-color: var(--education-center-primary) !important;
+}
   
 .footer a {
     display: flex;

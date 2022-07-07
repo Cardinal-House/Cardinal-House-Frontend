@@ -1,0 +1,148 @@
+.mainContent {
+    min-height: 100vh !important;
+    background-color: var(--education-center-primary) !important;
+}
+
+.drawerContainer {}
+
+.educationCenterIntroGrid {
+    margin-top: 3% !important;
+    text-align: center !important;
+    padding: 0 2rem;
+}
+
+.headerText {
+    color: var(--red-primary-color) !important;
+    border-bottom: 5px solid var(--red-primary-color);
+}
+
+.toolbar {
+    /*background-color: #5decff !important;*/
+    background-color: black !important;
+    color: white !important;
+}
+
+.toolbarDiv {
+    background-color: black !important;
+    color: white !important;
+    height: 80px !important;
+    box-shadow: 0 4px 10px -4px #000000 !important;
+}
+
+.logoImage {
+    display: inline-block!important;
+}
+
+.navIcons {
+    font-size: 20px !important;
+}
+
+.categoryBtn {
+    font-size: 50px !important;
+}
+
+.checkBoxIcon {
+    margin-right: 5% !important;
+}
+
+.playCircleIcon {
+    margin-right: 2% !important;
+}
+
+.resetProgressBtn {
+    font-size: 15px !important;
+}
+
+.lengthText {
+    margin-top: 5% !important;
+}
+
+.currSelected {
+    background-color: rgba(0, 0, 0, 0.3) !important;
+}
+
+.reactPlayerContainer {
+    position: relative !important;
+    padding-top: 40% !important;
+    /* padding-top: 56.25% !important; */ /* 720 / 1280 = 0.5625 */
+}
+
+.titleGrid {
+    padding-left: 5% !important;
+    padding-right: 5% !important;
+    margin-top: 0.2% !important;
+    margin-bottom: 3% !important;
+}
+
+.descriptionGrid {
+    padding-left: 5% !important;
+    padding-right: 5% !important;
+    margin-top: 0.2% !important;
+    margin-bottom: 3% !important;
+}
+
+.reactPlayer {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+}
+
+.introBtnText {
+    margin-top: 4% !important;
+    margin-bottom: 4% !important;
+}
+
+.videoPlayerGrid {
+    /*
+    max-width: 100% !important;
+    flex-basis: 100% !important;
+    */
+    display: flex !important;
+    justify-content: center !important;
+}
+
+.title {
+    margin-top: 2% !important;
+    text-align: center !important;
+}
+
+.descriptionHeader {
+    text-align: left !important;
+    margin-bottom: 2% !important;
+}
+
+.description {
+    text-align: left !important;
+}
+
+@media (max-width: 1200px) {
+   .descriptionHeader {
+       margin-top: 3% !important;
+   } 
+}
+
+@media (max-width: 1200px) {
+    .reactPlayerContainer {
+        padding-top: 56.25% !important; /* 720 / 1280 = 0.5625 */
+    }
+}
+
+@media (max-width: 750px) {
+    .descriptionHeader {
+        text-align: center !important;
+    }
+
+    .description {
+        text-align: center !important;
+    }
+
+    .resetProgressBtnLarge {
+        display: none !important;
+    }
+}
+
+@media (min-width: 750px) {
+    .resetProgressBtnSmall {
+        display: none !important;
+    }
+}

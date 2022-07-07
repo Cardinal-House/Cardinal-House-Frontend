@@ -26,6 +26,8 @@ function MyApp({ Component, pageProps }) {
     },
     typography: {
       fontFamily: [
+        'Kanit',
+        'Merriweather Sans',
         'Nunito Sans',
         'sans-serif',
         'Segoe UI', 
@@ -115,7 +117,8 @@ function MyApp({ Component, pageProps }) {
           <link rel="icon" href="/favicon.ico" />
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-          <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@600&display=swap" rel="stylesheet" />
+          {/*<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@600&display=swap" rel="stylesheet" />*/}
+          <link href="https://fonts.googleapis.com/css2?family=Kanit&family=Merriweather+Sans:wght@500&family=Nunito+Sans:wght@600&family=Prompt&display=swap" rel="stylesheet" />
         </Head>
         <Paper className="mainPaper">
           <Component {...pageProps} useDarkTheme={useDarkTheme} setUseDarkTheme={setUseDarkTheme} />
