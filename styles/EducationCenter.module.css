@@ -8,12 +8,12 @@
 .educationCenterIntroGrid {
     margin-top: 3% !important;
     text-align: center !important;
-    padding: 0 2rem;
+    padding: 0 2rem !important;
 }
 
 .headerText {
     color: var(--red-primary-color) !important;
-    border-bottom: 5px solid var(--red-primary-color);
+    border-bottom: 5px solid var(--red-primary-color) !important;
 }
 
 .toolbar {
@@ -22,11 +22,18 @@
     color: white !important;
 }
 
+.testDiv {
+    position: fixed !important;
+}
+
 .toolbarDiv {
     background-color: black !important;
     color: white !important;
     height: 80px !important;
     box-shadow: 0 4px 10px -4px #000000 !important;
+    position: sticky !important;
+    top: -16px !important;
+    z-index: 100000 !important;
 }
 
 .logoImage {

@@ -24,8 +24,10 @@ export default function EducationCenterIntro(props) {
       </Grid>
       <Grid item lg={10} md={10} sm={10} xs={12} className="mt-2 text-center">
         <Typography variant="h6">
-          For the best experience, use the education center on a larger screen. Your progress through the educational
-          content will also be tracked on your current device so you can come back to where you left off!
+          For the best experience, use the education center on a larger screen. You can start from the beginning
+          of the content or scroll through the navigation to find the section that interests you the most!
+          Your progress through the educational content will also be tracked on your current device so you can come 
+          back to where you left off!
         </Typography>
       </Grid>
       <Grid item lg={4} md={5} sm={8} xs={10}>

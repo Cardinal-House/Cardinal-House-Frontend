@@ -32,7 +32,7 @@ import styles from '../styles/EducationCenter.module.css';
 
 const drawerWidth = 300;
 
-function ResponsiveDrawer(props) {
+export default function EducationCenter(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
   const [videos, setVideos] = useState([]);
@@ -137,6 +137,37 @@ function ResponsiveDrawer(props) {
       localStorage.setItem("CardinalHouseEducationCenterVideosWatched", "{}");
   }
 
+  const calcVideosViewedInCategory = (currCategory) => {
+    const videosInCategory = videosByCategory[currCategory];
+    let currVideosWatchedCount = 0;
+
+    for (let i = 0; i < videosInCategory.length; i++) {
+        if (videosWatched[videosInCategory[i]._id]) {
+            currVideosWatchedCount += 1;
+        }
+    }
+
+    return currVideosWatchedCount.toString();
+  }
+
+  const addVideo = () => {
+      axios.post("/api/addvideo", {
+          title: "test title",
+          link: "test link",
+          description: "test description",
+          category: "test category",
+          videoOrder: 1,
+          categoryOrder: 5,
+          minutes: 10,
+      })  
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+
   const drawer = (
     <div>
       {/*
@@ -168,9 +199,29 @@ function ResponsiveDrawer(props) {
         </ListItem>
         {
             categories.length == 0 && (
-                <Typography key="Loading" variant="p">
-                    Loading...
-                </Typography>
+                <ListItem className="loadingText" key="Loading">
+                    <ListItemText primary="Loading..." />
+                </ListItem>
+            )
+        }
+        {
+            categories.length > 0 && (
+                <ListItem key="Back to Homepage" button onClick={() => {window.location.href = `${window.location.origin}`}}>
+                    <ListItemIcon>
+                        <AiFillHome className={styles.navIcons} />
+                    </ListItemIcon>
+                    <ListItemText primary="Back to Home Page" />
+                </ListItem>
+            )
+        }
+        {
+            categories.length > 0 && (
+                <ListItem key="Reset Progress" button onClick={resetVideosWatched} className={styles.resetProgressBtnSmallTemp}>
+                    <ListItemIcon>
+                        <RestartAltIcon className={styles.navIcons} />
+                    </ListItemIcon>
+                    <ListItemText primary="Reset Progress" />
+                </ListItem>
             )
         }
         {
@@ -179,7 +230,7 @@ function ResponsiveDrawer(props) {
                     <>
                     <ListItem key={category} disablePadding>
                         <ListItemButton className="categoryBtn" onClick={() => updateCategory(category)}>
-                            <ListItemText primary={category} secondary={`${videosByCategory[category].length} video(s) | ${videoLengthByCategory[category]} min`} />
+                            <ListItemText primary={category} secondary={`${calcVideosViewedInCategory(category)} / ${videosByCategory[category].length} | ${videoLengthByCategory[category]} min`} />
                             {expandedCategories.includes(category) ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
                         </ListItemButton>
                     </ListItem>
@@ -209,18 +260,6 @@ function ResponsiveDrawer(props) {
                 ))
             )
         }
-        <ListItem key="Back to Homepage" button onClick={() => {window.location.href = `${window.location.origin}`}}>
-            <ListItemIcon>
-                <AiFillHome className={styles.navIcons} />
-            </ListItemIcon>
-            <ListItemText primary="Back to Home Page" />
-        </ListItem>
-        <ListItem key="Reset Progress" button onClick={resetVideosWatched} className={styles.resetProgressBtnSmallTemp}>
-            <ListItemIcon>
-                <RestartAltIcon className={styles.navIcons} />
-            </ListItemIcon>
-            <ListItemText primary="Reset Progress" />
-        </ListItem>
       </List>
     </div>
   );
@@ -255,6 +294,12 @@ function ResponsiveDrawer(props) {
             <Button size="small" variant="contained" color="primary" onClick={resetVideosWatched}
                 className={clsx(styles.resetProgressBtn, styles.resetProgressBtnLarge)}>
                 Reset Progress
+            </Button>
+            */}
+            {/*
+            <Button size="small" variant="contained" color="primary" onClick={addVideo}
+                className={clsx(styles.resetProgressBtn, styles.resetProgressBtnLarge)}>
+                Add Video
             </Button>
             */}
         </Toolbar>
@@ -340,5 +385,3 @@ function ResponsiveDrawer(props) {
     </Box>
   );
 }
-
-export default ResponsiveDrawer;

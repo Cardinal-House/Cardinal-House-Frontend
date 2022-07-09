@@ -99,6 +99,12 @@ a {
   font-size: 18px !important;
 }
 
+.loadingText .MuiListItemText-primary {
+  margin-top: 5% !important;
+  margin-bottom: 5% !important;
+  font-size: 18px !important;
+}
+
 .categoryBtn .MuiListItemText-primary {
   font-size: 18px !important;
   margin-bottom: 3% !important;
@@ -111,4 +117,30 @@ a {
 .videoPlayer {
   margin-left: auto !important;
   margin-right: auto !important;
+}
+
+.MuiTablePagination-toolbar p {
+  margin-top: 14px !important;
+}
+
+@media (min-width: 600px) {
+  /* width */
+  ::-webkit-scrollbar {
+    width: 0px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888; 
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+  }
 }
