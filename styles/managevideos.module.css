@@ -35,6 +35,15 @@
     background-color: white !important;
 }
 
+.modalSecondaryHeader {
+    margin-bottom: 5% !important;
+}
+
+.videoTextField {
+    margin-bottom: 5% !important;
+    width: 100% !important;
+}
+
 .backgroundLight {
     background-image: url("../public/LightThemeBackground.png") !important;
     background-repeat: no-repeat !important;
@@ -51,7 +60,7 @@
     text-align: center !important;
     margin-bottom: 1% !important;
     color: var(--red-primary-color) !important;
-    border-bottom: 5px solid var(--red-primary-color);
+    border-bottom: 5px solid var(--red-primary-color) !important;
 }
 
 .headerText {
@@ -61,6 +70,22 @@
 
 .teamImage {
     border-radius: 15px !important;
+}
+
+.modalHeader {
+    background-color: rgb(238, 238, 238) !important;
+}
+
+.modalBody {
+    background-color: rgb(238, 238, 238) !important;
+}
+
+.modalHeaderText {
+    color: var(--red-primary-color) !important;
+}
+
+.circularProgress {
+    color: black !important;
 }
 
 .customCard {

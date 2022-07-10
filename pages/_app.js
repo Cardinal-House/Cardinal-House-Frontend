@@ -26,9 +26,9 @@ function MyApp({ Component, pageProps }) {
     },
     typography: {
       fontFamily: [
+        'Nunito Sans',
         'Kanit',
         'Merriweather Sans',
-        'Nunito Sans',
         'sans-serif',
         'Segoe UI', 
         'Roboto', 

@@ -33,7 +33,7 @@ import styles from '../styles/EducationCenter.module.css';
 const drawerWidth = 300;
 
 export default function EducationCenter(props) {
-  const { window } = props;
+  const { window2 } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
   const [videos, setVideos] = useState([]);
   const [videosByCategory, setVideosByCategory] = useState({});
@@ -150,24 +150,6 @@ export default function EducationCenter(props) {
     return currVideosWatchedCount.toString();
   }
 
-  const addVideo = () => {
-      axios.post("/api/addvideo", {
-          title: "test title",
-          link: "test link",
-          description: "test description",
-          category: "test category",
-          videoOrder: 1,
-          categoryOrder: 5,
-          minutes: 10,
-      })  
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }
-
   const drawer = (
     <div>
       {/*
@@ -264,7 +246,7 @@ export default function EducationCenter(props) {
     </div>
   );
 
-  const container = window !== undefined ? () => window().document.body : undefined;
+  const container = window2 !== undefined ? () => window2().document.body : undefined;
 
   return (
     <Box sx={{ display: 'flex' }} className="educationCenterBox">
@@ -289,19 +271,6 @@ export default function EducationCenter(props) {
           <Typography variant="h5" noWrap component="div" sx={{ flexGrow: 1 }}>
             Education Center {selectedVideo.title ? "-" : ""} {selectedVideo.title}
           </Typography>
-
-            {/*
-            <Button size="small" variant="contained" color="primary" onClick={resetVideosWatched}
-                className={clsx(styles.resetProgressBtn, styles.resetProgressBtnLarge)}>
-                Reset Progress
-            </Button>
-            */}
-            {/*
-            <Button size="small" variant="contained" color="primary" onClick={addVideo}
-                className={clsx(styles.resetProgressBtn, styles.resetProgressBtnLarge)}>
-                Add Video
-            </Button>
-            */}
         </Toolbar>
       </AppBar>
       <Box
