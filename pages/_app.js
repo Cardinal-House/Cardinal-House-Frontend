@@ -103,7 +103,7 @@ function MyApp({ Component, pageProps }) {
   const config = {
     readOnlyChainId: Polygon.chainId,
     readOnlyUrls: {
-      [Polygon.chainID]: 'https://speedy-nodes-nyc.moralis.io/870774d741e3ec64b96b2a83/polygon/mainnet',
+      [Polygon.chainID]: 'https://rpc-mainnet.maticvigil.com',
     },
     networks: [BSC, BSCTestnet, Polygon, Mumbai],
   }
@@ -118,7 +118,7 @@ function MyApp({ Component, pageProps }) {
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
           {/*<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@600&display=swap" rel="stylesheet" />*/}
-          <link href="https://fonts.googleapis.com/css2?family=Kanit&family=Merriweather+Sans:wght@500&family=Nunito+Sans:wght@600&family=Prompt&display=swap" rel="stylesheet" />
+          <link href="https://fonts.googleapis.com/css2?family=Kanit&family=Merriweather+Sans:wght@500&family=Nunito+Sans:wght@600;800&family=Prompt&display=swap" rel="stylesheet" />
         </Head>
         <Paper className="mainPaper">
           <Component {...pageProps} useDarkTheme={useDarkTheme} setUseDarkTheme={setUseDarkTheme} />

@@ -18,19 +18,27 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
+import ReactHtmlParser from "react-html-parser";
 
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import PlayCircleIcon from '@mui/icons-material/PlayCircle';
+import ArticleIcon from '@mui/icons-material/Article';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 
 import EducationCenterIntro from '../components/EducationCenterIntro';
+import transform from '../components/HtmlParseTransform';
 
 import styles from '../styles/EducationCenter.module.css';
 
 const drawerWidth = 300;
+  
+const options = {
+    decodeEntities: true,
+    transform
+};
 
 export default function EducationCenter(props) {
   const { window2 } = props;
@@ -209,14 +217,14 @@ export default function EducationCenter(props) {
         {
             categories.length > 0 && (
                 categories.map((category) => (
-                    <>
-                    <ListItem key={category} disablePadding>
+                    <div key={category}>
+                    <ListItem disablePadding>
                         <ListItemButton className="categoryBtn" onClick={() => updateCategory(category)}>
                             <ListItemText primary={category} secondary={`${calcVideosViewedInCategory(category)} / ${videosByCategory[category].length} | ${videoLengthByCategory[category]} min`} />
                             {expandedCategories.includes(category) ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
                         </ListItemButton>
                     </ListItem>
-                    <Collapse key={`${category} Collapse`} in={expandedCategories.includes(category)} timeout="auto" unmountOnExit>
+                    <Collapse in={expandedCategories.includes(category)} timeout="auto" unmountOnExit>
                         {
                             videosByCategory[category].map((currVideo) => (
                                 <ListItem key={currVideo._id} className={selectedVideo._id == currVideo._id ? styles.currSelected : ""} disablePadding>
@@ -238,7 +246,7 @@ export default function EducationCenter(props) {
                             ))
                         }
                     </Collapse>
-                    </>
+                    </div>
                 ))
             )
         }
@@ -339,12 +347,22 @@ export default function EducationCenter(props) {
                     <Grid container justifyContent="center" spacing={4} className={styles.descriptionGrid}>
                         <Grid item xs={12}>
                             <Typography variant="h5" className={styles.descriptionHeader}>
-                                Video Description:
+                                {selectedVideo.title}
                             </Typography>
                             <br/>
+
+                            <div>
+                            { ReactHtmlParser(
+                                selectedVideo.description.replaceAll("&lt;", "<").replaceAll("&gt;", ">"), 
+                                options
+                            ) }
+                            </div>
+
+                            {/*
                             <Typography variant="p" className={styles.description}>
                                 {selectedVideo.description}
                             </Typography>
+                            */}
                         </Grid>
                     </Grid>
                 </>

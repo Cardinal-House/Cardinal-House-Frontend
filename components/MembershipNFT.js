@@ -11,7 +11,7 @@ import chainConfig from "../chain-config.json";
 import cardinalHouseLogo from '../public/CardinalLogoLight.png';
 import CardinalNFT from "../contracts/CardinalNFT.json";
 
-const rpcEndpoint = "https://speedy-nodes-nyc.moralis.io/870774d741e3ec64b96b2a83/polygon/mainnet";
+const rpcEndpoint = "https://rpc-mainnet.maticvigil.com";
 
 export default function MembershipNFT(props) {
     const { account, chainId } = useEthers();

@@ -8,12 +8,25 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { Modal } from "react-bootstrap";
 import clsx from 'clsx';
+import ReactHtmlParser from "react-html-parser";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 
 import styles from '../styles/managevideos.module.css';
 
 import Navigation from '../components/Navigation';
+import transform from '../components/HtmlParseTransform';
+
+import dynamic from "next/dynamic";
+
+const ReactRTE = dynamic(() => import("../components/Editor"), {
+	ssr: false,
+});
+
+const options = {
+    decodeEntities: true,
+    transform
+};
 
 export default function managevideos(props) {
     const [videos, setVideos] = useState([]);
@@ -273,6 +286,14 @@ export default function managevideos(props) {
         });
     }
 
+    const descriptionChange = (value) => {
+        console.log(value.toString('html'));
+
+        let newCurrVideo = JSON.parse(JSON.stringify(currVideo));
+        newCurrVideo["description"] = value.toString('html');
+        setCurrVideo(JSON.parse(JSON.stringify(newCurrVideo)));
+    }
+
     return (
         <>
         <Navigation useDarkTheme={props.useDarkTheme} setUseDarkTheme={props.setUseDarkTheme} />
@@ -311,11 +332,19 @@ export default function managevideos(props) {
                 <TextField error={inputError != ""} label="Video Link" helperText={inputError}
                     value={currVideo.link} onChange={(e) => updateCurrVideo(e, "link")} className={styles.videoTextField} />
                 <br/>
-                <TextField error={inputError != ""} label="Video Description" helperText={inputError} multiline rows={4}
-                    value={currVideo.description} onChange={(e) => updateCurrVideo(e, "description")} className={styles.videoTextField} />
+                <Typography variant="p" component="div" className={styles.descriptionText}>
+                    Video Description / Article Text
+                </Typography>
                 <br/>
-                <Autocomplete disablePortal options={categories} className={styles.videoTextField} value={currVideo.category}
+                <ReactRTE
+                    descriptionChange={descriptionChange}
+                    description={currVideo.description}
+                    startingValue={currVideo.description}
+                />
+                <br/>
+                <Autocomplete disablePortal options={categories} className={clsx(styles.videoTextField, styles.videoCategoryField)} value={currVideo.category}
                     onChange={(event, value, reason) => updateCurrVideo({"target": {"value": value}}, "category")}
+                    noOptionsText={`New Category Will be Created - ${currVideo.category}`}
                     renderInput={(params) => 
                         <TextField {...params} error={inputError != ""} helperText={inputError} value={currVideo.category} 
                         onChange={(e) => updateCurrVideo(e, "category")} label="Video Category" />
@@ -397,9 +426,9 @@ export default function managevideos(props) {
                         <TableBody className={styles.tableBody}>
                             {
                                 videos.length == 0 && (
-                                    Array.apply(null, Array(5)).map(function () {
+                                    Array.apply(null, Array(5)).map(function (_, index) {
                                         return (
-                                            <TableRow hover key="loading">
+                                            <TableRow hover key={index}>
                                                 <TableCell>Loading...</TableCell>
                                                 <TableCell>...</TableCell>
                                                 <TableCell>...</TableCell>
@@ -435,7 +464,12 @@ export default function managevideos(props) {
                                         {video.link}
                                     </TableCell>
                                     <TableCell>
-                                        {video.description}
+                                        <div>
+                                            { ReactHtmlParser(
+                                                video.description.replaceAll("&lt;", "<").replaceAll("&gt;", ">"), 
+                                                options
+                                            ) }
+                                        </div>
                                     </TableCell>
                                     <TableCell>
                                         {video.category}

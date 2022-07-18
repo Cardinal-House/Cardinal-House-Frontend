@@ -68,6 +68,15 @@
     text-align: center !important;
 }
 
+.descriptionText {
+    margin-top: 3% !important;
+}
+
+.videoCategoryField {
+    margin-top: 3% !important;
+    margin-bottom: 0% !important;
+}
+
 .teamImage {
     border-radius: 15px !important;
 }
