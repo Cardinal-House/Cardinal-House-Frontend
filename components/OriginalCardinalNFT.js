@@ -17,7 +17,7 @@ export default function OriginalCardinalNFT(props) {
     const networkName = "polygon";
     const cardinalNFTABI = CardinalNFT.abi;
     const CardinalNFTAddress = chainId ? chainConfig["CardinalNFTAddresses"][networkName] : constants.AddressZero
-    const isConnected = account !== undefined && chainId == 97;
+    const isConnected = account !== undefined && chainId == 137;
 
   const [originalCardinalNFT, setOriginalCardinalNFT] = useState(null);
 
