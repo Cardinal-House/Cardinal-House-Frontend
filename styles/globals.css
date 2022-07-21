@@ -127,6 +127,10 @@ a {
   background-color: white !important;
 }
 
+.MuiMenu-list {
+  background-color: white !important;
+}
+
 .boldText {
   font-weight: 800 !important;
 }

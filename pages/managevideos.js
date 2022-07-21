@@ -1,7 +1,7 @@
 import { 
     Grid, Typography, Table, TableBody, TableCell, TableContainer, TableHead,
     TablePagination, TableRow, Paper, Button, IconButton, TextField, CircularProgress,
-    Snackbar, Autocomplete
+    Snackbar, Autocomplete, Select, MenuItem, FormControl, InputLabel, InputBase
 } from '@mui/material';
 import MuiAlert from '@mui/material/Alert';
 import axios from 'axios';
@@ -11,6 +11,8 @@ import clsx from 'clsx';
 import ReactHtmlParser from "react-html-parser";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import SearchIcon from '@mui/icons-material/Search';
+import ArticleIcon from '@mui/icons-material/Article';
 
 import styles from '../styles/managevideos.module.css';
 
@@ -18,6 +20,7 @@ import Navigation from '../components/Navigation';
 import transform from '../components/HtmlParseTransform';
 
 import dynamic from "next/dynamic";
+import { SearchOffSharp } from '@mui/icons-material';
 
 const ReactRTE = dynamic(() => import("../components/Editor"), {
 	ssr: false,
@@ -33,6 +36,7 @@ export default function managevideos(props) {
     const [currVideo, setCurrVideo] = useState({
         id: "",
         title: "",
+        type: "",
         link: "",
         description: "",
         category: "",
@@ -57,6 +61,8 @@ export default function managevideos(props) {
     const [submissionSuccessMessage, setSubmissionSuccessMessage] = useState("");
     const [submissionPendingMessage, setSubmissionPendingMessage] = useState("");
     const [submissionErrorMessage, setSubmissionErrorMessage] = useState("");
+    const [search, setSearch] = useState("");
+    const [expandedDescriptions, setExpandedDescriptions] = useState([]);
   
     const handleChangePage = (event, newPage) => {
       setPage(newPage);
@@ -113,6 +119,7 @@ export default function managevideos(props) {
         setCurrVideo({
             id: "",
             title: "",
+            type: "",
             link: "",
             description: "",
             category: "",
@@ -127,6 +134,7 @@ export default function managevideos(props) {
         setCurrVideo({
             id: "",
             title: "",
+            type: "",
             link: "",
             description: "",
             category: "",
@@ -145,6 +153,30 @@ export default function managevideos(props) {
     const openDeleteModal = (videoToDelete) => {
         setShowVideoDeleteModal(true);
         setCurrVideo(videoToDelete);
+    }
+
+    const searchFilter = (video) => {
+        if (search == "") {
+            return true;
+        }
+
+        const videoKeys = Object.keys(video);
+        for (let i = 0; i < videoKeys.length; i++) {
+            if (video[videoKeys[i]] && video[videoKeys[i]].toString().toLowerCase().includes(search.toLowerCase())) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    const expandDescription = (video) => {
+        if (expandedDescriptions.includes(video.description)) {
+            setExpandedDescriptions([...expandedDescriptions.filter((desc) => desc != video.description)]);
+        }   
+        else {
+            setExpandedDescriptions([...expandedDescriptions].concat([video.description]));
+        }
     }
 
     const updateCurrVideo = (e, property) => {
@@ -166,6 +198,7 @@ export default function managevideos(props) {
             axios.post("/api/updatevideo", {
                 id: currVideo._id,
                 title: currVideo.title,
+                type: currVideo.type,
                 link: currVideo.link,
                 description: currVideo.description,
                 category: currVideo.category,
@@ -203,6 +236,7 @@ export default function managevideos(props) {
             setSubmissionPendingMessage("Adding video to database...");
             axios.post("/api/addvideo", {
                 title: currVideo.title,
+                type: currVideo.type,
                 link: currVideo.link,
                 description: currVideo.description,
                 category: currVideo.category,
@@ -224,6 +258,7 @@ export default function managevideos(props) {
                   setCurrVideo({
                         id: "",
                         title: "",
+                        type: "",
                         link: "",
                         description: "",
                         category: "",
@@ -314,7 +349,7 @@ export default function managevideos(props) {
             </MuiAlert>
         </Snackbar>
 
-        <Modal centered show={showVideoModal} onHide={() => hideVideoModal(false)}>
+        <Modal centered show={showVideoModal} onHide={() => hideVideoModal(false)} className="entryModal">
             <Modal.Header closeButton className={styles.modalHeader}>
                 <Modal.Title>
                     <Typography variant="p" component="div" className={styles.modalHeaderText}>
@@ -326,14 +361,34 @@ export default function managevideos(props) {
                 <Typography variant="h6" component="div" className={styles.modalSecondaryHeader}>
                     Add/Edit Video Properties
                 </Typography>
-                <TextField error={inputError != ""} label="Video Title" helperText={inputError}
+                <FormControl fullWidth className={styles.videoTextField}>
+                    <InputLabel id="type-label">Entry Type</InputLabel>
+                    <Select
+                        labelId="type-label"
+                        value={currVideo.type}
+                        label="Entry Type"
+                        onChange={(e) => updateCurrVideo(e, "type")}
+                    >
+                    <MenuItem value="video">Video</MenuItem>
+                    <MenuItem value="article">Article</MenuItem>
+                    </Select>
+                </FormControl>
+                <br/>
+                <TextField error={inputError != ""} helperText={inputError}
+                    label={currVideo.type ? currVideo.type == "video" ? "Video Title" : "Article Title" : "Title"}
                     value={currVideo.title} onChange={(e) => updateCurrVideo(e, "title")} className={styles.videoTextField} />
                 <br/>
-                <TextField error={inputError != ""} label="Video Link" helperText={inputError}
-                    value={currVideo.link} onChange={(e) => updateCurrVideo(e, "link")} className={styles.videoTextField} />
-                <br/>
+                {
+                    (currVideo.type == "video" || currVideo.link != "") && (
+                        <>
+                            <TextField error={inputError != ""} label="Video Link" helperText={inputError}
+                            value={currVideo.link} onChange={(e) => updateCurrVideo(e, "link")} className={styles.videoTextField} />
+                            <br/>
+                        </>
+                    )
+                }
                 <Typography variant="p" component="div" className={styles.descriptionText}>
-                    Video Description / Article Text
+                    {currVideo.type ? currVideo.type == "video" ? "Video Description" : "Article Text" : "Video Description / Article Text"}
                 </Typography>
                 <br/>
                 <ReactRTE
@@ -347,17 +402,20 @@ export default function managevideos(props) {
                     noOptionsText={`New Category Will be Created - ${currVideo.category}`}
                     renderInput={(params) => 
                         <TextField {...params} error={inputError != ""} helperText={inputError} value={currVideo.category} 
-                        onChange={(e) => updateCurrVideo(e, "category")} label="Video Category" />
+                            label={currVideo.type ? currVideo.type == "video" ? "Video Category" : "Article Category" : "Category"}
+                            onChange={(e) => updateCurrVideo(e, "category")} />
                     }
                 />
                 <br/>
-                <TextField error={inputError != ""} label="Video Length (minutes)" helperText={inputError}
+                <TextField error={inputError != ""} helperText={inputError}
+                    label={currVideo.type ? currVideo.type == "video" ? "Video Length (minutes)" : "Approximate Article Length (minutes)" : "Length (minutes)"}
                     value={currVideo.minutes} onChange={(e) => updateCurrVideo(e, "minutes")} className={styles.videoTextField} />
                 <br/>
                 <TextField error={inputError != ""} label="Category Order" helperText={inputError}
                     value={currVideo.categoryOrder} onChange={(e) => updateCurrVideo(e, "categoryOrder")} className={styles.videoTextField} />
                 <br/>
-                <TextField error={inputError != ""} label="Video Order" helperText={inputError}
+                <TextField error={inputError != ""} helperText={inputError}
+                    label={currVideo.type ? currVideo.type == "video" ? "Video Order" : "Article Order" : "Video/Article Order"}
                     value={currVideo.videoOrder} onChange={(e) => updateCurrVideo(e, "videoOrder")} className={styles.videoTextField} />
                 <br/>
                 <TextField error={inputError != ""} label="Code" helperText={inputError}
@@ -402,10 +460,19 @@ export default function managevideos(props) {
                 </Typography>
             </Grid>
             <Grid item xs={3} className={styles.spacingGrid}></Grid>
-            <Grid item xs={12} className={styles.newVideoBtnGrid}>
-            <Button size="large" variant="contained" color="primary" onClick={() => setShowVideoModal(true)}>
-              Add New Video to the Cardinal House Education Center
-            </Button>
+            <Grid item lg={3} md={4} sm={8} xs={12} className={styles.newVideoBtnGrid}>
+                <Button size="large" variant="contained" color="primary" onClick={() => setShowVideoModal(true)}>
+                    Add New Video/Article
+                </Button>
+            </Grid>
+            <Grid item lg={3} md={4} sm={8} xs={12} className={styles.searchGrid}>
+                <Paper component="form" sx={{ p: '2px 4px', display: 'flex', alignItems: 'left', width: 250 }} className={styles.search}>
+                    <InputBase sx={{ ml: 1, flex: 1 }} placeholder="Search..." value={search}
+                        onChange={(e) => setSearch(e.target.value)} />
+                    <IconButton sx={{ p: '10px' }}>
+                        <SearchIcon />
+                    </IconButton>
+                </Paper>
             </Grid>
             <Grid item xs={12}>
                 <Paper sx={{ width: '100%', overflow: 'hidden' }}>
@@ -443,6 +510,7 @@ export default function managevideos(props) {
                                 )
                             }
                             {videos
+                            .filter(searchFilter)
                             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                             .map((video) => {
                                 return (
@@ -452,6 +520,7 @@ export default function managevideos(props) {
                                         onClick={() => openEditModal(video)}>
                                         Edit
                                     </Button>
+                                    <br/>
                                     <Button variant="contained" endIcon={<DeleteIcon />}
                                         onClick={() => openDeleteModal(video)}>
                                         Delete
@@ -464,12 +533,21 @@ export default function managevideos(props) {
                                         {video.link}
                                     </TableCell>
                                     <TableCell>
-                                        <div>
-                                            { ReactHtmlParser(
-                                                video.description.replaceAll("&lt;", "<").replaceAll("&gt;", ">"), 
-                                                options
-                                            ) }
-                                        </div>
+                                        <Button variant="contained" startIcon={<ArticleIcon />}
+                                            className={clsx(styles.descriptionBtn, expandedDescriptions.includes(video.description) ? "mb-3" : "")}
+                                            onClick={() => expandDescription(video)}>
+                                            {expandedDescriptions.includes(video.description) ? "Hide" : "Expand"}
+                                        </Button>
+                                        {
+                                            expandedDescriptions.includes(video.description) && (
+                                                <div>
+                                                    { ReactHtmlParser(
+                                                        video.description.replaceAll("&lt;", "<").replaceAll("&gt;", ">"), 
+                                                        options
+                                                    ) }
+                                                </div>
+                                            )
+                                        }
                                     </TableCell>
                                     <TableCell>
                                         {video.category}
@@ -492,7 +570,7 @@ export default function managevideos(props) {
                     <TablePagination
                         rowsPerPageOptions={[10, 25, 100]}
                         component="div"
-                        count={videos.length}
+                        count={videos.filter(searchFilter).length}
                         rowsPerPage={rowsPerPage}
                         page={page}
                         onPageChange={handleChangePage}

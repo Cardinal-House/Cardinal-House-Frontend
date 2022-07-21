@@ -9,6 +9,7 @@ export default async (req, res) => {
         const code = req.body.code;
         const id = req.body.id;
         const title = req.body.title;
+        const type = req.body.type;
         const link = req.body.link;
         const description = req.body.description;
         const category = req.body.category;
@@ -26,6 +27,7 @@ export default async (req, res) => {
         const updateDoc = {
             $set: {
                 "title": title,
+                "type": type,
                 "link": link,
                 "description": description,
                 "category": category,

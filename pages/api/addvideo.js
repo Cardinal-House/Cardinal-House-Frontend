@@ -7,6 +7,7 @@ export default async (req, res) => {
     try {
         const code = req.body.code;
         const title = req.body.title;
+        const type = req.body.type;
         const link = req.body.link;
         const description = req.body.description;
         const category = req.body.category;
@@ -21,6 +22,7 @@ export default async (req, res) => {
 
         const result = await db.collection("Videos").insertOne({
             "title": title,
+            "type": type,
             "link": link,
             "description": description,
             "category": category,

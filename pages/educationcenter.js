@@ -235,10 +235,19 @@ export default function EducationCenter(props) {
                                                 currVideo.title
                                             }
                                             secondary={
-                                                <>
-                                                    <PlayCircleIcon className={styles.playCircleIcon} />
-                                                    {currVideo.minutes} min
-                                                </>
+                                                currVideo.type == "video" ? (
+                                                    <>
+                                                        <PlayCircleIcon className={styles.playCircleIcon} />
+                                                        {currVideo.minutes} min
+                                                    </>
+                                                )
+                                                :
+                                                (
+                                                    <>
+                                                        <ArticleIcon className={styles.playCircleIcon} />
+                                                        {currVideo.minutes} min
+                                                    </>
+                                                )
                                             } 
                                         />
                                     </ListItemButton>
@@ -340,10 +349,14 @@ export default function EducationCenter(props) {
         {
             !viewingIntro && (
                 <>
-                    <div className={styles.reactPlayerContainer}>
-                        <ReactPlayer url={selectedVideo.link} controls={true} width="100%" height="100%" className={styles.reactPlayer}
-                            onEnded={videoEnded} onStart={videoStarted} />
-                    </div>
+                    {
+                        selectedVideo.type == "video" && (
+                            <div className={styles.reactPlayerContainer}>
+                                <ReactPlayer url={selectedVideo.link} controls={true} width="100%" height="100%" className={styles.reactPlayer}
+                                    onEnded={videoEnded} onStart={videoStarted} />
+                            </div>
+                        )
+                    }
                     <Grid container justifyContent="center" spacing={4} className={styles.descriptionGrid}>
                         <Grid item xs={12}>
                             <Typography variant="h5" className={styles.descriptionHeader}>
@@ -352,17 +365,11 @@ export default function EducationCenter(props) {
                             <br/>
 
                             <div>
-                            { ReactHtmlParser(
-                                selectedVideo.description.replaceAll("&lt;", "<").replaceAll("&gt;", ">"), 
-                                options
-                            ) }
+                                { ReactHtmlParser(
+                                    selectedVideo.description.replaceAll("&lt;", "<").replaceAll("&gt;", ">"), 
+                                    options
+                                ) }
                             </div>
-
-                            {/*
-                            <Typography variant="p" className={styles.description}>
-                                {selectedVideo.description}
-                            </Typography>
-                            */}
                         </Grid>
                     </Grid>
                 </>

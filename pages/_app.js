@@ -113,7 +113,7 @@ function MyApp({ Component, pageProps }) {
       <DAppProvider config={config}>
         <Head>
           <title>Cardinal House</title>
-          <meta name="description" content="Cardinal House" />
+          <meta name="description" content="Cardinal House - The Best Crypto Community in DeFi" />
           <link rel="icon" href="/favicon.ico" />
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

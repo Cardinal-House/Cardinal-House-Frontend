@@ -10,7 +10,9 @@
 
 .newVideoBtnGrid {
     margin-bottom: 3% !important;
-    text-align: center !important;
+    text-align: right !important;
+    margin-right: 2% !important;
+    margin-top: 0.25% !important;
 }
 
 .tableHeadCell {
@@ -25,6 +27,10 @@
 .editBtn {
     margin-bottom: 5% !important;
     background-color: green !important;
+}
+
+.descriptionBtn {
+    background-color: rgba(255, 0, 0, 0.8) !important;
 }
 
 .editBtn:hover {
@@ -61,6 +67,12 @@
     margin-bottom: 1% !important;
     color: var(--red-primary-color) !important;
     border-bottom: 5px solid var(--red-primary-color) !important;
+}
+
+.search {
+    background-color: white !important;
+    display: 'flex' !important;
+    align-items: 'left' !important;
 }
 
 .headerText {
@@ -154,6 +166,33 @@
     }
 }
 
+@media (max-width: 900px) {
+    .spacingGrid {
+        max-width: 25% !important;
+        flex: 25% !important;
+    }
+
+    .headerGrid {
+        max-width: 50% !important;
+        flex: 50% !important;
+        text-align: center !important;
+    }
+}
+
+@media (max-width: 1000px) {
+    .searchGrid {
+        display: flex !important;
+        justify-content: center !important;
+        margin-bottom: 3% !important;
+        margin-left: -2% !important;
+    }
+
+    .newVideoBtnGrid {
+        text-align: center !important;
+        max-width: 100% !important;
+        flex: 100% !important;
+    }
+}
 @media (max-width: 900px) {
     .spacingGrid {
         max-width: 25% !important;
