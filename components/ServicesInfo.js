@@ -142,7 +142,7 @@ export default function ServicesInfo(props) {
           </Grid>
           <Grid item lg={6} md={8} sm={10} xs={10}>
             <Typography variant="h5" className={styles.pricingText}>
-              Auditing Price: Starting at $2500-$5000
+              Auditing Price: Starting at $900 Per Contract
             </Typography>
           </Grid>
 

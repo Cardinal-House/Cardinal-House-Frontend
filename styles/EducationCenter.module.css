@@ -88,6 +88,16 @@
     margin-bottom: 3% !important;
 }
 
+.subCategory {
+    padding-left: 8% !important;
+}
+
+.markCompleteBtn {
+    margin-top: 3% !important;
+    background-color: rgb(185, 185, 185) !important;
+    color: black !important;
+}
+
 .reactPlayer {
     position: absolute !important;
     top: 0 !important;
@@ -120,6 +130,49 @@
 
 .description {
     text-align: left !important;
+}
+
+.discordUserNameModal {
+    z-index: 1000000000 !important;
+}
+
+.modalHeader {
+    background-color: rgb(206, 237, 247, 0.8) !important;
+}
+
+.modalSecondaryHeader {
+    margin-bottom: 5% !important;
+}
+
+.modalBody {
+    background-color: rgb(206, 237, 247, 0.8) !important;
+    text-align: center !important;
+    padding-top: 5% !important;
+    padding-bottom: 5% !important;
+}
+
+.modalHeaderText {
+    color: var(--red-primary-color) !important;
+    text-align: center !important;
+    margin-bottom: 2% !important;
+}
+
+.modalHeaderText2 {
+    color: black !important;
+    text-align: center !important;
+}
+
+.textField {
+    margin-bottom: 5% !important;
+    width: 100% !important;
+}
+
+.circularProgress {
+    color: black !important;
+}
+
+.snackBar {
+    z-index: 10000000 !important;
 }
 
 @media (max-width: 1200px) {

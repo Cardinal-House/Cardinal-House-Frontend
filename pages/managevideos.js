@@ -20,7 +20,6 @@ import Navigation from '../components/Navigation';
 import transform from '../components/HtmlParseTransform';
 
 import dynamic from "next/dynamic";
-import { SearchOffSharp } from '@mui/icons-material';
 
 const ReactRTE = dynamic(() => import("../components/Editor"), {
 	ssr: false,
@@ -31,25 +30,30 @@ const options = {
     transform
 };
 
+const emptyEntry = {
+    id: "",
+    title: "",
+    type: "",
+    link: "",
+    description: "",
+    category: "",
+    subCategory: "",
+    minutes: "",
+    categoryOrder: "",
+    subCategoryOrder: "",
+    videoOrder: ""
+}
+
 export default function managevideos(props) {
     const [videos, setVideos] = useState([]);
-    const [currVideo, setCurrVideo] = useState({
-        id: "",
-        title: "",
-        type: "",
-        link: "",
-        description: "",
-        category: "",
-        minutes: "",
-        categoryOrder: "",
-        videoOrder: ""
-    });
+    const [currVideo, setCurrVideo] = useState(JSON.parse(JSON.stringify(emptyEntry)));
     const [categories, setCategories] = useState([]);
+    const [subCategories, setSubCategories] = useState([]);
     const [videosByCategory, setVideosByCategory] = useState({});
     const [showVideoModal, setShowVideoModal] = useState(false);
     const [showVideoDeleteModal, setShowVideoDeleteModal] = useState(false);
     const [page, setPage] = useState(0);
-    const [rowsPerPage, setRowsPerPage] = useState(10);
+    const [rowsPerPage, setRowsPerPage] = useState(5);
     const [creatingOrEditingVideo, setCreatingOrEditingVideo] = useState(false);
     const [deletingVideo, setDeletingVideo] = useState(false);
     const [inputError, setInputError] = useState("");
@@ -63,6 +67,7 @@ export default function managevideos(props) {
     const [submissionErrorMessage, setSubmissionErrorMessage] = useState("");
     const [search, setSearch] = useState("");
     const [expandedDescriptions, setExpandedDescriptions] = useState([]);
+    const [loadNum, setLoadNum] = useState(0);
   
     const handleChangePage = (event, newPage) => {
       setPage(newPage);
@@ -85,26 +90,58 @@ export default function managevideos(props) {
         const videosResponse = await axios.get("/api/videos");
         const videosToLoad = videosResponse.data;
         let currCategories = [];
+        let currSubCategories = {};
         let currVideosByCategory = {};
         let categoryOrders = {};
+        let subCategoryOrders = {};
 
         for (let i = 0; i < videosToLoad.length; i++) {
             const currVideoCategory = videosToLoad[i].category;
+            const currVideoSubCategory = videosToLoad[i].subCategory;
             if (!currCategories.includes(currVideoCategory)) {
                 currCategories.push(currVideoCategory);
-                currVideosByCategory[currVideoCategory] = [videosToLoad[i]];
                 categoryOrders[currVideoCategory] = videosToLoad[i].categoryOrder;
+                subCategoryOrders[currVideoCategory] = {};
+                currVideosByCategory[currVideoCategory] = {};
+                if (currVideoSubCategory == "" || !currVideoSubCategory) {
+                    currVideosByCategory[currVideoCategory]["No Category"] = [videosToLoad[i]];
+                    currSubCategories[currVideoCategory] = [];
+                }
+                else {
+                    currSubCategories[currVideoCategory] = [currVideoSubCategory];
+                    currVideosByCategory[currVideoCategory][currVideoSubCategory] = [videosToLoad[i]];
+                    subCategoryOrders[currVideoCategory][currVideoSubCategory] = videosToLoad[i].subCategoryOrder;
+                }
             }
             else {
-                currVideosByCategory[currVideoCategory].push(videosToLoad[i]);
+                if (currVideoSubCategory == "" || !currVideoSubCategory) {
+                    currVideosByCategory[currVideoCategory]["No Category"].push(videosToLoad[i]);
+                }
+                else {
+                    if (currSubCategories[currVideoCategory].includes(currVideoSubCategory)) {
+                        currVideosByCategory[currVideoCategory][currVideoSubCategory].push(videosToLoad[i]);
+                    }
+                    else {
+                        currSubCategories[currVideoCategory].push(currVideoSubCategory);
+                        currVideosByCategory[currVideoCategory][currVideoSubCategory] = [videosToLoad[i]];
+                        subCategoryOrders[currVideoCategory][currVideoSubCategory] = videosToLoad[i].subCategoryOrder;
+                    }
+                }
             }
         }
 
         for (let i = 0; i < currCategories.length; i++) {
-            currVideosByCategory[currCategories[i]].sort(sortVideos);
+            for (let j = 0; j < currVideosByCategory[currCategories[i]]; j++) {
+                currVideosByCategory[currCategories[i]][currSubCategories[j]].sort(sortVideos);
+            }
+        }
+
+        for (let i = 0; i < currCategories.length; i++) {
+            currSubCategories[currCategories[i]].sort(function(sc1, sc2) {return sortCategories(sc1, sc2, subCategoryOrders[currCategories[i]])});
         }
 
         setCategories(JSON.parse(JSON.stringify(currCategories.sort(function(c1, c2) {return sortCategories(c1, c2, categoryOrders)}))));
+        setSubCategories(JSON.parse(JSON.stringify(currSubCategories)));
         setVideos(JSON.parse(JSON.stringify(videosToLoad)));
         setVideosByCategory(JSON.parse(JSON.stringify(currVideosByCategory)));
     }
@@ -116,32 +153,12 @@ export default function managevideos(props) {
     const hideVideoModal = () => {
         setEditingVideo(false);
         setShowVideoModal(false);
-        setCurrVideo({
-            id: "",
-            title: "",
-            type: "",
-            link: "",
-            description: "",
-            category: "",
-            minutes: "",
-            categoryOrder: "",
-            videoOrder: ""
-        });
+        setCurrVideo(JSON.parse(JSON.stringify(emptyEntry)));
     }
 
     const hideVideoDeleteModal = () => {
         setShowVideoDeleteModal(false);
-        setCurrVideo({
-            id: "",
-            title: "",
-            type: "",
-            link: "",
-            description: "",
-            category: "",
-            minutes: "",
-            categoryOrder: "",
-            videoOrder: ""
-        });
+        setCurrVideo(JSON.parse(JSON.stringify(emptyEntry)));
     }
 
     const openEditModal = (videoToEdit) => {
@@ -171,18 +188,36 @@ export default function managevideos(props) {
     }
 
     const expandDescription = (video) => {
-        if (expandedDescriptions.includes(video.description)) {
-            setExpandedDescriptions([...expandedDescriptions.filter((desc) => desc != video.description)]);
+        if (expandedDescriptions.includes(video._id)) {
+            setExpandedDescriptions([...expandedDescriptions.filter((id) => id != video._id)]);
         }   
         else {
-            setExpandedDescriptions([...expandedDescriptions].concat([video.description]));
+            setExpandedDescriptions([...expandedDescriptions].concat([video._id]));
         }
     }
 
     const updateCurrVideo = (e, property) => {
         const value = e.target.value;
         let newCurrVideo = JSON.parse(JSON.stringify(currVideo));
-        newCurrVideo[property] = value;
+
+        if (!value) {
+            newCurrVideo[property] = "";
+        }
+        else {
+            newCurrVideo[property] = value;
+        }
+
+        if (property == "category" && value && value != "" && Object.keys(videosByCategory).includes(value)) {
+            const firstSubCategory = Object.keys(videosByCategory[value])[0];
+            const calculatedCategoryOrder = videosByCategory[value][firstSubCategory][0].categoryOrder;
+            newCurrVideo["categoryOrder"] = calculatedCategoryOrder;
+        }
+
+        if (property == "subCategory" && value && value != "" && Object.keys(videosByCategory).includes(currVideo.category) && Object.keys(videosByCategory[currVideo.category]).includes(value)) {
+            const calculatedSubCategoryOrder = videosByCategory[currVideo.category][value][0].subCategoryOrder;
+            newCurrVideo["subCategoryOrder"] = calculatedSubCategoryOrder;
+        }
+
         setCurrVideo(JSON.parse(JSON.stringify(newCurrVideo)));
     }
 
@@ -202,9 +237,11 @@ export default function managevideos(props) {
                 link: currVideo.link,
                 description: currVideo.description,
                 category: currVideo.category,
-                videoOrder: parseInt(currVideo.videoOrder),
-                categoryOrder: parseInt(currVideo.categoryOrder),
-                minutes: parseInt(currVideo.minutes),
+                subCategory: currVideo.subCategory,
+                videoOrder: parseFloat(currVideo.videoOrder),
+                categoryOrder: parseFloat(currVideo.categoryOrder),
+                subCategoryOrder: parseFloat(currVideo.subCategoryOrder),
+                minutes: parseFloat(currVideo.minutes),
                 code: code
             })  
             .then(function (response) {
@@ -240,9 +277,11 @@ export default function managevideos(props) {
                 link: currVideo.link,
                 description: currVideo.description,
                 category: currVideo.category,
-                videoOrder: parseInt(currVideo.videoOrder),
-                categoryOrder: parseInt(currVideo.categoryOrder),
-                minutes: parseInt(currVideo.minutes),
+                subCategory: currVideo.subCategory,
+                videoOrder: parseFloat(currVideo.videoOrder),
+                categoryOrder: parseFloat(currVideo.categoryOrder),
+                subCategoryOrder: parseFloat(currVideo.subCategoryOrder),
+                minutes: parseFloat(currVideo.minutes),
                 code: code
             })  
             .then(function (response) {
@@ -255,17 +294,8 @@ export default function managevideos(props) {
               if (success === 'true') {
                   setShowSubmissionSuccess(true);
                   setSubmissionSuccessMessage("Video added to database successfully!");
-                  setCurrVideo({
-                        id: "",
-                        title: "",
-                        type: "",
-                        link: "",
-                        description: "",
-                        category: "",
-                        minutes: "",
-                        categoryOrder: "",
-                        videoOrder: ""
-                    });
+                  setCurrVideo(JSON.parse(JSON.stringify(emptyEntry)));
+                  setLoadNum(loadNum + 1);
                   loadVideos();
               }
               else {
@@ -395,6 +425,7 @@ export default function managevideos(props) {
                     descriptionChange={descriptionChange}
                     description={currVideo.description}
                     startingValue={currVideo.description}
+                    loadNum={loadNum}
                 />
                 <br/>
                 <Autocomplete disablePortal options={categories} className={clsx(styles.videoTextField, styles.videoCategoryField)} value={currVideo.category}
@@ -407,6 +438,17 @@ export default function managevideos(props) {
                     }
                 />
                 <br/>
+                <Autocomplete disablePortal className={clsx(styles.videoTextField, styles.videoCategoryField)} value={currVideo.subCategory}
+                    options={(currVideo.category && subCategories[currVideo.category]) ? subCategories[currVideo.category] : []}
+                    onChange={(event, value, reason) => updateCurrVideo({"target": {"value": value}}, "subCategory")}
+                    noOptionsText={`New Subcategory in Category \"${currVideo.category}\" Will be Created - ${currVideo.subCategory}`}
+                    renderInput={(params) => 
+                        <TextField {...params} error={inputError != ""} helperText={inputError} value={currVideo.subCategory} 
+                            label={currVideo.type ? currVideo.type == "video" ? "Video Subcategory" : "Article Subcategory" : "Subcategory"}
+                            onChange={(e) => updateCurrVideo(e, "subCategory")} />
+                    }
+                />
+                <br/>
                 <TextField error={inputError != ""} helperText={inputError}
                     label={currVideo.type ? currVideo.type == "video" ? "Video Length (minutes)" : "Approximate Article Length (minutes)" : "Length (minutes)"}
                     value={currVideo.minutes} onChange={(e) => updateCurrVideo(e, "minutes")} className={styles.videoTextField} />
@@ -414,6 +456,15 @@ export default function managevideos(props) {
                 <TextField error={inputError != ""} label="Category Order" helperText={inputError}
                     value={currVideo.categoryOrder} onChange={(e) => updateCurrVideo(e, "categoryOrder")} className={styles.videoTextField} />
                 <br/>
+                {
+                    currVideo.subCategory != "" && (
+                        <>
+                            <TextField error={inputError != ""} label="Subcategory Order" helperText={inputError}
+                            value={currVideo.subCategoryOrder} onChange={(e) => updateCurrVideo(e, "subCategoryOrder")} className={styles.videoTextField} />
+                            <br/>
+                        </>
+                    )
+                }
                 <TextField error={inputError != ""} helperText={inputError}
                     label={currVideo.type ? currVideo.type == "video" ? "Video Order" : "Article Order" : "Video/Article Order"}
                     value={currVideo.videoOrder} onChange={(e) => updateCurrVideo(e, "videoOrder")} className={styles.videoTextField} />
@@ -484,9 +535,11 @@ export default function managevideos(props) {
                                 <TableCell className={styles.tableHeadCell}>Title</TableCell>
                                 <TableCell className={styles.tableHeadCell}>Link</TableCell>
                                 <TableCell className={styles.tableHeadCell}>Description</TableCell>
-                                <TableCell className={styles.tableHeadCell}>Category</TableCell>
                                 <TableCell className={styles.tableHeadCell}>Length (minutes)</TableCell>
+                                <TableCell className={styles.tableHeadCell}>Category</TableCell>
                                 <TableCell className={styles.tableHeadCell}>Category order</TableCell>
+                                <TableCell className={styles.tableHeadCell}>Subcategory</TableCell>
+                                <TableCell className={styles.tableHeadCell}>Subcategory order</TableCell>
                                 <TableCell className={styles.tableHeadCell}>Video order</TableCell>
                             </TableRow>
                         </TableHead>
@@ -497,6 +550,8 @@ export default function managevideos(props) {
                                         return (
                                             <TableRow hover key={index}>
                                                 <TableCell>Loading...</TableCell>
+                                                <TableCell>...</TableCell>
+                                                <TableCell>...</TableCell>
                                                 <TableCell>...</TableCell>
                                                 <TableCell>...</TableCell>
                                                 <TableCell>...</TableCell>
@@ -534,12 +589,12 @@ export default function managevideos(props) {
                                     </TableCell>
                                     <TableCell>
                                         <Button variant="contained" startIcon={<ArticleIcon />}
-                                            className={clsx(styles.descriptionBtn, expandedDescriptions.includes(video.description) ? "mb-3" : "")}
+                                            className={clsx(styles.descriptionBtn, expandedDescriptions.includes(video._id) ? "mb-3" : "")}
                                             onClick={() => expandDescription(video)}>
-                                            {expandedDescriptions.includes(video.description) ? "Hide" : "Expand"}
+                                            {expandedDescriptions.includes(video._id) ? "Hide" : "Expand"}
                                         </Button>
                                         {
-                                            expandedDescriptions.includes(video.description) && (
+                                            expandedDescriptions.includes(video._id) && (
                                                 <div>
                                                     { ReactHtmlParser(
                                                         video.description.replaceAll("&lt;", "<").replaceAll("&gt;", ">"), 
@@ -550,13 +605,19 @@ export default function managevideos(props) {
                                         }
                                     </TableCell>
                                     <TableCell>
-                                        {video.category}
-                                    </TableCell>
-                                    <TableCell>
                                         {video.minutes}
                                     </TableCell>
                                     <TableCell>
+                                        {video.category}
+                                    </TableCell>
+                                    <TableCell>
                                         {video.categoryOrder}
+                                    </TableCell>
+                                    <TableCell>
+                                        {video.subCategory}
+                                    </TableCell>
+                                    <TableCell>
+                                        {video.subCategoryOrder}
                                     </TableCell>
                                     <TableCell>
                                         {video.videoOrder}
@@ -568,7 +629,7 @@ export default function managevideos(props) {
                         </Table>
                     </TableContainer>
                     <TablePagination
-                        rowsPerPageOptions={[10, 25, 100]}
+                        rowsPerPageOptions={[5, 10, 25]}
                         component="div"
                         count={videos.filter(searchFilter).length}
                         rowsPerPage={rowsPerPage}

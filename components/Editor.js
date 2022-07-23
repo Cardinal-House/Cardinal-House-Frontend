@@ -1,5 +1,5 @@
 import React from "react";
-import RichTextEditor, { EditorValue } from "react-rte";
+import RichTextEditor from "react-rte";
 
 export const Editor = (props) => {
 	const [value, setValue] = React.useState(
@@ -9,7 +9,11 @@ export const Editor = (props) => {
     const change = (currValue) => {
         setValue(currValue);
         props.descriptionChange(currValue);
-    }
+	}
+	
+	React.useEffect(() => {
+		setValue(RichTextEditor.createEmptyValue());
+	}, [props.loadNum])
 
 	return (
 		<RichTextEditor
