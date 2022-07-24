@@ -378,33 +378,35 @@ export default function EducationCenter(props) {
                     </ListItem>
                     <Collapse in={expandedCategories.includes(category)} timeout="auto" unmountOnExit>
                         {
-                            videosByCategory[category]["No Category"].map((currVideo) => (
-                                <ListItem key={currVideo._id} className={selectedVideo._id == currVideo._id ? styles.currSelected : ""} disablePadding>
-                                    <ListItemButton className="videoBtn" onClick={() => updateSelectedVideo(currVideo)}>
-                                    {videosWatched && videosWatched[currVideo._id] ? <CheckBoxIcon className={styles.checkBoxIcon} /> : <CheckBoxOutlineBlankIcon className={styles.checkBoxIcon} />}
-                                        <ListItemText 
-                                            primary={
-                                                currVideo.title
-                                            }
-                                            secondary={
-                                                currVideo.type == "video" ? (
-                                                    <>
-                                                        <PlayCircleIcon className={styles.playCircleIcon} />
-                                                        {currVideo.minutes} min
-                                                    </>
-                                                )
-                                                :
-                                                (
-                                                    <>
-                                                        <ArticleIcon className={styles.playCircleIcon} />
-                                                        {currVideo.minutes} min
-                                                    </>
-                                                )
-                                            } 
-                                        />
-                                    </ListItemButton>
-                                </ListItem>
-                            ))
+                            videosByCategory[category]["No Category"] && (
+                                videosByCategory[category]["No Category"].map((currVideo) => (
+                                    <ListItem key={currVideo._id} className={selectedVideo._id == currVideo._id ? styles.currSelected : ""} disablePadding>
+                                        <ListItemButton className="videoBtn" onClick={() => updateSelectedVideo(currVideo)}>
+                                        {videosWatched && videosWatched[currVideo._id] ? <CheckBoxIcon className={styles.checkBoxIcon} /> : <CheckBoxOutlineBlankIcon className={styles.checkBoxIcon} />}
+                                            <ListItemText 
+                                                primary={
+                                                    currVideo.title
+                                                }
+                                                secondary={
+                                                    currVideo.type == "video" ? (
+                                                        <>
+                                                            <PlayCircleIcon className={styles.playCircleIcon} />
+                                                            {currVideo.minutes} min
+                                                        </>
+                                                    )
+                                                    :
+                                                    (
+                                                        <>
+                                                            <ArticleIcon className={styles.playCircleIcon} />
+                                                            {currVideo.minutes} min
+                                                        </>
+                                                    )
+                                                } 
+                                            />
+                                        </ListItemButton>
+                                    </ListItem>
+                                ))
+                            )
                         }
                         {
                             Object.keys(videosByCategory[category]).filter((sc) => sc != "No Category").map((subCategory) => (
