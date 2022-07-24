@@ -12,7 +12,9 @@ export const Editor = (props) => {
 	}
 	
 	React.useEffect(() => {
-		setValue(RichTextEditor.createEmptyValue());
+		if (!props.startingValue) {
+			setValue(RichTextEditor.createEmptyValue());
+		}
 	}, [props.loadNum])
 
 	return (

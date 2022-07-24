@@ -372,7 +372,7 @@ export default function EducationCenter(props) {
                     <div key={category}>
                     <ListItem disablePadding>
                         <ListItemButton className="categoryBtn" onClick={() => updateCategory(category)}>
-                            <ListItemText primary={category} secondary={`${calcVideosViewedInCategory(category)} / ${numVideosByCategory[category]} | ${videoLengthByCategory[category]} min`} />
+                            <ListItemText primary={category} secondary={`${calcVideosViewedInCategory(category)} / ${numVideosByCategory[category]} | ${videoLengthByCategory[category] ? `${videoLengthByCategory[category]} min` : ""}`} />
                             {expandedCategories.includes(category) ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
                         </ListItemButton>
                     </ListItem>
@@ -391,14 +391,14 @@ export default function EducationCenter(props) {
                                                     currVideo.type == "video" ? (
                                                         <>
                                                             <PlayCircleIcon className={styles.playCircleIcon} />
-                                                            {currVideo.minutes} min
+                                                            {currVideo.minutes ? `${currVideo.minutes} min` : ""}
                                                         </>
                                                     )
                                                     :
                                                     (
                                                         <>
                                                             <ArticleIcon className={styles.playCircleIcon} />
-                                                            {currVideo.minutes} min
+                                                            {currVideo.minutes ? `${currVideo.minutes} min` : ""}
                                                         </>
                                                     )
                                                 } 
@@ -431,14 +431,14 @@ export default function EducationCenter(props) {
                                                             currVideo.type == "video" ? (
                                                                 <>
                                                                     <PlayCircleIcon className={styles.playCircleIcon} />
-                                                                    {currVideo.minutes} min
+                                                                    {currVideo.minutes ? `${currVideo.minutes} min` : ""}
                                                                 </>
                                                             )
                                                             :
                                                             (
                                                                 <>
                                                                     <ArticleIcon className={styles.playCircleIcon} />
-                                                                    {currVideo.minutes} min
+                                                                    {currVideo.minutes ? `${currVideo.minutes} min` : ""}
                                                                 </>
                                                             )
                                                         } 
