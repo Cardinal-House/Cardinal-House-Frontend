@@ -50,7 +50,7 @@ export default function Community(props) {
           <Grid item id="communityImage" ref={communityImageRef} className={clsx("mb-4", styles.imageGrid)} xs={8}>
             <Image src={communityArt} layout="responsive" />
           </Grid>
-          <Button id="communityBtn" ref={communityBtnRef} href="https://discord.gg/Sw5qsDx2kr" target="_blank" rel="noreferrer" size="large" variant="outlined" color="primary" 
+          <Button id="communityBtn" ref={communityBtnRef} href="https://discord.gg/Sw5qsDx2kr" target="_blank" rel="noreferrer" size="large" variant="contained" color="primary" 
             className={props.useDarkTheme ? styles.teamBtnDark : styles.teamBtnLight}>
             Join Our Discord Server
           </Button>
