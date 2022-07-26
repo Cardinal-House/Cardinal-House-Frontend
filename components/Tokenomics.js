@@ -48,7 +48,7 @@ export default function ForCards(props) {
               <Avatar className={props.useDarkTheme ? styles.avatarDarkTheme : styles.avatarLightTheme} sx={{ width: 70, height: 70 }}>
                 <CurrencyExchangeIcon sx={{ width: 40, height: 40 }} />
               </Avatar>
-              <Typography variant="h5" component="div">
+              <Typography variant="h2">
                 5% Transaction Fee
               </Typography>
               <Typography variant="p" component="div" className="mt-3">
@@ -71,7 +71,7 @@ export default function ForCards(props) {
               <Avatar className={props.useDarkTheme ? styles.avatarDarkTheme : styles.avatarLightTheme} sx={{ width: 70, height: 70 }}>
                 <LocalFireDepartmentIcon sx={{ width: 40, height: 40 }} />
               </Avatar>
-              <Typography variant="h5" component="div">
+              <Typography variant="h2">
                 Token Burning
               </Typography>
               <Typography variant="p" component="div" className="mt-4">

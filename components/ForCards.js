@@ -29,7 +29,7 @@ export default function ForCards(props) {
                 <Avatar className={props.useDarkTheme ? styles.avatarDarkTheme : styles.avatarLightTheme} sx={{ width: 70, height: 70 }}>
                   <AccountBalanceWalletIcon sx={{ width: 40, height: 40 }} />
                 </Avatar>
-                <Typography variant="h5" component="div">
+                <Typography variant="h2">
                   For Investors
                 </Typography>
                 <Typography variant="p" component="div" className="mt-4">
@@ -48,7 +48,7 @@ export default function ForCards(props) {
                 <Avatar className={props.useDarkTheme ? styles.avatarDarkTheme : styles.avatarLightTheme} sx={{ width: 70, height: 70 }}>
                   <ManageAccountsIcon sx={{ width: 40, height: 40 }} />
                 </Avatar>
-                <Typography variant="h5" component="div">
+                <Typography variant="h2">
                   For Project Owners
                 </Typography>
                 <Typography variant="p" component="div" className="mt-4">

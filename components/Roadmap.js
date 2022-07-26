@@ -28,8 +28,8 @@ export default function Roadmap(props) {
     return (
         <Grid container id="roadmap" justifyContent="center" alignItems="center" className={styles.roadmapGrid}>
           <Grid item xs={12}>
-            <Typography id="roadmapHeader" ref={roadmapHeaderRef} variant="h3" className={styles.roadmapHeader}>
-            Cardinal House Roadmap
+            <Typography id="roadmapHeader" ref={roadmapHeaderRef} variant="h2" className={styles.roadmapHeader}>
+              Cardinal House Roadmap
             </Typography>
           </Grid>
 

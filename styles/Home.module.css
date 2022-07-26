@@ -58,11 +58,16 @@
 }
 
 .teamBtnDark:hover {
-  color: white !important;
+  color: black !important;
 }
 
 .teamBtnLight:hover {
-  color: white !important;
+  color: black !important;
+}
+
+.joinCommunityBtn {
+  /* background-color: var(--red-primary-color) !important; */
+  background-color: green !important;
 }
 
 .boldTextDark {
@@ -85,10 +90,15 @@
   margin-top: 4% !important;
 }
 
+.growthText {
+  color: black !important;
+}
+
 .growthGrid {
   padding: 0 2rem !important;
   margin-top: 2% !important;
 }
+
 .roadmapGrid {
   margin-top: 2% !important;
 }
@@ -172,12 +182,14 @@
 .communityHeader {
   color: var(--red-primary-color) !important;
   margin-bottom: 5% !important;
+  font-size: 3rem !important;
 }
 
 .tokenomicsHeader {
   color: var(--red-primary-color) !important;
   text-align: center !important;
   margin-bottom: 1% !important;
+  font-size: 3rem !important;
 }
 
 .tokenomicsSubHeader {
@@ -189,6 +201,7 @@
   color: var(--red-primary-color) !important;
   text-align: center !important;
   margin-top: 5% !important;
+  font-size: 3rem !important;
 }
 
 .growthCard {
@@ -232,6 +245,7 @@
 
 .growthTimeText {
   margin-bottom: 20% !important;
+  color: black !important;
 }
 
 .roadmapHeader {
@@ -239,6 +253,7 @@
   text-align: center !important;
   margin-top: 4% !important;
   margin-bottom: 4% !important;
+  font-size: 3rem !important;
 }
 
 .verticalTimelineDiv {
@@ -257,6 +272,12 @@
   }
   .growthCard4 {
     background-image: url("../public/Tree4Grey.png") !important;
+  }
+  .growthTimeText {
+    color: white !important;
+  }
+  .growthText {
+    color: white !important;
   }
 }
 

@@ -43,7 +43,7 @@ export default function MembershipNFT(props) {
         <Grid container justifyContent="center" alignItems="center" spacing={4}>
           <Grid item lg={3} md={2} sm={1} xs={0}></Grid>
           <Grid item lg={5} md={8} sm={10} xs={12} className={styles.headerTextGrid}>
-            <Typography variant="h4" className={styles.headerText}>
+            <Typography variant="h2" className={styles.headerText}>
               Purchase a Cardinal House Membership!
             </Typography>
           </Grid>
@@ -51,7 +51,7 @@ export default function MembershipNFT(props) {
 
           <Grid item lg={2} md={2} sm={1} xs={0}></Grid>
           <Grid item lg={8} md={8} sm={10} xs={12} className="mt-2 text-center">
-            <Typography variant="h6">
+            <Typography variant="h3">
               Soon you will be able to purchase a Cardinal House Membership NFT on this page using
               the Cardinal Token! The Cardinal House Membership is a monthly subscription that gives 
               you access to many exciting perks, including exclusive educational content,
@@ -74,8 +74,8 @@ export default function MembershipNFT(props) {
           {
             membershipTokenURI && (
               <Grid item xs={12} sm={6} md={4} lg={3} className={clsx("mt-3", styles.NFTGrid)}>
-                <Typography variant="h4" className={clsx("mb-3", styles.serviceHeaderText)}>
-                  Your Original Cardinal NFT
+                <Typography variant="h2" className={clsx("mb-3", styles.serviceHeaderText)}>
+                  Cardinal House Membership NFT
                 </Typography>
                 <div className={clsx(styles.cardDiv, "rounded-xl overflow-hidden")}>
                   <img src={membershipTokenURI.image.replace("https", "http")} className={clsx(styles.NFTImage)} />

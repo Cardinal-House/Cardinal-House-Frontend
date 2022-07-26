@@ -32,7 +32,7 @@ export default function Community(props) {
   return (
     <Grid container id="community" ref={communityGridRef} justifyContent="center" alignItems="center" spacing={6} className={clsx(styles.communityGrid, styles.transparentBackground, props.useDarkTheme ? styles.communityGridDark : styles.communityGridLight)}>
       <Grid item lg={8} md={8} sm={12} xs={12} className={styles.communityGridInfo}>
-        <Typography id="communityHeader" ref={communityHeaderRef} variant="h3" className={styles.communityHeader}>
+        <Typography id="communityHeader" ref={communityHeaderRef} variant="h2" className={styles.communityHeader}>
           Community
         </Typography>
         <div id="communityText" ref={communityTextRef}>
@@ -50,7 +50,7 @@ export default function Community(props) {
           <Grid item id="communityImage" ref={communityImageRef} className={clsx("mb-4", styles.imageGrid)} xs={8}>
             <Image src={communityArt} layout="responsive" />
           </Grid>
-          <Button id="communityBtn" ref={communityBtnRef} href="https://discord.gg/Sw5qsDx2kr" target="_blank" rel="noreferrer" size="large" variant="contained" color="primary" 
+          <Button id="communityBtn" ref={communityBtnRef} href="https://discord.gg/Sw5qsDx2kr" target="_blank" rel="noreferrer" size="large" variant="outlined" color="primary" 
             className={props.useDarkTheme ? styles.teamBtnDark : styles.teamBtnLight}>
             Join Our Discord Server
           </Button>

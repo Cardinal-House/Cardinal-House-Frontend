@@ -14,6 +14,7 @@
 .headerText {
     color: var(--red-primary-color) !important;
     border-bottom: 5px solid var(--red-primary-color) !important;
+    font-size: 2.125rem !important;
 }
 
 .toolbar {

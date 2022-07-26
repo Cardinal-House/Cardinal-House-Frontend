@@ -50,7 +50,7 @@ export default function OriginalCardinalNFT(props) {
         <Grid container justifyContent="center" alignItems="center" spacing={4}>
           <Grid item lg={3} md={2} sm={1} xs={0}></Grid>
           <Grid item lg={5} md={8} sm={10} xs={12} className={styles.headerTextGrid}>
-            <Typography variant="h4" className={styles.headerText}>
+            <Typography variant="h2" className={styles.headerText}>
               Original Cardinal NFTs
             </Typography>
           </Grid>
@@ -58,7 +58,7 @@ export default function OriginalCardinalNFT(props) {
 
           <Grid item lg={2} md={2} sm={1} xs={0}></Grid>
           <Grid item lg={8} md={8} sm={10} xs={12} className="mt-2 text-center">
-            <Typography variant="h6">
+            <Typography variant="h3">
               Cardinal House rewards outstanding members of the early community by giving them
               Original Cardinal NFTs. Each Original Cardinal NFT entitles the owner to a free lifetime
               Cardinal House membership! If you received an Original Cardinal NFT, connect your wallet
@@ -70,7 +70,7 @@ export default function OriginalCardinalNFT(props) {
           {
             originalCardinalNFT && (
               <Grid item xs={12} sm={6} md={4} lg={3} className={clsx("mt-3", styles.NFTGrid)}>
-                <Typography variant="h4" className={clsx("mb-3", styles.serviceHeaderText)}>
+                <Typography variant="h2" className={clsx("mb-3", styles.serviceHeaderText)}>
                   Your Original Cardinal NFT
                 </Typography>
                 <div className={clsx(styles.cardDiv, "rounded-xl overflow-hidden")}>
@@ -89,7 +89,7 @@ export default function OriginalCardinalNFT(props) {
           }
 
           <Grid item xs={12}>
-            <Typography variant="h4" className={styles.serviceHeaderText}>
+            <Typography variant="h2" className={styles.serviceHeaderText}>
               Membership Benefits
             </Typography>
           </Grid>
@@ -97,7 +97,7 @@ export default function OriginalCardinalNFT(props) {
             <Image src={cardinalHouseLogo} layout="responsive" />
           </Grid>
           <Grid item lg={7} md={6} sm={12} xs={12}>
-            <Typography variant="h6">
+            <Typography variant="h3">
               There are many benefits to being a Cardinal House member, including exclusive educational content,
               Cardinal Token giveaways, whitelist spots for projects that come into the community for AMAs,
               special events hosted for members only such as technical analysis sessions, interviews with project

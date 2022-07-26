@@ -33,6 +33,19 @@ body {
   Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue !important;
 }
 
+h1 {
+  font-size: 3rem !important;
+}
+
+h2 {
+  font-size: 1.5rem !important;
+}
+
+h3 {
+  font-size: 1.25rem !important;
+  line-height: 1.6 !important;
+}
+
 a {
   color: inherit;
   text-decoration: none;
@@ -44,6 +57,14 @@ a {
 
 .mainPaper {
   overflow-x: hidden !important;
+}
+
+.MuiButton-outlinedPrimary {
+  border: 2px solid var(--red-primary-color) !important;
+}
+
+.MuiButton-outlinedPrimary:hover {
+  color: var(--red-primary-color) !important;
 }
 
 .vertical-timeline-element-right span.vertical-timeline-element-date {

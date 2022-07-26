@@ -28,7 +28,7 @@ export default function Growth(props) {
   return (
     <Grid container justifyContent="center" alignItems="center" spacing={6} className={clsx(styles.growthGrid)}>
       <Grid item xs={12}>
-        <Typography id="growthHeader" ref={growthHeaderRef} variant="h3" className={styles.growthHeader}>
+        <Typography id="growthHeader" ref={growthHeaderRef} variant="h2" className={styles.growthHeader}>
           More Services Over Time = More Volume Over Time
         </Typography>
       </Grid>
@@ -39,10 +39,10 @@ export default function Growth(props) {
                 <Typography variant="h4" component="div" className={styles.growthTimeText}>
                   Q2 2022:
                 </Typography>
-                <Typography variant="h5" component="div">
+                <Typography variant="h5" component="div" className={styles.growthText}>
                   <IoMdCheckmarkCircleOutline /> Memberships
                 </Typography>
-                <Typography variant="h5" component="div" className="mt-2">
+                <Typography variant="h5" component="div" className={clsx("mt-2", styles.growthText)}>
                   <IoMdCheckmarkCircleOutline /> AMAs
                 </Typography>
               </CardContent>
@@ -56,16 +56,16 @@ export default function Growth(props) {
                 <Typography variant="h4" component="div" className={styles.growthTimeText}>
                   Early Q3 2022:
                 </Typography>
-                <Typography variant="h5" component="div">
+                <Typography variant="h5" component="div" className={styles.growthText}>
                   <IoMdCheckmarkCircleOutline /> Memberships
                 </Typography>
-                <Typography variant="h5" component="div" className="mt-2">
+                <Typography variant="h5" component="div" className={clsx("mt-2", styles.growthText)}>
                   <IoMdCheckmarkCircleOutline /> AMAs
                 </Typography>
-                <Typography variant="h5" component="div" className="mt-2">
+                <Typography variant="h5" component="div" className={clsx("mt-2", styles.growthText)}>
                   <IoMdCheckmarkCircleOutline /> NFT marketplace
                 </Typography>
-                <Typography variant="h5" component="div" className="mt-2">
+                <Typography variant="h5" component="div" className={clsx("mt-2", styles.growthText)}>
                   <IoMdCheckmarkCircleOutline /> Giveaways
                 </Typography>
               </CardContent>
@@ -79,22 +79,22 @@ export default function Growth(props) {
                 <Typography variant="h4" component="div" className={styles.growthTimeText}>
                   Late Q3 2022:
                 </Typography>
-                <Typography variant="h5" component="div">
+                <Typography variant="h5" component="div" className={styles.growthText}>
                   <IoMdCheckmarkCircleOutline /> Memberships
                 </Typography>
-                <Typography variant="h5" component="div" className="mt-2">
+                <Typography variant="h5" component="div" className={clsx("mt-2", styles.growthText)}>
                   <IoMdCheckmarkCircleOutline /> AMAs
                 </Typography>
-                <Typography variant="h5" component="div" className="mt-2">
+                <Typography variant="h5" component="div" className={clsx("mt-2", styles.growthText)}>
                   <IoMdCheckmarkCircleOutline /> NFT marketplace
                 </Typography>
-                <Typography variant="h5" component="div" className="mt-2">
+                <Typography variant="h5" component="div" className={clsx("mt-2", styles.growthText)}>
                   <IoMdCheckmarkCircleOutline /> Giveaways
                 </Typography>
-                <Typography variant="h5" component="div" className="mt-2">
+                <Typography variant="h5" component="div" className={clsx("mt-2", styles.growthText)}>
                   <IoMdCheckmarkCircleOutline /> Auditing
                 </Typography>
-                <Typography variant="h5" component="div" className="mt-2">
+                <Typography variant="h5" component="div" className={clsx("mt-2", styles.growthText)}>
                   <IoMdCheckmarkCircleOutline /> KYC
                 </Typography>
               </CardContent>
@@ -108,28 +108,28 @@ export default function Growth(props) {
                 <Typography variant="h4" component="div" className={styles.growthTimeText}>
                   Q4 2022:
                 </Typography>
-                <Typography variant="h5" component="div">
+                <Typography variant="h5" component="div" className={styles.growthText}>
                   <IoMdCheckmarkCircleOutline /> Memberships
                 </Typography>
-                <Typography variant="h5" component="div" className="mt-2">
+                <Typography variant="h5" component="div" className={clsx("mt-2", styles.growthText)}>
                   <IoMdCheckmarkCircleOutline /> AMAs
                 </Typography>
-                <Typography variant="h5" component="div" className="mt-2">
+                <Typography variant="h5" component="div" className={clsx("mt-2", styles.growthText)}>
                   <IoMdCheckmarkCircleOutline /> NFT marketplace
                 </Typography>
-                <Typography variant="h5" component="div" className="mt-2">
+                <Typography variant="h5" component="div" className={clsx("mt-2", styles.growthText)}>
                   <IoMdCheckmarkCircleOutline /> Giveaways
                 </Typography>
-                <Typography variant="h5" component="div" className="mt-2">
+                <Typography variant="h5" component="div" className={clsx("mt-2", styles.growthText)}>
                   <IoMdCheckmarkCircleOutline /> Auditing
                 </Typography>
-                <Typography variant="h5" component="div" className="mt-2">
+                <Typography variant="h5" component="div" className={clsx("mt-2", styles.growthText)}>
                   <IoMdCheckmarkCircleOutline /> KYC
                 </Typography>
-                <Typography variant="h5" component="div" className="mt-2">
+                <Typography variant="h5" component="div" className={clsx("mt-2", styles.growthText)}>
                   <IoMdCheckmarkCircleOutline /> Lift-Off
                 </Typography>
-                <Typography variant="h5" component="div" className="mt-2">
+                <Typography variant="h5" component="div" className={clsx("mt-2", styles.growthText)}>
                   <IoMdCheckmarkCircleOutline /> Cardinal Pay
                 </Typography>
               </CardContent>

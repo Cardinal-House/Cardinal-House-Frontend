@@ -74,7 +74,7 @@ export default function ServicesInfo(props) {
         <Grid container justifyContent="center" alignItems="center" spacing={8}>
           <Grid item lg={3} md={2} sm={0} xs={0} className={styles.spacingGrid}></Grid>
           <Grid item lg={6} md={8} sm={12} xs={12} className={styles.headerTextGrid}>
-            <Typography variant="h4" className={styles.headerText}>
+            <Typography variant="h1" className={styles.headerText}>
               Cardinal House DApp Services Preview
             </Typography>
           </Grid>
@@ -82,7 +82,7 @@ export default function ServicesInfo(props) {
 
           <Grid item lg={2} md={2} sm={0} xs={0} className={styles.spacingGrid}></Grid>
           <Grid item lg={8} md={8} sm={12} xs={12} className="mt-2 text-center">
-            <Typography variant="h6">
+            <Typography variant="h3">
               The Cardinal House DApp will be live next month starting with the NFT marketplace.
               Below is a list of all services that will be released on the DApp with information
               and pricing for each. All services will be paid for on the DApp using the Cardinal Token.
@@ -91,7 +91,7 @@ export default function ServicesInfo(props) {
           <Grid item lg={2} md={2} sm={0} xs={0} className={styles.spacingGrid}></Grid>
 
           <Grid item xs={12}>
-            <Typography variant="h4" id="nftMarketplaceHeader" ref={nftMarketplaceHeaderRef} className={styles.serviceHeaderText}>
+            <Typography variant="h2" id="nftMarketplaceHeader" ref={nftMarketplaceHeaderRef} className={styles.serviceHeaderText}>
               NFT Marketplace
             </Typography>
           </Grid>
@@ -99,7 +99,7 @@ export default function ServicesInfo(props) {
             <Image src={marketplaceImage} layout="responsive" />
           </Grid>
           <Grid id="nftMarketplaceText" ref={nftMarketplaceTextRef} item lg={7} md={6} sm={12} xs={12}>
-            <Typography variant="h6">
+            <Typography variant="h3">
               Cardinal House will have our very own NFT marketplace for the membership NFTs,
               Original Cardinal NFTs, and the services NFTs. The membership NFTs are how Cardinal House memberships
               will be purchased to unlock exclusive content and perks throughout the entire ecosystem, 
@@ -119,7 +119,7 @@ export default function ServicesInfo(props) {
           </Grid>
 
           <Grid item xs={12}>
-            <Typography id="auditHeader" ref={auditHeaderRef} variant="h4" className={styles.serviceHeaderText}>
+            <Typography id="auditHeader" ref={auditHeaderRef} variant="h2" className={styles.serviceHeaderText}>
               Auditing
             </Typography>
           </Grid>
@@ -127,7 +127,7 @@ export default function ServicesInfo(props) {
             <Image src={auditingImage} layout="responsive" />
           </Grid>
           <Grid item id="auditText" ref={auditTextRef} lg={7} md={6} sm={12} xs={12}>
-            <Typography variant="h6">
+            <Typography variant="h3">
               Cardinal House will provide affordable and in-depth auditing services for Solidity
               smart contracts. We will analyze and test for security vulnerabilities, determine any potential gas fee
               optimizations, verify the tokenomics of the project, and create a list of any other improvements that could be made
@@ -147,7 +147,7 @@ export default function ServicesInfo(props) {
           </Grid>
 
           <Grid item xs={12}>
-            <Typography variant="h4" id="kycHeader" ref={kycHeaderRef} className={styles.serviceHeaderText}>
+            <Typography variant="h2" id="kycHeader" ref={kycHeaderRef} className={styles.serviceHeaderText}>
               KYC
             </Typography>
           </Grid>
@@ -155,7 +155,7 @@ export default function ServicesInfo(props) {
             <Image src={kycImage} layout="responsive" />
           </Grid>
           <Grid item id="kycText" ref={kycTextRef} lg={7} md={6} sm={12} xs={12}>
-            <Typography variant="h6">
+            <Typography variant="h3">
               Cardinal House&#8216;s KYC service is a simple way to prove your identity as a project
               owner without the need to reveal personal details to the public. All info for the KYC
               will be submitted securely on the DApp and then any follow up communication will be
@@ -171,7 +171,7 @@ export default function ServicesInfo(props) {
           </Grid>
 
           <Grid item xs={12}>
-            <Typography variant="h4" id="amaHeader" ref={amaHeaderRef} className={styles.serviceHeaderText}>
+            <Typography variant="h2" id="amaHeader" ref={amaHeaderRef} className={styles.serviceHeaderText}>
               AMAs
             </Typography>
           </Grid>
@@ -179,7 +179,7 @@ export default function ServicesInfo(props) {
             <Image src={amaImage} layout="responsive" />
           </Grid>
           <Grid item id="amaText" ref={amaTextRef} lg={7} md={6} sm={12} xs={12}>
-            <Typography variant="h6">
+            <Typography variant="h3">
               Want to share your project with the Cardinal House audience? We have multiple
               AMAs every week so there will definitely be a spot open for you! You will sign up and pay
               right here on the DApp, and then join our Discord community where your AMA will be hosted.
@@ -199,7 +199,7 @@ export default function ServicesInfo(props) {
           </Grid>
 
           <Grid item xs={12}>
-            <Typography variant="h4" id="liftOffHeader" ref={liftOffHeaderRef} className={styles.serviceHeaderText}>
+            <Typography variant="h2" id="liftOffHeader" ref={liftOffHeaderRef} className={styles.serviceHeaderText}>
               Lift-Off
             </Typography>
           </Grid>
@@ -207,7 +207,7 @@ export default function ServicesInfo(props) {
             <Image src={liftOffImage} layout="responsive" />
           </Grid>
           <Grid item id="liftOffText" ref={liftOffTextRef} lg={7} md={6} sm={12} xs={12}>
-            <Typography variant="h6">
+            <Typography variant="h3">
               Lift-Off is Cardinal House&#8216;s launchpad service. With Lift-Off, you can easily and effeciently
               fund your project through a pre-sale hosted on our platform where you are in charge of the tokenomics, vesting,
               sell fees, the pre-sale period, and much more! You can also use Lift-Off to launch a token
@@ -225,7 +225,7 @@ export default function ServicesInfo(props) {
           </Grid>
 
           <Grid item xs={12}>
-            <Typography variant="h4" id="cardinalPayHeader" ref={cardinalPayHeaderRef} className={styles.serviceHeaderText}>
+            <Typography variant="h2" id="cardinalPayHeader" ref={cardinalPayHeaderRef} className={styles.serviceHeaderText}>
               Cardinal Pay
             </Typography>
           </Grid>
@@ -233,7 +233,7 @@ export default function ServicesInfo(props) {
             <Image src={cardinalPayImage} layout="responsive" />
           </Grid>
           <Grid item id="cardinalPayText" ref={cardinalPayTextRef} lg={7} md={6} sm={12} xs={12}>
-            <Typography variant="h6">
+            <Typography variant="h3">
               Cardinal Pay is Cardinal House&#8216;s escrow service.
               An escrow service is a way for one party to pay for the services of another party
               without either needing to trust the other to uphold their end of the bargain.

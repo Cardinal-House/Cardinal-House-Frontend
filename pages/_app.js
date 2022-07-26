@@ -2,7 +2,6 @@ import Head from 'next/head';
 import { ThemeProvider, createTheme, Paper } from '@mui/material';
 import { useState, useEffect } from 'react';
 import { DAppProvider, BSC, BSCTestnet, Polygon, Mumbai } from '@usedapp/core';
-import ReactGA from 'react-ga';
 
 import Footer from '../components/Footer';
 import '../styles/globals.css';
@@ -91,8 +90,11 @@ function MyApp({ Component, pageProps }) {
       localStorage.setItem("cardinalHouseTheme", "dark");
     }
 
-    ReactGA.initialize('G-TJSPRD6Y1T');
-    ReactGA.pageview(window.location.pathname + window.location.search);
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+  
+    gtag('config', 'G-TJSPRD6Y1T');
   }, [])
 
   useEffect(() => {
@@ -123,6 +125,7 @@ function MyApp({ Component, pageProps }) {
           <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
           {/*<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@600&display=swap" rel="stylesheet" />*/}
           <link href="https://fonts.googleapis.com/css2?family=Kanit&family=Merriweather+Sans:wght@500&family=Nunito+Sans:wght@600;800&family=Prompt&display=swap" rel="stylesheet" />
+          <script async src="https://www.googletagmanager.com/gtag/js?id=G-TJSPRD6Y1T"></script>
         </Head>
         <Paper className="mainPaper">
           <Component {...pageProps} useDarkTheme={useDarkTheme} setUseDarkTheme={setUseDarkTheme} />
