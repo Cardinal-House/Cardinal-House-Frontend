@@ -2,6 +2,7 @@ import Head from 'next/head';
 import { ThemeProvider, createTheme, Paper } from '@mui/material';
 import { useState, useEffect } from 'react';
 import { DAppProvider, BSC, BSCTestnet, Polygon, Mumbai } from '@usedapp/core';
+import ReactGA from 'react-ga';
 
 import Footer from '../components/Footer';
 import '../styles/globals.css';
@@ -89,6 +90,9 @@ function MyApp({ Component, pageProps }) {
     else {
       localStorage.setItem("cardinalHouseTheme", "dark");
     }
+
+    ReactGA.initialize('G-TJSPRD6Y1T');
+    ReactGA.pageview(window.location.pathname + window.location.search);
   }, [])
 
   useEffect(() => {
