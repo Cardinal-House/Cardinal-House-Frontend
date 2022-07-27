@@ -175,6 +175,10 @@ export default function DApp(props) {
         window.onhashchange = function() {
             updatePageWithHashChange();
         }
+
+        window.onscroll = function() {
+            handleDrawerClose();
+        }
     }, [])
 
     /*
@@ -303,19 +307,22 @@ export default function DApp(props) {
                 <Divider />
                 <List>
 
-                <ListItem button onClick={() => updatePage("Services", "services")}>
+                <ListItem button onClick={() => updatePage("Services", "services")}
+                    className={clsx(styles.servicesInfoSection, currPage == "Services" ? styles.currSection : "")}>
                     <ListItemIcon>
                         <FaInfoCircle className={styles.navIcons} />
                     </ListItemIcon>
                     <ListItemText primary="Services Info" />
                 </ListItem>
-                <ListItem button onClick={() => updatePage("OriginalCardinalNFT", "originalcardinalnft")}>
+                <ListItem button onClick={() => updatePage("OriginalCardinalNFT", "originalcardinalnft")}
+                    className={currPage == "OriginalCardinalNFT" ? styles.currSection : ""}>
                     <ListItemIcon>
                         <FaCrown className={styles.navIcons} />
                     </ListItemIcon>
                     <ListItemText primary="Original Cardinal NFTs" />
                 </ListItem>
-                <ListItem button onClick={() => updatePage("MembershipNFT", "membership")}>
+                <ListItem button onClick={() => updatePage("MembershipNFT", "membership")}
+                    className={currPage == "MembershipNFT" ? styles.currSection : ""}>
                     <ListItemIcon>
                         <MdCardMembership className={styles.navIcons} />
                     </ListItemIcon>

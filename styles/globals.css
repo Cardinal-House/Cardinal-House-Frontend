@@ -157,7 +157,7 @@ a {
 }
 
 .MuiDrawer-paperAnchorLeft {
-  z-index: 0 !important;
+  z-index: 100 !important;
 }
 
 @media (min-width: 600px) {

@@ -7,6 +7,15 @@
     padding-bottom: 10% !important;
 }
 
+.servicesInfoSection {
+    padding-top: 5% !important;
+    padding-bottom: 5% !important;
+}
+
+.currSection {
+    background-color: rgba(139, 139, 139, 0.4) !important;
+}
+
 .serviceInfoDiv {
     padding-bottom: 10% !important;
 }
