@@ -58,16 +58,22 @@
 }
 
 .teamBtnDark:hover {
-  color: black !important;
+  color: white !important;
 }
 
 .teamBtnLight:hover {
-  color: black !important;
+  color: white !important;
 }
 
 .joinCommunityBtn {
   /* background-color: var(--red-primary-color) !important; */
   background-color: green !important;
+  text-align: center !important;
+  margin: auto !important;
+}
+
+.joinCommunityBtn:hover {
+  color: rgb(228, 228, 228) !important;
 }
 
 .boldTextDark {
