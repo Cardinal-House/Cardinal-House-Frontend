@@ -5,6 +5,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { useEffect, useRef } from 'react';
 
+import HomeFooter from '../components/HomeFooter';
 import styles from '../styles/DApp.module.css';
 import cardinalHouseLogo from '../public/CardinalLogoLight.png';
 import marketplaceImage from '../public/MarketplaceArt.png';
@@ -254,6 +255,7 @@ export default function ServicesInfo(props) {
           </Grid>
 
         </Grid>
+        <HomeFooter />
       </main>
     </div>
   )

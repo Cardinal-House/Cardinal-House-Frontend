@@ -21,6 +21,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 
+import HomeFooter from '../components/HomeFooter';
 import ServicesInfo from "../components/ServicesInfo";
 import OriginalCardinalNFT from "../components/OriginalCardinalNFT";
 import MembershipNFT from "../components/MembershipNFT";

@@ -32,6 +32,7 @@ import RestartAltIcon from '@mui/icons-material/RestartAlt';
 
 import EducationCenterIntro from '../components/EducationCenterIntro';
 import transform from '../components/HtmlParseTransform';
+import Footer from '../components/Footer';
 
 import styles from '../styles/EducationCenter.module.css';
 
@@ -463,6 +464,7 @@ export default function EducationCenter(props) {
   const container = window2 !== undefined ? () => window2().document.body : undefined;
 
   return (
+    <>
     <Box sx={{ display: 'flex' }} className="educationCenterBox">
         <Snackbar open={showSubmissionSuccess} autoHideDuration={6000} onClose={() => {setShowSubmissionSuccess(false)}} className={styles.snackBar}>
             <MuiAlert elevation={6} variant="filled" onClose={() => {setShowSubmissionSuccess(false)}} severity="success" sx={{ width: '100%' }} >
@@ -610,5 +612,7 @@ export default function EducationCenter(props) {
         }
       </Box>
     </Box>
+    <Footer/>
+    </>
   );
 }

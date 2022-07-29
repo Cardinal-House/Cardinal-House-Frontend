@@ -3,7 +3,6 @@ import { ThemeProvider, createTheme, Paper } from '@mui/material';
 import { useState, useEffect } from 'react';
 import { DAppProvider, BSC, BSCTestnet, Polygon, Mumbai } from '@usedapp/core';
 
-import Footer from '../components/Footer';
 import '../styles/globals.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -135,7 +134,6 @@ function MyApp({ Component, pageProps }) {
         </Head>
         <Paper className="mainPaper">
           <Component {...pageProps} useDarkTheme={useDarkTheme} setUseDarkTheme={setUseDarkTheme} />
-          <Footer />
         </Paper>
       </DAppProvider>
     </ThemeProvider>

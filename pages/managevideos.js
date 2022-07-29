@@ -18,6 +18,7 @@ import styles from '../styles/managevideos.module.css';
 
 import Navigation from '../components/Navigation';
 import transform from '../components/HtmlParseTransform';
+import Footer from '../components/Footer';
 
 import dynamic from "next/dynamic";
 
@@ -641,6 +642,7 @@ export default function managevideos(props) {
                 </Paper>
             </Grid>
         </Grid>
+        <Footer/>
         </>
     )
 }

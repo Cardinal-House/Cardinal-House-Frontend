@@ -266,6 +266,33 @@
   text-align: left !important;
 }
 
+.footerDiv {
+  margin-top: 8% !important;
+  padding-bottom: 3% !important;
+  text-align: center !important;
+}
+
+.socialIcons {
+  display: flex !important;
+  align-items: center !important;
+}
+
+.iconSize {
+  font-size: 1.75rem !important;
+}
+
+.iconSizeTheme {
+  font-size: 2.2rem !important;
+}
+
+.footerLink {
+  color: var(--red-primary-color) !important;
+}
+
+.footerBottomText {
+  margin-top: 2% !important;
+}
+
 @media (max-width: 1350px) {
   .growthCard1 {
     background-image: url("../public/Tree1Grey.png") !important;
@@ -291,6 +318,12 @@
   .communityGridInfo {
     padding-left: 6% !important;
     padding-right: 0% !important;
+  }
+}
+
+@media (max-width: 500px) {
+  .socialIconMargin {
+    margin-left: -32px !important;
   }
 }
 

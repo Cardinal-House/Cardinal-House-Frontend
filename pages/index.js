@@ -10,6 +10,7 @@ import Token from '../components/Token';
 import Tokenomics from '../components/Tokenomics';
 import Growth from '../components/Growth';
 import Roadmap from '../components/Roadmap';
+import HomeFooter from '../components/HomeFooter';
 
 export default function Home(props) {
   return (
@@ -42,6 +43,9 @@ export default function Home(props) {
 
         {/* ~~~~~ Roadmap ~~~~~ */}
         <Roadmap useDarkTheme={props.useDarkTheme} />
+
+        {/* ~~~~~ Footer ~~~~~ */}
+        <HomeFooter useDarkTheme={props.useDarkTheme} />
       </main>
     </div>
     </>
