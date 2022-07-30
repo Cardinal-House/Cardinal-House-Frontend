@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import clsx from 'clsx';
+import { Typography } from '@mui/material';
 
 import styles from '../styles/Footer.module.css';
 
-export default function Footer() {
+export default function Footer(props) {
     const [footerColor, setFooterColor] = useState("default");
 
     useEffect(() => {
@@ -17,7 +18,9 @@ export default function Footer() {
 
     return (
     <footer className={clsx(styles.footer, footerColor != "default" ? styles.lightFooter : "")}>
-        Copyright Cardinal House 2022
+        <Typography variant="p" className={props.useDarkTheme ? styles.darkThemeFooter : ""}>
+            Copyright Cardinal House 2022
+        </Typography>
     </footer>
     )
 }

@@ -28,7 +28,7 @@ export default function Token(props) {
   }, [])
   
   return (
-    <Grid container justifyContent="center" alignItems="center" spacing={6} className={clsx(styles.communityGrid, props.useDarkTheme ? styles.educationGridDark : styles.educationGridLight)}>
+    <Grid container id="token" justifyContent="center" alignItems="center" spacing={6} className={clsx(styles.communityGrid, props.useDarkTheme ? styles.educationGridDark : styles.educationGridLight)}>
       <Grid item lg={8} md={8} sm={12} xs={12} className={styles.communityGridInfo}>
         <Typography id="tokenHeader" ref={tokenHeaderRef} variant="h3" className={styles.communityHeader}>
           Tying it All Together: The Cardinal Token

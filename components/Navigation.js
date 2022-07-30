@@ -1,5 +1,5 @@
 import { Grid, Typography, Switch, Tooltip } from '@mui/material';
-import { Navbar, Nav, Container } from 'react-bootstrap';
+import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
 import { useEffect } from 'react';
 import clsx from 'clsx';
 import { gsap } from "gsap";
@@ -55,6 +55,7 @@ export default function Navigation({useDarkTheme, setUseDarkTheme}) {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav" className={styles.navBarItems}>
                     <Nav>
+                        {/*
                         <Nav.Link className={styles.navPadding} onClick={() => moveToSection("community")}>
                             <Typography variant="h6" className={clsx(useDarkTheme ? styles.navbarDarkCustom : styles.navbarLightCustom, styles.navText)}>
                                 Community
@@ -68,6 +69,19 @@ export default function Navigation({useDarkTheme, setUseDarkTheme}) {
                         <Nav.Link className={styles.navPadding} onClick={() => moveToSection("services")}>
                             <Typography variant="h6" className={clsx(useDarkTheme ? styles.navbarDarkCustom : styles.navbarLightCustom, styles.navText)}>
                                 Services
+                            </Typography>
+                        </Nav.Link>
+                        */}
+                        <NavDropdown title="About" className={clsx(styles.navDropdown, styles.navPadding, useDarkTheme ? styles.navbarDarkCustom : styles.navbarLightCustom, styles.navText)}>
+                            <NavDropdown.Item onClick={() => moveToSection("community")}>Community</NavDropdown.Item>
+                            <NavDropdown.Item onClick={() => moveToSection("education")}>Education</NavDropdown.Item>
+                            <NavDropdown.Item onClick={() => moveToSection("services")}>Services</NavDropdown.Item>
+                            <NavDropdown.Item onClick={() => moveToSection("token")}>Cardinal Token</NavDropdown.Item>
+
+                        </NavDropdown>
+                        <Nav.Link href="/educationcenter" className={styles.navPadding} >
+                            <Typography variant="h6" className={clsx(useDarkTheme ? styles.navbarDarkCustom : styles.navbarLightCustom, styles.navText)}>
+                                Education Center
                             </Typography>
                         </Nav.Link>
                         <Nav.Link className={styles.navPadding} onClick={() => moveToSection("roadmap")}>

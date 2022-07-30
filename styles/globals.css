@@ -2,7 +2,7 @@
   --dark-theme-primary-color: #1649ff;
   --light-theme-primary-color: #70c1ff;
   --red-primary-color: #ff0000;
-  --education-center-primary: #d6f8f5;
+  --education-center-primary: #141a2a;
 }
 
 /*
@@ -55,6 +55,11 @@ a {
   box-sizing: border-box;
 }
 
+.dropdown-toggle {
+  color: black !important;
+  margin-top: 2% !important;
+}
+
 .mainPaper {
   overflow-x: hidden !important;
 }
@@ -98,8 +103,14 @@ a {
 }
 
 .educationCenterBox .MuiToolbar-gutters {
-  background-color: black !important;
+  background-color: var(--education-center-primary) !important;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.09)) !important;
   margin-right: 0px !important;
+}
+
+.educationCenterBox .css-35bhkg-MuiPaper-root-MuiAppBar-root {
+  background-color: black !important;
+  box-shadow: 0 4px 2px -2px #000000 !important;
 }
 
 .educationCenterBox .MuiDrawer-paper {
@@ -109,6 +120,7 @@ a {
 
 .EducationCenter_drawerContainer__tlsws .MuiDrawer-paper {
   background-color: var(--education-center-primary) !important;
+  /* background-image: linear-gradient(rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.09)) !important; */
   box-shadow: 2px 0 10px -5px #000000 !important;
 }
 
@@ -182,5 +194,20 @@ a {
   /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
     background: #555 !important; 
+  }
+}
+
+.dropdown-menu {
+  background-color: #25c9df !important;
+}
+
+.dropdown-item:hover {
+  background-color: rgb(167, 231, 247) !important;
+}
+
+@media (max-width: 500px) {
+  .dropdown-menu {
+    margin-right: 2% !important;
+    background-color: #5decff !important;
   }
 }

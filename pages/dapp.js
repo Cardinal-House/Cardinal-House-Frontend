@@ -6,11 +6,11 @@ import { styled, useTheme } from '@mui/material/styles';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 import clsx from 'clsx';
-import { useState, useEffect } from "react";
+import { useState, useEffect, Fragment } from "react";
 import { useEthers, useTokenBalance } from "@usedapp/core";
-import { useCoingeckoPrice } from '@usedapp/coingecko'
+import { useCoingeckoPrice } from '@usedapp/coingecko';
 import { constants, ethers } from "ethers";
-import WalletConnectProvider from '@walletconnect/web3-provider'
+import WalletConnectProvider from '@walletconnect/web3-provider';
 import { FaInfoCircle, FaCrown } from "react-icons/fa";
 import { AiFillHome } from "react-icons/ai";
 import { MdCardMembership } from "react-icons/md";
@@ -20,8 +20,8 @@ import DarkModeIcon from '@mui/icons-material/DarkMode';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import CloseIcon from '@mui/icons-material/Close';
 
-import HomeFooter from '../components/HomeFooter';
 import ServicesInfo from "../components/ServicesInfo";
 import OriginalCardinalNFT from "../components/OriginalCardinalNFT";
 import MembershipNFT from "../components/MembershipNFT";
@@ -89,6 +89,7 @@ export default function DApp(props) {
     const [showWrongNetwork, setShowWrongNetwork] = useState(false);
     const [tempTokenBalance, setTempTokenBalance] = useState(0);
     const [tokenPricePercentChange, setTokenPricePercentChange] = useState(0.0);
+    const [cookieAgreementOpen, setCookieAgreementOpen] = useState(false);
 
     if (account && chainId != "137" && chainId != 137 && !showWrongNetwork) {
         setShowWrongNetwork(true);
@@ -100,6 +101,22 @@ export default function DApp(props) {
         
           });
     }
+
+    const action = (
+        <Fragment>
+            <Button color="secondary" size="small" onClick={() => setCookieAgreementOpen(false)}>
+                I Understand
+            </Button>
+            <IconButton
+            size="small"
+            aria-label="close"
+            color="inherit"
+            onClick={() => setCookieAgreementOpen(false)}
+            >
+            <CloseIcon fontSize="small" />
+            </IconButton>
+        </Fragment>
+    );
 
     /*
     async function updateTempTokenBalance() {
@@ -180,6 +197,11 @@ export default function DApp(props) {
         window.onscroll = function() {
             handleDrawerClose();
         }
+
+        if (localStorage.getItem("CardinalHouseCookieAgreement") != "Read") {
+            setCookieAgreementOpen(true);
+            localStorage.setItem("CardinalHouseCookieAgreement", "Read");
+        }
     }, [])
 
     /*
@@ -204,6 +226,13 @@ export default function DApp(props) {
                     Failed to connect web3 wallet - wrong network. Please connect to the Polygon Mainnet and refresh the page.
                 </MuiAlert>
             </Snackbar>
+            <Snackbar
+                open={cookieAgreementOpen}
+                autoHideDuration={6000}
+                onClose={() => setCookieAgreementOpen(false)}
+                message="This website uses cookies to enhance the user experience."
+                action={action}
+            />
 
             <AppBar position="fixed" open={navDrawerOpen} className={props.useDarkTheme ? styles.darkThemeAppBar : styles.lightThemeAppBar}>
                 <Toolbar>

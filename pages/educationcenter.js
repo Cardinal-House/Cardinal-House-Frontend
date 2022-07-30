@@ -321,7 +321,7 @@ export default function EducationCenter(props) {
   }
 
   const drawer = (
-    <div>
+    <div className={styles.navDrawer}>
       <Grid container justifyContent="center" alignItems="center" spacing={2} className={styles.toolbarDiv}>
           <Grid item xs={2}>
             <img alt="" src="/CardinalLogoLight.png" width="50" height="50" className={styles.logoImage} />
@@ -373,7 +373,11 @@ export default function EducationCenter(props) {
                     <div key={category}>
                     <ListItem disablePadding>
                         <ListItemButton className="categoryBtn" onClick={() => updateCategory(category)}>
-                            <ListItemText primary={category} secondary={`${calcVideosViewedInCategory(category)} / ${numVideosByCategory[category]} | ${videoLengthByCategory[category] ? `${videoLengthByCategory[category]} min` : ""}`} />
+                            <ListItemText primary={category} secondary={
+                                <Typography variant="p" className={styles.categoryText}>
+                                    {`${calcVideosViewedInCategory(category)} / ${numVideosByCategory[category]} | ${videoLengthByCategory[category] ? `${videoLengthByCategory[category]} min` : ""}`}
+                                </Typography>
+                            } />
                             {expandedCategories.includes(category) ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
                         </ListItemButton>
                     </ListItem>
@@ -385,6 +389,7 @@ export default function EducationCenter(props) {
                                         <ListItemButton className="videoBtn" onClick={() => updateSelectedVideo(currVideo)}>
                                         {videosWatched && videosWatched[currVideo._id] ? <CheckBoxIcon className={styles.checkBoxIcon} /> : <CheckBoxOutlineBlankIcon className={styles.checkBoxIcon} />}
                                             <ListItemText 
+                                                className={styles.categoryText}
                                                 primary={
                                                     currVideo.title
                                                 }
@@ -392,14 +397,18 @@ export default function EducationCenter(props) {
                                                     currVideo.type == "video" ? (
                                                         <>
                                                             <PlayCircleIcon className={styles.playCircleIcon} />
-                                                            {currVideo.minutes ? `${currVideo.minutes} min` : ""}
+                                                            <Typography variant="p" className={styles.categoryText}>
+                                                                {currVideo.minutes ? `${currVideo.minutes} min` : ""}
+                                                            </Typography>
                                                         </>
                                                     )
                                                     :
                                                     (
                                                         <>
                                                             <ArticleIcon className={styles.playCircleIcon} />
-                                                            {currVideo.minutes ? `${currVideo.minutes} min` : ""}
+                                                            <Typography variant="p" className={styles.categoryText}>
+                                                                {currVideo.minutes ? `${currVideo.minutes} min` : ""}
+                                                            </Typography>
                                                         </>
                                                     )
                                                 } 
@@ -414,7 +423,11 @@ export default function EducationCenter(props) {
                                 <div key={category} className={styles.subCategory}>
                                 <ListItem disablePadding>
                                     <ListItemButton className="categoryBtn" onClick={() => updateSubCategory(category, subCategory)}>
-                                        <ListItemText primary={subCategory} secondary={`${calcVideosViewedInSubCategory(category, subCategory)} / ${videosByCategory[category][subCategory].length} | ${videoLengthBySubCategory[category][subCategory]} min`} />
+                                        <ListItemText primary={subCategory} secondary={
+                                            <Typography variant="p" className={styles.categoryText}>
+                                                {`${calcVideosViewedInSubCategory(category, subCategory)} / ${videosByCategory[category][subCategory].length} | ${videoLengthBySubCategory[category][subCategory]} min`}
+                                            </Typography>
+                                        } />
                                         {expandedSubCategories[category] && expandedSubCategories[category].includes(subCategory) ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
                                     </ListItemButton>
                                 </ListItem>
@@ -424,7 +437,7 @@ export default function EducationCenter(props) {
                                             <ListItem key={currVideo._id} className={selectedVideo._id == currVideo._id ? styles.currSelected : ""} disablePadding>
                                                 <ListItemButton className="videoBtn" onClick={() => updateSelectedVideo(currVideo)}>
                                                 {videosWatched && videosWatched[currVideo._id] ? <CheckBoxIcon className={styles.checkBoxIcon} /> : <CheckBoxOutlineBlankIcon className={styles.checkBoxIcon} />}
-                                                    <ListItemText 
+                                                    <ListItemText
                                                         primary={
                                                             currVideo.title
                                                         }
@@ -432,14 +445,18 @@ export default function EducationCenter(props) {
                                                             currVideo.type == "video" ? (
                                                                 <>
                                                                     <PlayCircleIcon className={styles.playCircleIcon} />
-                                                                    {currVideo.minutes ? `${currVideo.minutes} min` : ""}
+                                                                    <Typography variant="p" className={styles.categoryText}>
+                                                                        {currVideo.minutes ? `${currVideo.minutes} min` : ""}
+                                                                    </Typography>
                                                                 </>
                                                             )
                                                             :
                                                             (
                                                                 <>
                                                                     <ArticleIcon className={styles.playCircleIcon} />
-                                                                    {currVideo.minutes ? `${currVideo.minutes} min` : ""}
+                                                                    <Typography variant="p" className={styles.categoryText}>
+                                                                        {currVideo.minutes ? `${currVideo.minutes} min` : ""}
+                                                                    </Typography>
                                                                 </>
                                                             )
                                                         } 
@@ -612,7 +629,7 @@ export default function EducationCenter(props) {
         }
       </Box>
     </Box>
-    <Footer/>
+    <Footer useDarkTheme={true} />
     </>
   );
 }

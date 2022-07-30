@@ -39,7 +39,7 @@ export default function Education(props) {
           <Typography variant="p">
             One of the main pillars of Cardinal House is providing educational content to the community on all things crypto.
             There will be something for everyone to learn here! Our main avenues of educational content
-            will be bringing projects into our Discord server for AMAs, posting videos to YouTube, and
+            will be our education center, bringing projects into our Discord server for AMAs, posting videos to YouTube, and
             hosting discussions in our community.
           </Typography>
         </div>
@@ -56,9 +56,9 @@ export default function Education(props) {
             </Button>
           </Grid>
           <Grid item className={clsx(styles.btnGrid, styles.bottomBtn)} xs={12}>
-            <Button id="educationBtn2" ref={educationBtn2Ref} href="https://www.facebook.com/groups/1863413517182310/?ref=share" target="_blank" rel="noreferrer" size="large" variant="contained" color="primary" 
+            <Button id="educationBtn2" ref={educationBtn2Ref} href="/educationcenter" target="_blank" rel="noreferrer" size="large" variant="contained" color="primary" 
               className={clsx("mt-3", props.useDarkTheme ? styles.teamBtnDark : styles.teamBtnLight)}>
-              Check out our FaceBook Group
+              Check out our Education Center
             </Button>
           </Grid>
           </Grid>

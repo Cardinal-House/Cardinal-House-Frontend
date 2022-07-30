@@ -28,6 +28,11 @@ nav .container {
     margin-left: 5% !important;
 }
 
+.navDropdown {
+    color: black !important;
+    margin-top: 5% !important;
+}
+
 .socialIcons {
     display: flex !important;
     align-items: center !important;

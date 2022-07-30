@@ -1,12 +1,19 @@
 .mainContent {
     min-height: 100vh !important;
     background-color: var(--education-center-primary) !important;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05)) !important;
+    color: white !important;
+}
+
+.navDrawer {
+    color: white !important;
 }
 
 .drawerContainer {}
 
 .educationCenterIntroGrid {
     margin-top: 3% !important;
+    margin-bottom: 6% !important;
     text-align: center !important;
     padding: 0 2rem !important;
 }
@@ -28,10 +35,11 @@
 }
 
 .toolbarDiv {
-    background-color: black !important;
+    background-color: var(--education-center-primary) !important;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.09)) !important;
     color: white !important;
     height: 80px !important;
-    box-shadow: 0 4px 10px -4px #000000 !important;
+    box-shadow: 0 4px 10px -2px #000000 !important;
     position: sticky !important;
     top: -16px !important;
     z-index: 100000 !important;
@@ -43,6 +51,7 @@
 
 .navIcons {
     font-size: 20px !important;
+    color: white !important;
 }
 
 .categoryBtn {
@@ -53,8 +62,13 @@
     margin-right: 5% !important;
 }
 
+.categoryText {
+    color: white !important;
+}
+
 .playCircleIcon {
     margin-right: 2% !important;
+    color: white !important;
 }
 
 .resetProgressBtn {
@@ -185,6 +199,18 @@
 @media (max-width: 1200px) {
     .reactPlayerContainer {
         padding-top: 56.25% !important; /* 720 / 1280 = 0.5625 */
+    }
+}
+
+@media (max-width: 900px) {
+    .desktopImage {
+        display: none !important;
+    }
+}
+
+@media (min-width: 900px) {
+    .mobileImage {
+        display: none !important;
     }
 }
 
