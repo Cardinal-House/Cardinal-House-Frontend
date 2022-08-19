@@ -83,7 +83,11 @@ export default function Roadmap(props) {
               </Typography>
               <br/>
               <Typography variant="p">
-                <ArrowForwardIcon /> Release KYC service
+                <ArrowForwardIcon /> Ivy Nest
+              </Typography>
+              <br/>
+              <Typography variant="p">
+                <ArrowForwardIcon /> Launch Event Planning as a Service
               </Typography>
               <br/>
               <Typography variant="p">
@@ -91,11 +95,11 @@ export default function Roadmap(props) {
               </Typography>
               <br/>
               <Typography variant="p">
-                <ArrowForwardIcon /> Release smart contract auditing service
+                <ArrowForwardIcon /> Host two massive scale events
               </Typography>
               <br/>
               <Typography variant="p">
-                <ArrowForwardIcon /> Grow Discord server to 5,000 through AMAs, giveaways, YouTube videos, and paid ads
+                <ArrowForwardIcon /> Release smart contract auditing service
               </Typography>
               <br/>
               <Typography variant="p">
@@ -129,12 +133,17 @@ export default function Roadmap(props) {
               </Typography>
               <br/>
               <Typography variant="p">
-                <ArrowForwardIcon /> CoinMarketCap + CoinGecko listings
+                <ArrowForwardIcon /> Improve education center
+              </Typography>
+              <br/>
+              <Typography variant="p">
+                <ArrowForwardIcon /> Host two massive scale events
               </Typography>
               <br/>
               <Typography variant="p" className={styles.lastTimelineElement}>
-                <ArrowForwardIcon /> Grow to 10,000 members
+                <ArrowForwardIcon /> CoinMarketCap + CoinGecko listings
               </Typography>
+              <br/>
             </VerticalTimelineElement>
 
             {/* ~~~~~~~~~~~~~~~~~~~ 2023 and Beyond ~~~~~~~~~~~~~~~~~~ */}

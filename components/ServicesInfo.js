@@ -107,7 +107,7 @@ export default function ServicesInfo(props) {
               the Original Cardinal NFTs are given to upstanding members
               of the community and give the holder a free lifetime membership, and the services NFTs
               will be given to projects that purchase services on our DApp as proof that they are audited by us,
-              KYC'd by us, used our launch pad for their pre-sale, etc. Before our token launch, memberships will
+              KYC'd by our partners, used our launch pad for their pre-sale, etc. Before our token launch, memberships will
               be purchased on our Discord server. But once the Cardinal Token is launched, you'll purchase
               your memberships here on the Cardinal House Marketplace!
 
@@ -157,12 +157,10 @@ export default function ServicesInfo(props) {
           </Grid>
           <Grid item id="kycText" ref={kycTextRef} lg={7} md={6} sm={12} xs={12}>
             <Typography variant="h3">
-              Cardinal House&#8216;s KYC service is a simple way to prove your identity as a project
-              owner without the need to reveal personal details to the public. All info for the KYC
-              will be submitted securely on the DApp and then any follow up communication will be
-              through email or Discord DMs. The DApp will also display a list
-              of all projects that are KCY&#8216;d through Cardinal House so that anyone can see
-              which projects have gone through the KYC process with us.
+              Cardinal House is partnering with K.C. Consulting as a simple way to prove your identity as a project
+              owner without the need to reveal personal details to the public. The DApp will also display a list
+              of all projects that are KCY&#8216;d through K.C. Consulting so that anyone can see which projects
+              have gone through the KYC process with our partner. More information this coming soon!
             </Typography>
           </Grid>
           <Grid item lg={6} md={8} sm={10} xs={10}>
