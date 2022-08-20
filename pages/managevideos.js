@@ -132,8 +132,8 @@ export default function managevideos(props) {
         }
 
         for (let i = 0; i < currCategories.length; i++) {
-            for (let j = 0; j < currVideosByCategory[currCategories[i]]; j++) {
-                currVideosByCategory[currCategories[i]][currSubCategories[j]].sort(sortVideos);
+            for (let j = 0; j < currSubCategories[currCategories[i]].length; j++) {
+                currVideosByCategory[currCategories[i]][currSubCategories[currCategories[i]][j]].sort(sortVideos);
             }
         }
 

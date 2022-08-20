@@ -139,14 +139,16 @@ export default function EducationCenter(props) {
     }
 
     for (let i = 0; i < currCategories.length; i++) {
-        for (let j = 0; j < currVideosByCategory[currCategories[i]]; j++) {
-            currVideosByCategory[currCategories[i]][currSubCategories[j]].sort(sortVideos);
+        for (let j = 0; j < currSubCategories[currCategories[i]].length; j++) {
+            currVideosByCategory[currCategories[i]][currSubCategories[currCategories[i]][j]].sort(sortVideos);
         }
     }
 
     for (let i = 0; i < currCategories.length; i++) {
         currSubCategories[currCategories[i]].sort(function(sc1, sc2) {return sortCategories(sc1, sc2, subCategoryOrders[currCategories[i]])});
     }
+
+    console.log(currVideosByCategory);
 
     setCategories(JSON.parse(JSON.stringify(currCategories.sort(function(c1, c2) {return sortCategories(c1, c2, categoryOrders)}))));
     setSubCategories(JSON.parse(JSON.stringify(currSubCategories)));
