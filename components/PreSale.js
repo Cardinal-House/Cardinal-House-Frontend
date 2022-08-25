@@ -304,7 +304,7 @@ export default function PreSale(props) {
                       </Typography>
                     </Grid>
                     <Grid item lg={4} md={5} xs={12} className="mt-2">
-                      <TextField label="Cardinal Tokens" variant="outlined" value={parseFloat(cardinalTokenAmount).toFixed(4)} onChange={(e) => updateAmounts(e, "crnl")} />
+                      <TextField label="Cardinal Tokens" variant="outlined" value={cardinalTokenAmount} onChange={(e) => updateAmounts(e, "crnl")} />
                     </Grid>
                     {USDAmount > 0 && (
                       <Grid item xs={12} className="mt-2">
