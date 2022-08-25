@@ -172,6 +172,12 @@ a {
   z-index: 100 !important;
 }
 
+@media (max-width: 650px) {
+  .mobileSnackbarTextSize {
+      font-size: 12px !important;
+  }
+}
+
 @media (min-width: 600px) {
   /* width */
   ::-webkit-scrollbar {

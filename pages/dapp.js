@@ -1,6 +1,6 @@
 import Image from 'next/image';
-import { Typography, Button, Drawer, Toolbar, List, Divider, Grid, Tooltip,
-    ListItem, ListItemIcon, ListItemText, CssBaseline, IconButton, Switch, dividerClasses } from '@mui/material';
+import { Typography, Button, Drawer, Toolbar, List, Divider, Tooltip,
+    ListItem, ListItemIcon, ListItemText, CssBaseline, IconButton, Switch } from '@mui/material';
 import MuiAppBar from '@mui/material/AppBar';
 import { styled, useTheme } from '@mui/material/styles';
 import Snackbar from '@mui/material/Snackbar';
@@ -25,6 +25,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import ServicesInfo from "../components/ServicesInfo";
 import OriginalCardinalNFT from "../components/OriginalCardinalNFT";
 import MembershipNFT from "../components/MembershipNFT";
+import PreSale from "../components/PreSale";
 import styles from '../styles/DApp.module.css';
 import CardinalToken from "../contracts/CardinalToken.json";
 import chainConfig from "../chain-config.json";
@@ -59,7 +60,7 @@ const networkData = [
     {
       chainId: "0x89",  // Polygon is chain ID 137 which is 0x89 in hex
       chainName: "POLYGON",
-      rpcUrls: ["https://speedy-nodes-nyc.moralis.io/870774d741e3ec64b96b2a83/polygon/mainnet"],
+      rpcUrls: ["https://rpc-mainnet.maticvigil.com"],
       nativeCurrency: {
         name: "MATIC",
         symbol: "MATIC",
@@ -69,7 +70,7 @@ const networkData = [
     },
 ];
 
-const rpcEndpoint = "https://speedy-nodes-nyc.moralis.io/870774d741e3ec64b96b2a83/polygon/mainnet";
+const rpcEndpoint = "https://rpc-mainnet.maticvigil.com";
 const polygonChainId = 137;
 
 export default function DApp(props) {
@@ -77,7 +78,7 @@ export default function DApp(props) {
 
     const { account, activateBrowserWallet, deactivate, chainId } = useEthers();
     const networkName = "polygon";
-    const CardinalTokenAddress = chainId ? chainConfig["CardinalTokenAddresses"][networkName] : constants.AddressZero
+    const CardinalTokenAddress = chainConfig["CardinalTokenAddresses"][networkName]
     const tokenBalance = useTokenBalance(CardinalTokenAddress, account);
     // const tokenPriceCG = useCoingeckoPrice('cardinal-house', 'usd');
     const isConnected = account !== undefined;
@@ -118,7 +119,6 @@ export default function DApp(props) {
         </Fragment>
     );
 
-    /*
     async function updateTempTokenBalance() {
         const cardinalTokenABI = CardinalToken.abi;
         const provider = new ethers.providers.JsonRpcProvider(rpcEndpoint, { name: networkName, chainId: polygonChainId });
@@ -131,8 +131,7 @@ export default function DApp(props) {
         if (account && (chainId == 137 || chainId == "137")) {
             updateTempTokenBalance();
         }
-    }, [chainId])
-    */
+    }, [chainId, account])
 
     const handleDrawerOpen = () => {
         setNavDrawerOpen(true);
@@ -184,6 +183,9 @@ export default function DApp(props) {
         }
         else if (hash == "#membership") {
             setCurrPage("MembershipNFT");
+        }
+        else if (hash == "#presale") {
+            setCurrPage("PreSale");
         }
     }
 
@@ -269,7 +271,6 @@ export default function DApp(props) {
                 }
 
                 {
-                    /*
                     isConnected && (
                         <Typography variant="h6" component="div" className={styles.CRNLBalance}>
                             Balance:&nbsp; 
@@ -278,7 +279,6 @@ export default function DApp(props) {
                             &nbsp;CRNL
                         </Typography>
                     )
-                    */
                 }
 
                 <Tooltip title="Dark Theme Coming Soon!">
@@ -343,6 +343,13 @@ export default function DApp(props) {
                         <FaInfoCircle className={styles.navIcons} />
                     </ListItemIcon>
                     <ListItemText primary="Services Info" />
+                </ListItem>
+                <ListItem button onClick={() => updatePage("PreSale", "presale")}
+                    className={clsx(styles.servicesInfoSection, currPage == "PreSale" ? styles.currSection : "")}>
+                    <ListItemIcon>
+                        <FaInfoCircle className={styles.navIcons} />
+                    </ListItemIcon>
+                    <ListItemText primary="Presale" />
                 </ListItem>
                 <ListItem button onClick={() => updatePage("OriginalCardinalNFT", "originalcardinalnft")}
                     className={currPage == "OriginalCardinalNFT" ? styles.currSection : ""}>
@@ -447,6 +454,11 @@ export default function DApp(props) {
             {
                 currPage == "Services" && (
                     <ServicesInfo useDarkTheme={props.useDarkTheme} />
+                )
+            }
+            {
+                currPage == "PreSale"&& (
+                    <PreSale useDarkTheme={props.useDarkTheme} updateTempTokenBalance={updateTempTokenBalance} />
                 )
             }
             {
