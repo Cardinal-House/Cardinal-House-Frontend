@@ -327,9 +327,9 @@ export default function PreSale(props) {
                     )}
                     <Grid item xs={12} className="mt-2">
                       <Button size="large" variant="contained" color="primary" onClick={startPurchaseCardinalTokens}
-                        disabled={purchasingTokens || cardinalTokenAmount == "" || parseFloat(cardinalTokenAmount) <= 0}>
+                        disabled={purchasingTokens || cardinalTokenAmount == "" || parseFloat(cardinalTokenAmount) <= 0 || !isConnected}>
                         {purchasingTokens && <CircularProgress size={18} color="secondary"/>} 
-                        {purchasingTokens ? <>&nbsp; Purchasing Cardinal Tokens...</> : "Purchase Cardinal Tokens"}
+                        {isConnected ? purchasingTokens ? <>&nbsp; Purchasing Cardinal Tokens...</> : "Purchase Cardinal Tokens" : "Connect Wallet in Navigation"}
                       </Button> 
                     </Grid>
                   </Grid>
