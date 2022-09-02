@@ -14,6 +14,7 @@ import WalletConnectProvider from '@walletconnect/web3-provider';
 import { FaInfoCircle, FaCrown } from "react-icons/fa";
 import { AiFillHome } from "react-icons/ai";
 import { MdCardMembership, MdAccountBalance } from "react-icons/md";
+import { BsShieldFillCheck } from "react-icons/bs";
 
 import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
@@ -26,6 +27,7 @@ import ServicesInfo from "../components/ServicesInfo";
 import OriginalCardinalNFT from "../components/OriginalCardinalNFT";
 import MembershipNFT from "../components/MembershipNFT";
 import PreSale from "../components/PreSale";
+import Audits from "../components/Audits";
 import styles from '../styles/DApp.module.css';
 import CardinalToken from "../contracts/CardinalToken.json";
 import chainConfig from "../chain-config.json";
@@ -92,7 +94,7 @@ export default function DApp(props) {
     const [tokenPricePercentChange, setTokenPricePercentChange] = useState(0.0);
     const [cookieAgreementOpen, setCookieAgreementOpen] = useState(false);
 
-    if (account && chainId != "137" && chainId != 137 && !showWrongNetwork) {
+    if (account && chainId != polygonChainId.toString() && chainId != polygonChainId && !showWrongNetwork) {
         setShowWrongNetwork(true);
         window.ethereum.request({
 
@@ -128,7 +130,7 @@ export default function DApp(props) {
     }
     
     useEffect(() => {
-        if (account && (chainId == 137 || chainId == "137")) {
+        if (account && (chainId == polygonChainId || chainId == polygonChainId.toString())) {
             updateTempTokenBalance();
         }
     }, [chainId, account])
@@ -186,6 +188,9 @@ export default function DApp(props) {
         }
         else if (hash == "#bonds") {
             setCurrPage("Bonds");
+        }
+        else if (hash == "#audits") {
+            setCurrPage("Audits");
         }
     }
 
@@ -365,6 +370,13 @@ export default function DApp(props) {
                     </ListItemIcon>
                     <ListItemText primary="Cardinal House Membership" />
                 </ListItem>
+                <ListItem button onClick={() => updatePage("Audits", "audits")}
+                    className={currPage == "Audits" ? styles.currSection : ""}>
+                    <ListItemIcon>
+                        <BsShieldFillCheck className={styles.navIcons} />
+                    </ListItemIcon>
+                    <ListItemText primary="Cardinal House Audits" />
+                </ListItem>
                 <ListItem button onClick={() => {window.location.href = `${window.location.origin}`}}>
                     <ListItemIcon>
                         <AiFillHome className={styles.navIcons} />
@@ -469,6 +481,11 @@ export default function DApp(props) {
             {
                 currPage == "MembershipNFT" && (
                     <MembershipNFT useDarkTheme={props.useDarkTheme} />
+                )
+            }
+            {
+                currPage == "Audits" && (
+                    <Audits useDarkTheme={props.useDarkTheme} />
                 )
             }
         </div>
