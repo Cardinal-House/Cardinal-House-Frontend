@@ -176,10 +176,10 @@ export default function PreSale(props) {
       setRevertWarning("Transaction will revert: token amounts cannot be less than 0.");
     }
     else if (parseFloat(newCardinalTokenAmount) + parseFloat(currCardinalTokenBalance) > purchaseCap) {
-      setRevertWarning("Transaction will likely revert: this purchase would put you above the presale cap unless the presale cap has changed very recently.");
+      setRevertWarning("Transaction will likely revert: this purchase would put you above the purchase cap unless the purchase cap has changed very recently.");
     }
     else if (parseFloat(newCardinalTokenAmount) > parseFloat(preSaleSupply)) {
-      setRevertWarning("Transaction will likely revert: there aren't that many Cardinal Tokens left in the presale pool!");
+      setRevertWarning("Transaction will likely revert: there aren't that many Cardinal Tokens left in the bonds pool!");
     }
     else {
       setRevertWarning("");
@@ -253,7 +253,7 @@ export default function PreSale(props) {
           <Grid item lg={3} md={2} sm={1} xs={0}></Grid>
           <Grid item lg={5} md={8} sm={10} xs={12} className={styles.headerTextGrid}>
             <Typography variant="h2" className={styles.headerText}>
-              Cardinal House Presale
+              Cardinal House Bonds
             </Typography>
           </Grid>
           <Grid item lg={3} md={2} sm={1} xs={0}></Grid>
@@ -261,16 +261,16 @@ export default function PreSale(props) {
           <Grid item lg={2} md={2} sm={1} xs={0}></Grid>
           <Grid item lg={8} md={8} sm={10} xs={12} className="mt-2 text-center">
             <Typography variant="h3">
-              Here is where you purchase Cardinal Tokens during our limited time presale!
-              All funds raised during the presale will go straight into the liquidity pool for the Cardinal Token.
-              The price of the Cardinal Token during the presale is approximately $0.03 per token.
+              Here is where you purchase Cardinal Tokens through the limited time bonds!
+              All funds raised from the bonds will go straight into the liquidity pool for the Cardinal Token.
+              The price of the Cardinal Token is approximately $0.03 per token.
               You can specify either how much Matic you want to spend or how many Cardinal Tokens you want to purchase!
             </Typography>
             <Typography variant="h3" className="mt-4">
-              Currently, the presale is open to {
+              Currently, the Cardinal House bonds are open to {
                 onlyMembers 
-                ? `Cardinal Crew Members only. ${isCardinalMember ? "Since you're a Crew Member, you have exclusive access to the presale until 7:00 PM CDT tomorrow evening!" : "Since you aren't a Crew Member, you must wait until 7:00 PM CDT tomorrow evening to participate."}` 
-                : "everyone! Keep in mind that Cardinal Crew Members still receive a 10% discount during the presale."
+                ? `Cardinal Crew Members only. ${isCardinalMember ? "Since you're a Crew Member, you have exclusive access to the bonds until 7:00 PM CDT tomorrow evening!" : "Since you aren't a Crew Member, you must wait until 7:00 PM CDT tomorrow evening to participate."}` 
+                : "everyone! Keep in mind that Cardinal Crew Members still receive a 10% discount."
               }
             </Typography>
           </Grid>
@@ -289,10 +289,10 @@ export default function PreSale(props) {
                   )}
                   <Grid container justifyContent="center" alignItems="center" spacing={4} className="text-center">
                     <Grid item xs={12} className="mt-4">
-                      Presale Tokens Remaining: {Number(parseFloat(preSaleSupply).toFixed(0)).toLocaleString()} CRNL
+                      Tokens Remaining for Purchase: {Number(parseFloat(preSaleSupply).toFixed(0)).toLocaleString()} CRNL
                     </Grid>
                     <Grid item xs={12}>
-                      Presale Purchase Cap: {Number(parseFloat(purchaseCap).toFixed(0)).toLocaleString()} CRNL
+                      Purchase Cap: {Number(parseFloat(purchaseCap).toFixed(0)).toLocaleString()} CRNL
                       {cardinalTokenBalance > 0 && ` (You can purchase up to ${(parseFloat(purchaseCap) - parseFloat(+ethers.utils.formatEther(BigInt(cardinalTokenBalance).toString(10)))).toFixed(2)} CRNL still)`}
                     </Grid>
                     <Grid item lg={4} md={5} xs={12} className="mt-2">

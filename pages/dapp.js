@@ -13,7 +13,7 @@ import { constants, ethers } from "ethers";
 import WalletConnectProvider from '@walletconnect/web3-provider';
 import { FaInfoCircle, FaCrown } from "react-icons/fa";
 import { AiFillHome } from "react-icons/ai";
-import { MdCardMembership } from "react-icons/md";
+import { MdCardMembership, MdAccountBalance } from "react-icons/md";
 
 import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
@@ -184,8 +184,8 @@ export default function DApp(props) {
         else if (hash == "#membership") {
             setCurrPage("MembershipNFT");
         }
-        else if (hash == "#presale") {
-            setCurrPage("PreSale");
+        else if (hash == "#bonds") {
+            setCurrPage("Bonds");
         }
     }
 
@@ -344,12 +344,12 @@ export default function DApp(props) {
                     </ListItemIcon>
                     <ListItemText primary="Services Info" />
                 </ListItem>
-                <ListItem button onClick={() => updatePage("PreSale", "presale")}
-                    className={clsx(styles.servicesInfoSection, currPage == "PreSale" ? styles.currSection : "")}>
+                <ListItem button onClick={() => updatePage("Bonds", "bonds")}
+                    className={clsx(styles.servicesInfoSection, currPage == "Bonds" ? styles.currSection : "")}>
                     <ListItemIcon>
-                        <FaInfoCircle className={styles.navIcons} />
+                        <MdAccountBalance className={styles.navIcons} />
                     </ListItemIcon>
-                    <ListItemText primary="Presale" />
+                    <ListItemText primary="Cardinal Bonds" />
                 </ListItem>
                 <ListItem button onClick={() => updatePage("OriginalCardinalNFT", "originalcardinalnft")}
                     className={currPage == "OriginalCardinalNFT" ? styles.currSection : ""}>
@@ -457,7 +457,7 @@ export default function DApp(props) {
                 )
             }
             {
-                currPage == "PreSale"&& (
+                currPage == "Bonds" && (
                     <PreSale useDarkTheme={props.useDarkTheme} updateTempTokenBalance={updateTempTokenBalance} />
                 )
             }
