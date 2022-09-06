@@ -266,6 +266,7 @@ export default function PreSale(props) {
               The price of the Cardinal Token is approximately $0.03 per token.
               You can specify either how much Matic you want to spend or how many Cardinal Tokens you want to purchase!
             </Typography>
+            {/*
             <Typography variant="h3" className="mt-4">
               Currently, the Cardinal House bonds are open to {
                 onlyMembers 
@@ -273,6 +274,7 @@ export default function PreSale(props) {
                 : "everyone! Keep in mind that Cardinal Crew Members still receive a 10% discount."
               }
             </Typography>
+            */}
           </Grid>
           <Grid item lg={2} md={2} sm={1} xs={0}></Grid>
 
@@ -282,11 +284,11 @@ export default function PreSale(props) {
                   <Typography variant="h2">
                     Purchase Cardinal Tokens
                   </Typography>
-                  {isCardinalMember != undefined && (
+                  {/* isCardinalMember != undefined && (
                     <Typography variant="h3" className="mt-4">
                       Crew Membership Status: {isCardinalMember ? <b className="text-success">Crew Membership Active!</b> : "Not a Crew Member"}
                     </Typography>
-                  )}
+                  )*/}
                   <Grid container justifyContent="center" alignItems="center" spacing={4} className="text-center">
                     <Grid item xs={12} className="mt-4">
                       Tokens Remaining for Purchase: {Number(parseFloat(preSaleSupply).toFixed(0)).toLocaleString()} CRNL
@@ -313,11 +315,11 @@ export default function PreSale(props) {
                         </Typography>
                       </Grid>
                     )}
-                    {USDAmount > 0 && isCardinalMember && (
+                    {/* USDAmount > 0 && isCardinalMember && (
                       <Typography variant="h3">
                         <i className="text-success">{USDAmount < 0.1 ? "(< $0.01 saved from Crew Membership discount!)" : ` ($${(USDAmount * (memberDiscountAmount - 100) / 100).toFixed(2)} saved from Crew Membership discount!)`}</i>
                       </Typography>
-                    )}
+                    ) */}
                     {revertWarning != "" && (
                       <Grid item xs={12} className="mt-2">
                         <Typography variant="h3" className="text-danger">
