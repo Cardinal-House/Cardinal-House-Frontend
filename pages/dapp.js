@@ -33,6 +33,7 @@ import CardinalToken from "../contracts/CardinalToken.json";
 import chainConfig from "../chain-config.json";
 import metaMaskLogo from '../public/MetaMask.png';
 import walletConnectLogo from '../public/WalletConnect.png';
+import PurchaseMembership from '../components/PurchaseMembership';
 
 const drawerWidth = 240;
 
@@ -191,6 +192,9 @@ export default function DApp(props) {
         }
         else if (hash == "#audits") {
             setCurrPage("Audits");
+        }
+        else if (hash == "#purchasemembership") {
+            setCurrPage("PurchaseMembership");
         }
     }
 
@@ -363,6 +367,14 @@ export default function DApp(props) {
                     </ListItemIcon>
                     <ListItemText primary="Original Cardinal NFTs" />
                 </ListItem>
+                <ListItem button onClick={() => updatePage("PurchaseMembership", "purchasemembership")}
+                    className={currPage == "PurchaseMembership" ? styles.currSection : ""}>
+                    <ListItemIcon>
+                        <MdCardMembership className={styles.navIcons} />
+                    </ListItemIcon>
+                    <ListItemText primary="Purchase Cardinal Crew Membership" />
+                </ListItem>
+                {/*
                 <ListItem button onClick={() => updatePage("MembershipNFT", "membership")}
                     className={currPage == "MembershipNFT" ? styles.currSection : ""}>
                     <ListItemIcon>
@@ -370,6 +382,7 @@ export default function DApp(props) {
                     </ListItemIcon>
                     <ListItemText primary="Cardinal House Membership" />
                 </ListItem>
+                */}
                 <ListItem button onClick={() => updatePage("Audits", "audits")}
                     className={currPage == "Audits" ? styles.currSection : ""}>
                     <ListItemIcon>
@@ -476,6 +489,11 @@ export default function DApp(props) {
             {
                 currPage == "OriginalCardinalNFT" && (
                     <OriginalCardinalNFT useDarkTheme={props.useDarkTheme} />
+                )
+            }
+            {
+                currPage == "PurchaseMembership" && (
+                    <PurchaseMembership useDarkTheme={props.useDarkTheme} updateTempTokenBalance={updateTempTokenBalance} />
                 )
             }
             {
