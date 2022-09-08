@@ -56,7 +56,7 @@ export default function Education(props) {
             </Button>
           </Grid>
           <Grid item className={clsx(styles.btnGrid, styles.bottomBtn)} xs={12}>
-            <Button id="educationBtn2" ref={educationBtn2Ref} href="/educationcenter" target="_blank" rel="noreferrer" size="large" variant="contained" color="primary" 
+            <Button id="educationBtn2" ref={educationBtn2Ref} href="/educationcenter" size="large" variant="contained" color="primary" 
               className={clsx("mt-3", props.useDarkTheme ? styles.teamBtnDark : styles.teamBtnLight)}>
               Check out our Education Center
             </Button>

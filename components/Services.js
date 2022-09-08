@@ -50,7 +50,7 @@ export default function Services(props) {
           <Grid item id="servicesImage" ref={servicesImageRef} className="mb-4" xs={8}>
             <Image src={servicesArt} layout="responsive" />
           </Grid>
-          <Button id="servicesBtn" ref={servicesBtnRef} href="/dapp" target="_blank" rel="noreferrer" size="large" variant="contained" color="primary" 
+          <Button id="servicesBtn" ref={servicesBtnRef} href="/dapp" size="large" variant="contained" color="primary" 
             className={props.useDarkTheme ? styles.teamBtnDark : styles.teamBtnLight}>
             View Services on Our DApp
           </Button>

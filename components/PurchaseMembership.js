@@ -291,12 +291,12 @@ export default function PurchaseMembership(props) {
                     <Typography variant="h3" className="mt-4">
                       Cardinal Crew Membership Price: 
                       <b>
-                        &nbsp;{memberDiscountAmount > 0 ? (parseInt(membershipPrice) * parseInt(memberDiscountAmount) / 100) : membershipPrice}&nbsp;
+                        &nbsp;{memberDiscountAmount > 0 ? parseFloat(parseInt(membershipPrice) * parseInt(memberDiscountAmount) / 100).toFixed(3) : membershipPrice.toFixed(3)}&nbsp;
                       </b>
                       Cardinal Tokens
                     </Typography>
                   )}
-                  <Grid container justifyContent="center" alignItems="center" spacing={4} className="mt-5 text-center">
+                  <Grid container justifyContent="center" alignItems="center" spacing={4} className="mt-4 text-center">
                     <Grid item xs={12}>
                       <Button size="large" variant="contained" color="primary"
                         disabled={approvingCardinalTokens || cardinalTokensApproved || !isConnected || approvedAmount > 100000000} onClick={startApproveCardinalTokens}>

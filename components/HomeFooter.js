@@ -44,21 +44,21 @@ export default function HomeFooter(props) {
               </Grid>
               <Grid item xs={12}></Grid>
               <Grid item lg={2} md={2} sm={3} xs={12}>
-                <a href="https://chain-estate.gitbook.io/cardinal-house-whitepaper/" target="_blank" className={styles.footerLink}>
+                <a href="https://chain-estate.gitbook.io/cardinal-house-whitepaper/" target="_blank" rel="noreferrer" className={styles.footerLink}>
                     <Typography variant="h6">
                         White Paper
                     </Typography>
                 </a>
               </Grid>
               <Grid item lg={2} md={2} sm={3} xs={3}>
-                <a href="/dapp" target="_blank" className={styles.footerLink}>
+                <a href="/dapp" className={styles.footerLink}>
                     <Typography variant="h6">
                         DApp
                     </Typography>
                 </a>
               </Grid>
               <Grid item lg={2} md={2} sm={3} xs={3}>
-                <a href="https://www.youtube.com/c/CardinalHouse" target="_blank" className={styles.footerLink}>
+                <a href="https://www.youtube.com/channel/UC1dUX-MzSWJ046vYP2215-g" target="_blank" rel="noreferrer" className={styles.footerLink}>
                     <Typography variant="h6">
                         YouTube
                     </Typography>
