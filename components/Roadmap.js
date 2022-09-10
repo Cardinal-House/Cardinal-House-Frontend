@@ -75,39 +75,55 @@ export default function Roadmap(props) {
               
             >
               <Typography variant="p">
-                <ArrowForwardIcon /> Launch Cardinal Token pre-sale and token launch
-              </Typography>
-              <br/>
-              <Typography variant="p">
-                <ArrowForwardIcon /> Fiat to Crypto Payment System
-              </Typography>
-              <br/>
-              <Typography variant="p">
-                <ArrowForwardIcon /> Ivy Nest
-              </Typography>
-              <br/>
-              <Typography variant="p">
-                <ArrowForwardIcon /> Launch Event Planning as a Service
-              </Typography>
-              <br/>
-              <Typography variant="p">
-                <ArrowForwardIcon /> Cardinal Consultant Service
-              </Typography>
-              <br/>
-              <Typography variant="p">
-                <ArrowForwardIcon /> Host two massive scale events
-              </Typography>
-              <br/>
-              <Typography variant="p">
                 <ArrowForwardIcon /> Release smart contract auditing service
               </Typography>
               <br/>
               <Typography variant="p">
-                <ArrowForwardIcon /> Release referral program
+                <ArrowForwardIcon /> Release event planning service
+              </Typography>
+              <br/>
+              <Typography variant="p">
+                <ArrowForwardIcon /> Launch Cardinal Token pre-sale and token launch
+              </Typography>
+              <br/>
+              <Typography variant="p">
+                <ArrowForwardIcon /> Grow Discord server through AMAs, giveaways, YouTube videos, and paid ads
+              </Typography>
+              <br/>
+              <Typography variant="p">
+                <ArrowForwardIcon /> Launch Cardinal Crew membership program
+              </Typography>
+              <br/>
+              <Typography variant="p">
+                <ArrowForwardIcon /> Release NFT marketplace
+              </Typography>
+              <br/>
+              <Typography variant="p">
+                <ArrowForwardIcon /> Coin Logic listing
+              </Typography>
+              <br/>
+              <Typography variant="p">
+                <ArrowForwardIcon /> Acquire strategic partners (TCL, MDB, K.C. Consulting)
+              </Typography>
+              <br/>
+              <Typography variant="p">
+                <ArrowForwardIcon /> Expand core team (Austin Clark & Kurt)
+              </Typography>
+              <br/>
+              <Typography variant="p">
+                <ArrowForwardIcon /> Release newsletter
+              </Typography>
+              <br/>
+              <Typography variant="p">
+                <ArrowForwardIcon /> Release Cardinal Points
+              </Typography>
+              <br/>
+              <Typography variant="p">
+                <ArrowForwardIcon /> Launch Education Center
               </Typography>
               <br/>
               <Typography variant="p" className={styles.lastTimelineElement}>
-                <ArrowForwardIcon /> Release NFT marketplace
+                <ArrowForwardIcon /> Add dark theme to this website
               </Typography>
             </VerticalTimelineElement>
 
@@ -133,15 +149,39 @@ export default function Roadmap(props) {
               </Typography>
               <br/>
               <Typography variant="p">
-                <ArrowForwardIcon /> Improve education center
+                <ArrowForwardIcon /> Grow through AMAs, events, partnerships & other marketing avenues
               </Typography>
               <br/>
               <Typography variant="p">
-                <ArrowForwardIcon /> Host two massive scale events
+                <ArrowForwardIcon /> Education Center UI and UX overhaul
+              </Typography>
+              <br/>
+              <Typography variant="p">
+                <ArrowForwardIcon /> Expand strategic partners
+              </Typography>
+              <br/>
+              <Typography variant="p">
+                <ArrowForwardIcon /> Grow Cardinal Crew membership benefits
+              </Typography>
+              <br/>
+              <Typography variant="p">
+                <ArrowForwardIcon /> Family Feud event
+              </Typography>
+              <br/>
+              <Typography variant="p">
+                <ArrowForwardIcon /> Launch Ivy Nest
+              </Typography>
+              <br/>
+              <Typography variant="p">
+                <ArrowForwardIcon /> Improve quality of services/engagement
+              </Typography>
+              <br/>
+              <Typography variant="p">
+                <ArrowForwardIcon /> Build out long term sponsorships for events
               </Typography>
               <br/>
               <Typography variant="p" className={styles.lastTimelineElement}>
-                <ArrowForwardIcon /> CoinMarketCap + CoinGecko listings
+                <ArrowForwardIcon /> Improve Cardinal Points benefits
               </Typography>
               <br/>
             </VerticalTimelineElement>
@@ -156,11 +196,23 @@ export default function Roadmap(props) {
               icon={<ArrowDownwardIcon />}
             >
               <Typography variant="p">
-                <ArrowForwardIcon /> New Utilities to Expand the Cardinal House Ecosystem
+                <ArrowForwardIcon /> In person event
               </Typography>
               <br/>
               <Typography variant="p">
-                <ArrowForwardIcon /> Grow to 20,000 members
+                <ArrowForwardIcon /> Build out Ivy Nest ecosystem
+              </Typography>
+              <br/>
+              <Typography variant="p">
+                <ArrowForwardIcon /> Grow community through education partners & many other avenues
+              </Typography>
+              <br/>
+              <Typography variant="p">
+                <ArrowForwardIcon /> Continue to improve the education center
+              </Typography>
+              <br/>
+              <Typography variant="p">
+                <ArrowForwardIcon /> Expand team
               </Typography>
               <br/>
               <Typography variant="p" className={styles.lastTimelineElement}>
