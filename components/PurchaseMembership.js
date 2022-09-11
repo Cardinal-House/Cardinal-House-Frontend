@@ -307,7 +307,7 @@ export default function PurchaseMembership(props) {
                     <Grid item xs={12}>
                       {isConnected && (
                         <Button size="large" variant="contained" color="primary"
-                          disabled={purchasingMembership || (!cardinalTokensApproved && !approvedAmount > 100000000)} onClick={startMembershipNFTMint}>
+                          disabled={purchasingMembership || (!cardinalTokensApproved && approvedAmount < 100000000)} onClick={startMembershipNFTMint}>
                           {purchasingMembership && <CircularProgress size={18} color="secondary"/>}
                           {purchasingMembership ? <>&nbsp; Purchasing Membership NFT...</> : "Purchase Membership NFT"}
                         </Button>
