@@ -54,30 +54,12 @@ export default function Navigation({useDarkTheme, setUseDarkTheme}) {
 
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav" className={styles.navBarItems}>
-                    <Nav>
-                        {/*
-                        <Nav.Link className={styles.navPadding} onClick={() => moveToSection("community")}>
-                            <Typography variant="h6" className={clsx(useDarkTheme ? styles.navbarDarkCustom : styles.navbarLightCustom, styles.navText)}>
-                                Community
-                            </Typography>
-                        </Nav.Link>
-                        <Nav.Link className={styles.navPadding} onClick={() => moveToSection("education")}>
-                            <Typography variant="h6" className={clsx(useDarkTheme ? styles.navbarDarkCustom : styles.navbarLightCustom, styles.navText)}>
-                                Education
-                            </Typography>
-                        </Nav.Link>
-                        <Nav.Link className={styles.navPadding} onClick={() => moveToSection("services")}>
-                            <Typography variant="h6" className={clsx(useDarkTheme ? styles.navbarDarkCustom : styles.navbarLightCustom, styles.navText)}>
-                                Services
-                            </Typography>
-                        </Nav.Link>
-                        */}
+                    <Nav className={useDarkTheme ? "darkThemeNav" : "lightThemeNav"}>
                         <NavDropdown title="About" className={clsx(styles.navDropdown, styles.navPadding, useDarkTheme ? styles.navbarDarkCustom : styles.navbarLightCustom, styles.navText)}>
                             <NavDropdown.Item onClick={() => moveToSection("community")}>Community</NavDropdown.Item>
                             <NavDropdown.Item onClick={() => moveToSection("education")}>Education</NavDropdown.Item>
                             <NavDropdown.Item onClick={() => moveToSection("services")}>Services</NavDropdown.Item>
                             <NavDropdown.Item onClick={() => moveToSection("token")}>Cardinal Token</NavDropdown.Item>
-
                         </NavDropdown>
                         <Nav.Link href="/educationcenter" className={styles.navPadding} >
                             <Typography variant="h6" className={clsx(useDarkTheme ? styles.navbarDarkCustom : styles.navbarLightCustom, styles.navText)}>
@@ -99,12 +81,10 @@ export default function Navigation({useDarkTheme, setUseDarkTheme}) {
                                 DApp
                             </Typography>
                         </Nav.Link>
-                        <Tooltip title="Dark Theme Coming Soon!">
-                            <div className={styles.changeThemeDiv}>
-                                {useDarkTheme ? <DarkModeIcon className={clsx(styles.darkModeIcon, styles.iconSizeTheme)} /> : <LightModeIcon className={styles.lightModeIcon} fontSize="large" />}
-                                <Switch checked={useDarkTheme} disabled={true} color="primary" onChange={e => setUseDarkTheme(e.target.checked)} />
-                            </div>
-                        </Tooltip>
+                        <div className={styles.changeThemeDiv}>
+                            {useDarkTheme ? <DarkModeIcon className={clsx(styles.darkModeIcon, styles.iconSizeTheme)} /> : <LightModeIcon className={styles.lightModeIcon} fontSize="large" />}
+                            <Switch checked={useDarkTheme} color="primary" onChange={e => setUseDarkTheme(e.target.checked)} />
+                        </div>
                         <IconContext.Provider value={{ color: useDarkTheme ? "#ff0000" : "#ff0000" }} className={styles.socialIcons}>
                             <div className={styles.socialIcons}>
                                 <div className={styles.socialIcon}>

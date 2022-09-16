@@ -41,7 +41,7 @@ export default function ForCards(props) {
             </div>
           </Card>
         </Grid>
-        <Grid item item lg={4} md={5} sm={10} xs={12} className={styles.forCard2}>
+        <Grid item lg={4} md={5} sm={10} xs={12} className={styles.forCard2}>
           <Card id="forCard2" ref={forCard2Ref} className={clsx(styles.customCard, props.useDarkTheme ? styles.customCardDark : styles.customCardLight)}>
             <div>
               <CardContent>
@@ -52,7 +52,7 @@ export default function ForCards(props) {
                   For Project Owners
                 </Typography>
                 <Typography variant="p" component="div" className="mt-4">
-                  Need affordable KYC, auditing, AMA, or marketing services? Or maybe you need
+                  Need affordable, auditing, AMA, community events, or marketing services? Or maybe you need
                   a customizable and secure launchpad? No matter what your project needs are, Cardinal
                   House has you covered!
                 </Typography>

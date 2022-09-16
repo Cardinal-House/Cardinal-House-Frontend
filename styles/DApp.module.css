@@ -75,9 +75,9 @@
 }
   
 .backgroundDark {
-background-image: url("../public/DarkThemeBackground.png") !important;
-background-repeat: no-repeat !important;
-background-size: cover;
+    background-image: url("../public/DarkThemeBackground.png") !important;
+    background-repeat: no-repeat !important;
+    background-size: cover;
 }
 
 .cardinalPayGrid {

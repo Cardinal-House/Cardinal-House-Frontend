@@ -290,12 +290,10 @@ export default function DApp(props) {
                     )
                 }
 
-                <Tooltip title="Dark Theme Coming Soon!">
-                    <div className={styles.changeThemeDiv}>
-                        {props.useDarkTheme ? <DarkModeIcon className={clsx(styles.darkModeIcon, styles.iconSizeTheme)} /> : <LightModeIcon className={styles.lightModeIcon} fontSize="large" />}
-                        <Switch checked={props.useDarkTheme} disabled={true} color="primary" onChange={e => props.setUseDarkTheme(e.target.checked)} />
-                    </div>
-                </Tooltip>
+                <div className={styles.changeThemeDiv}>
+                    {props.useDarkTheme ? <DarkModeIcon className={clsx(styles.darkModeIcon, styles.iconSizeTheme)} /> : <LightModeIcon className={styles.lightModeIcon} fontSize="large" />}
+                    <Switch checked={props.useDarkTheme} color="primary" onChange={e => props.setUseDarkTheme(e.target.checked)} />
+                </div>
 
                 {isConnected && (
                     <Button size="small" variant="contained" color="primary" onClick={deactivate}

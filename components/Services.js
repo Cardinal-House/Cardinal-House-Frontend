@@ -30,7 +30,7 @@ export default function Services(props) {
   }, [])
   
   return (
-    <Grid container id="services" ref={servicesGridRef} justifyContent="center" alignItems="center" spacing={6} className={clsx(styles.communityGrid, styles.transparentBackground, props.useDarkTheme ? styles.communityGridDark : styles.communityGridLight)}>
+    <Grid container id="services" ref={servicesGridRef} justifyContent="center" alignItems="center" spacing={6} className={clsx(styles.communityGrid, props.useDarkTheme ? styles.transparentBackgroundDark : styles.transparentBackgroundLight, props.useDarkTheme ? styles.communityGridDark : styles.communityGridLight)}>
       <Grid item lg={8} md={8} sm={12} xs={12} className={styles.communityGridInfo}>
         <Typography id="servicesHeader" ref={servicesHeaderRef} variant="h3" className={styles.communityHeader}>
           Services
@@ -38,7 +38,7 @@ export default function Services(props) {
         <div id="servicesText" ref={servicesTextRef}>
           <Typography variant="p">
             Cardinal House will offer many crypto services such as auditing, marketing, an NFT marketplace, 
-            a KYC service, a launchpad service (Lift-Off), and an escrow service (Cardinal Pay). 
+            a partnered KYC service, event planning, a launchpad service (Lift-Off), and an escrow service (Cardinal Pay). 
             These services will be added to our ecosystem over time and will be a way for projects that come
             into our community for AMAs to further use our platform for the benefit of their project 
             <i> and</i> the Cardinal House community.

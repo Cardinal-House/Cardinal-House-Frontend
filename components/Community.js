@@ -30,7 +30,7 @@ export default function Community(props) {
   }, [])
   
   return (
-    <Grid container id="community" ref={communityGridRef} justifyContent="center" alignItems="center" spacing={6} className={clsx(styles.communityGrid, styles.transparentBackground, props.useDarkTheme ? styles.communityGridDark : styles.communityGridLight)}>
+    <Grid container id="community" ref={communityGridRef} justifyContent="center" alignItems="center" spacing={6} className={clsx(styles.communityGrid, props.useDarkTheme ? styles.transparentBackgroundDark : styles.transparentBackgroundLight, props.useDarkTheme ? styles.communityGridDark : styles.communityGridLight)}>
       <Grid item lg={8} md={8} sm={12} xs={12} className={styles.communityGridInfo}>
         <Typography id="communityHeader" ref={communityHeaderRef} variant="h2" className={styles.communityHeader}>
           Community

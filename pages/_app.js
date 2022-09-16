@@ -48,7 +48,7 @@ function MyApp({ Component, pageProps }) {
     palette: {
       mode: 'dark',
       background: {
-        paper: '#141a2a',
+        paper: '#010116', // #020119
       },
       primary: {
         main: '#c50a0a',
@@ -102,14 +102,16 @@ function MyApp({ Component, pageProps }) {
     })(window, document, "clarity", "script", "cxz5yo9w1v");
   }, [])
 
-  useEffect(() => {
-    if (useDarkTheme) {
+  const updateUseDarkTheme = (themeValue) => {
+    if (themeValue) {
       localStorage.setItem("cardinalHouseTheme", "dark");
     }
     else {
       localStorage.setItem("cardinalHouseTheme", "light");
     }
-  }, [useDarkTheme]);
+
+    setUseDarkTheme(themeValue);
+  }
 
   const config = {
     readOnlyChainId: Polygon.chainId,
@@ -133,7 +135,7 @@ function MyApp({ Component, pageProps }) {
           <script async src="https://www.googletagmanager.com/gtag/js?id=G-TJSPRD6Y1T"></script>
         </Head>
         <Paper className="mainPaper">
-          <Component {...pageProps} useDarkTheme={useDarkTheme} setUseDarkTheme={setUseDarkTheme} />
+          <Component {...pageProps} useDarkTheme={useDarkTheme} setUseDarkTheme={updateUseDarkTheme} />
         </Paper>
       </DAppProvider>
     </ThemeProvider>

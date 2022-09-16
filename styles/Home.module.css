@@ -1,17 +1,24 @@
 .lightThemeBackground {
   background-image: url("../public/LightThemeBackground.png") !important;
   background-repeat: no-repeat !important;
-  background-size: cover;
+  background-size: cover !important;
 }
 
 .darkThemeBackground {
   background-image: url("../public/DarkThemeBackground.png") !important;
   background-repeat: no-repeat !important;
-  background-size: cover;
+  background-size: cover !important;
 }
 
 .introBackground {
   background-image: url("../public/IntroBackground.png") !important;
+  background-position: right !important;
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
+}
+
+.introBackgroundDark {
+  background-image: url("../public/IntroBackgroundDark.png") !important;
   background-position: right !important;
   background-repeat: no-repeat !important;
   background-size: cover !important;
@@ -128,9 +135,14 @@
   border: 3px solid rgba(29, 38, 59, 0.05) !important;
 }
 
-.transparentBackground {
+.transparentBackgroundLight {
   background-color: rgba(234, 238, 243, 0.4) !important;
   border: 3px solid rgba(29, 38, 59, 0.05) !important;
+}
+
+.transparentBackgroundDark {
+  background-color: rgba(29, 38, 59, 0.35) !important;
+  border: 3px solid rgba(231, 233, 240, 0.05) !important;
 }
 
 .customCardGrid {
@@ -249,9 +261,34 @@
   background-position-y: bottom !important;
 }
 
+.growthCard1Light {
+  background-image: url("../public/Tree1.png") !important;
+}
+.growthCard2Light {
+  background-image: url("../public/Tree2.png") !important;
+}
+.growthCard3Light {
+  background-image: url("../public/Tree3.png") !important;
+}
+.growthCard4Light {
+  background-image: url("../public/Tree4.png") !important;
+}
+
+.growthCard1Dark {
+  background-image: url("../public/DarkTree1.png") !important;
+}
+.growthCard2Dark {
+  background-image: url("../public/DarkTree2.png") !important;
+}
+.growthCard3Dark {
+  background-image: url("../public/DarkTree3.png") !important;
+}
+.growthCard4Dark {
+  background-image: url("../public/DarkTree4.png") !important;
+}
+
 .growthTimeText {
   margin-bottom: 20% !important;
-  color: black !important;
 }
 
 .roadmapHeader {
@@ -294,20 +331,17 @@
 }
 
 @media (max-width: 1350px) {
-  .growthCard1 {
+  .growthCard1Light {
     background-image: url("../public/Tree1Grey.png") !important;
   }
-  .growthCard2 {
+  .growthCard2Light {
     background-image: url("../public/Tree2Grey.png") !important;
   }
-  .growthCard3 {
+  .growthCard3Light {
     background-image: url("../public/Tree3Grey.png") !important;
   }
-  .growthCard4 {
+  .growthCard4Light {
     background-image: url("../public/Tree4Grey.png") !important;
-  }
-  .growthTimeText {
-    color: white !important;
   }
   .growthText {
     color: white !important;
@@ -362,12 +396,26 @@
     background-repeat: no-repeat !important;
     background-size: cover !important;
   }
+
+  .introBackgroundDark {
+    height: 125vh !important;
+    text-align: center !important;
+    background-image: url("../public/IntroBackgroundDarkTablet.png") !important;
+    background-position: right !important;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+  }
 }
 
 @media (max-width: 425px) {
   .introBackground {
     height: 175vh !important;
     background-image: url("../public/IntroBackgroundMobile.png") !important;
+  }
+
+  .introBackgroundDark {
+    height: 175vh !important;
+    background-image: url("../public/IntroBackgroundDarkMobile.png") !important;
   }
 }
 

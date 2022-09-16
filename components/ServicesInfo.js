@@ -165,7 +165,7 @@ export default function ServicesInfo(props) {
           </Grid>
           <Grid item lg={6} md={8} sm={10} xs={10}>
             <Typography variant="h5" className={styles.pricingText}>
-              KYC Price: Starting at $1500
+              KYC Price: Starting at $2500
             </Typography>
           </Grid>
 
@@ -199,6 +199,29 @@ export default function ServicesInfo(props) {
 
           <Grid item xs={12}>
             <Typography variant="h2" id="liftOffHeader" ref={liftOffHeaderRef} className={styles.serviceHeaderText}>
+              Event Planning
+            </Typography>
+          </Grid>
+          <Grid item id="liftOffImage" ref={liftOffImageRef} lg={3} md={4} sm={8} xs={10}>
+            <Image src={liftOffImage} layout="responsive" />
+          </Grid>
+          <Grid item id="liftOffText" ref={liftOffTextRef} lg={7} md={6} sm={12} xs={12}>
+            <Typography variant="h3">
+              For projects looking to bring their community together or get them excited about a new product launching, we will utilize our network and skill 
+              sets to organize a high production, fun event that includes giveaways, guest speakers, sponsorships, educational elements, and an overall good time. 
+              Revenue from clients that use Cardinal House event hosting as a service will be utilized to pay for the production costs, staff, marketing, and 
+              purchasing/burning Cardinal token.
+            </Typography>
+          </Grid>
+          <Grid item lg={6} md={8} sm={10} xs={10}>
+            <Typography variant="h5" className={styles.pricingText}>
+              Event Planning Price: Reach Out to Us on Discord
+            </Typography>
+          </Grid>
+
+          {/*
+          <Grid item xs={12}>
+            <Typography variant="h2" id="liftOffHeader" ref={liftOffHeaderRef} className={styles.serviceHeaderText}>
               Lift-Off
             </Typography>
           </Grid>
@@ -222,6 +245,7 @@ export default function ServicesInfo(props) {
               Lift-Off Automated Token Launch Pricing: $500
             </Typography>
           </Grid>
+          */}
 
           <Grid item xs={12}>
             <Typography variant="h2" id="cardinalPayHeader" ref={cardinalPayHeaderRef} className={styles.serviceHeaderText}>

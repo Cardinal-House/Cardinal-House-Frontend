@@ -56,8 +56,15 @@ a {
 }
 
 .dropdown-toggle {
-  color: black !important;
   margin-top: 2% !important;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+  color: white !important;
+}
+
+.navbar-light .navbar-nav .nav-link {
+  color: black !important;
 }
 
 .mainPaper {
@@ -203,8 +210,12 @@ a {
   }
 }
 
-.dropdown-menu {
+.lightThemeNav .dropdown-menu {
   background-color: #25c9df !important;
+}
+
+.darkThemeNav .dropdown-menu {
+  background-color: white !important;
 }
 
 .dropdown-item:hover {

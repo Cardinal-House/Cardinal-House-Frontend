@@ -5,7 +5,7 @@ import styles from '../styles/Home.module.css';
 
 export default function Intro(props) {  
   return (
-    <Grid container className={clsx(styles.introGrid, styles.introBackground)}>
+    <Grid container className={clsx(styles.introGrid, props.useDarkTheme ? styles.introBackgroundDark : styles.introBackground)}>
         <Grid item lg={6} md={6} sm={6} xs={12} className={styles.introText}>
         <Typography variant="h1" className={clsx(props.useDarkTheme ? styles.introTextTypographyDark : styles.introTextTypographyLight, "mb-4", styles.headerText)}>
         <b className={props.useDarkTheme ? styles.boldTextDark : styles.boldTextLight}>Community</b> for Crypto <b className={props.useDarkTheme ? styles.boldTextDark : styles.boldTextLight}>Investors </b>
@@ -17,7 +17,7 @@ export default function Intro(props) {
         </Typography>
         <Grid container justifyContent="left" className={styles.introBtnGrid}>
             <div className={styles.floated}>
-              <Button href="/team" target="_blank" rel="noreferrer" size="medium" variant="contained" color="primary" 
+              <Button href="/team" size="medium" variant="contained" color="primary" 
                 className={props.useDarkTheme ? styles.teamBtnDark : styles.teamBtnLight}>
                 Meet the Team
               </Button>

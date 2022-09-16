@@ -33,16 +33,16 @@ export default function Growth(props) {
         </Typography>
       </Grid>
         <Grid item lg={5} md={5} sm={10} xs={12} className={styles.forCard}>
-          <Card id="growthCard1" ref={growthCard1Ref} className={clsx(styles.growthCard, styles.growthCard1)}>
+          <Card id="growthCard1" ref={growthCard1Ref} className={clsx(styles.growthCard, props.useDarkTheme ? styles.growthCard1Dark : styles.growthCard1Light)}>
             <div>
               <CardContent>
-                <Typography variant="h4" component="div" className={styles.growthTimeText}>
+                <Typography variant="h4" component="div" className={clsx(props.useDarkTheme ? styles.growthTextDark : styles.growthTextLight, styles.growthTimeText)}>
                   Q2 2022:
                 </Typography>
-                <Typography variant="h5" component="div" className={styles.growthText}>
+                <Typography variant="h5" component="div" className={props.useDarkTheme ? styles.growthTextDark : styles.growthTextLight}>
                   <IoMdCheckmarkCircleOutline /> Memberships
                 </Typography>
-                <Typography variant="h5" component="div" className={clsx("mt-2", styles.growthText)}>
+                <Typography variant="h5" component="div" className={clsx("mt-2", props.useDarkTheme ? styles.growthTextDark : styles.growthTextLight)}>
                   <IoMdCheckmarkCircleOutline /> AMAs
                 </Typography>
               </CardContent>
@@ -50,22 +50,22 @@ export default function Growth(props) {
           </Card>
         </Grid>
         <Grid item lg={5} md={5} sm={10} xs={12} className={styles.forCard}>
-          <Card id="growthCard2" ref={growthCard2Ref} className={clsx(styles.growthCard, styles.growthCard2)}>
+          <Card id="growthCard2" ref={growthCard2Ref} className={clsx(styles.growthCard, props.useDarkTheme ? styles.growthCard2Dark : styles.growthCard2Light)}>
             <div>
               <CardContent>
-                <Typography variant="h4" component="div" className={styles.growthTimeText}>
+                <Typography variant="h4" component="div" className={clsx(props.useDarkTheme ? styles.growthTextDark : styles.growthTextLight, styles.growthTimeText)}>
                   Early Q3 2022:
                 </Typography>
-                <Typography variant="h5" component="div" className={styles.growthText}>
+                <Typography variant="h5" component="div" className={props.useDarkTheme ? styles.growthTextDark : styles.growthTextLight}>
                   <IoMdCheckmarkCircleOutline /> Memberships
                 </Typography>
-                <Typography variant="h5" component="div" className={clsx("mt-2", styles.growthText)}>
+                <Typography variant="h5" component="div" className={clsx("mt-2", props.useDarkTheme ? styles.growthTextDark : styles.growthTextLight)}>
                   <IoMdCheckmarkCircleOutline /> AMAs
                 </Typography>
-                <Typography variant="h5" component="div" className={clsx("mt-2", styles.growthText)}>
-                  <IoMdCheckmarkCircleOutline /> NFT marketplace
+                <Typography variant="h5" component="div" className={clsx("mt-2", props.useDarkTheme ? styles.growthTextDark : styles.growthTextLight)}>
+                  <IoMdCheckmarkCircleOutline /> Auditing
                 </Typography>
-                <Typography variant="h5" component="div" className={clsx("mt-2", styles.growthText)}>
+                <Typography variant="h5" component="div" className={clsx("mt-2", props.useDarkTheme ? styles.growthTextDark : styles.growthTextLight)}>
                   <IoMdCheckmarkCircleOutline /> Giveaways
                 </Typography>
               </CardContent>
@@ -73,63 +73,63 @@ export default function Growth(props) {
           </Card>
         </Grid>
         <Grid item lg={5} md={5} sm={10} xs={12} className={styles.forCard}>
-          <Card id="growthCard3" ref={growthCard3Ref} className={clsx(styles.growthCard, styles.growthCard3)}>
+          <Card id="growthCard3" ref={growthCard3Ref} className={clsx(styles.growthCard, props.useDarkTheme ? styles.growthCard3Dark : styles.growthCard3Light)}>
             <div>
               <CardContent>
-                <Typography variant="h4" component="div" className={styles.growthTimeText}>
+                <Typography variant="h4" component="div" className={clsx(props.useDarkTheme ? styles.growthTextDark : styles.growthTextLight, styles.growthTimeText)}>
                   Late Q3 2022:
                 </Typography>
-                <Typography variant="h5" component="div" className={styles.growthText}>
+                <Typography variant="h5" component="div" className={props.useDarkTheme ? styles.growthTextDark : styles.growthTextLight}>
                   <IoMdCheckmarkCircleOutline /> Memberships
                 </Typography>
-                <Typography variant="h5" component="div" className={clsx("mt-2", styles.growthText)}>
+                <Typography variant="h5" component="div" className={clsx("mt-2", props.useDarkTheme ? styles.growthTextDark : styles.growthTextLight)}>
                   <IoMdCheckmarkCircleOutline /> AMAs
                 </Typography>
-                <Typography variant="h5" component="div" className={clsx("mt-2", styles.growthText)}>
-                  <IoMdCheckmarkCircleOutline /> NFT marketplace
-                </Typography>
-                <Typography variant="h5" component="div" className={clsx("mt-2", styles.growthText)}>
-                  <IoMdCheckmarkCircleOutline /> Giveaways
-                </Typography>
-                <Typography variant="h5" component="div" className={clsx("mt-2", styles.growthText)}>
+                <Typography variant="h5" component="div" className={clsx("mt-2", props.useDarkTheme ? styles.growthTextDark : styles.growthTextLight)}>
                   <IoMdCheckmarkCircleOutline /> Auditing
                 </Typography>
-                <Typography variant="h5" component="div" className={clsx("mt-2", styles.growthText)}>
+                <Typography variant="h5" component="div" className={clsx("mt-2", props.useDarkTheme ? styles.growthTextDark : styles.growthTextLight)}>
                   <IoMdCheckmarkCircleOutline /> KYC
+                </Typography>
+                <Typography variant="h5" component="div" className={clsx("mt-2", props.useDarkTheme ? styles.growthTextDark : styles.growthTextLight)}>
+                  <IoMdCheckmarkCircleOutline /> Giveaways
+                </Typography>
+                <Typography variant="h5" component="div" className={clsx("mt-2", props.useDarkTheme ? styles.growthTextDark : styles.growthTextLight)}>
+                  <IoMdCheckmarkCircleOutline /> Event Planning
                 </Typography>
               </CardContent>
             </div>
           </Card>
         </Grid>
         <Grid item lg={5} md={5} sm={10} xs={12} className={styles.forCard}>
-          <Card id="growthCard4" ref={growthCard4Ref} className={clsx(styles.growthCard, styles.growthCard4)}>
+          <Card id="growthCard4" ref={growthCard4Ref} className={clsx(styles.growthCard, props.useDarkTheme ? styles.growthCard4Dark : styles.growthCard4Light)}>
             <div>
               <CardContent>
-                <Typography variant="h4" component="div" className={styles.growthTimeText}>
+                <Typography variant="h4" component="div" className={clsx(props.useDarkTheme ? styles.growthTextDark : styles.growthTextLight, styles.growthTimeText)}>
                   Q4 2022:
                 </Typography>
-                <Typography variant="h5" component="div" className={styles.growthText}>
+                <Typography variant="h5" component="div" className={props.useDarkTheme ? styles.growthTextDark : styles.growthTextLight}>
                   <IoMdCheckmarkCircleOutline /> Memberships
                 </Typography>
-                <Typography variant="h5" component="div" className={clsx("mt-2", styles.growthText)}>
+                <Typography variant="h5" component="div" className={clsx("mt-2", props.useDarkTheme ? styles.growthTextDark : styles.growthTextLight)}>
                   <IoMdCheckmarkCircleOutline /> AMAs
                 </Typography>
-                <Typography variant="h5" component="div" className={clsx("mt-2", styles.growthText)}>
-                  <IoMdCheckmarkCircleOutline /> NFT marketplace
-                </Typography>
-                <Typography variant="h5" component="div" className={clsx("mt-2", styles.growthText)}>
-                  <IoMdCheckmarkCircleOutline /> Giveaways
-                </Typography>
-                <Typography variant="h5" component="div" className={clsx("mt-2", styles.growthText)}>
+                <Typography variant="h5" component="div" className={clsx("mt-2", props.useDarkTheme ? styles.growthTextDark : styles.growthTextLight)}>
                   <IoMdCheckmarkCircleOutline /> Auditing
                 </Typography>
-                <Typography variant="h5" component="div" className={clsx("mt-2", styles.growthText)}>
+                <Typography variant="h5" component="div" className={clsx("mt-2", props.useDarkTheme ? styles.growthTextDark : styles.growthTextLight)}>
                   <IoMdCheckmarkCircleOutline /> KYC
                 </Typography>
-                <Typography variant="h5" component="div" className={clsx("mt-2", styles.growthText)}>
-                  <IoMdCheckmarkCircleOutline /> Lift-Off
+                <Typography variant="h5" component="div" className={clsx("mt-2", props.useDarkTheme ? styles.growthTextDark : styles.growthTextLight)}>
+                  <IoMdCheckmarkCircleOutline /> Giveaways
                 </Typography>
-                <Typography variant="h5" component="div" className={clsx("mt-2", styles.growthText)}>
+                <Typography variant="h5" component="div" className={clsx("mt-2", props.useDarkTheme ? styles.growthTextDark : styles.growthTextLight)}>
+                  <IoMdCheckmarkCircleOutline /> Event Planning
+                </Typography>
+                <Typography variant="h5" component="div" className={clsx("mt-2", props.useDarkTheme ? styles.growthTextDark : styles.growthTextLight)}>
+                  <IoMdCheckmarkCircleOutline /> Ivy Nest
+                </Typography>
+                <Typography variant="h5" component="div" className={clsx("mt-2", props.useDarkTheme ? styles.growthTextDark : styles.growthTextLight)}>
                   <IoMdCheckmarkCircleOutline /> Cardinal Pay
                 </Typography>
               </CardContent>
