@@ -17,7 +17,7 @@ export default function Footer(props) {
     }, [])
 
     return (
-    <footer className={clsx(styles.footer, footerColor != "default" ? styles.lightFooter : "")}>
+    <footer className={clsx(styles.footer, footerColor != "default" && props.useDarkTheme ? styles.lightFooter : "")}>
         <Typography variant="p" className={props.useDarkTheme ? styles.darkThemeFooter : ""}>
             Copyright Cardinal House 2022
         </Typography>

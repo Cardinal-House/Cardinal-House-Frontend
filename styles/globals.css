@@ -145,7 +145,24 @@ a {
   font-size: 18px !important;
 }
 
+.categoryBtn {
+  background-color: rgba(63, 62, 62, 0.4) !important;
+  border-top: 2px rgba(0, 0, 0, 0.4) solid !important;
+  border-bottom: 2px rgba(0, 0, 0, 0.4) solid !important;
+}
+
+/*
+.subCategoryBtn {
+  border-bottom: 5px rgba(0, 0, 0, 0.4) solid !important;
+}
+*/
+
 .categoryBtn .MuiListItemText-primary {
+  font-size: 18px !important;
+  margin-bottom: 3% !important;
+}
+
+.subCategoryBtn .MuiListItemText-primary {
   font-size: 18px !important;
   margin-bottom: 3% !important;
 }

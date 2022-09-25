@@ -13,6 +13,7 @@ export default async (req, res) => {
         const link = req.body.link;
         const description = req.body.description;
         const category = req.body.category;
+        const section = req.body.section;
         const subCategory = req.body.subCategory;
         const videoOrder = req.body.videoOrder;
         const categoryOrder = req.body.categoryOrder;
@@ -33,6 +34,7 @@ export default async (req, res) => {
                 "link": link,
                 "description": description,
                 "category": category,
+                "section": section,
                 "subCategory": subCategory,
                 "videoOrder": videoOrder,
                 "categoryOrder": categoryOrder,

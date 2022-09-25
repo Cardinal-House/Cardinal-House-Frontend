@@ -1,17 +1,16 @@
 import Image from 'next/image';
-import clsx from 'clsx';
 import { Grid, Typography } from '@mui/material';
 
 import cardinalHouseLogo from '../public/CardinalLogoLight.png';
 import educationArt from '../public/educationArt2.png';
 import styles from '../styles/EducationCenter.module.css';
 
-export default function EducationCenterIntro(props) {
+export default function EducationCenterHistoryIntro(props) {
   return (
     <Grid container justifyContent="center" alignItems="center" spacing={4} className={styles.educationCenterIntroGrid}>
       <Grid item lg={6} md={8} sm={10} xs={12} className={styles.headerTextGrid}>
         <Typography variant="h1" className={styles.headerText}>
-          Cardinal House Education Center
+          Cardinal House Education Center - History and Use Case of Crypto
         </Typography>
       </Grid>
       <Grid item xs={12}></Grid>
@@ -24,42 +23,6 @@ export default function EducationCenterIntro(props) {
           everything about cryptocurrency and blockchain technology.
           
         </Typography>
-      </Grid>
-
-      <Grid item xs={12} sm={6} md={4} lg={4} className={clsx("mt-3 mb-5", styles.bigBtnGrid)}>
-        <div className={clsx(styles.cardDiv, "rounded-xl overflow-hidden")} onClick={() => props.sectionSelected("History and Use Case of Crypto")}>
-          <Grid container justifyContent="center" alignItems="center" className={clsx(styles.bigBtnText, "p-4")}>
-            <Grid item xs={12}>
-              <Typography variant="h4" component="div" className="text-2xl font-bold">
-                History and Use Case of Crypto
-              </Typography>
-            </Grid>
-            <Grid item xs={12}>
-              <Typography variant="p" component="div" className={clsx(props.useDarkTheme ? styles.bigBtnDescriptionTextDark : styles.bigBtnDescriptionTextLight, "font-bold mt-3")}>
-                This is some text for the history and use case of crypto that will eventually
-                be replaced by something that actually has meaning for the users of the Cardinal House.
-              </Typography>
-            </Grid>
-          </Grid>
-        </div>
-      </Grid>
-
-      <Grid item xs={12} sm={6} md={4} lg={4} className={clsx("mt-3 mb-5", styles.bigBtnGrid)}>
-        <div className={clsx(styles.cardDiv, "rounded-xl overflow-hidden")} onClick={() => props.sectionSelected("How to Invest Today")}>
-          <Grid container justifyContent="center" alignItems="center" className={clsx(styles.bigBtnText, "p-4")}>
-            <Grid item xs={12}>
-              <Typography variant="h4" component="div" className="text-2xl font-bold">
-                How to Invest Today
-              </Typography>
-            </Grid>
-            <Grid item xs={12}>
-              <Typography variant="p" component="div" className={clsx(props.useDarkTheme ? styles.bigBtnDescriptionTextDark : styles.bigBtnDescriptionTextLight, "font-bold mt-3")}>
-                This is some text for the history and use case of crypto that will eventually
-                be replaced by something that actually has meaning for the users of the Cardinal House.
-              </Typography>
-            </Grid>
-          </Grid>
-        </div>
       </Grid>
 
       <Grid className={styles.mobileImage} item lg={4} md={5} sm={8} xs={10}>

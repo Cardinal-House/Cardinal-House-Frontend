@@ -11,7 +11,7 @@ import { FaDiscord, FaTwitter, FaTelegram, FaYoutube } from 'react-icons/fa';
 
 import styles from '../styles/Navigation.module.css';
 
-export default function Navigation({useDarkTheme, setUseDarkTheme}) {
+export default function Navigation({useDarkTheme, setUseDarkTheme, hideThemeToggle}) {
     gsap.registerPlugin(ScrollToPlugin);
 
     const sections = ["community", "education", "services", "roadmap"];
@@ -41,7 +41,7 @@ export default function Navigation({useDarkTheme, setUseDarkTheme}) {
     return (
         <Grid container justifyContent="center" alignItems="center">
             <Navbar expand="lg" bg={useDarkTheme ? "custom-dark" : "custom-light"} variant={useDarkTheme ? "dark" : "light"} className={clsx("m-auto", styles.navBar)}>
-                <Navbar.Text className={styles.navBarBrand}>
+                <Navbar.Text className={styles.navBarBrand} onClick={() => {window.location.href = `${window.location.origin}`}}>
                     <Container>
                         <Navbar.Brand className={styles.navBarBrand}>
                             <img alt="" src="/CardinalLogoLight.png" width="50" height="50" className={clsx(styles.logoImage)} />
@@ -81,10 +81,19 @@ export default function Navigation({useDarkTheme, setUseDarkTheme}) {
                                 DApp
                             </Typography>
                         </Nav.Link>
-                        <div className={styles.changeThemeDiv}>
-                            {useDarkTheme ? <DarkModeIcon className={clsx(styles.darkModeIcon, styles.iconSizeTheme)} /> : <LightModeIcon className={styles.lightModeIcon} fontSize="large" />}
-                            <Switch checked={useDarkTheme} color="primary" onChange={e => setUseDarkTheme(e.target.checked)} />
-                        </div>
+                        {
+                            !hideThemeToggle && (
+                                <div className={styles.changeThemeDiv}>
+                                    {useDarkTheme ? <DarkModeIcon className={clsx(styles.darkModeIcon, styles.iconSizeTheme)} /> : <LightModeIcon className={styles.lightModeIcon} fontSize="large" />}
+                                    <Switch checked={useDarkTheme} color="primary" onChange={e => setUseDarkTheme(e.target.checked)} />
+                                </div>
+                            )
+                        }
+                        {
+                            hideThemeToggle && (
+                                <div className={styles.changeThemeDiv}></div>
+                            )
+                        }
                         <IconContext.Provider value={{ color: useDarkTheme ? "#ff0000" : "#ff0000" }} className={styles.socialIcons}>
                             <div className={styles.socialIcons}>
                                 <div className={styles.socialIcon}>

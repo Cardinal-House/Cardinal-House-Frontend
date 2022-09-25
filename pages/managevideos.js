@@ -38,6 +38,7 @@ const emptyEntry = {
     link: "",
     description: "",
     category: "",
+    section: "",
     subCategory: "",
     minutes: "",
     categoryOrder: "",
@@ -210,8 +211,14 @@ export default function managevideos(props) {
 
         if (property == "category" && value && value != "" && Object.keys(videosByCategory).includes(value)) {
             const firstSubCategory = Object.keys(videosByCategory[value])[0];
+
             const calculatedCategoryOrder = videosByCategory[value][firstSubCategory][0].categoryOrder;
             newCurrVideo["categoryOrder"] = calculatedCategoryOrder;
+
+            const calculatedSection = videosByCategory[value][firstSubCategory][0].section;
+            if (calculatedSection) {
+                newCurrVideo["section"] = calculatedSection;
+            }
         }
 
         if (property == "subCategory" && value && value != "" && Object.keys(videosByCategory).includes(currVideo.category) && Object.keys(videosByCategory[currVideo.category]).includes(value)) {
@@ -238,6 +245,7 @@ export default function managevideos(props) {
                 link: currVideo.link,
                 description: currVideo.description,
                 category: currVideo.category,
+                section: currVideo.section,
                 subCategory: currVideo.subCategory,
                 videoOrder: parseFloat(currVideo.videoOrder),
                 categoryOrder: parseFloat(currVideo.categoryOrder),
@@ -278,6 +286,7 @@ export default function managevideos(props) {
                 link: currVideo.link,
                 description: currVideo.description,
                 category: currVideo.category,
+                section: currVideo.section,
                 subCategory: currVideo.subCategory,
                 videoOrder: parseFloat(currVideo.videoOrder),
                 categoryOrder: parseFloat(currVideo.categoryOrder),
@@ -439,6 +448,19 @@ export default function managevideos(props) {
                     }
                 />
                 <br/>
+                <FormControl fullWidth className={styles.videoTextField}>
+                    <InputLabel id="type-label">Education Center Section</InputLabel>
+                    <Select
+                        labelId="type-label"
+                        value={currVideo.section}
+                        label="Education Center Section"
+                        onChange={(e) => updateCurrVideo(e, "section")}
+                    >
+                    <MenuItem value="History and Use Case of Crypto">History and Use Case of Crypto</MenuItem>
+                    <MenuItem value="How to Invest Today">How to Invest Today</MenuItem>
+                    </Select>
+                </FormControl>
+                <br/>
                 <Autocomplete disablePortal className={clsx(styles.videoTextField, styles.videoCategoryField)} value={currVideo.subCategory}
                     options={(currVideo.category && subCategories[currVideo.category]) ? subCategories[currVideo.category] : []}
                     onChange={(event, value, reason) => updateCurrVideo({"target": {"value": value}}, "subCategory")}
@@ -538,6 +560,7 @@ export default function managevideos(props) {
                                 <TableCell className={styles.tableHeadCell}>Description</TableCell>
                                 <TableCell className={styles.tableHeadCell}>Length (minutes)</TableCell>
                                 <TableCell className={styles.tableHeadCell}>Category</TableCell>
+                                <TableCell className={styles.tableHeadCell}>Section</TableCell>
                                 <TableCell className={styles.tableHeadCell}>Category order</TableCell>
                                 <TableCell className={styles.tableHeadCell}>Subcategory</TableCell>
                                 <TableCell className={styles.tableHeadCell}>Subcategory order</TableCell>
@@ -551,6 +574,7 @@ export default function managevideos(props) {
                                         return (
                                             <TableRow hover key={index}>
                                                 <TableCell>Loading...</TableCell>
+                                                <TableCell>...</TableCell>
                                                 <TableCell>...</TableCell>
                                                 <TableCell>...</TableCell>
                                                 <TableCell>...</TableCell>
@@ -610,6 +634,9 @@ export default function managevideos(props) {
                                     </TableCell>
                                     <TableCell>
                                         {video.category}
+                                    </TableCell>
+                                    <TableCell>
+                                        {video.section}
                                     </TableCell>
                                     <TableCell>
                                         {video.categoryOrder}

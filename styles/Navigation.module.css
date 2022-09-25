@@ -24,6 +24,14 @@ nav .container {
     z-index: 1000000 !important;
 }
 
+.navBarBrand {
+    z-index: 1000000 !important;
+}
+
+.navBarBrand:hover {
+    cursor: pointer !important;
+}
+
 .navBrandText {
     margin-left: 5% !important;
 }
@@ -81,6 +89,10 @@ nav .container {
   
 .connectBtnLight:hover {
     color: white !important;
+}
+
+.noThemeToggleMargin {
+    padding-left: 50% !important;
 }
 
 @media (max-width: 1500px) and (min-width: 1350px) {
