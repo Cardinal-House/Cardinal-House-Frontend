@@ -10,7 +10,7 @@ export default function EducationCenterHistoryIntro(props) {
     <Grid container justifyContent="center" alignItems="center" spacing={4} className={styles.educationCenterIntroGrid}>
       <Grid item lg={6} md={8} sm={10} xs={12} className={styles.headerTextGrid}>
         <Typography variant="h1" className={styles.headerText}>
-          Cardinal House Education Center - History and Use Case of Crypto
+          History and Use Case of Crypto
         </Typography>
       </Grid>
       <Grid item xs={12}></Grid>

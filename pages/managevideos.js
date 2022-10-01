@@ -457,7 +457,8 @@ export default function managevideos(props) {
                         onChange={(e) => updateCurrVideo(e, "section")}
                     >
                     <MenuItem value="History and Use Case of Crypto">History and Use Case of Crypto</MenuItem>
-                    <MenuItem value="How to Invest Today">How to Invest Today</MenuItem>
+                    <MenuItem value="How to Buy Crypto">How to Buy Crypto</MenuItem>
+                    <MenuItem value="Project Education">Project Education</MenuItem>
                     </Select>
                 </FormControl>
                 <br/>

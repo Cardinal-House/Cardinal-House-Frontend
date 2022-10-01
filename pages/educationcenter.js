@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import axios from 'axios';
 import ReactPlayer from "react-player";
 import clsx from 'clsx';
@@ -92,7 +93,9 @@ export default function EducationCenter(props) {
 
   async function loadVideos() {
     const hashVideoId = window.location.hash.split("%20|%20")[1];
-    window.location.hash = window.location.hash.split("%20|%20")[0] + ` | ${hashVideoId}`;
+    if (hashVideoId) {
+        window.location.hash = window.location.hash.split("%20|%20")[0] + ` | ${hashVideoId}`;
+    }
     const videosResponse = await axios.get("/api/videos");
     const videosToLoad = videosResponse.data;
     let currCategories = [];
@@ -117,7 +120,9 @@ export default function EducationCenter(props) {
                 updateSubCategory(currVideoCategory, currVideoSubCategory);
             }
 
-            window.scrollTo(0, 0);
+            setTimeout(function () {
+                window.scrollTo(0, 0);
+            },200);
             setViewingIntro(false);
             setViewingSectionIntro(false);
         }
@@ -198,8 +203,11 @@ export default function EducationCenter(props) {
     if (hash.split("%20|%20")[0].includes("History")) {
         sectionSelected("History and Use Case of Crypto", false);
     }
-    else if (hash.split("%20|%20")[0].includes("Invest")) {
-        sectionSelected("How to Invest Today", false);
+    else if (hash.split("%20|%20")[0].includes("Buy")) {
+        sectionSelected("How to Buy Crypto", false);
+    }
+    else if (hash.split("%20|%20")[0].includes("Project")) {
+        sectionSelected("Project Education", false);
     }
 
     loadVideos();
@@ -281,7 +289,9 @@ export default function EducationCenter(props) {
   const updateSelectedVideo = (currVideo) => {
       setSelectedVideo(currVideo);
       window.location.hash = window.location.hash.split("%20|%20")[0] + ` | ${currVideo._id}`;
-      window.scrollTo(0, 0);
+      setTimeout(function () {
+        window.scrollTo(0, 0);
+      },200);
       setViewingIntro(false);
       setViewingSectionIntro(false);
       setShowNextVideoPending(false);
@@ -318,7 +328,9 @@ export default function EducationCenter(props) {
         window.location.hash = sectionChosen;
     }
     
-    window.scrollTo(0, 0);
+    setTimeout(function () {
+        window.scrollTo(0, 0);
+    },200);
   }
 
   const categorySectionFilter = (currCategory) => {
@@ -536,7 +548,7 @@ export default function EducationCenter(props) {
     <div className={styles.navDrawer}>
       <Grid container justifyContent="center" alignItems="center" spacing={2} className={styles.toolbarDiv}>
           <Grid item xs={2}>
-            <img alt="" src="/CardinalLogoLight.png" width="50" height="50" className={styles.logoImage} />
+            <Image alt="" src="/CardinalHouseLogoOutline.png" width="50" height="50" className={clsx(styles.logoImage, "mt-1")} />
           </Grid>
           <Grid item xs={8}>
             <Typography variant="h5" className={styles.toolbarText}>

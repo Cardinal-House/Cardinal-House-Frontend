@@ -1,6 +1,6 @@
 import { Grid, Typography, Switch, Tooltip } from '@mui/material';
 import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import { gsap } from "gsap";
 import { IconContext } from "react-icons";
@@ -15,6 +15,8 @@ export default function Navigation({useDarkTheme, setUseDarkTheme, hideThemeTogg
     gsap.registerPlugin(ScrollToPlugin);
 
     const sections = ["community", "education", "services", "roadmap"];
+
+    const [darkThemeDisabled, setDarkThemeDisabled] = useState(false);
 
     const moveToSection = (section) => {
         if (window.location.pathname == "/") {
@@ -35,6 +37,11 @@ export default function Navigation({useDarkTheme, setUseDarkTheme, hideThemeTogg
             if (sections.includes(urlSection)) {
                 gsap.to(window, {duration: 0.1, scrollTo:`#${urlSection}`});
             }
+        }
+
+        if (currUrl.includes("managevideos")) {
+            setUseDarkTheme(false)
+            setDarkThemeDisabled(true);
         }
     }, []);
 
@@ -85,7 +92,7 @@ export default function Navigation({useDarkTheme, setUseDarkTheme, hideThemeTogg
                             !hideThemeToggle && (
                                 <div className={styles.changeThemeDiv}>
                                     {useDarkTheme ? <DarkModeIcon className={clsx(styles.darkModeIcon, styles.iconSizeTheme)} /> : <LightModeIcon className={styles.lightModeIcon} fontSize="large" />}
-                                    <Switch checked={useDarkTheme} color="primary" onChange={e => setUseDarkTheme(e.target.checked)} />
+                                    <Switch checked={useDarkTheme} disabled={darkThemeDisabled} color="primary" onChange={e => setUseDarkTheme(e.target.checked)} />
                                 </div>
                             )
                         }

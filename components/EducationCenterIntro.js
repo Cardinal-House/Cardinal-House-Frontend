@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import clsx from 'clsx';
-import { Grid, Typography } from '@mui/material';
+import { Grid, Typography, Card, CardContent } from '@mui/material';
 
 import cardinalHouseLogo from '../public/CardinalLogoLight.png';
 import educationArt from '../public/educationArt2.png';
@@ -26,40 +26,53 @@ export default function EducationCenterIntro(props) {
         </Typography>
       </Grid>
 
-      <Grid item xs={12} sm={6} md={4} lg={4} className={clsx("mt-3 mb-5", styles.bigBtnGrid)}>
-        <div className={clsx(styles.cardDiv, "rounded-xl overflow-hidden")} onClick={() => props.sectionSelected("History and Use Case of Crypto")}>
-          <Grid container justifyContent="center" alignItems="center" className={clsx(styles.bigBtnText, "p-4")}>
-            <Grid item xs={12}>
-              <Typography variant="h4" component="div" className="text-2xl font-bold">
-                History and Use Case of Crypto
-              </Typography>
-            </Grid>
-            <Grid item xs={12}>
-              <Typography variant="p" component="div" className={clsx(props.useDarkTheme ? styles.bigBtnDescriptionTextDark : styles.bigBtnDescriptionTextLight, "font-bold mt-3")}>
-                This is some text for the history and use case of crypto that will eventually
-                be replaced by something that actually has meaning for the users of the Cardinal House.
-              </Typography>
-            </Grid>
-          </Grid>
-        </div>
+      <Grid item xs={12} sm={6} md={4} lg={4} className={clsx("mb-5", styles.bigBtnGrid)}>
+        <Card className={clsx(styles.customCard, props.useDarkTheme ? styles.customCardDark : styles.customCardLight)}>
+            <div onClick={() => props.sectionSelected("History and Use Case of Crypto")}>
+              <CardContent>
+                <Typography variant="h4" component="div" className="text-2xl font-bold">
+                  History and Use Case of Crypto
+                </Typography>
+                <Typography variant="p" component="div" className={clsx(props.useDarkTheme ? styles.bigBtnDescriptionTextDark : styles.bigBtnDescriptionTextLight, "font-bold mt-5")}>
+                  Learn all about the history of cryptocurrency and the wide range of uses it has!
+                  Blockchain technology as a whole has changed greatly as adoption has increased over time, so there is a lot to learn here.
+                </Typography>
+              </CardContent>
+            </div>
+          </Card>
       </Grid>
 
-      <Grid item xs={12} sm={6} md={4} lg={4} className={clsx("mt-3 mb-5", styles.bigBtnGrid)}>
-        <div className={clsx(styles.cardDiv, "rounded-xl overflow-hidden")} onClick={() => props.sectionSelected("How to Invest Today")}>
-          <Grid container justifyContent="center" alignItems="center" className={clsx(styles.bigBtnText, "p-4")}>
-            <Grid item xs={12}>
-              <Typography variant="h4" component="div" className="text-2xl font-bold">
-                How to Invest Today
-              </Typography>
-            </Grid>
-            <Grid item xs={12}>
-              <Typography variant="p" component="div" className={clsx(props.useDarkTheme ? styles.bigBtnDescriptionTextDark : styles.bigBtnDescriptionTextLight, "font-bold mt-3")}>
-                This is some text for the history and use case of crypto that will eventually
-                be replaced by something that actually has meaning for the users of the Cardinal House.
-              </Typography>
-            </Grid>
-          </Grid>
-        </div>
+      <Grid item xs={12} sm={6} md={4} lg={4} className={clsx("mb-5", styles.bigBtnGrid)}>
+        <Card className={clsx(styles.customCard, props.useDarkTheme ? styles.customCardDark : styles.customCardLight)}>
+            <div onClick={() => props.sectionSelected("How to Buy Crypto")}>
+              <CardContent>
+                <Typography variant="h4" component="div" className="text-2xl font-bold">
+                  How to Buy Crypto
+                </Typography>
+                <Typography variant="p" component="div" className={clsx(props.useDarkTheme ? styles.bigBtnDescriptionTextDark : styles.bigBtnDescriptionTextLight, "font-bold mt-5")}>
+                  Learn the ins and outs of buying cryptocurrency - starting from setting up a wallet and ending with choosing
+                  the right cryptocurrencies to buy and how to purchase them off centralized and decentralized exchanges.
+                </Typography>
+              </CardContent>
+            </div>
+          </Card>
+      </Grid>
+
+      <Grid item xs={12} sm={6} md={4} lg={4} className={clsx("mb-5", styles.bigBtnGrid)}>
+        <Card className={clsx(styles.customCard, props.useDarkTheme ? styles.customCardDark : styles.customCardLight)}>
+            <div onClick={() => props.sectionSelected("Project Education")}>
+              <CardContent>
+                <Typography variant="h4" component="div" className="text-2xl font-bold">
+                  Project Education
+                </Typography>
+                <Typography variant="p" component="div" className={clsx(props.useDarkTheme ? styles.bigBtnDescriptionTextDark : styles.bigBtnDescriptionTextLight, "font-bold mt-5")}>
+                  Learn about some of the key current projects in the cryptocurrency space!
+                  More and more projects will be added to this section over time to give you a nice selection
+                  of projects to learn about before making any investment decisions.
+                </Typography>
+              </CardContent>
+            </div>
+          </Card>
       </Grid>
 
       <Grid className={styles.mobileImage} item lg={4} md={5} sm={8} xs={10}>
