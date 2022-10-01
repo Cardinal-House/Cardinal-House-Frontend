@@ -42,6 +42,7 @@ import Footer from '../components/Footer';
 import styles from '../styles/EducationCenter.module.css';
 import EducationCenterHistoryIntro from '../components/EducationCenterHistoryIntro';
 import EducationCenterInvestIntro from '../components/EducationCenterInvestIntro';
+import EducationCenterProjectEducationIntro from '../components/EducationCenterProjectEducationIntro';
 
 const drawerWidth = 350;
   
@@ -830,7 +831,7 @@ export default function EducationCenter(props) {
                 <Toolbar />
 
                 {viewingSectionIntro && (
-                    section == "History and Use Case of Crypto" ? <EducationCenterHistoryIntro /> : <EducationCenterInvestIntro />
+                    section == "History and Use Case of Crypto" ? <EducationCenterHistoryIntro /> : section == "How to Buy Crypto" ? <EducationCenterInvestIntro /> : <EducationCenterProjectEducationIntro />
                 )}
                 
                 {!viewingSectionIntro && (

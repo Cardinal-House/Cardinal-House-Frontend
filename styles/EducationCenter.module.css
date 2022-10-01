@@ -83,7 +83,7 @@
     padding-bottom: 1% !important;
     border-bottom: 5px solid var(--red-primary-color) !important;
     font-size: 3rem !important;
-    font-family: 'Source Serif Pro', Nunito Sans, Kanit, Merriweather Sans, sans-serif;
+    font-family: 'Source Serif Pro', Nunito Sans, Kanit, Merriweather Sans, sans-serif !important;
 }
 
 .toolbar {
