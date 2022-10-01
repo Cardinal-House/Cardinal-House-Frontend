@@ -79,7 +79,6 @@
 }
 
 .headerText {
-    color: var(--red-primary-color) !important;
     padding-bottom: 1% !important;
     border-bottom: 5px solid var(--red-primary-color) !important;
     font-size: 3rem !important;
