@@ -549,7 +549,7 @@ export default function EducationCenter(props) {
     <div className={styles.navDrawer}>
       <Grid container justifyContent="center" alignItems="center" spacing={2} className={styles.toolbarDiv}>
           <Grid item xs={2}>
-            <Image alt="" src="/CardinalHouseLogoOutline.png" width="50" height="50" className={clsx(styles.logoImage, "mt-1")} />
+            <Image alt="" src="/CardinalLogoLight.png" width="50" height="50" className={clsx(styles.logoImage, "mt-1")} />
           </Grid>
           <Grid item xs={8}>
             <Typography variant="h5" className={styles.toolbarText}>
