@@ -73,8 +73,7 @@
 }
 
 .joinCommunityBtn {
-  /* background-color: var(--red-primary-color) !important; */
-  background-color: green !important;
+  /* background-color: green !important; */
   text-align: center !important;
   margin: auto !important;
 }

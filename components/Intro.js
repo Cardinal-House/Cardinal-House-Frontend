@@ -17,13 +17,7 @@ export default function Intro(props) {
         </Typography>
         <Grid container justifyContent="left" className={styles.introBtnGrid}>
             <div className={styles.floated}>
-              <Button href="/team" size="medium" variant="contained" color="primary" 
-                className={props.useDarkTheme ? styles.teamBtnDark : styles.teamBtnLight}>
-                Meet the Team
-              </Button>
-            </div>
-            <div className={styles.floated}>
-              <Button href="https://discord.gg/Sw5qsDx2kr" target="_blank" rel="noreferrer" size="medium" variant="contained" color="primary" 
+              <Button href="https://discord.gg/Sw5qsDx2kr" target="_blank" rel="noreferrer" size="large" variant="contained" color="primary" 
                 className={clsx(styles.joinCommunityBtn, props.useDarkTheme ? styles.teamBtnDark : styles.teamBtnLight)}>
                 Join Our Community
               </Button>
