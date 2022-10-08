@@ -55,7 +55,7 @@ export default function ForCards(props) {
                 2% - Marketing to Grow the Cardinal House Ecosystem
               </Typography>
               <Typography variant="p" component="div" className="mt-3">
-                2% - Weekly Giveaways for Members - 2-5 Members will Win Cardinal Tokens Each Week
+                2% - Weekly Giveaways for Members - 1 Member will Win Cardinal Tokens Each Week
               </Typography>
               <Typography variant="p" component="div" className="mt-3">
                 1% - Team Funds
@@ -75,7 +75,7 @@ export default function ForCards(props) {
                 Token Burning
               </Typography>
               <Typography variant="p" component="div" className="mt-4">
-                A portion (20% - 50% depending on the service) of all Cardinal Tokens used to purchase crypto services
+                A portion (10% - 50% depending on the service) of all Cardinal Tokens used to purchase crypto services
                 will be burned. This function will constantly add liquidity to
                 the token which will benefit everyone involved in Cardinal House.
               </Typography>
