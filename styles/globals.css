@@ -91,22 +91,30 @@ a {
   color: black !important;
 }
 
-.timeline-dark-theme::before {
-  background: white !important;
+.vertical-timeline-element-content {
+  box-shadow: 0 3px 0 var(--red-primary-color) !important;
 }
 
-.timeline-light-theme::before {
-  /*background: #06277d !important;*/
-  background: #48494f !important;
+.timeLineNoBottomLine .vertical-timeline-element-content {
+  box-shadow: none !important;
+}
+
+.timeline-dark-theme::before, .timeline-light-theme::before {
+  background: var(--red-primary-color) !important;
 }
 
 .timeline-dark-theme .vertical-timeline-element-icon {
-  box-shadow: 0 0 0 4px #fff !important;
+  box-shadow: 0 0 0 4px var(--red-primary-color) !important;
+  background-color: rgba(29, 38, 59, 0.98) !important;
 }
 
 .timeline-light-theme .vertical-timeline-element-icon {
-  /*box-shadow: 0 0 0 4px #06277d !important;*/
-  box-shadow: 0 0 0 4px #48494f !important;
+  box-shadow: 0 0 0 4px var(--red-primary-color) !important;
+  background-color: rgba(142, 238, 255) !important;
+}
+
+.timelineNoLine {
+  box-shadow: 0 3px 0 #00ff00 !important;
 }
 
 .educationCenterBox .MuiToolbar-gutters {
