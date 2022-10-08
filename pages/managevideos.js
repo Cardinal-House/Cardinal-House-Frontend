@@ -117,7 +117,12 @@ export default function managevideos(props) {
             }
             else {
                 if (currVideoSubCategory == "" || !currVideoSubCategory) {
-                    currVideosByCategory[currVideoCategory]["No Category"].push(videosToLoad[i]);
+                    if (currVideosByCategory[currVideoCategory]["No Category"]) {
+                        currVideosByCategory[currVideoCategory]["No Category"].push(videosToLoad[i]);
+                    }
+                    else {
+                        currVideosByCategory[currVideoCategory]["No Category"] = [videosToLoad[i]];
+                    }
                 }
                 else {
                     if (currSubCategories[currVideoCategory].includes(currVideoSubCategory)) {
