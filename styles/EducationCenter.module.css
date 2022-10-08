@@ -5,6 +5,18 @@
     color: white !important;
 }
 
+.lightThemeBackground {
+    background-image: url("../public/LightThemeBackground.png") !important;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+}
+  
+.darkThemeBackground {
+    background-image: url("../public/DarkThemeBackground.png") !important;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+}
+
 .navDrawer {
     color: white !important;
 }
@@ -12,10 +24,12 @@
 .drawerContainer {}
 
 .educationCenterIntroGrid {
-    margin-top: 3% !important;
-    margin-bottom: 6% !important;
+    margin-top: 0.2% !important;
+    padding-top: 3% !important;
+    padding-bottom: 6% !important;
     text-align: center !important;
-    padding: 0 2rem !important;
+    padding-left: 2rem !important;
+    padding-right: 2rem !important;
 }
 
 .bigBtnGrid {

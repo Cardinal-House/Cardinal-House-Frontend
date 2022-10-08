@@ -946,7 +946,7 @@ export default function EducationCenter(props) {
         </Box>
         )
     }
-    <Footer useDarkTheme={viewingIntro ? props.useDarkTheme : true} />
+    {!viewingIntro && <Footer useDarkTheme={true} />}
     </>
   );
 }
