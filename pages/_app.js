@@ -73,7 +73,7 @@ function MyApp({ Component, pageProps }) {
     },
   });
 
-  const [useDarkTheme, setUseDarkTheme] = useState(false);
+  const [useDarkTheme, setUseDarkTheme] = useState(true);
 
   useEffect(() => {
     const theme = localStorage.getItem("cardinalHouseTheme");
@@ -130,6 +130,7 @@ function MyApp({ Component, pageProps }) {
           <link rel="icon" href="/favicon.ico" />
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+          <meta name="google-site-verification" content="Kmldi_2-HXPoAuDkjQsWIRS_sH-Zmec_364mQxvgoTI" />
           {/*<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@600&display=swap" rel="stylesheet" />*/}
           <link href="https://fonts.googleapis.com/css2?family=Kanit&family=Merriweather+Sans:wght@500&family=Nunito+Sans:wght@600;800&family=Prompt&family=Source+Serif+Pro:wght@600&display=swap" rel="stylesheet" />
           <script async src="https://www.googletagmanager.com/gtag/js?id=G-TJSPRD6Y1T"></script>
