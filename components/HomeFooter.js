@@ -44,7 +44,7 @@ export default function HomeFooter(props) {
               </Grid>
               <Grid item xs={12}></Grid>
               <Grid item lg={2} md={2} sm={3} xs={12}>
-                <a href="https://chain-estate.gitbook.io/cardinal-house-whitepaper/" target="_blank" rel="noreferrer" className={styles.footerLink}>
+                <a href="https://cardinal-house.gitbook.io/cardinal-house-whitepaper-v2/" target="_blank" rel="noreferrer" className={styles.footerLink}>
                     <Typography variant="h6">
                         White Paper
                     </Typography>

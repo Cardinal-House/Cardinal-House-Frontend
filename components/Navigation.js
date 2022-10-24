@@ -78,7 +78,7 @@ export default function Navigation({useDarkTheme, setUseDarkTheme, hideThemeTogg
                                 Roadmap
                             </Typography>
                         </Nav.Link>
-                        <Nav.Link href="https://chain-estate.gitbook.io/cardinal-house-whitepaper/" target="_blank" className={styles.navPadding}>
+                        <Nav.Link href="https://cardinal-house.gitbook.io/cardinal-house-whitepaper-v2/" target="_blank" className={styles.navPadding}>
                             <Typography variant="h6" className={clsx(useDarkTheme ? styles.navbarDarkCustom : styles.navbarLightCustom, styles.navText)}>
                                 White Paper
                             </Typography>

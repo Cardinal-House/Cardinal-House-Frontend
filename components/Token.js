@@ -49,7 +49,7 @@ export default function Token(props) {
           <Grid item id="tokenImage" ref={tokenImageRef} xs={8}>
             <Image src={cardinalLogoLight} layout="responsive" />
           </Grid>
-            <Button id="tokenBtn" ref={tokenBtnRef} href="https://chain-estate.gitbook.io/cardinal-house-whitepaper/" target="_blank" rel="noreferrer" size="large" variant="contained" color="primary" 
+            <Button id="tokenBtn" ref={tokenBtnRef} href="https://cardinal-house.gitbook.io/cardinal-house-whitepaper-v2/" target="_blank" rel="noreferrer" size="large" variant="contained" color="primary" 
               className={props.useDarkTheme ? styles.teamBtnDark : styles.teamBtnLight}>
               Learn More on Our Whitepaper
             </Button>
