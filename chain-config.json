@@ -17,12 +17,20 @@
     },
     "CardinalNFTAddresses": {
         "bsctest": "0xc0bf79fD187C1287419Ad5EA1bB0124ba6052919",
-        "polygontest": "0x2B579760ff3B8B899454370e765Bb748B146aCF0",
+        "polygontest": "0xEBadD172563627De64f995380820600335027933",
         "polygon": "0x94E2c821Fe8c7953595544e3DA4500cCC157FCa4"
     },
     "CardinalNFTMarketplaceAddresses": {
         "bsctest": "0xED1A07b024Fad3e7AcE356e86C0bE5A76349E485",
-        "polygontest": "0xFa246fCF66056BFa737027ef24c8410248eD9041",
-        "polygon": "0x87dD7CC57E95cb288274319EbD33ED0fA640CBEf"
+        "polygontest": "0xe8d93aB8ABC90495FDd5Bd797D8C8b2EBc63b43D",
+        "polygon": "0x16fA58F4CcDDcdD0a72fb71EAeDe896c2C4E77B0"
+    },
+    "USDCAddresses": {
+        "polygontest": "0x03c83C3Ff23eCE0b81bF8DD64A403F7230522874",
+        "polygon": "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174"
+    },
+    "NodeRunnerAddresses": {
+        "polygontest": "0x40E8a57BaA3e081C1775e63Ed717a56c79CE50C4",
+        "polygon": "0x895ED1710e0319471cF479a08D27F1cABaF68a97"
     }
 }

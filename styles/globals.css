@@ -196,6 +196,18 @@ a {
   background-color: white !important;
 }
 
+.MuiMenu-list {
+  background-color: rgba(29, 38, 59, 0.35) !important;
+}
+
+.modal-content {
+  background-color: rgba(0, 0, 0, 0) !important;
+}
+
+.MuiOutlinedInput-notchedOutline {
+  border-color: var(--red-primary-color);
+}
+
 .boldText {
   font-weight: 800 !important;
 }

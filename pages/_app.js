@@ -116,7 +116,7 @@ function MyApp({ Component, pageProps }) {
   const config = {
     readOnlyChainId: Polygon.chainId,
     readOnlyUrls: {
-      [Polygon.chainID]: 'https://rpc-mainnet.maticvigil.com',
+      [Polygon.chainID]: 'https://rpc-mainnet.maticvigil.com'
     },
     networks: [BSC, BSCTestnet, Polygon, Mumbai],
   }

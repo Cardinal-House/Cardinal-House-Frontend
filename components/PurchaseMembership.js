@@ -54,7 +54,7 @@ export default function PurchaseMembership(props) {
 
   const { send: purchaseMembershipNFT, state: purchasingMembershipNFTState } =
   useContractFunction(cardinalNFTContract, "mintMembershipNFT", {
-      transactionName: "Approve Cardinal Tokens for Purchasing Membership NFT.",
+      transactionName: "Purchase Membership NFT.",
   })
 
   async function getInitialContractValues() {
@@ -321,7 +321,7 @@ export default function PurchaseMembership(props) {
                     {membershipTokenURI != "" && (
                       <Grid item xs={12} sm={6} md={5} lg={4} className={clsx("mt-3", styles.NFTGrid)}>
                         <div className={clsx(styles.cardDiv, "rounded-xl overflow-hidden")}>
-                          <img src={membershipTokenURI.image.replace("https", "http")} className={clsx(styles.NFTImage)} />
+                          <img src={membershipTokenURI.image} className={clsx(styles.NFTImage)} />
                           <div className={clsx(props.useDarkTheme ? styles.NFTTextDark : styles.NFTTextLight, "p-4")}>
                             <Typography variant="p" component="div" className="text-2xl font-bold">
                               {membershipTokenURI.NFTName}

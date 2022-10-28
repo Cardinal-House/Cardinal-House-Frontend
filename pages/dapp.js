@@ -15,6 +15,8 @@ import { FaInfoCircle, FaCrown } from "react-icons/fa";
 import { AiFillHome } from "react-icons/ai";
 import { MdCardMembership, MdAccountBalance } from "react-icons/md";
 import { BsShieldFillCheck } from "react-icons/bs";
+import { GiCoins, GiReceiveMoney } from "react-icons/gi";
+import { SiMarketo, SiNodered } from "react-icons/si";
 
 import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
@@ -30,10 +32,15 @@ import PreSale from "../components/PreSale";
 import Audits from "../components/Audits";
 import styles from '../styles/DApp.module.css';
 import CardinalToken from "../contracts/CardinalToken.json";
+import ERC20 from "../contracts/ERC20.json";
 import chainConfig from "../chain-config.json";
 import metaMaskLogo from '../public/MetaMask.png';
 import walletConnectLogo from '../public/WalletConnect.png';
 import PurchaseMembership from '../components/PurchaseMembership';
+import PurchaseNodeRunner from '../components/PurchaseNodeRunner';
+import NodeRunnerNFTs from '../components/NodeRunnerNFTs';
+import ClaimNodeRewards from '../components/ClaimNodeRewards';
+import ViewMarketplaceNFTs from '../components/ViewMarketplaceNFTs';
 
 const drawerWidth = 240;
 
@@ -74,15 +81,19 @@ const networkData = [
 ];
 
 const rpcEndpoint = "https://rpc-mainnet.maticvigil.com";
+// const rpcEndpoint = "https://rpc-mumbai.matic.today";
 const polygonChainId = 137;
+// const polygonChainId = 80001;
 
 export default function DApp(props) {
     const theme = useTheme();
 
     const { account, activateBrowserWallet, deactivate, chainId } = useEthers();
     const networkName = "polygon";
-    const CardinalTokenAddress = chainConfig["CardinalTokenAddresses"][networkName]
+    const CardinalTokenAddress = chainConfig["CardinalTokenAddresses"][networkName];
+    const USDCAddress = chainConfig["USDCAddresses"][networkName];
     const tokenBalance = useTokenBalance(CardinalTokenAddress, account);
+    const USDCBalance = useTokenBalance(USDCAddress, account);
     // const tokenPriceCG = useCoingeckoPrice('cardinal-house', 'usd');
     const isConnected = account !== undefined;
 
@@ -92,6 +103,7 @@ export default function DApp(props) {
     const [showWalletConnectionFailed, setShowWalletConnectionFailed] = useState(false);
     const [showWrongNetwork, setShowWrongNetwork] = useState(false);
     const [tempTokenBalance, setTempTokenBalance] = useState(0);
+    const [tempUSDCBalance, setTempUSDCBalance] = useState(0);
     const [tokenPricePercentChange, setTokenPricePercentChange] = useState(0.0);
     const [cookieAgreementOpen, setCookieAgreementOpen] = useState(false);
 
@@ -124,10 +136,16 @@ export default function DApp(props) {
 
     async function updateTempTokenBalance() {
         const cardinalTokenABI = CardinalToken.abi;
+        const erc20ABI = ERC20.abi;
         const provider = new ethers.providers.JsonRpcProvider(rpcEndpoint, { name: networkName, chainId: polygonChainId });
         const CardinalTokenContract = new ethers.Contract(CardinalTokenAddress, cardinalTokenABI, provider);
+        const USDCContract = new ethers.Contract(USDCAddress, erc20ABI, provider);
         const userBalance = await CardinalTokenContract.balanceOf(account);
+        const userUSDCBalance = await USDCContract.balanceOf(account);
         setTempTokenBalance(userBalance);
+
+        console.log(userUSDCBalance);
+        setTempUSDCBalance(userUSDCBalance);
     }
     
     useEffect(() => {
@@ -195,6 +213,18 @@ export default function DApp(props) {
         }
         else if (hash == "#purchasemembership") {
             setCurrPage("PurchaseMembership");
+        }
+        else if (hash == "#purchasenoderunner") {
+            setCurrPage("PurchaseNodeRunner");
+        }
+        else if (hash == "#noderunnernfts") {
+            setCurrPage("NodeRunnerNFTs");
+        }
+        else if (hash == "#claimnoderewards") {
+            setCurrPage("ClaimNodeRewards");
+        }
+        else if (hash == "#viewmarketplacenfts") {
+            setCurrPage("ViewMarketplaceNFTs");
         }
     }
 
@@ -290,6 +320,17 @@ export default function DApp(props) {
                     )
                 }
 
+                {
+                    isConnected && (
+                        <Typography variant="h6" component="div" className={styles.CRNLBalance}>
+                            USDC Balance:&nbsp; 
+                            {USDCBalance && (Number((+ethers.utils.formatEther(BigInt(USDCBalance._hex).toString(10))) * Math.pow(10, 12)).toFixed(2)).toLocaleString()}
+                            {tempUSDCBalance ? !USDCBalance ? (Number((+ethers.utils.formatEther(BigInt(tempUSDCBalance._hex).toString(10))) * Math.pow(10, 12)).toFixed(2)).toLocaleString() : "" : 0}
+                            &nbsp;USDC
+                        </Typography>
+                    )
+                }
+
                 <div className={styles.changeThemeDiv}>
                     {props.useDarkTheme ? <DarkModeIcon className={clsx(styles.darkModeIcon, styles.iconSizeTheme)} /> : <LightModeIcon className={styles.lightModeIcon} fontSize="large" />}
                     <Switch checked={props.useDarkTheme} color="primary" onChange={e => props.setUseDarkTheme(e.target.checked)} />
@@ -351,6 +392,41 @@ export default function DApp(props) {
                     </ListItemIcon>
                     <ListItemText primary="Services Info" />
                 </ListItem>
+                <ListItem button onClick={() => updatePage("PurchaseMembership", "purchasemembership")}
+                    className={currPage == "PurchaseMembership" ? styles.currSection : ""}>
+                    <ListItemIcon>
+                        <MdCardMembership className={styles.navIcons} />
+                    </ListItemIcon>
+                    <ListItemText primary="Purchase Cardinal Crew Membership" />
+                </ListItem>
+                <ListItem button onClick={() => updatePage("PurchaseNodeRunner", "purchasenoderunner")}
+                    className={currPage == "PurchaseNodeRunner" ? styles.currSection : ""}>
+                    <ListItemIcon>
+                        <GiCoins className={styles.navIcons} />
+                    </ListItemIcon>
+                    <ListItemText primary="Purchase Node Runner NFTs" />
+                </ListItem>
+                <ListItem button onClick={() => updatePage("ViewMarketplaceNFTs", "viewmarketplacenfts")}
+                    className={currPage == "ViewMarketplaceNFTs" ? styles.currSection : ""}>
+                    <ListItemIcon>
+                        <SiMarketo className={styles.navIcons} />
+                    </ListItemIcon>
+                    <ListItemText primary="View Cardinal Marketplace NFTs" />
+                </ListItem>
+                <ListItem button onClick={() => updatePage("NodeRunnerNFTs", "noderunnernfts")}
+                    className={currPage == "NodeRunnerNFTs" ? styles.currSection : ""}>
+                    <ListItemIcon>
+                        <SiNodered className={styles.navIcons} />
+                    </ListItemIcon>
+                    <ListItemText primary="View Your Node Runner NFTs" />
+                </ListItem>
+                <ListItem button onClick={() => updatePage("ClaimNodeRewards", "claimnoderewards")}
+                    className={currPage == "ClaimNodeRewards" ? styles.currSection : ""}>
+                    <ListItemIcon>
+                        <GiReceiveMoney className={styles.navIcons} />
+                    </ListItemIcon>
+                    <ListItemText primary="Claim Node Runner Rewards" />
+                </ListItem>                
                 <ListItem button onClick={() => updatePage("Bonds", "bonds")}
                     className={clsx(styles.servicesInfoSection, currPage == "Bonds" ? styles.currSection : "")}>
                     <ListItemIcon>
@@ -364,13 +440,6 @@ export default function DApp(props) {
                         <FaCrown className={styles.navIcons} />
                     </ListItemIcon>
                     <ListItemText primary="Original Cardinal NFTs" />
-                </ListItem>
-                <ListItem button onClick={() => updatePage("PurchaseMembership", "purchasemembership")}
-                    className={currPage == "PurchaseMembership" ? styles.currSection : ""}>
-                    <ListItemIcon>
-                        <MdCardMembership className={styles.navIcons} />
-                    </ListItemIcon>
-                    <ListItemText primary="Purchase Cardinal Crew Membership" />
                 </ListItem>
                 {/*
                 <ListItem button onClick={() => updatePage("MembershipNFT", "membership")}
@@ -502,6 +571,26 @@ export default function DApp(props) {
             {
                 currPage == "Audits" && (
                     <Audits useDarkTheme={props.useDarkTheme} />
+                )
+            }
+            {
+                currPage == "PurchaseNodeRunner" && (
+                    <PurchaseNodeRunner useDarkTheme={props.useDarkTheme} updateTempTokenBalance={updateTempTokenBalance} />
+                )
+            }
+            {
+                currPage == "NodeRunnerNFTs" && (
+                    <NodeRunnerNFTs useDarkTheme={props.useDarkTheme} />
+                )
+            }
+            {
+                currPage == "ClaimNodeRewards" && (
+                    <ClaimNodeRewards useDarkTheme={props.useDarkTheme} />
+                )
+            }
+            {
+                currPage == "ViewMarketplaceNFTs" && (
+                    <ViewMarketplaceNFTs useDarkTheme={props.useDarkTheme} updateTempTokenBalance={updateTempTokenBalance} />
                 )
             }
         </div>
