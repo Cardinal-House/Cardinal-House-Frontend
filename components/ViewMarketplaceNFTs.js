@@ -242,124 +242,126 @@ export default function ViewMarketplaceNFTs(props) {
     }, [createMarketSaleState])
 
     return (
-        <Grid container justifyContent="center" className={styles.mainGrid}>
-            <Grid item lg={3} md={2} sm={1} xs={0}></Grid>
-            <Grid item lg={5} md={8} sm={10} xs={12} className={clsx(styles.marketplaceHeader, styles.headerTextGrid)}>
-                <Typography variant="h2" className={styles.headerText}>
-                    Cardinal House NFT Marketplace (BETA)
-                </Typography>
-            </Grid>
-            <Grid item lg={3} md={2} sm={1} xs={0}></Grid>
-            
-            <Grid container justifyContent="center" spacing={4} className={styles.marketplaceFunctionGrid}>
-                <Snackbar open={showApprovalSuccess} autoHideDuration={6000} onClose={() => {setShowApprovalSuccess(false)}}>
-                    <MuiAlert elevation={6} variant="filled" onClose={() => {setShowApprovalSuccess(false)}} severity="success" sx={{ width: '100%' }} >
-                        Approval Succeeded! Click &quot;Purchase&quot; to Finalize Your NFT Purchase.
-                    </MuiAlert>
-                </Snackbar>
-                <Snackbar open={showPurchaseSuccess} autoHideDuration={6000} onClose={() => {setShowPurchaseSuccess(false)}}>
-                    <MuiAlert elevation={6} variant="filled" onClose={() => {setShowPurchaseSuccess(false)}} severity="success" sx={{ width: '100%' }} >
-                        Purchase Succeeded! {transactionHash != "" ? "Transaction hash:" : ""} <a className={styles.transactionHashLink} href={`https://polygonscan.com/tx/${transactionHash}`} target="_blank" rel="noreferrer" >{transactionHash}</a>
-                    </MuiAlert>
-                </Snackbar>
-                <Snackbar open={showTransactionCancel} autoHideDuration={6000} onClose={() => {setShowTransactionCancel(false)}}>
-                    <MuiAlert elevation={6} variant="filled" onClose={() => {setShowTransactionCancel(false)}} severity="error" sx={{ width: '100%' }} >
-                        Transaction Canceled: {errorText}
-                    </MuiAlert>
-                </Snackbar>
-                <Snackbar open={showPendingTransaction} autoHideDuration={20000} onClose={() => {setShowPendingTransaction(false)}}>
-                    <MuiAlert elevation={6} variant="filled" onClose={() => {setShowPendingTransaction(false)}} severity="info" sx={{ width: '100%' }} >
-                        {processingMessage} {transactionHash != "" ? "Transaction hash:" : ""} <a className={styles.transactionHashLink} href={`https://polygonscan.com/tx/${transactionHash}`} target="_blank" rel="noreferrer" >{transactionHash}</a>
-                    </MuiAlert>
-                </Snackbar>
-                {
-                    marketplaceNFTs.length == 0 && NFTsLoaded && (
-                        <Grid item xs={10} className="text-center">
-                            <Typography variant="h5" component="div">
-                                NFTs will appear here as they are loaded or added to the marketplace...
-                            </Typography>
-                        </Grid>
-                    )
-                }
-                {
-                    marketplaceNFTs.length == 0 && !NFTsLoaded && (
-                        <Grid item xs={10} className="text-center mt-5">
-                            <CircularProgress size={80} color="secondary" className={styles.loadingAirdropContent} />
-                        </Grid>
-                    )
-                }
-                {
-                    marketplaceNFTs.length > 0 && (
-                        <Grid item xs={10}>
-                            <Grid container justifyContent="center" alignItems="center" spacing={4}>
-                                {
-                                    marketplaceNFTs && (marketplaceNFTs.map((nft, i) => (
-                                        <Grid key={i} item xs={12} sm={6} md={4} lg={3} className={styles.NFTGrid}>
-                                            <div key={i} className={clsx(styles.cardDiv, "rounded-xl overflow-hidden")} onMouseEnter={() => setCurrNFT(`${nft.contract}-${nft.itemId}`)} onMouseLeave={() => setCurrNFT("")}>
-                                                <img src={nft.image} className={clsx(styles.NFTImage)} />
-                                                <Grid container justifyContent="center" alignItems="center" className={clsx(props.useDarkTheme ? styles.NFTTextDark : styles.NFTTextLight, "p-4")}>
-                                                    <Grid item xs={8} className={styles.nftNameAndDesc}>
-                                                        <Typography variant="p" component="div" className={clsx(styles.NFTName, "text-2xl font-bold")}>
-                                                            {nft.NFTName}
-                                                        </Typography>
-                                                        {
-                                                            currNFT != `${nft.contract}-${nft.itemId}` && currBuyNFTId != `${nft.contract}-${nft.itemId}` && (
-                                                                <Typography variant="p" component="div" className={clsx(styles.NFTDescription, "font-bold mt-3")}>
-                                                                    {nft.NFTDescription}
-                                                                </Typography>
-                                                            )
-                                                        }
-                                                        {
-                                                            (currNFT == `${nft.contract}-${nft.itemId}` || currBuyNFTId == `${nft.contract}-${nft.itemId}`) && currApprovedNFTId != `${nft.contract}-${nft.itemId}` && !isConnected && (
-                                                                <Typography variant="h5" component="div" className={clsx(styles.NFTDescription, "font-bold mt-3")}>
-                                                                    Connect Wallet to Purchase
-                                                                </Typography>
-                                                            )
-                                                        }
-                                                        {
-                                                            (currNFT == `${nft.contract}-${nft.itemId}` || currBuyNFTId == `${nft.contract}-${nft.itemId}`) && currApprovedNFTId != `${nft.contract}-${nft.itemId}` && isConnected && nft.requiresCardinalCrew && !isCardinalMember && (
-                                                                <Typography variant="h5" component="div" className={clsx(styles.NFTDescription, "font-bold mt-3")}>
-                                                                    This NFT is for Cardinal Crew Members Only!
-                                                                </Typography>
-                                                            )
-                                                        }
-                                                        {
-                                                            (currNFT == `${nft.contract}-${nft.itemId}` || currBuyNFTId == `${nft.contract}-${nft.itemId}`) && currApprovedNFTId != `${nft.contract}-${nft.itemId}` && isConnected && (!nft.requiresCardinalCrew || isCardinalMember) && (
-                                                                <Button size="small" variant="contained" color="primary" onClick={() => startNFTPurchase(nft.itemId, nft.priceUnrounded, nft.contract)}
-                                                                    className={clsx(styles.buyNFTButton, props.useDarkTheme ? styles.btnDark : styles.btnLight)} disabled={approvingTokenTransfer !== ""}>
-                                                                    {approvingTokenTransfer == `${nft.contract}-${nft.itemId}` && <CircularProgress size={18} color="secondary"/>} 
-                                                                    {approvingTokenTransfer == `${nft.contract}-${nft.itemId}` ? <>&nbsp; Approving</> : "Buy Now"}
-                                                                </Button>
-                                                            )
-                                                        }
-                                                        {
-                                                            (currNFT == `${nft.contract}-${nft.itemId}` || currBuyNFTId == `${nft.contract}-${nft.itemId}`) && currApprovedNFTId == `${nft.contract}-${nft.itemId}` && (
-                                                                <Button size="small" variant="contained" color="primary" onClick={() => finishNFTPurchase(nft.itemId, nft.priceUnrounded, nft.contract)}
-                                                                    className={clsx(styles.buyNFTButton, props.useDarkTheme ? styles.btnDark : styles.btnLight)} disabled={purchasingNFT !== ""}>
-                                                                    {purchasingNFT == `${nft.contract}-${nft.itemId}` && <CircularProgress size={18} color="secondary"/>} 
-                                                                    {purchasingNFT == `${nft.contract}-${nft.itemId}` ? <>&nbsp; Buying</> : "Purchase"}
-                                                                </Button>
-                                                            )
-                                                        }
-                                                    </Grid>
-                                                    <Grid item xs={4} className={styles.nftPrice}>
-                                                        <Typography variant="p" component="div" className={clsx(styles.NFTPrice, "font-bold")}>
-                                                            <ImPriceTag /> Price
-                                                        </Typography>
-                                                        <Typography variant="p" component="div" className={clsx(styles.NFTPrice, "font-bold mt-3")}>
-                                                            {Number(nft.price).toLocaleString()} {nft.tokenToBuy == CardinalTokenAddress ? "CRNL" : "USDC"}
-                                                        </Typography>
-                                                    </Grid>
-                                                </Grid>
-                                            </div>
-                                        </Grid>
-                                    )))
-                                }
+        <main className={styles.container}>
+            <Grid container justifyContent="center" className={styles.mainGrid}>
+                <Grid item lg={3} md={2} sm={1} xs={0}></Grid>
+                <Grid item lg={5} md={8} sm={10} xs={12} className={clsx(styles.marketplaceHeader, styles.headerTextGrid)}>
+                    <Typography variant="h2" className={styles.headerText}>
+                        Cardinal House NFT Marketplace (BETA)
+                    </Typography>
+                </Grid>
+                <Grid item lg={3} md={2} sm={1} xs={0}></Grid>
+                
+                <Grid container justifyContent="center" spacing={4} className={styles.marketplaceFunctionGrid}>
+                    <Snackbar open={showApprovalSuccess} autoHideDuration={6000} onClose={() => {setShowApprovalSuccess(false)}}>
+                        <MuiAlert elevation={6} variant="filled" onClose={() => {setShowApprovalSuccess(false)}} severity="success" sx={{ width: '100%' }} >
+                            Approval Succeeded! Click &quot;Purchase&quot; to Finalize Your NFT Purchase.
+                        </MuiAlert>
+                    </Snackbar>
+                    <Snackbar open={showPurchaseSuccess} autoHideDuration={6000} onClose={() => {setShowPurchaseSuccess(false)}}>
+                        <MuiAlert elevation={6} variant="filled" onClose={() => {setShowPurchaseSuccess(false)}} severity="success" sx={{ width: '100%' }} >
+                            Purchase Succeeded! {transactionHash != "" ? "Transaction hash:" : ""} <a className={styles.transactionHashLink} href={`https://polygonscan.com/tx/${transactionHash}`} target="_blank" rel="noreferrer" >{transactionHash}</a>
+                        </MuiAlert>
+                    </Snackbar>
+                    <Snackbar open={showTransactionCancel} autoHideDuration={6000} onClose={() => {setShowTransactionCancel(false)}}>
+                        <MuiAlert elevation={6} variant="filled" onClose={() => {setShowTransactionCancel(false)}} severity="error" sx={{ width: '100%' }} >
+                            Transaction Canceled: {errorText}
+                        </MuiAlert>
+                    </Snackbar>
+                    <Snackbar open={showPendingTransaction} autoHideDuration={20000} onClose={() => {setShowPendingTransaction(false)}}>
+                        <MuiAlert elevation={6} variant="filled" onClose={() => {setShowPendingTransaction(false)}} severity="info" sx={{ width: '100%' }} >
+                            {processingMessage} {transactionHash != "" ? "Transaction hash:" : ""} <a className={styles.transactionHashLink} href={`https://polygonscan.com/tx/${transactionHash}`} target="_blank" rel="noreferrer" >{transactionHash}</a>
+                        </MuiAlert>
+                    </Snackbar>
+                    {
+                        marketplaceNFTs.length == 0 && NFTsLoaded && (
+                            <Grid item xs={10} className="text-center">
+                                <Typography variant="h5" component="div">
+                                    NFTs will appear here as they are loaded or added to the marketplace...
+                                </Typography>
                             </Grid>
-                        </Grid>
-                    )
-                }
+                        )
+                    }
+                    {
+                        marketplaceNFTs.length == 0 && !NFTsLoaded && (
+                            <Grid item xs={10} className="text-center mt-5">
+                                <CircularProgress size={80} color="secondary" className={styles.loadingAirdropContent} />
+                            </Grid>
+                        )
+                    }
+                    {
+                        marketplaceNFTs.length > 0 && (
+                            <Grid item xs={10}>
+                                <Grid container justifyContent="center" alignItems="center" spacing={4}>
+                                    {
+                                        marketplaceNFTs && (marketplaceNFTs.map((nft, i) => (
+                                            <Grid key={i} item xs={12} sm={6} md={4} lg={3} className={styles.NFTGrid}>
+                                                <div key={i} className={clsx(styles.cardDiv, "rounded-xl overflow-hidden")} onMouseEnter={() => setCurrNFT(`${nft.contract}-${nft.itemId}`)} onMouseLeave={() => setCurrNFT("")}>
+                                                    <img src={nft.image} className={clsx(styles.NFTImage)} />
+                                                    <Grid container justifyContent="center" alignItems="center" className={clsx(props.useDarkTheme ? styles.NFTTextDark : styles.NFTTextLight, "p-4")}>
+                                                        <Grid item xs={8} className={styles.nftNameAndDesc}>
+                                                            <Typography variant="p" component="div" className={clsx(styles.NFTName, "text-2xl font-bold")}>
+                                                                {nft.NFTName}
+                                                            </Typography>
+                                                            {
+                                                                currNFT != `${nft.contract}-${nft.itemId}` && currBuyNFTId != `${nft.contract}-${nft.itemId}` && (
+                                                                    <Typography variant="p" component="div" className={clsx(styles.NFTDescription, "font-bold mt-3")}>
+                                                                        {nft.NFTDescription}
+                                                                    </Typography>
+                                                                )
+                                                            }
+                                                            {
+                                                                (currNFT == `${nft.contract}-${nft.itemId}` || currBuyNFTId == `${nft.contract}-${nft.itemId}`) && currApprovedNFTId != `${nft.contract}-${nft.itemId}` && !isConnected && (
+                                                                    <Typography variant="h5" component="div" className={clsx(styles.NFTDescription, "font-bold mt-3")}>
+                                                                        Connect Wallet to Purchase
+                                                                    </Typography>
+                                                                )
+                                                            }
+                                                            {
+                                                                (currNFT == `${nft.contract}-${nft.itemId}` || currBuyNFTId == `${nft.contract}-${nft.itemId}`) && currApprovedNFTId != `${nft.contract}-${nft.itemId}` && isConnected && nft.requiresCardinalCrew && !isCardinalMember && (
+                                                                    <Typography variant="h5" component="div" className={clsx(styles.NFTDescription, "font-bold mt-3")}>
+                                                                        This NFT is for Cardinal Crew Members Only!
+                                                                    </Typography>
+                                                                )
+                                                            }
+                                                            {
+                                                                (currNFT == `${nft.contract}-${nft.itemId}` || currBuyNFTId == `${nft.contract}-${nft.itemId}`) && currApprovedNFTId != `${nft.contract}-${nft.itemId}` && isConnected && (!nft.requiresCardinalCrew || isCardinalMember) && (
+                                                                    <Button size="small" variant="contained" color="primary" onClick={() => startNFTPurchase(nft.itemId, nft.priceUnrounded, nft.contract)}
+                                                                        className={clsx(styles.buyNFTButton, props.useDarkTheme ? styles.btnDark : styles.btnLight)} disabled={approvingTokenTransfer !== ""}>
+                                                                        {approvingTokenTransfer == `${nft.contract}-${nft.itemId}` && <CircularProgress size={18} color="secondary"/>} 
+                                                                        {approvingTokenTransfer == `${nft.contract}-${nft.itemId}` ? <>&nbsp; Approving</> : "Buy Now"}
+                                                                    </Button>
+                                                                )
+                                                            }
+                                                            {
+                                                                (currNFT == `${nft.contract}-${nft.itemId}` || currBuyNFTId == `${nft.contract}-${nft.itemId}`) && currApprovedNFTId == `${nft.contract}-${nft.itemId}` && (
+                                                                    <Button size="small" variant="contained" color="primary" onClick={() => finishNFTPurchase(nft.itemId, nft.priceUnrounded, nft.contract)}
+                                                                        className={clsx(styles.buyNFTButton, props.useDarkTheme ? styles.btnDark : styles.btnLight)} disabled={purchasingNFT !== ""}>
+                                                                        {purchasingNFT == `${nft.contract}-${nft.itemId}` && <CircularProgress size={18} color="secondary"/>} 
+                                                                        {purchasingNFT == `${nft.contract}-${nft.itemId}` ? <>&nbsp; Buying</> : "Purchase"}
+                                                                    </Button>
+                                                                )
+                                                            }
+                                                        </Grid>
+                                                        <Grid item xs={4} className={styles.nftPrice}>
+                                                            <Typography variant="p" component="div" className={clsx(styles.NFTPrice, "font-bold")}>
+                                                                <ImPriceTag /> Price
+                                                            </Typography>
+                                                            <Typography variant="p" component="div" className={clsx(styles.NFTPrice, "font-bold mt-3")}>
+                                                                {Number(nft.price).toLocaleString()} {nft.tokenToBuy == CardinalTokenAddress ? "CRNL" : "USDC"}
+                                                            </Typography>
+                                                        </Grid>
+                                                    </Grid>
+                                                </div>
+                                            </Grid>
+                                        )))
+                                    }
+                                </Grid>
+                            </Grid>
+                        )
+                    }
+                </Grid>
             </Grid>
-        </Grid>
+        </main>
     )
 }

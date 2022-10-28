@@ -465,12 +465,10 @@ export default function DApp(props) {
                 </ListItem>
 
                 <ListItem className={styles.navOptionsListItem}>
-                    <Tooltip title="Dark Theme Coming Soon!">
-                        <div>
-                            {props.useDarkTheme ? <DarkModeIcon className={clsx(styles.darkModeIcon, styles.iconSizeTheme)} /> : <LightModeIcon className={styles.lightModeIcon} fontSize="large" />}
-                            <Switch checked={props.useDarkTheme} disabled={true} color="primary" onChange={e => props.setUseDarkTheme(e.target.checked)} />
-                        </div>
-                    </Tooltip>
+                    <div>
+                        {props.useDarkTheme ? <DarkModeIcon className={clsx(styles.darkModeIcon, styles.iconSizeTheme)} /> : <LightModeIcon className={styles.lightModeIcon} fontSize="large" />}
+                        <Switch checked={props.useDarkTheme} color="primary" onChange={e => props.setUseDarkTheme(e.target.checked)} />
+                    </div>
                 </ListItem>
                 <ListItem className={styles.navOptionsListItem}>
                     {isConnected && (

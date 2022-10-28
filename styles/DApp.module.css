@@ -37,7 +37,7 @@
 }
 
 .marketplaceHeader {
-    margin-top: 2% !important;
+    margin-top: 3% !important;
 }
 
 .serviceHeaderText {
@@ -178,6 +178,9 @@
     .headerText {
         margin-top: 5% !important;
     }
+    .marketplaceHeader {
+        margin-top: 10% !important;
+    }
 }
 
 @media (max-width: 900px) {
@@ -195,6 +198,9 @@
 @media (max-width: 475px) {
     .serviceInfoDiv {
         text-align: center !important;
+    }
+    .marketplaceHeader {
+        margin-top: 15% !important;
     }
 }
 
