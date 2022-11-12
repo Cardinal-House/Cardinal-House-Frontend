@@ -8,12 +8,11 @@ import MuiAlert from '@mui/material/Alert';
 import clsx from 'clsx';
 import { useState, useEffect, Fragment } from "react";
 import { useEthers, useTokenBalance } from "@usedapp/core";
-import { useCoingeckoPrice } from '@usedapp/coingecko';
-import { constants, ethers } from "ethers";
+import { ethers } from "ethers";
 import WalletConnectProvider from '@walletconnect/web3-provider';
 import { FaInfoCircle, FaCrown } from "react-icons/fa";
 import { AiFillHome } from "react-icons/ai";
-import { MdCardMembership, MdAccountBalance } from "react-icons/md";
+import { MdCardMembership } from "react-icons/md";
 import { BsShieldFillCheck } from "react-icons/bs";
 import { GiCoins, GiReceiveMoney } from "react-icons/gi";
 import { SiMarketo, SiNodered } from "react-icons/si";
@@ -28,10 +27,8 @@ import CloseIcon from '@mui/icons-material/Close';
 import ServicesInfo from "../components/ServicesInfo";
 import OriginalCardinalNFT from "../components/OriginalCardinalNFT";
 import MembershipNFT from "../components/MembershipNFT";
-import PreSale from "../components/PreSale";
 import Audits from "../components/Audits";
 import styles from '../styles/DApp.module.css';
-import CardinalToken from "../contracts/CardinalToken.json";
 import ERC20 from "../contracts/ERC20.json";
 import chainConfig from "../chain-config.json";
 import metaMaskLogo from '../public/MetaMask.png';
@@ -90,11 +87,8 @@ export default function DApp(props) {
 
     const { account, activateBrowserWallet, deactivate, chainId } = useEthers();
     const networkName = "polygon";
-    const CardinalTokenAddress = chainConfig["CardinalTokenAddresses"][networkName];
     const USDCAddress = chainConfig["USDCAddresses"][networkName];
-    const tokenBalance = useTokenBalance(CardinalTokenAddress, account);
     const USDCBalance = useTokenBalance(USDCAddress, account);
-    // const tokenPriceCG = useCoingeckoPrice('cardinal-house', 'usd');
     const isConnected = account !== undefined;
 
     const [currPage, setCurrPage] = useState("Services");
@@ -102,9 +96,7 @@ export default function DApp(props) {
     const [isConnecting, setIsConnecting] = useState(false);
     const [showWalletConnectionFailed, setShowWalletConnectionFailed] = useState(false);
     const [showWrongNetwork, setShowWrongNetwork] = useState(false);
-    const [tempTokenBalance, setTempTokenBalance] = useState(0);
     const [tempUSDCBalance, setTempUSDCBalance] = useState(0);
-    const [tokenPricePercentChange, setTokenPricePercentChange] = useState(0.0);
     const [cookieAgreementOpen, setCookieAgreementOpen] = useState(false);
 
     if (account && chainId != polygonChainId.toString() && chainId != polygonChainId && !showWrongNetwork) {
@@ -135,16 +127,10 @@ export default function DApp(props) {
     );
 
     async function updateTempTokenBalance() {
-        const cardinalTokenABI = CardinalToken.abi;
         const erc20ABI = ERC20.abi;
         const provider = new ethers.providers.JsonRpcProvider(rpcEndpoint, { name: networkName, chainId: polygonChainId });
-        const CardinalTokenContract = new ethers.Contract(CardinalTokenAddress, cardinalTokenABI, provider);
         const USDCContract = new ethers.Contract(USDCAddress, erc20ABI, provider);
-        const userBalance = await CardinalTokenContract.balanceOf(account);
         const userUSDCBalance = await USDCContract.balanceOf(account);
-        setTempTokenBalance(userBalance);
-
-        console.log(userUSDCBalance);
         setTempUSDCBalance(userUSDCBalance);
     }
     
@@ -205,9 +191,6 @@ export default function DApp(props) {
         else if (hash == "#membership") {
             setCurrPage("MembershipNFT");
         }
-        else if (hash == "#bonds") {
-            setCurrPage("Bonds");
-        }
         else if (hash == "#audits") {
             setCurrPage("Audits");
         }
@@ -245,14 +228,6 @@ export default function DApp(props) {
         }
     }, [])
 
-    /*
-    useEffect(() => {
-        fetch('https://api.coingecko.com/api/v3/coins/chain-estate-dao')
-        .then(response => response.json())
-        .then(tokenInfo => setTokenPricePercentChange(parseFloat(tokenInfo.market_data.price_change_percentage_24h).toFixed(2)));
-    }, [tokenPriceCG])
-    */
-
     return (
         <div>
             <CssBaseline />
@@ -289,36 +264,6 @@ export default function DApp(props) {
                 <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
                     Cardinal House DApp
                 </Typography>
-
-                {
-                    /*
-                    tokenPriceCG && (
-                        <Typography variant="h6" component="div" className={styles.CRNLPrice}>
-                            CRNL:&nbsp;
-                        </Typography>
-                    )
-                    */
-                }
-                {
-                    /*
-                    tokenPriceCG && (
-                        <Typography variant="h6" component="div" className={clsx(styles.CRNLPrice, styles.CRNLPriceVal, tokenPricePercentChange > 0 ? props.useDarkTheme ? styles.greenPriceDark : styles.greenPriceLight : styles.redPrice)}>
-                            ${tokenPriceCG} ({tokenPricePercentChange}%)
-                        </Typography>
-                    )
-                    */
-                }
-
-                {
-                    isConnected && (
-                        <Typography variant="h6" component="div" className={styles.CRNLBalance}>
-                            Balance:&nbsp; 
-                            {tokenBalance && Number((+ethers.utils.formatEther(BigInt(tokenBalance._hex).toString(10))).toFixed(2)).toLocaleString()}
-                            {tempTokenBalance ? !tokenBalance ? Number((+ethers.utils.formatEther(BigInt(tempTokenBalance._hex).toString(10))).toFixed(2)).toLocaleString() : "" : 0}
-                            &nbsp;CRNL
-                        </Typography>
-                    )
-                }
 
                 {
                     isConnected && (
@@ -427,13 +372,6 @@ export default function DApp(props) {
                     </ListItemIcon>
                     <ListItemText primary="Claim Node Runner Rewards" />
                 </ListItem>                
-                <ListItem button onClick={() => updatePage("Bonds", "bonds")}
-                    className={clsx(styles.servicesInfoSection, currPage == "Bonds" ? styles.currSection : "")}>
-                    <ListItemIcon>
-                        <MdAccountBalance className={styles.navIcons} />
-                    </ListItemIcon>
-                    <ListItemText primary="Cardinal Bonds" />
-                </ListItem>
                 <ListItem button onClick={() => updatePage("OriginalCardinalNFT", "originalcardinalnft")}
                     className={currPage == "OriginalCardinalNFT" ? styles.currSection : ""}>
                     <ListItemIcon>
@@ -441,15 +379,6 @@ export default function DApp(props) {
                     </ListItemIcon>
                     <ListItemText primary="Original Cardinal NFTs" />
                 </ListItem>
-                {/*
-                <ListItem button onClick={() => updatePage("MembershipNFT", "membership")}
-                    className={currPage == "MembershipNFT" ? styles.currSection : ""}>
-                    <ListItemIcon>
-                        <MdCardMembership className={styles.navIcons} />
-                    </ListItemIcon>
-                    <ListItemText primary="Cardinal House Membership" />
-                </ListItem>
-                */}
                 <ListItem button onClick={() => updatePage("Audits", "audits")}
                     className={currPage == "Audits" ? styles.currSection : ""}>
                     <ListItemIcon>
@@ -503,52 +432,11 @@ export default function DApp(props) {
                 </List>
 
                 <Divider className={styles.CRNLPriceSmall} />
-
-                {/*
-                <List>
-                {
-                    isConnected && (
-                        <ListItem>
-                            <Typography variant="p" component="div" className={clsx(styles.CRNLBalanceSmall, "mb-2")}>
-                                Balance:&nbsp; 
-                                {tokenBalance && Number((+ethers.utils.formatEther(BigInt(tokenBalance._hex).toString(10))).toFixed(2)).toLocaleString()}
-                                {tempTokenBalance ? !tokenBalance ? Number((+ethers.utils.formatEther(BigInt(tempTokenBalance._hex).toString(10))).toFixed(2)).toLocaleString() : "" : 0}
-                                &nbsp;CRNL
-                            </Typography>
-                        </ListItem>
-                    )
-                }
-
-                {
-                    tokenPriceCG && (
-                        <ListItem>
-                            <Typography variant="p" component="div" className={styles.CRNLPriceSmall}>
-                                CRNL:&nbsp;
-                            </Typography>
-                        </ListItem>
-                    )
-                }
-                {
-                    tokenPriceCG && (
-                        <ListItem>
-                            <Typography variant="p" component="div" className={clsx(styles.CRNLPriceSmall, tokenPricePercentChange > 0 ? props.useDarkTheme ? styles.greenPriceDark : styles.greenPriceLight : styles.redPrice)}>
-                                ${tokenPriceCG} ({tokenPricePercentChange}%)
-                            </Typography>
-                        </ListItem>
-                    )
-                }
-                </List>
-                */}
             </Drawer>
 
             {
                 currPage == "Services" && (
                     <ServicesInfo useDarkTheme={props.useDarkTheme} />
-                )
-            }
-            {
-                currPage == "Bonds" && (
-                    <PreSale useDarkTheme={props.useDarkTheme} updateTempTokenBalance={updateTempTokenBalance} />
                 )
             }
             {

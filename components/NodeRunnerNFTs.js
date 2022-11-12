@@ -104,6 +104,8 @@ export default function NodeRunnerNFTs(props) {
     for (let i = 0; i < nodeRunnerContracts.length; i++) {
       const nodeRunnerContractReadOnly = new ethers.Contract(nodeRunnerContracts[i].Address, nodeRunnerABI, provider);
       currNFTDataList = [];
+      let currContractTokenURI = "";
+      let metaData = {}
 
       const currNodeUserNFTs = await nodeRunnerContractReadOnly.getUserTokenURIs(account);   
       
@@ -113,8 +115,11 @@ export default function NodeRunnerNFTs(props) {
             const NFTOwner = await nodeRunnerContractReadOnly.ownerOf(id);
     
             if (NFTOwner == account) {
-                const tokenURI = await nodeRunnerContractReadOnly.tokenURI(id);
-                const metaData = await axios.get(tokenURI);
+                if (currContractTokenURI == "") {
+                  currContractTokenURI = await nodeRunnerContractReadOnly.tokenURI(id);
+                  metaData = await axios.get(currContractTokenURI);
+                }
+                
                 currNFTDataList.push(Object.assign({}, metaData.data, {tokenId: id, contract: nodeRunnerContracts[i].Address}));
             }
         }   
@@ -151,7 +156,7 @@ export default function NodeRunnerNFTs(props) {
         const metaData = await axios.get(currTokenURI);
         const price = (+ethers.utils.formatEther((BigInt(userMarketItemsResult[i].price._hex) * BigInt(Math.pow(10, 12))).toString(10))).toFixed(1).toString();
         const itemId = BigInt(userMarketItemsResult[i].itemId._hex).toString(10);
-        userMarketplaceNFTArray.push(Object.assign({}, metaData.data, {price: price, itemId: itemId, contract: currNFTAddress}));
+        userMarketplaceNFTArray.push(Object.assign({}, metaData.data, {price: price, tokenId: currTokenId, itemId: itemId, contract: currNFTAddress}));
       }
     }
 
@@ -467,6 +472,16 @@ export default function NodeRunnerNFTs(props) {
           }
 
           {
+            isConnected && loadingNodeRunnerContracts && (
+              <Grid item lg={8} md={8} sm={10} xs={12} className="text-center">
+                <Typography variant="h3">
+                  Loading your NFTs... This might take a bit if you have quite a few...
+                </Typography>
+              </Grid>              
+            )
+          }
+
+          {
             isConnected && Object.keys(userNodeRunnerNFTs).map((nodeRunnerContractName) => {
               return (
                 <Grid item xs={12}>
@@ -482,7 +497,7 @@ export default function NodeRunnerNFTs(props) {
                               <img src={nodeRunnerNFT.image} className={clsx(styles.NFTImage)} />
                               <div className={clsx(props.useDarkTheme ? styles.NFTTextDark : styles.NFTTextLight, "p-4")}>
                                 <Typography variant="p" component="div" className="text-2xl font-bold">
-                                  {nodeRunnerNFT.NFTName}
+                                  {nodeRunnerNFT.NFTName} {nodeRunnerNFT.tokenId}
                                 </Typography>
                                 {
                                     currNFTViewed != `${nodeRunnerNFT.contract}-${nodeRunnerNFT.tokenId}` && (
@@ -538,7 +553,7 @@ export default function NodeRunnerNFTs(props) {
                                         <Grid container justifyContent="center" alignItems="center" className={clsx(props.useDarkTheme ? styles.NFTTextDark : styles.NFTTextLight, "p-4")}>
                                             <Grid item xs={8} className={styles.nftNameAndDesc}>
                                                 <Typography variant="p" component="div" className={clsx(styles.NFTName, "text-2xl font-bold")}>
-                                                    {nft.NFTName}
+                                                    {nft.NFTName} {nft.tokenId}
                                                 </Typography>
                                                 {
                                                     currListedNFTViewed != `${nft.contract}-${nft.itemId}` && currNFTCanceling != `${nft.contract}-${nft.itemId}` && (

@@ -83,10 +83,6 @@ export default function Roadmap(props) {
               </Typography>
               <br/>
               <Typography variant="p">
-                <ArrowForwardIcon /> Launch Cardinal Token pre-sale and token launch
-              </Typography>
-              <br/>
-              <Typography variant="p">
                 <ArrowForwardIcon /> Grow Discord server through AMAs, giveaways, YouTube videos, and paid ads
               </Typography>
               <br/>
@@ -142,10 +138,6 @@ export default function Roadmap(props) {
               <br/>
               <Typography variant="p">
                 <ArrowForwardIcon /> Release Cardinal Pay service
-              </Typography>
-              <br/>
-              <Typography variant="p">
-                <ArrowForwardIcon /> Add governance utility to the Cardinal Token
               </Typography>
               <br/>
               <Typography variant="p">

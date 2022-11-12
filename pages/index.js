@@ -32,12 +32,6 @@ export default function Home(props) {
         {/* ~~~~~ Services ~~~~~ */}
         <Services useDarkTheme={props.useDarkTheme} />
 
-        {/* ~~~~~ Tying it All Together with the Cardinal Token ~~~~~ */}
-        <Token useDarkTheme={props.useDarkTheme} />
-
-        {/* ~~~~~ Tokenomics Cards ~~~~~ */}
-        <Tokenomics useDarkTheme={props.useDarkTheme} />
-
         {/* ~~~~~ Growth Visual ~~~~~ */}
         <Growth useDarkTheme={props.useDarkTheme} />
 

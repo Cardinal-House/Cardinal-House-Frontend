@@ -86,7 +86,7 @@ export default function ServicesInfo(props) {
             <Typography variant="h3">
               The Cardinal House DApp will be live next month starting with the NFT marketplace.
               Below is a list of all services that will be released on the DApp with information
-              and pricing for each. All services will be paid for on the DApp using the Cardinal Token.
+              and pricing for each.
             </Typography>
           </Grid>
           <Grid item lg={2} md={2} sm={0} xs={0} className={styles.spacingGrid}></Grid>
@@ -107,15 +107,14 @@ export default function ServicesInfo(props) {
               the Original Cardinal NFTs are given to upstanding members
               of the community and give the holder a free lifetime membership, and the services NFTs
               will be given to projects that purchase services on our DApp as proof that they are audited by us,
-              KYC'd by our partners, used our launch pad for their pre-sale, etc. Before our token launch, memberships will
-              be purchased on our Discord server. But once the Cardinal Token is launched, you'll purchase
-              your memberships here on the Cardinal House Marketplace!
+              KYC'd by our partners, used our launch pad for their pre-sale, etc. Memberships can be purchased on Discord
+              through mee6 or on the DApp with USDC.
 
             </Typography>
           </Grid>
           <Grid item lg={6} md={8} sm={10} xs={10}>
             <Typography variant="h5" className={styles.pricingText}>
-              Membership NFT Price: $50/month in Cardinal Tokens
+              Membership NFT Price: $25/month in USDC
             </Typography>
           </Grid>
 
@@ -209,8 +208,6 @@ export default function ServicesInfo(props) {
             <Typography variant="h3">
               For projects looking to bring their community together or get them excited about a new product launching, we will utilize our network and skill 
               sets to organize a high production, fun event that includes giveaways, guest speakers, sponsorships, educational elements, and an overall good time. 
-              Revenue from clients that use Cardinal House event hosting as a service will be utilized to pay for the production costs, staff, marketing, and 
-              purchasing/burning Cardinal token.
             </Typography>
           </Grid>
           <Grid item lg={6} md={8} sm={10} xs={10}>

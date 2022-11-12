@@ -29,7 +29,7 @@ export default function Growth(props) {
     <Grid container justifyContent="center" alignItems="center" spacing={6} className={clsx(styles.growthGrid)}>
       <Grid item xs={12}>
         <Typography id="growthHeader" ref={growthHeaderRef} variant="h2" className={styles.growthHeader}>
-          More Services Over Time = More Volume Over Time
+          More Services Over Time = More Value Over Time
         </Typography>
       </Grid>
         <Grid item lg={5} md={5} sm={10} xs={12} className={styles.forCard}>

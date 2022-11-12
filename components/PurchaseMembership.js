@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import { Grid, Button, Typography, Card, CardContent, TextField, CircularProgress } from '@mui/material';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
@@ -12,7 +11,7 @@ import { Contract } from "@ethersproject/contracts";
 
 import styles from '../styles/DApp.module.css';
 import chainConfig from "../chain-config.json";
-import CardinalToken from "../contracts/CardinalToken.json";
+import ERC20 from "../contracts/ERC20.json";
 import CardinalNFT from "../contracts/CardinalNFT.json";
 
 const rpcEndpoint = "https://rpc-mainnet.maticvigil.com";
@@ -21,9 +20,9 @@ const polygonChainId = 137;
 export default function PurchaseMembership(props) {
   const { account, chainId } = useEthers();
   const networkName = "polygon";
-  const cardinalTokenABI = CardinalToken.abi;
+  const ERC20ABI = ERC20.abi;
   const cardinalNFTABI = CardinalNFT.abi;
-  const CardinalTokenAddress = chainConfig["CardinalTokenAddresses"][networkName];
+  const USDCAddress = chainConfig["USDCAddresses"][networkName];
   const CardinalNFTAddress = chainConfig["CardinalNFTAddresses"][networkName];
   const isConnected = account !== undefined && chainId == polygonChainId;
 
@@ -33,8 +32,8 @@ export default function PurchaseMembership(props) {
   const [membershipPrice, setMembershipPrice] = useState(0);
   const [userMembershipNFTs, setUserMembershipNFTs] = useState([]);
   const [approvedAmount, setApprovedAmount] = useState(0);
-  const [approvingCardinalTokens, setApprovingCardinalTokens] = useState(false);
-  const [cardinalTokensApproved, setCardinalTokensApproved] = useState(false);
+  const [approvingUSDC, setApprovingUSDC] = useState(false);
+  const [USDCApproved, setUSDCApproved] = useState(false);
   const [purchasingMembership, setPurchasingMembership] = useState(false);
   const [showSubmissionSuccess, setShowSubmissionSuccess] = useState(false);
   const [showSubmissionFailure, setShowSubmissionFailure] = useState(false);
@@ -42,14 +41,14 @@ export default function PurchaseMembership(props) {
   const [submissionMessage, setSubmissionMessage] = useState("");
   const [transactionHash, setTransactionHash] = useState("");
 
-  const cardinalTokenInterface = new utils.Interface(cardinalTokenABI);
-  const cardinalTokenContract = new Contract(CardinalTokenAddress, cardinalTokenInterface);
+  const USDCInterface = new utils.Interface(ERC20ABI);
+  const USDCContract = new Contract(USDCAddress, USDCInterface);
   const cardinalNFTInterface = new utils.Interface(cardinalNFTABI);
   const cardinalNFTContract = new Contract(CardinalNFTAddress, cardinalNFTInterface);
 
-  const { send: approveCardinalTokens, state: approveCardinalTokensState } =
-  useContractFunction(cardinalTokenContract, "approve", {
-      transactionName: "Approve Cardinal Tokens for Purchasing Membership NFT.",
+  const { send: approveUSDC, state: approveUSDCState } =
+  useContractFunction(USDCContract, "approve", {
+      transactionName: "Approve USDC for Purchasing Membership NFT.",
   })
 
   const { send: purchaseMembershipNFT, state: purchasingMembershipNFTState } =
@@ -61,9 +60,9 @@ export default function PurchaseMembership(props) {
     const provider = new ethers.providers.JsonRpcProvider(rpcEndpoint, { name: networkName, chainId: polygonChainId });
     const cardinalNFTContractReadOnly = new ethers.Contract(CardinalNFTAddress, cardinalNFTABI, provider);
 
-    const currMembershipPriceObj = await cardinalNFTContractReadOnly.membershipPriceInCardinalTokens();
+    const currMembershipPriceObj = await cardinalNFTContractReadOnly.membershipPriceInUSDC();
     const currMembershipPrice = +ethers.utils.formatEther(BigInt(parseInt(currMembershipPriceObj._hex, 16)).toString(10));
-    setMembershipPrice(currMembershipPrice);
+    setMembershipPrice(currMembershipPrice * Math.pow(10, 12));
 
     const currMembershipTokenURILink = await cardinalNFTContractReadOnly.membershipTokenURI();
     const currMembershipTokenURIData = await axios.get(currMembershipTokenURILink);
@@ -78,7 +77,7 @@ export default function PurchaseMembership(props) {
     const connection = await web3Modal.connect();
     const provider = new ethers.providers.Web3Provider(connection);
     const cardinalNFTContractReadOnly = new ethers.Contract(CardinalNFTAddress, cardinalNFTABI, provider);
-    const cardinalTokenContractReadOnly = new ethers.Contract(CardinalTokenAddress, cardinalTokenABI, provider);
+    const USDCContractReadOnly = new ethers.Contract(USDCAddress, ERC20ABI, provider);
 
     const currIsCardinalMember = await cardinalNFTContractReadOnly.addressIsMember(account);
     setIsCardinalMember(currIsCardinalMember);
@@ -87,7 +86,7 @@ export default function PurchaseMembership(props) {
     const currMembershipDiscount = parseInt(currMembershipDiscountObj._hex, 16);
     setMemberDiscountAmount(currMembershipDiscount);
 
-    const currApprovedAmountObj = await cardinalTokenContractReadOnly.allowance(account, CardinalNFTAddress);
+    const currApprovedAmountObj = await USDCContractReadOnly.allowance(account, CardinalNFTAddress);
     const currApprovedAmount = +ethers.utils.formatEther(BigInt(parseInt(currApprovedAmountObj._hex, 16)).toString(10));
     setApprovedAmount(currApprovedAmount);
 
@@ -112,8 +111,8 @@ export default function PurchaseMembership(props) {
     }
   }, [isConnected, account]);
 
-  const startApproveCardinalTokens = () => {
-    approveCardinalTokens(CardinalNFTAddress, BigInt(Math.pow(2, 256)) - BigInt(1));
+  const startApproveUSDC = () => {
+    approveUSDC(CardinalNFTAddress, BigInt(Math.pow(2, 256)) - BigInt(1));
   }
 
   const startMembershipNFTMint = () => {
@@ -121,40 +120,40 @@ export default function PurchaseMembership(props) {
   }
 
   useEffect(() => {
-    console.log(approveCardinalTokensState);
-    if (approveCardinalTokensState.status === "Success") {
+    console.log(approveUSDCState);
+    if (approveUSDCState.status === "Success") {
       setShowSubmissionSuccess(true);
       setShowSubmissionPending(false);
       setShowSubmissionFailure(false);
-      setApprovingCardinalTokens(false);
-      setSubmissionMessage("Cardinal Tokens approved successfully! Click the \"Mint Membership NFT\" button to finalize your membership purchase!");
-      setCardinalTokensApproved(true);
-      setTransactionHash(approveCardinalTokensState.transaction.hash);
+      setApprovingUSDC(false);
+      setSubmissionMessage("USDC approved successfully! Click the \"Mint Membership NFT\" button to finalize your membership purchase!");
+      setUSDCApproved(true);
+      setTransactionHash(approveUSDCState.transaction.hash);
     }
-    else if (approveCardinalTokensState.status === "Exception") {
+    else if (approveUSDCState.status === "Exception") {
       setShowSubmissionSuccess(false);
       setShowSubmissionPending(false);
       setShowSubmissionFailure(true);
-      setApprovingCardinalTokens(false);
-      setSubmissionMessage(`Failed to approve Cardinal Tokens: ${approveCardinalTokensState.errorMessage}`);
+      setApprovingUSDC(false);
+      setSubmissionMessage(`Failed to approve USDC: ${approveUSDCState.errorMessage}`);
     }
-    else if (approveCardinalTokensState.status === "Mining") {
+    else if (approveUSDCState.status === "Mining") {
       setShowSubmissionSuccess(false);
       setShowSubmissionPending(true);
       setShowSubmissionFailure(false);
-      setApprovingCardinalTokens(true);
-      setSubmissionMessage("Approving Cardinal Tokens...");
-      setTransactionHash(approveCardinalTokensState.transaction.hash);
+      setApprovingUSDC(true);
+      setSubmissionMessage("Approving USDC...");
+      setTransactionHash(approveUSDCState.transaction.hash);
     }
-    else if (approveCardinalTokensState.status === "PendingSignature") {
+    else if (approveUSDCState.status === "PendingSignature") {
       setShowSubmissionSuccess(false);
       setShowSubmissionPending(true);
       setShowSubmissionFailure(false);
-      setApprovingCardinalTokens(true);
+      setApprovingUSDC(true);
       setSubmissionMessage("Waiting for User to Sign Transaction...");
       setTransactionHash("");
     }
-  }, [approveCardinalTokensState])
+  }, [approveUSDCState])
 
   useEffect(() => {
     console.log(purchasingMembershipNFTState);
@@ -224,20 +223,18 @@ export default function PurchaseMembership(props) {
           <Grid item lg={2} md={2} sm={1} xs={0}></Grid>
           <Grid item lg={8} md={8} sm={10} xs={12} className="mt-2 text-center">
             <Typography variant="h3">
-              Here is where you purchase a Cardinal House Membership NFT which makes you a Cardinal Crew Member!
-              The Cardinal Crew Membership is a monthly subscription that gives 
-              you access to many exciting perks within the community, including exclusive educational content,
-              Cardinal Token giveaways, whitelist spots for projects that come into the community for AMAs,
-              special events hosted for members only such as technical analysis sessions, interviews with project
-              owners, and so much more!
+              Here is where you purchase a Cardinal House Membership NFT which makes you a Cardinal Crew Member! 
+              The Cardinal Crew Membership is a monthly subscription that gives you access to many exciting perks within the 
+              community, including exclusive educational content around trading and crypto knowledge, giveaways, whitelist 
+              spots for projects that come into the community for AMAs, special events hosted for members only such as technical 
+              analysis sessions, interviews with project owners, and so much more!
             </Typography>
             <br/>
             <Typography variant="h3" className="mt-3">
-              When you purchase a Cardinal Crew Membership NFT, you pay for the first month immediately
-              and then are charged on a monthly basis after. All Cardinal Crew Membership payments through the
-              Membership NFT are with the Cardinal Token. If you don't have enough Cardinal Tokens to pay for the membership
-              when you are charged for another month, your Membership NFT will be forfeited and you can simply purchase another one
-              if you want to continue your membership.
+              When you purchase a Cardinal Crew Membership NFT, you pay for the first month immediately and then are charged on a monthly basis after. 
+              All Cardinal Crew Membership payments through the Membership NFT are with USDC. If you don't have enough USDC to pay for the membership 
+              when you are charged for another month, your Membership NFT will be forfeited and you can simply purchase another one if you want to 
+              continue your membership.
             </Typography>
           </Grid>
           <Grid item lg={2} md={2} sm={1} xs={0}></Grid>
@@ -293,21 +290,21 @@ export default function PurchaseMembership(props) {
                       <b>
                         &nbsp;{memberDiscountAmount > 0 ? parseFloat(parseInt(membershipPrice) * parseInt(memberDiscountAmount) / 100).toFixed(3) : membershipPrice.toFixed(3)}&nbsp;
                       </b>
-                      Cardinal Tokens
+                      USDC
                     </Typography>
                   )}
                   <Grid container justifyContent="center" alignItems="center" spacing={4} className="mt-4 text-center">
                     <Grid item xs={12}>
                       <Button size="large" variant="contained" color="primary"
-                        disabled={approvingCardinalTokens || cardinalTokensApproved || !isConnected || approvedAmount > 100000000} onClick={startApproveCardinalTokens}>
-                        {approvingCardinalTokens && <CircularProgress size={18} color="secondary"/>}
-                        {isConnected ? approvingCardinalTokens ? <>&nbsp; Approving Cardinal Tokens...</> : "Approve Cardinal Tokens" : "Connect Wallet in Navigation"}
+                        disabled={approvingUSDC || USDCApproved || !isConnected || approvedAmount > 100000000} onClick={startApproveUSDC}>
+                        {approvingUSDC && <CircularProgress size={18} color="secondary"/>}
+                        {isConnected ? approvingUSDC ? <>&nbsp; Approving USDC...</> : "Approve USDC" : "Connect Wallet in Navigation"}
                       </Button>
                     </Grid>
                     <Grid item xs={12}>
                       {isConnected && (
                         <Button size="large" variant="contained" color="primary"
-                          disabled={purchasingMembership || (!cardinalTokensApproved && approvedAmount < 100000000)} onClick={startMembershipNFTMint}>
+                          disabled={purchasingMembership || (!USDCApproved && approvedAmount < 100000000)} onClick={startMembershipNFTMint}>
                           {purchasingMembership && <CircularProgress size={18} color="secondary"/>}
                           {purchasingMembership ? <>&nbsp; Purchasing Membership NFT...</> : "Purchase Membership NFT"}
                         </Button>

@@ -120,10 +120,9 @@ export default function OriginalCardinalNFT(props) {
         const currTokenTypeId = (await nftContractReadOnly.tokenIdToTypeId(currTokenId))._hex;
 
         if (currTokenTypeId == originalCardinalTypeId) {
-          console.log("Made it here")
           const currTokenURI = await nftContractReadOnly.tokenURI(currTokenId);
           const metaData = await axios.get(currTokenURI);
-          const price = (+ethers.utils.formatEther(BigInt(userMarketItemsResult[i].price._hex).toString(10))).toFixed(1).toString();
+          const price = (+ethers.utils.formatEther(BigInt(userMarketItemsResult[i].price._hex).toString(10)) * Math.pow(10, 12)).toFixed(1).toString();
           const itemId = BigInt(userMarketItemsResult[i].itemId._hex).toString(10);
           setListedOriginalCardinalNFT(Object.assign({}, metaData.data, {price: price, itemId: itemId}));
           return;
@@ -153,7 +152,7 @@ export default function OriginalCardinalNFT(props) {
       setApprovingNFTTransfer(true);
     }
     else {
-      setInputError("Price Must be Above 0 CRNL");
+      setInputError("Price Must be Above 0 USDC");
     }
   }
 
@@ -202,7 +201,7 @@ export default function OriginalCardinalNFT(props) {
       const marketplaceContractReadOnly = new ethers.Contract(CardinalMarketplaceAddress, cardinalMarketplaceABI, provider);
       const nftContractReadOnly = new ethers.Contract(CardinalNFTAddress, cardinalNFTABI, provider);
 
-      const price = ethers.utils.parseUnits(NFTPrice, 'ether');
+      const price = NFTPrice * Math.pow(10, 6);
       let listingPrice = await nftContractReadOnly.tokenIdToListingFee(originalCardinalNFT.tokenId);
 
       if (listingPrice <= 0) {
@@ -336,7 +335,7 @@ export default function OriginalCardinalNFT(props) {
             <Typography variant="h4" component="div" className={props.useDarkTheme ? styles.darkText : styles.lightText}>
                 Set NFT Price
             </Typography>
-            <TextField error={inputError != ""} label="Price in CRNL" helperText={inputError}
+            <TextField error={inputError != ""} label="Price in USDC" helperText={inputError}
                 value={NFTPrice} onChange={updateNFTPrice} className={styles.priceInput} />
                 <br/>
             {
@@ -455,7 +454,7 @@ export default function OriginalCardinalNFT(props) {
                                 <ImPriceTag /> Price
                             </Typography>
                             <Typography variant="p" component="div" className={clsx(styles.NFTPrice, "font-bold mt-3")}>
-                                {Number(listedOriginalCardinalNFT.price).toLocaleString()} CRNL
+                                {Number(listedOriginalCardinalNFT.price).toLocaleString()} USDC
                             </Typography>
                         </Grid>
                     </Grid>
@@ -474,10 +473,9 @@ export default function OriginalCardinalNFT(props) {
           </Grid>
           <Grid item lg={7} md={6} sm={12} xs={12}>
             <Typography variant="h3">
-              There are many benefits to being a Cardinal House member, including exclusive educational content,
-              Cardinal Token giveaways, whitelist spots for projects that come into the community for AMAs,
-              special events hosted for members only such as technical analysis sessions, interviews with project
-              owners, and so much more!
+              There are many benefits to being a Cardinal House member, including exclusive educational content around trading and crypto knowledge, 
+              giveaways, whitelist spots for projects that come into the community for AMAs, special events hosted for members only such as 
+              technical analysis sessions, interviews with project owners, and so much more!
             </Typography>
           </Grid>
 

@@ -4,7 +4,7 @@ import MuiAlert from '@mui/material/Alert';
 import clsx from 'clsx';
 import axios from 'axios';
 import { useState, useEffect } from "react";
-import { useEthers, useTokenBalance, useContractFunction, useCall } from "@usedapp/core";
+import { useEthers, useContractFunction, useCall } from "@usedapp/core";
 import { utils, ethers } from "ethers";
 import { Contract } from "@ethersproject/contracts";
 import { ImPriceTag } from 'react-icons/im';
@@ -58,7 +58,6 @@ export default function ViewMarketplaceNFTs(props) {
     const cardinalNFTABI = CardinalNFT.abi;
     const cardinalMarketplaceABI = CardinalHouseMarketplace.abi;
     const USDCAddress = chainConfig["USDCAddresses"][networkName];
-    const CardinalTokenAddress = chainConfig["CardinalTokenAddresses"][networkName];
     const NodeRunnerAddress = chainConfig["NodeRunnerAddresses"][networkName];
     const CardinalNFTAddress = chainConfig["CardinalNFTAddresses"][networkName];
     const CardinalMarketplaceAddress = chainConfig["CardinalNFTMarketplaceAddresses"][networkName];
@@ -348,7 +347,7 @@ export default function ViewMarketplaceNFTs(props) {
                                                                 <ImPriceTag /> Price
                                                             </Typography>
                                                             <Typography variant="p" component="div" className={clsx(styles.NFTPrice, "font-bold mt-3")}>
-                                                                {Number(nft.price).toLocaleString()} {nft.tokenToBuy == CardinalTokenAddress ? "CRNL" : "USDC"}
+                                                                {Number(nft.price).toLocaleString()} USDC
                                                             </Typography>
                                                         </Grid>
                                                     </Grid>
