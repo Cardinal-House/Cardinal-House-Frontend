@@ -48,7 +48,7 @@ function MyApp({ Component, pageProps }) {
     palette: {
       mode: 'dark',
       background: {
-        paper: '#010116', // #020119
+        paper: '#0f1220', //0f1220 // #020119
       },
       primary: {
         main: '#c50a0a',
@@ -134,6 +134,12 @@ function MyApp({ Component, pageProps }) {
           {/*<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@600&display=swap" rel="stylesheet" />*/}
           <link href="https://fonts.googleapis.com/css2?family=Kanit&family=Merriweather+Sans:wght@500&family=Nunito+Sans:wght@600;800&family=Prompt&family=Source+Serif+Pro:wght@600&display=swap" rel="stylesheet" />
           <script async src="https://www.googletagmanager.com/gtag/js?id=G-TJSPRD6Y1T"></script>
+          <script src="https://code.highcharts.com/stock/highstock.js"></script>
+          <script src="https://code.highcharts.com/stock/modules/data.js"></script>
+          <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
+          <script src="https://code.highcharts.com/stock/modules/export-data.js"></script>
+          <script src="https://code.highcharts.com/stock/modules/accessibility.js"></script>
+          <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
         </Head>
         <Paper className="mainPaper">
           <Component {...pageProps} useDarkTheme={useDarkTheme} setUseDarkTheme={updateUseDarkTheme} />

@@ -73,6 +73,15 @@ export default function Navigation({useDarkTheme, setUseDarkTheme, hideThemeTogg
                                 Education Center
                             </Typography>
                         </Nav.Link>
+                        {
+                            /*
+                            <Nav.Link href="/cryptoinsights" className={styles.navPadding} >
+                                <Typography variant="h6" className={clsx(useDarkTheme ? styles.navbarDarkCustom : styles.navbarLightCustom, styles.navText)}>
+                                    Crypto Insights
+                                </Typography>
+                            </Nav.Link>
+                            */
+                        }
                         <Nav.Link className={styles.navPadding} onClick={() => moveToSection("roadmap")}>
                             <Typography variant="h6" className={clsx(useDarkTheme ? styles.navbarDarkCustom : styles.navbarLightCustom, styles.navText)}>
                                 Roadmap

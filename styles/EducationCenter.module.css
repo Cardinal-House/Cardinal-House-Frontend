@@ -12,16 +12,48 @@
 }
   
 .darkThemeBackground {
-    background-image: url("../public/DarkThemeBackground.png") !important;
-    background-repeat: no-repeat !important;
-    background-size: cover !important;
+    background-color: var(--education-center-primary) !important;
 }
 
 .navDrawer {
     color: white !important;
 }
 
-.drawerContainer {}
+.searchModal {
+    background-color: rgba(0, 0, 0, 0) !important;
+}
+
+.filterDropdown {
+    margin-top: 0.5% !important;
+    z-index: 10000000000 !important;
+}
+
+.projectSearchModal {
+    width: 100vw !important;
+}
+
+.projectTableRow {
+    background-color: var(--education-center-secondary) !important;
+}
+
+.projectTableRowHover:hover {
+    background-color: #3a3c4a !important;
+    cursor: pointer !important;
+}
+
+.darkText {
+    color: white !important;
+}
+
+
+.modalDark {
+    background-color: #1d263b !important;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05));
+}
+
+.modalLight {
+    background-color: #eaeef3 !important;
+}
 
 .educationCenterIntroGrid {
     margin-top: 0.2% !important;
@@ -284,10 +316,309 @@
     z-index: 10000000 !important;
 }
 
+.insightsHeaderText {
+    padding-bottom: 1% !important;
+    font-size: 3rem !important;
+    font-family: 'Source Serif Pro', Nunito Sans, Kanit, Merriweather Sans, sans-serif !important;
+}
+
+.leftTextAlign {
+    text-align: left !important;
+}
+
+.feedItem {
+    text-align: left !important;
+    padding-bottom: 3% !important;
+    margin-bottom: 2% !important;
+    border-bottom: 2px solid white !important;
+}
+
+.limitHeight {
+    max-height: 800px !important;
+    max-width: 250% !important;
+    overflow-x: hidden !important;
+    overflow-y: scroll !important;
+    padding-right: 2% !important;
+}
+
+.projectBtns {
+    background-color: #4a4a4a !important;
+    margin-right: 2% !important;
+    color: #d1d1d1 !important;
+}
+
+.projectAboutBtns {
+    background-color: rgba(0, 255, 200, 0.65) !important;
+    border-radius: 20px !important;
+    margin-right: 1% !important;
+    margin-left: 1% !important;
+    color: #d1d1d1 !important;
+    width: 250px !important;
+    padding-top: 1.2% !important;
+    padding-bottom: 1% !important;
+}
+
+.largeProjectAboutBtn {
+    width: 300px !important;
+}
+
+.contractText {
+    font-size: 13px !important;
+}
+
+.metaMaskLogo {
+    margin-top: 10% !important;
+}
+
+.chartBtn {
+    background-color: #4a4a4a !important;
+    border-radius: 15px !important;
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+    margin-right: 9px !important;
+    margin-left: 9px !important;
+}
+
+.selectedChartBtn {
+    background-color: rgba(0, 255, 200, 0.7) !important;
+    color: #d1d1d1 !important;
+}
+
+.projectAboutBtns:hover {
+    background-color: rgba(0, 255, 200, 0.8) !important;
+}
+
+.projectBtns:hover {
+    background-color: #333333 !important;
+}
+
+.tagBtn {
+    background-color: rgba(0, 255, 200, 0.8) !important;
+    margin-left: 1% !important;
+    margin-right: 1% !important;
+    color: white !important;
+    border-radius: 20px !important;   
+    padding: 8px 7px !important; 
+}
+
+.selectedTagBtn {
+    background-color: rgba(0, 255, 200, 0.7) !important;
+}
+
+.search {
+    padding: 12px 10px !important;
+    padding-bottom: 14px !important;
+    padding-top: 11px !important;
+    display: inline !important; 
+    width: 150px !important;
+    border-radius: 20px !important;
+    margin-left: 10px !important;
+}
+
+.searchMobile {
+    margin-top: 3% !important;
+}
+
+.projectCategories {
+    padding: 5px !important;
+    background-color: #575757 !important;
+    margin-right: 1.5% !important;
+    border-radius: 10px !important;
+}
+
+.projectCategoryBtn {
+    background-color: #575757 !important;
+    color: white !important;   
+    border-right: none !important;
+    border-left: none !important;
+    margin-right: 1% !important;
+    margin-left: 1% !important;
+    border-radius: 10px !important;
+}
+
+.selectedProjectCategoryBtn {
+    background-color: rgba(0, 255, 200, 0.7) !important;
+}
+
+.searchGrid {
+    color: white !important;
+    display: flex !important;
+    justify-content: center !important;
+}
+
+.tablePagination {
+    display: flex !important;
+    border-bottom: none !important;
+}
+
+.projectNameText {
+    font-size: 16px !important;
+}
+
+.projectSearchGrid {
+    margin-top: 0.2% !important;
+    padding-top: 3% !important;
+    padding-bottom: 6% !important;
+    text-align: center !important;
+    padding-left: 2rem !important;
+    padding-right: 2rem !important;
+    min-height: 40vh !important;
+}
+
+.projectImage {
+    margin-left: 2% !important;
+}
+
+.marketDataGrid {
+    text-align: left !important;
+    padding-left: 20% !important;
+}
+
+.marketDataDiv {
+    padding-bottom: 5px !important;
+    border-bottom: 1px solid rgba(234, 238, 243, 0.4) !important;
+}
+
+.marketDataTitleText {
+    color: lightgray !important;
+}
+
+.marketDataText {
+    float: right !important;
+}
+
+.tokenPriceText {
+    font-size: 32px !important;
+}
+
+.projectTokenText {
+    font-size: 20px !important;
+}
+
+.percentageText {
+    font-size: 15px !important;
+}
+
+.iconSize {
+    font-size: 1.75rem !important;
+}
+
+.twitterBtn {
+    background-color: #1DA1F2 !important;
+    border-radius: 20px !important;
+}
+
+.twitterBtn:hover {
+    color: #d1d1d1 !important;
+}
+
+.twitterIcon {
+    color: #1DA1F2 !important;
+    margin-right: 2% !important;
+}
+
+.twitterBtn:hover {
+    color: #d1d1d1 !important;
+}
+
+.discordIcon {
+    color: #7289DA !important;
+    margin-right: 2% !important;
+}
+
+.discordBtn {
+    background-color: #7289DA !important;
+    border-radius: 20px !important;    
+}
+
+.discordBtn:hover {
+    color: #d1d1d1 !important;
+}
+
+.youtubeIcon {
+    color: #FF0000 !important;
+    margin-right: 2% !important;
+}
+
+.youtubeBtn {
+    background-color: #FF0000 !important;
+    border-radius: 20px !important;    
+}
+
+.youtubeBtn:hover {
+    color: #d1d1d1 !important;
+}
+
+.telegramIcon {
+    color: #0088CC !important;
+    margin-right: 2% !important;
+}
+
+.mediumIcon {
+    margin-right: 2% !important;
+}
+
+.mediumBtn {
+    background-color: white !important;
+    color: black !important;
+    border-radius: 20px !important;       
+}
+
+.mediumBtn:hover {
+    color: #515151 !important;
+}
+
+.socialOptionBtn {
+    color: white !important;
+    border-radius: 12px !important;
+    padding: 10px 25px !important;
+}
+
+.backUpBtn {
+    position: fixed !important;
+    bottom: 20px !important;
+    right: 20px !important;
+    color: white !important;
+    background-color: rgba(0, 0, 0, 0) !important;
+}
+
+.backUpBtn:hover {
+    background-color: rgba(0, 0, 0, 0) !important;
+    color: rgb(171, 169, 169) !important;
+}
+
+.socialOptionBtn:hover {
+    color: rgb(193, 193, 193) !important;
+    background-color: rgba(0, 255, 200, 0.5) !important;
+}
+
+.selectedSocialBtn {
+    background-color: rgba(0, 255, 200, 0.5) !important;
+}
+
+.chartBtnGrid {
+    margin-top: 7% !important;
+    margin-bottom: -1% !important;
+}
+
+.chartDiv {
+    height: 500px !important;
+}
+
+@media (max-width: 1500px) {
+    .optionMargin {
+        margin: 2% !important;
+    }
+}
+
 @media (max-width: 1200px) {
    .descriptionHeader {
        margin-top: 3% !important;
    } 
+
+   .marketDataGrid {
+        padding-left: 5% !important;
+    }
 }
 
 @media (max-width: 1200px) {
@@ -301,6 +632,7 @@
         display: none !important;
     }
 }
+
 
 @media (min-width: 900px) {
     .mobileImage {
@@ -320,10 +652,40 @@
     .resetProgressBtnLarge {
         display: none !important;
     }
+
+    .projectImage {
+        display: none !important;
+    }
+
+    .feedItem {
+        padding-bottom: 8% !important;
+    }
 }
 
 @media (min-width: 750px) {
     .resetProgressBtnSmall {
         display: none !important;
+    }
+
+    .projectImageMobile {
+        display: none !important;
+    }
+}
+
+@media (min-width: 690px) {
+    .searchMobile {
+        display: none !important;
+    }
+}
+
+@media (max-width: 690px) {
+    .searchDesktop {
+        display: none !important;
+    }
+
+    .socialOptionBtn {
+        color: white !important;
+        border-radius: 12px !important;
+        padding: 8% 14% !important;
     }
 }

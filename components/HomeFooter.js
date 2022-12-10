@@ -20,7 +20,7 @@ export default function HomeFooter(props) {
   
   return (
     <div className={styles.footerDiv}>
-      <IconContext.Provider id="icons" ref={iconsRef} value={{ color: props.useDarkTheme ? "#ff0000" : "#ff0000" }} className={styles.socialIcons}>
+      <IconContext.Provider id="icons" ref={iconsRef} value={{ color: props.useDarkTheme ? "#00FFC8" : "#00FFC8" }} className={styles.socialIcons}>
           <Grid container justifyContent="center" alignItems="center" spacing={3} className={styles.socialIcons}>
               <Grid item xs={1} className={clsx(styles.socialIcon, styles.socialIconMargin)}>
                   <a href="https://discord.gg/Sw5qsDx2kr" target="_blank" rel="noreferrer">

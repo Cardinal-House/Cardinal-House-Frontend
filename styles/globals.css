@@ -2,7 +2,9 @@
   --dark-theme-primary-color: #1649ff;
   --light-theme-primary-color: #70c1ff;
   --red-primary-color: #ff0000;
-  --education-center-primary: #141a2a;
+  --education-center-primary: #0f1220;
+  --education-center-secondary: #242634;
+  --mint-primary-color: #00FFC8;
 }
 
 /*
@@ -53,6 +55,10 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+.hide {
+  display: none !important;
 }
 
 .dropdown-toggle {
@@ -216,13 +222,36 @@ a {
   z-index: 100 !important;
 }
 
+.mediumImages img {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.projectSearchModal {
+  z-index: 1000000000 !important;
+  width: 95vw !important;
+  max-width: 95vw !important;
+}
+
+.modal {
+  z-index: 100000000 !important;
+}
+
+.MuiTooltip-popper, .MuiTooltip-tooltip, .MuiTooltip-tooltipPlacementTop {
+  z-index: 10000000000 !important;
+}
+
+.modebar-container {
+  display: none !important;
+}
+
 @media (max-width: 650px) {
   .mobileSnackbarTextSize {
       font-size: 12px !important;
   }
 }
 
-@media (min-width: 600px) {
+@media (min-width: 1000px) {
   /* width */
   ::-webkit-scrollbar {
     width: 7px !important;
@@ -263,5 +292,14 @@ a {
   .dropdown-menu {
     margin-right: 2% !important;
     background-color: #5decff !important;
+  }
+}
+
+@media (max-width: 500px) {
+  .projectSearchModal {
+      width: 100vw !important;
+      max-width: 100vw !important;
+      margin: 0 !important;
+      padding: 0 !important;
   }
 }

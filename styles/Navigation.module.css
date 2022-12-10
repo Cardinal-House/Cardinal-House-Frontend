@@ -4,9 +4,9 @@
     color: rgba(255,255,255,1) !important;
   }
   
-  .navbarLightCustom {
+.navbarLightCustom {
     color: rgba(0,0,0,1) !important;
-  }
+}
 
 .darkModeIcon {
     color: var(--red-primary-color);
@@ -45,6 +45,10 @@ nav .container {
     align-items: center !important;
 }
 
+.lastNavItem {
+    padding-right: 50% !important;
+}
+
 .iconSize {
     font-size: 1.75rem !important;
 }
@@ -68,7 +72,6 @@ nav .container {
 .navBrandText {
     font-size: 18px !important;
 }
-
 
 .navText {
     font-size: 17px !important;
@@ -206,6 +209,7 @@ nav .container {
     .socialIcons {
         display: flex !important;
         align-items: center !important;
+        padding-bottom: 3% !important;
     }
     .socialIcon {
         margin-top: 5% !important;
@@ -213,6 +217,9 @@ nav .container {
     }
     .socialIconSpacing {
         margin-left: 8% !important;
+    }
+    .desktopSpacing {
+        display: none !important;
     }
   }
 
