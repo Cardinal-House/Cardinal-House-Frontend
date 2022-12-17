@@ -308,8 +308,49 @@ export default function ProjectAbout({ project }) {
         Highcharts.setOptions(Highcharts.theme);
         
         Highcharts.stockChart('highChartDiv', {
+            xAxis: {
+                minRange: 3600000
+            },
+
             rangeSelector: {
-                selected: 1
+                allButtonsEnabled: true,
+                buttons: [
+                    {
+                    type: 'day',
+                    count: 1,
+                    text: '1d'
+                    }, 
+                    {
+                    type: 'day',
+                    count: 7,
+                    text: '7d'
+                    }, 
+                    {
+                    type: 'month',
+                    count: 1,
+                    text: '1m'
+                    }, 
+                    {
+                    type: 'month',
+                    count: 3,
+                    text: '3m'
+                    }, 
+                    {
+                    type: 'month',
+                    count: 6,
+                    text: '6m'
+                    }, 
+                    {
+                    type: 'year',
+                    count: 1,
+                    text: '1y'
+                    }, 
+                    {
+                    type: 'ytd',
+                    text: 'YTD'
+                    }
+                ],
+                selected: 2
             },
 
             title: {
