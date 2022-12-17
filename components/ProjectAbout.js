@@ -335,35 +335,30 @@ export default function ProjectAbout({ project }) {
                     Address Copied!
                 </MuiAlert>
             </Snackbar>
-            <Grid item lg={8} md={10} sm={10} xs={12} className="mb-5">
-                <Typography variant="h3">
-                    {project.description.replace("&amp;", "&")}
-                </Typography>
-            </Grid>
             {
                 project.tokenPrice && project.tokenPrice > 0 && (
                     <Grid item lg={6} md={12} sm={12} xs={12} className={styles.marketDataGrid}>
                         <Grid container justifyContent="center" alignItems="center" spacing={4}>
                             <Grid item xs={12} className="pb-4">
                                 <div className="pb-2">
-                                    <img src={project.logoUrl} width="35" height="35" style={{borderRadius: '50%'}} />
+                                    <img src={project.logoUrl} width="35" height="35" style={{borderRadius: '50%', marginTop: '-1%'}} />
                                     <b className={styles.projectTokenText}>&nbsp;{project.name} ({project.tokenSymbol})</b>
                                 </div>
                                 <Typography variant="p">
                                     <b className={styles.tokenPriceText}>${project.tokenPrice.toLocaleString()}</b>&nbsp;&nbsp;&nbsp;
                                     {
                                         project.tokenPriceChangePercentage24hr >= 0 && (
-                                            <b className={styles.percentageText} style={{color: 'green'}}>
+                                            <b className={styles.percentageTextLarge} style={{color: 'green'}}>
                                                 <ArrowDropUpIcon/> 
-                                                {project.tokenPriceChangePercentage24hr}%
+                                                {project.tokenPriceChangePercentage24hr.toFixed(2)}%
                                             </b>
                                         )
                                     }
                                     {
                                         project.tokenPriceChangePercentage24hr < 0 && (
-                                            <b className={styles.percentageText} style={{color: 'red'}}>
+                                            <b className={styles.percentageTextLarge} style={{color: 'red'}}>
                                                 <ArrowDropDownIcon/> 
-                                                {project.tokenPriceChangePercentage24hr * -1}%
+                                                {project.tokenPriceChangePercentage24hr.toFixed(2) * -1}%
                                             </b>
                                         )
                                     }
@@ -653,6 +648,15 @@ export default function ProjectAbout({ project }) {
                 </div>
             </Grid>
             <Grid item lg={2} md={0} sm={0} xs={0}></Grid>
+
+            <Grid item lg={8} md={10} sm={10} xs={12} className="mt-5 mb-5">
+                <Typography variant="h2" className="mb-4">
+                    What is {project.name} ({project.tokenSymbol})?
+                </Typography>
+                <Typography variant="h3">
+                    {project.description.replace("&amp;", "&")}
+                </Typography>
+            </Grid>
         </Grid>
     )
 }

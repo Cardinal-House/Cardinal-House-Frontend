@@ -66,7 +66,7 @@ function ProjectInsight(props) {
   const { window2 } = props;
 
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [socialSelected, setSocialSelected] = useState("all");
+  const [socialSelected, setSocialSelected] = useState("about");
   const [loadingMoreFeedItems, setLoadingMoreFeedItems] = useState(false);
   const [feedSkipNum, setFeedSkipNum] = useState(skipNumIncrement);
   const [additionalFeed, setAdditionalFeed] = useState([]);
@@ -183,11 +183,11 @@ function ProjectInsight(props) {
                 <Grid item xs={12} className={styles.projectImageMobile}>
                     <img src={props.project.logoUrl} width="100" height="100" style={{borderRadius: '50%'}} />
                 </Grid>
-                <Grid item lg={6} md={8} sm={10} xs={12} className={styles.projectHeaderGrid}>
+                <Grid item lg={8} md={8} sm={10} xs={12} className={styles.projectHeaderGrid}>
+                    <img src={props.project.logoUrl} className={styles.projectImage} width="100" height="100" style={{borderRadius: '50%', marginTop: '-2.5%', marginRight: '2%'}} />
                     <Typography variant="p" className={clsx(styles.insightsHeaderText, props.useDarkTheme ? styles.headerTextDark : styles.headerTextLight)}>
                         {props.project.name}
                     </Typography>
-                    <img src={props.project.logoUrl} className={styles.projectImage} width="100" height="100" style={{borderRadius: '50%'}} />
                 </Grid>
                 <Grid item xs={12}></Grid>
 

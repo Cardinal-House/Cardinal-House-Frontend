@@ -7,11 +7,12 @@ import {
 } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import FirstPageIcon from '@mui/icons-material/FirstPage';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
+import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
 import styles from '../styles/EducationCenter.module.css';
 
@@ -321,6 +322,8 @@ export default function ProjectSearch(props) {
                                 <TableHead>
                                 <TableRow className={styles.projectTableRow}>
                                     <TableCell>Project</TableCell>
+                                    <TableCell align="left">Price</TableCell>
+                                    <TableCell align="left">24h %</TableCell>
                                     <TableCell align="left">Networks</TableCell>
                                     <TableCell align="left">Market Cap</TableCell>
                                     <TableCell align="left">Tags</TableCell>
@@ -340,6 +343,25 @@ export default function ProjectSearch(props) {
                                         <TableCell component="th" scope="row" className={styles.projectNameText}>
                                             <img alt="" src={project.logoUrl} width="50" height="50" style={{borderRadius: '50%'}} />
                                             &nbsp;&nbsp;&nbsp;{project.name}
+                                        </TableCell>
+                                        <TableCell align="left">${project.tokenPrice.toLocaleString()}</TableCell>
+                                        <TableCell align="left">
+                                            {
+                                                project.tokenPriceChangePercentage24hr >= 0 && (
+                                                    <span className={styles.percentageText} style={{color: 'green'}}>
+                                                        <ArrowDropUpIcon/> 
+                                                        {project.tokenPriceChangePercentage24hr.toFixed(2)}%
+                                                    </span>
+                                                )
+                                            }
+                                            {
+                                                project.tokenPriceChangePercentage24hr < 0 && (
+                                                    <span className={styles.percentageText} style={{color: 'red'}}>
+                                                        <ArrowDropDownIcon/> 
+                                                        {project.tokenPriceChangePercentage24hr.toFixed(2) * -1}%
+                                                    </span>
+                                                )
+                                            }
                                         </TableCell>
                                         <TableCell align="left">{project.chains.replaceAll(",", ", ")}</TableCell>
                                         <TableCell align="left">{project.marketCap || project.marketCap == 0 ? "$" : "NA"}{project.marketCap?.toLocaleString()}</TableCell>
@@ -380,10 +402,19 @@ export default function ProjectSearch(props) {
             }
 
             {
-                projectsFiltered.length == 0 && (
+                projectsFiltered.length == 0 && categorySelected == "Tokens" && (
                     <Grid item xs={12} sm={6} md={4} lg={4} className="mt-5">
                         <Typography variant="h3" className={styles.darkText}>
                             No Projects Match Your Search
+                        </Typography>
+                    </Grid>
+                )
+            }     
+            {
+                projectsFiltered.length == 0 && categorySelected != "Tokens" && (
+                    <Grid item xs={12} sm={6} md={4} lg={4} className="mt-5">
+                        <Typography variant="h3" className={styles.darkText}>
+                            {categorySelected} Category Coming Soon!
                         </Typography>
                     </Grid>
                 )

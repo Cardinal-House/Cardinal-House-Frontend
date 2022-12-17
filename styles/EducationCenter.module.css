@@ -499,6 +499,10 @@
     font-size: 15px !important;
 }
 
+.percentageTextLarge {
+    font-size: 18px !important;
+}
+
 .iconSize {
     font-size: 1.75rem !important;
 }
