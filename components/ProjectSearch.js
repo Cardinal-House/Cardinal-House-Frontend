@@ -347,18 +347,18 @@ export default function ProjectSearch(props) {
                                         <TableCell align="left">${project.tokenPrice.toLocaleString()}</TableCell>
                                         <TableCell align="left">
                                             {
-                                                project.tokenPriceChangePercentage24hr >= 0 && (
+                                                project.tokenPriceChangePercentage24hr != undefined && project.tokenPriceChangePercentage24hr >= 0 && (
                                                     <span className={styles.percentageText} style={{color: 'green'}}>
                                                         <ArrowDropUpIcon/> 
-                                                        {project.tokenPriceChangePercentage24hr.toFixed(2)}%
+                                                        {project.tokenPriceChangePercentage24hr?.toFixed(2)}%
                                                     </span>
                                                 )
                                             }
                                             {
-                                                project.tokenPriceChangePercentage24hr < 0 && (
+                                                project.tokenPriceChangePercentage24hr != undefined && project.tokenPriceChangePercentage24hr < 0 && (
                                                     <span className={styles.percentageText} style={{color: 'red'}}>
                                                         <ArrowDropDownIcon/> 
-                                                        {project.tokenPriceChangePercentage24hr.toFixed(2) * -1}%
+                                                        {project.tokenPriceChangePercentage24hr?.toFixed(2) * -1}%
                                                     </span>
                                                 )
                                             }

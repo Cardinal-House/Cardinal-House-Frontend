@@ -347,18 +347,18 @@ export default function ProjectAbout({ project }) {
                                 <Typography variant="p">
                                     <b className={styles.tokenPriceText}>${project.tokenPrice.toLocaleString()}</b>&nbsp;&nbsp;&nbsp;
                                     {
-                                        project.tokenPriceChangePercentage24hr >= 0 && (
+                                        project.tokenPriceChangePercentage24hr != undefined && project.tokenPriceChangePercentage24hr >= 0 && (
                                             <b className={styles.percentageTextLarge} style={{color: 'green'}}>
                                                 <ArrowDropUpIcon/> 
-                                                {project.tokenPriceChangePercentage24hr.toFixed(2)}%
+                                                {project.tokenPriceChangePercentage24hr?.toFixed(2)}%
                                             </b>
                                         )
                                     }
                                     {
-                                        project.tokenPriceChangePercentage24hr < 0 && (
+                                        project.tokenPriceChangePercentage24hr != undefined && project.tokenPriceChangePercentage24hr < 0 && (
                                             <b className={styles.percentageTextLarge} style={{color: 'red'}}>
                                                 <ArrowDropDownIcon/> 
-                                                {project.tokenPriceChangePercentage24hr.toFixed(2) * -1}%
+                                                {project.tokenPriceChangePercentage24hr?.toFixed(2) * -1}%
                                             </b>
                                         )
                                     }
