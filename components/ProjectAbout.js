@@ -27,6 +27,57 @@ const callAPI = async (url) => {
 	return response.json();
 };
 
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+const networkToLogo = {
+    "ethereum": "https://assets.coingecko.com/coins/images/279/small/ethereum.png?1595348880",
+    "oasys": "https://assets.coingecko.com/asset_platforms/images/110/small/oasys.jpeg?1671074528",
+    "xdai": "https://assets.coingecko.com/asset_platforms/images/11062/small/Aatar_green_white.png?1643204471",
+    "polygon-pos": "https://assets.coingecko.com/coins/images/4713/small/matic-token-icon.png?1624446912",
+    "binance-smart-chain": "https://assets.coingecko.com/coins/images/825/small/bnb-icon2_2x.png?1644979850",
+    "moonbeam": "https://assets.coingecko.com/asset_platforms/images/56/small/cropped-Moonbeam-Favicon-550px.png?1642585035",
+    "solana": "https://assets.coingecko.com/coins/images/4128/small/solana.png?1640133422",
+    "tomochain": "https://assets.coingecko.com/coins/images/3416/small/Asset_59_2x.png?1582948925",
+    "fantom": "https://assets.coingecko.com/coins/images/4001/small/Fantom_round.png?1669652346",
+    "harmony-shard-0": "https://assets.coingecko.com/coins/images/4344/small/Y88JAze.png?1565065793",
+    "arbitrum-one": "https://assets.coingecko.com/asset_platforms/images/33/small/arbitrum.png?1636615980",
+    "okex-chain": "https://assets.coingecko.com/coins/images/13708/small/WeChat_Image_20220118095654.png?1642471094",
+    "sora": "https://assets.coingecko.com/coins/images/11093/small/sora_logo_cg_white.png?1588284194",
+    "ronin": "https://assets.coingecko.com/coins/images/20009/small/ronin.jpg?1649184678",
+    "boba": "https://assets.coingecko.com/asset_platforms/images/47/small/BOBA.png?1636812129",
+    "cronos": "https://assets.coingecko.com/asset_platforms/images/46/small/cronos.jpeg?1636714736",
+    "kardiachain": "https://assets.coingecko.com/asset_platforms/images/31/small/5453.png?1657009677",
+    "aurora": "https://assets.coingecko.com/coins/images/20582/small/aurora.jpeg?1637250883",
+    "optimistic-ethereum": "https://assets.coingecko.com/asset_platforms/images/41/small/Optimistic_Ethereum_logo.png?1636951470",
+    "metis-andromeda": "https://assets.coingecko.com/asset_platforms/images/54/small/metis.png?1640927614",
+    "fuse": "https://assets.coingecko.com/asset_platforms/images/55/small/CU-fhmPc_400x400.jpg?1641826211",
+    "kucoin-community-chain": "https://assets.coingecko.com/coins/images/1047/small/sa9z79.png?1610678720",
+    "meter": "https://assets.coingecko.com/coins/images/11848/small/meter.png?1660274270",
+    "avalanche": "https://assets.coingecko.com/coins/images/12559/small/Avalanche_Circle_RedWhite_Trans.png?1670992574",
+    "telos": "https://assets.coingecko.com/asset_platforms/images/7588/small/TLOS_200.png?1647572974",
+    "syscoin": "https://assets.coingecko.com/asset_platforms/images/63/small/xDiIFaKO_400x400.jpg?1645757802",
+    "milkomeda-cardano": "https://assets.coingecko.com/asset_platforms/images/67/small/milkomeda-cardano.png?1648688103",
+    "defi-kingdoms-blockchain": "https://assets.coingecko.com/asset_platforms/images/70/small/dfk-chain-logo-darkBlue.png?1649052057",
+    "elastos": "https://assets.coingecko.com/asset_platforms/images/69/small/elastos.jpeg?1649051100",
+    "evmos": "https://assets.coingecko.com/coins/images/24023/small/evmos.png?1653958927",
+    "sx-network": "https://assets.coingecko.com/asset_platforms/images/80/small/yIxICJL7_400x400.jpeg?1654674439",
+    "energi": "https://assets.coingecko.com/asset_platforms/images/76/small/Energi-logo-white.png?1651822882",
+    "conflux": "https://assets.coingecko.com/coins/images/13079/small/3vuYMbjN.png?1631512305",
+    "cosmos": "https://assets.coingecko.com/coins/images/1481/small/cosmos_hub.png?1555657960",
+    "astar": "https://assets.coingecko.com/asset_platforms/images/71/small/Astar.jpeg?1649770724",
+    "kava": "https://assets.coingecko.com/coins/images/9761/small/kava.png?1663638871",
+    "bitgert": "https://assets.coingecko.com/asset_platforms/images/83/small/Bitgert_Brise.jpeg?1657090765",
+    "arbitrum-nova": "https://assets.coingecko.com/asset_platforms/images/93/small/arbitrum-nova.png?1661167045",
+    "canto": "https://assets.coingecko.com/asset_platforms/images/92/small/canto-network.png?1661214697",
+    "dogechain": "https://assets.coingecko.com/asset_platforms/images/89/small/dogechain.jpeg?1660293234",
+    "velas": "https://assets.coingecko.com/asset_platforms/images/62/small/velas.jpg?1645632256",
+    "klay-token": "https://assets.coingecko.com/coins/images/9672/small/klaytn.png?1660288824",
+    "step-network": "https://assets.coingecko.com/asset_platforms/images/98/small/step.jpeg?1663046916",
+    "near-protocol": "https://assets.coingecko.com/coins/images/10365/small/near_icon.png?1601359077"    
+}
+
 export default function ProjectAbout({ project }) {
 	const [isLoading, setIsLoading] = useState(true);
     const [priceData, setPriceData] = useState({});
@@ -386,7 +437,7 @@ export default function ProjectAbout({ project }) {
                                     <b className={styles.projectTokenText}>&nbsp;{project.name} ({project.tokenSymbol})</b>
                                 </div>
                                 <Typography variant="p">
-                                    <b className={styles.tokenPriceText}>${project.tokenPrice.toLocaleString()}</b>&nbsp;&nbsp;&nbsp;
+                                    <b className={styles.tokenPriceText}>${project.tokenPrice.toFixed(2).toLocaleString()}</b>&nbsp;&nbsp;&nbsp;
                                     {
                                         project.tokenPriceChangePercentage24hr != undefined && project.tokenPriceChangePercentage24hr >= 0 && (
                                             <b className={styles.percentageTextLarge} style={{color: 'green'}}>
@@ -497,8 +548,17 @@ export default function ProjectAbout({ project }) {
                                     <Grid item xs={12}>
                                         {tokenAddresses.platforms && [Object.keys(tokenAddresses.platforms)[0]].map((platform) => (
                                             <Button key={platform} variant="contained" className={clsx(styles.projectAboutBtns, styles.largeProjectAboutBtn)}>
+                                                {
+                                                    Object.keys(networkToLogo).includes(platform) && (
+                                                        <div style={{marginTop: '-1%'}}>
+                                                            <img src={networkToLogo[platform]} width={35} height={35} layout="fixed" className={styles.metaMaskLogo} />
+                                                        </div>
+                                                    )
+                                                }
+                                                &nbsp;
+                                                &nbsp;
                                                 <Typography variant="p" key={platform} className={styles.contractText} onClick={() => copyText(tokenAddresses.platforms[platform])}>
-                                                    {`${platform}: ${tokenAddresses.platforms[platform].slice(0, 6)}...${tokenAddresses.platforms[platform].slice(-7)}`}
+                                                    {`${platform.split("-").map(capitalizeFirstLetter).join(" ")}: ${tokenAddresses.platforms[platform].slice(0, 6)}...${tokenAddresses.platforms[platform].slice(-7)}`}
                                                 </Typography>
                                                 &nbsp;
                                                 &nbsp;
@@ -524,8 +584,15 @@ export default function ProjectAbout({ project }) {
                                         <Button varian="contained" className={clsx(styles.projectAboutBtns, styles.largeProjectAboutBtn)} >
                                             {tokenAddresses.platforms && [Object.keys(tokenAddresses.platforms)[0]].map((platform) => (
                                                 <>
+                                                    {
+                                                        Object.keys(networkToLogo).includes(platform) && (
+                                                            <div style={{marginTop: '-1%'}}>
+                                                                <img src={networkToLogo[platform]} width={35} height={35} layout="fixed" className={styles.metaMaskLogo} />
+                                                            </div>
+                                                        )
+                                                    }
                                                     <Typography variant="p" key={platform} className={styles.contractText} onClick={() => copyText(tokenAddresses.platforms[platform])}>
-                                                        {`${platform}: ${tokenAddresses.platforms[platform].slice(0, 6)}...${tokenAddresses.platforms[platform].slice(-7)}`}
+                                                        {`${platform.split("-").map(capitalizeFirstLetter).join(" ")}: ${tokenAddresses.platforms[platform].slice(0, 6)}...${tokenAddresses.platforms[platform].slice(-7)}`}
                                                     </Typography>
                                                     &nbsp;
                                                     &nbsp;
@@ -548,8 +615,17 @@ export default function ProjectAbout({ project }) {
                                         <Menu anchorEl={tokenMenuAnchor} className={styles.filterDropdown} open={tokenMenuOpen} onClose={() => setTokenMenuAnchor(null)}>                      
                                             {tokenAddresses.platforms && Object.keys(tokenAddresses.platforms).slice(1).map((platform) => (
                                                 <MenuItem key={platform}>
+                                                    {
+                                                        Object.keys(networkToLogo).includes(platform) && (
+                                                            <div style={{marginTop: '-1%'}}>
+                                                                <img src={networkToLogo[platform]} width={25} height={25} layout="fixed" className={styles.metaMaskLogo} />
+                                                            </div>
+                                                        )
+                                                    }
+                                                    &nbsp;
+                                                    &nbsp;
                                                     <Typography variant="p" className={styles.contractText} onClick={() => copyText(tokenAddresses.platforms[platform])}>
-                                                        {`${platform}: ${tokenAddresses.platforms[platform].slice(0, 8)}...${tokenAddresses.platforms[platform].slice(-10)}`}
+                                                        {`${platform.split("-").map(capitalizeFirstLetter).join(" ")}: ${tokenAddresses.platforms[platform].slice(0, 8)}...${tokenAddresses.platforms[platform].slice(-10)}`}
                                                     </Typography>
                                                     &nbsp;
                                                     <Tooltip title="Copy Address" placement="top">

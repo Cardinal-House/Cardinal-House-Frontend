@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import clsx from 'clsx';
 
 import { 
@@ -74,12 +74,20 @@ export default function ProjectSearch(props) {
     const [tagsSelected, setTagsSelected] = useState([]);
     const [chainsSelected, setChainsSelected] = useState([]);
     const [search, setSearch] = useState("");
-    const [sortBy, setSortBy] = useState("Market Cap");
+    const [sortBy, setSortBy] = useState("Market Cap - $$$ to $");
     const [tagMenuAnchor, setTagMenuAnchor] = useState(null);
     const [chainMenuAnchor, setChainMenuAnchor] = useState(null);
     const [sortMenuAnchor, setSortMenuAnchor] = useState(null);
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(25);  
+
+    useEffect(() => {
+        const cachedRowsPerPage = localStorage.getItem("CardinalHouseProjectSearchRowsPerPage");
+
+        if (cachedRowsPerPage) {
+            setRowsPerPage(cachedRowsPerPage);
+        }
+    }, [])
 
     const selectTag = (tag) => {
         if (tag == "All") {
@@ -183,8 +191,16 @@ export default function ProjectSearch(props) {
       }
 
       const projectSort = (project1, project2) => {
-        if (sortBy == "Alphabetical") {
+        if (sortBy == "Alphabetical - A to Z") {
             return project1.name.localeCompare(project2.name);
+        }
+        else if (sortBy == "Alphabetical - Z to A") {
+            return project2.name.localeCompare(project1.name);
+        }
+        else if (sortBy == "Market Cap - $ to $$$") {
+            const marketCap1 = project1.marketCap ? parseInt(project1.marketCap) : 0;
+            const marketCap2 = project2.marketCap ? parseInt(project2.marketCap) : 0;
+            return marketCap1 - marketCap2;
         }
         else {
             const marketCap1 = project1.marketCap ? parseInt(project1.marketCap) : 0;
@@ -195,7 +211,7 @@ export default function ProjectSearch(props) {
 
       const categoryChosen = (category) => {
         if (category == "Tokens") {
-            setSortBy("Market Cap");
+            setSortBy("Market Cap - $$$ to $");
         }
         else {
             setSortBy("Alphabetical");
@@ -209,7 +225,9 @@ export default function ProjectSearch(props) {
       };
     
       const handleChangeRowsPerPage = (event) => {
-        setRowsPerPage(parseInt(event.target.value, 10));
+        const newRowsPerPage = parseInt(event.target.value, 10);
+        setRowsPerPage(newRowsPerPage);
+        localStorage.setItem("CardinalHouseProjectSearchRowsPerPage", newRowsPerPage);
         setPage(0);
       };      
 
@@ -283,13 +301,23 @@ export default function ProjectSearch(props) {
                 <Menu anchorEl={sortMenuAnchor} className={styles.filterDropdown} open={sortMenuOpen} onClose={() => setSortMenuAnchor(null)}>
                     {
                         categorySelected == "Tokens" && (
-                            <MenuItem onClick={() => selectSort("Market Cap")}>
-                                <ListItemText style={{textAlign: 'center'}} primary="Market Cap" />
+                            <MenuItem onClick={() => selectSort("Market Cap - $$$ to $")}>
+                                <ListItemText style={{textAlign: 'center'}} primary="Market Cap - $$$ to $" />
                             </MenuItem>         
                         )
                     }                         
-                    <MenuItem onClick={() => selectSort("Alphabetical")}>
-                        <ListItemText style={{textAlign: 'center'}} primary="Alphabetical" />
+                    {
+                        categorySelected == "Tokens" && (
+                            <MenuItem onClick={() => selectSort("Market Cap - $ to $$$")}>
+                                <ListItemText style={{textAlign: 'center'}} primary="Market Cap - $ to $$$" />
+                            </MenuItem>         
+                        )
+                    }                         
+                    <MenuItem onClick={() => selectSort("Alphabetical - A to Z")}>
+                        <ListItemText style={{textAlign: 'center'}} primary="Alphabetical - A to Z" />
+                    </MenuItem>                                  
+                    <MenuItem onClick={() => selectSort("Alphabetical - Z to A")}>
+                        <ListItemText style={{textAlign: 'center'}} primary="Alphabetical - Z to A" />
                     </MenuItem>                                  
                 </Menu>                                             
 
@@ -344,7 +372,7 @@ export default function ProjectSearch(props) {
                                             <img alt="" src={project.logoUrl} width="50" height="50" style={{borderRadius: '50%'}} />
                                             &nbsp;&nbsp;&nbsp;{project.name}
                                         </TableCell>
-                                        <TableCell align="left">${project.tokenPrice.toLocaleString()}</TableCell>
+                                        <TableCell align="left">{project.tokenPrice ? `$${project.tokenPrice.toFixed(2).toLocaleString()}` : ""}</TableCell>
                                         <TableCell align="left">
                                             {
                                                 project.tokenPriceChangePercentage24hr != undefined && project.tokenPriceChangePercentage24hr >= 0 && (
