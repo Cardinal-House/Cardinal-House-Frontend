@@ -101,7 +101,7 @@ export default function Navigation({useDarkTheme, setUseDarkTheme, hideThemeTogg
                             !hideThemeToggle && (
                                 <div className={styles.changeThemeDiv}>
                                     {useDarkTheme ? <DarkModeIcon className={clsx(styles.darkModeIcon, styles.iconSizeTheme)} /> : <LightModeIcon className={styles.lightModeIcon} fontSize="large" />}
-                                    <Switch checked={useDarkTheme} disabled={darkThemeDisabled} color="primary" onChange={e => setUseDarkTheme(e.target.checked)} />
+                                    <Switch checked={useDarkTheme} disabled={true} color="primary" onChange={e => setUseDarkTheme(e.target.checked)} />
                                 </div>
                             )
                         }

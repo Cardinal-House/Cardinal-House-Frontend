@@ -369,32 +369,32 @@ export default function ProjectAbout({ project }) {
                     {
                     type: 'day',
                     count: 1,
-                    text: '1d'
+                    text: '1D'
                     }, 
                     {
                     type: 'day',
                     count: 7,
-                    text: '7d'
+                    text: '7D'
                     }, 
                     {
                     type: 'month',
                     count: 1,
-                    text: '1m'
+                    text: '1M'
                     }, 
                     {
                     type: 'month',
                     count: 3,
-                    text: '3m'
+                    text: '3M'
                     }, 
                     {
                     type: 'month',
                     count: 6,
-                    text: '6m'
+                    text: '6M'
                     }, 
                     {
                     type: 'year',
                     count: 1,
-                    text: '1y'
+                    text: '1Y'
                     }, 
                     {
                     type: 'ytd',
@@ -420,6 +420,22 @@ export default function ProjectAbout({ project }) {
         });
 	};  
 
+    const computeMinimumFractionDigits = (num) => {
+        const numStr = num.toString();
+        if (!numStr.includes(".")) {
+            return 2;
+        }
+
+        const decimalsStr = numStr.split(".")[1];
+
+        if (decimalsStr[0] != "0" || num >= 1) {
+            return 2;
+        }
+
+        const numZeros = decimalsStr.split("0").length - 1;
+        return numZeros + 2;
+    }    
+
     return (
         <Grid container justifyContent="center" alignItems="center" spacing={4}>
             <Snackbar open={showCopy} autoHideDuration={6000} onClose={() => {setShowCopy(false)}}>
@@ -437,7 +453,7 @@ export default function ProjectAbout({ project }) {
                                     <b className={styles.projectTokenText}>&nbsp;{project.name} ({project.tokenSymbol})</b>
                                 </div>
                                 <Typography variant="p">
-                                    <b className={styles.tokenPriceText}>${project.tokenPrice.toFixed(2).toLocaleString()}</b>&nbsp;&nbsp;&nbsp;
+                                    <b className={styles.tokenPriceText}>${project.tokenPrice.toLocaleString(undefined, {minimumFractionDigits: computeMinimumFractionDigits(project.tokenPrice)})}</b>&nbsp;&nbsp;&nbsp;
                                     {
                                         project.tokenPriceChangePercentage24hr != undefined && project.tokenPriceChangePercentage24hr >= 0 && (
                                             <b className={styles.percentageTextLarge} style={{color: 'green'}}>
@@ -766,11 +782,11 @@ export default function ProjectAbout({ project }) {
             </Grid>
             <Grid item lg={2} md={0} sm={0} xs={0}></Grid>
 
-            <Grid item lg={8} md={10} sm={10} xs={12} className="mt-5 mb-5">
-                <Typography variant="h2" className="mb-4">
+            <Grid item lg={8} md={10} sm={10} xs={12} className="mt-5 mb-5 text-left">
+                <Typography variant="h2" className="mb-4" style={{textAlign: 'left !important'}}>
                     What is {project.name} ({project.tokenSymbol})?
                 </Typography>
-                <Typography variant="h3">
+                <Typography variant="h3" style={{textAlign: 'left !important', fontSize: '16px !important'}}>
                     {project.description.replace("&amp;", "&")}
                 </Typography>
             </Grid>

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect } from 'react';
 import Image from 'next/image';
 import clsx from 'clsx';
 import { AiFillHome } from "react-icons/ai";
@@ -27,6 +27,10 @@ import HomeFooter from '../../components/HomeFooter';
 import styles from '../../styles/EducationCenter.module.css';
 
 function ProjectInsights(props) {
+  useEffect(() => {
+    props.setUseDarkTheme(false);
+  }, [])
+
   return (
     <>
         <ProjectInsightNavigation />

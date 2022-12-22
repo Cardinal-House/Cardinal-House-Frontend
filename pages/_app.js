@@ -76,6 +76,7 @@ function MyApp({ Component, pageProps }) {
   const [useDarkTheme, setUseDarkTheme] = useState(true);
 
   useEffect(() => {
+    /*
     const theme = localStorage.getItem("cardinalHouseTheme");
     if (theme) {
       if (theme == "light") {
@@ -88,6 +89,7 @@ function MyApp({ Component, pageProps }) {
     else {
       localStorage.setItem("cardinalHouseTheme", "dark");
     }
+    */
 
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
@@ -110,7 +112,7 @@ function MyApp({ Component, pageProps }) {
       localStorage.setItem("cardinalHouseTheme", "light");
     }
 
-    setUseDarkTheme(themeValue);
+    setUseDarkTheme(true);
   }
 
   const config = {

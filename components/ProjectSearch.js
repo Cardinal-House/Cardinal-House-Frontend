@@ -229,7 +229,23 @@ export default function ProjectSearch(props) {
         setRowsPerPage(newRowsPerPage);
         localStorage.setItem("CardinalHouseProjectSearchRowsPerPage", newRowsPerPage);
         setPage(0);
-      };      
+      };     
+      
+    const computeMinimumFractionDigits = (num) => {
+        const numStr = num.toString();
+        if (!numStr.includes(".")) {
+            return 2;
+        }
+
+        const decimalsStr = numStr.split(".")[1];
+
+        if (decimalsStr[0] != "0" || num >= 1) {
+            return 2;
+        }
+
+        const numZeros = decimalsStr.split("0").length - 1;
+        return numZeros + 2;
+    }
 
     const projectsFiltered = props.projects ? props.projects.filter(categoryFilter).filter(tagFilter).filter(chainFilter).filter(searchFilter).sort(projectSort) : [];
     const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - projectsFiltered.length) : 0;  
@@ -372,7 +388,7 @@ export default function ProjectSearch(props) {
                                             <img alt="" src={project.logoUrl} width="50" height="50" style={{borderRadius: '50%'}} />
                                             &nbsp;&nbsp;&nbsp;{project.name}
                                         </TableCell>
-                                        <TableCell align="left">{project.tokenPrice ? `$${project.tokenPrice.toFixed(2).toLocaleString()}` : ""}</TableCell>
+                                        <TableCell align="left">{project.tokenPrice ? `$${project.tokenPrice.toLocaleString(undefined, {minimumFractionDigits: computeMinimumFractionDigits(project.tokenPrice)})}` : ""}</TableCell>
                                         <TableCell align="left">
                                             {
                                                 project.tokenPriceChangePercentage24hr != undefined && project.tokenPriceChangePercentage24hr >= 0 && (
