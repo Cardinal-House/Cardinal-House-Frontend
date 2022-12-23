@@ -365,7 +365,7 @@ export default function ProjectSearch(props) {
                             <Table sx={{ minWidth: 650 }}>
                                 <TableHead>
                                 <TableRow className={styles.projectTableRow}>
-                                    <TableCell>Project</TableCell>
+                                    <TableCell className={styles.sticky}>Project</TableCell>
                                     <TableCell align="left">Price</TableCell>
                                     <TableCell align="left">24h %</TableCell>
                                     <TableCell align="left">Networks</TableCell>
@@ -384,8 +384,8 @@ export default function ProjectSearch(props) {
                                         key={project.name}
                                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                         >
-                                        <TableCell component="th" scope="row" className={styles.projectNameText}>
-                                            <img alt="" src={project.logoUrl} width="50" height="50" style={{borderRadius: '50%'}} />
+                                        <TableCell className={clsx(styles.projectNameText, styles.sticky)}>
+                                            <img alt="" src={project.logoUrl} className={styles.projectLogo} />
                                             &nbsp;&nbsp;&nbsp;{project.name}
                                         </TableCell>
                                         <TableCell align="left">{project.tokenPrice ? `$${project.tokenPrice.toLocaleString(undefined, {minimumFractionDigits: computeMinimumFractionDigits(project.tokenPrice)})}` : ""}</TableCell>

@@ -64,6 +64,27 @@
     padding-right: 2rem !important;
 }
 
+.projectListingIntroGrid {
+    margin-top: 0.2% !important;
+    padding-top: 3% !important;
+    padding-bottom: 6% !important;
+    text-align: center !important;
+    padding-left: 2rem !important;
+    padding-right: 2rem !important;
+}
+
+.projectLogo {
+    width: 50px !important;
+    height: 50px !important;
+    border-radius: 50% !important;
+}
+
+.sticky {
+    position: sticky !important;
+    left: 0 !important;
+    background: var(--education-center-secondary) !important;
+}
+
 .bigBtnGrid {
     text-align: center !important;
 }
@@ -663,6 +684,16 @@
 
     .feedItem {
         padding-bottom: 8% !important;
+    }
+
+    .projectListingIntroGrid {
+        padding-left: 0.4rem !important;
+        padding-right: 0.4rem !important;
+    }
+
+    .projectLogo {
+        width: 40px !important;
+        height: 40px !important;
     }
 }
 

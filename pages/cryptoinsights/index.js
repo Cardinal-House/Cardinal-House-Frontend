@@ -35,7 +35,7 @@ function ProjectInsights(props) {
     <>
         <ProjectInsightNavigation />
         <div className={props.useDarkTheme ? styles.darkThemeBackground : styles.lightThemeBackground}>
-            <Grid container justifyContent="center" alignItems="center" spacing={4} className={styles.educationCenterIntroGrid}>
+            <Grid container justifyContent="center" alignItems="center" spacing={4} className={styles.projectListingIntroGrid}>
                 <Grid item lg={8} md={10} sm={10} xs={12} className={styles.headerTextGrid}>
                     <Typography variant="h1" className={clsx(styles.insightsHeaderText, props.useDarkTheme ? styles.headerTextDark : styles.headerTextLight)}>
                         Cardinal House Crypto Insights
