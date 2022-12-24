@@ -283,12 +283,22 @@ function ProjectInsight(props) {
   );
 }
 
+const projectSort = (project1, project2) => {
+    const marketCap1 = project1.marketCap ? parseInt(project1.marketCap) : 0;
+    const marketCap2 = project2.marketCap ? parseInt(project2.marketCap) : 0;
+    return marketCap2 - marketCap1;
+}
+
 export async function getStaticProps(context) {
     const { params } = context;
     const project = await getProjectById(params.projectId);
     const projectFeed = await getProjectFeed(project.collectionName, 0);
 
-    const projects = await getProjects();
+    const projects = (await getProjects()).sort(projectSort);
+
+    for (let i = 0; i < projects.length; i++) {
+        projects[i].marketCapNumber = i + 1;
+    }
 
     const tagSet = new Set();
     const chainSet = new Set();

@@ -372,6 +372,7 @@ export default function ProjectSearch(props) {
                             <Table sx={{ minWidth: 650 }}>
                                 <TableHead>
                                 <TableRow className={styles.projectTableRow}>
+                                    <TableCell className={styles.marketCapNumber}>#</TableCell>
                                     <TableCell className={styles.sticky}>Project</TableCell>
                                     <TableCell align="left" className={styles.cellWidth}>Price&nbsp;&nbsp;&nbsp;</TableCell>
                                     <TableCell align="left" className={styles.cellWidth}>24h %</TableCell>
@@ -383,7 +384,7 @@ export default function ProjectSearch(props) {
                                 <TableBody>
         
                                 {
-                                    projectsFiltered.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((project) => (
+                                    projectsFiltered.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((project, index) => (
                                         <TableRow
                                         className={clsx(styles.projectTableRow, styles.projectTableRowHover)}
                                         onClick={() => {window.location.href = `${window.location.origin}/cryptoinsights/${project.id}`}}
@@ -391,6 +392,9 @@ export default function ProjectSearch(props) {
                                         key={project.name}
                                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                         >
+                                        <TableCell align="left" className={styles.marketCapNumber}>
+                                            {sortBy == "Market Cap - $ to $$$" ? projectsFiltered.length - index : project.marketCapNumber}
+                                        </TableCell>
                                         <TableCell className={clsx(styles.projectNameText, styles.sticky, styles.smallScreenCell)}>
                                             <Grid container justifyContent="center" alignItems="center">
                                                 <Grid item lg={4} md={4} sm={4} xs={4}>

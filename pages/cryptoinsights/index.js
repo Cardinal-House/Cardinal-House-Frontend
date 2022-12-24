@@ -1,22 +1,8 @@
-import { useEffect } from 'react';
-import Image from 'next/image';
+import { useEffect, useState, Fragment } from 'react';
 import clsx from 'clsx';
-import { AiFillHome } from "react-icons/ai";
-import { BiCategory } from "react-icons/bi";
-
-import { Grid, Typography } from '@mui/material';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import CssBaseline from '@mui/material/CssBaseline';
-import Divider from '@mui/material/Divider';
-import Drawer from '@mui/material/Drawer';
-import IconButton from '@mui/material/IconButton';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import MenuIcon from '@mui/icons-material/Menu';
-import Toolbar from '@mui/material/Toolbar';
+import { Grid, Typography, Button, IconButton } from '@mui/material';
+import Snackbar from '@mui/material/Snackbar';
+import CloseIcon from '@mui/icons-material/Close';
 
 import { getProjects } from '../api/projects';
 
@@ -27,13 +13,39 @@ import HomeFooter from '../../components/HomeFooter';
 import styles from '../../styles/EducationCenter.module.css';
 
 function ProjectInsights(props) {
+  const [feedbackSnackbarOpen, setFeedbackSnackbarOpen] = useState(true);
+
   useEffect(() => {
     props.setUseDarkTheme(false);
   }, [])
 
+  const action = (
+    <Fragment>
+        <Button variant="contained" size="small" className={styles.feedbackBtn} href="https://forms.clickup.com/20120187/f/k60kv-1607/AW3HWIMB0GS8YZ5HQ8" target="_blank" rel="noreferrer">
+            Give Feedback
+        </Button>
+        <IconButton
+        size="small"
+        aria-label="close"
+        color="inherit"
+        onClick={() => setFeedbackSnackbarOpen(false)}
+        >
+        <CloseIcon fontSize="small" />
+        </IconButton>
+    </Fragment>
+  );  
+
   return (
     <>
         <ProjectInsightNavigation />
+        <Snackbar
+            open={feedbackSnackbarOpen}
+            autoHideDuration={6000}
+            onClose={() => setFeedbackSnackbarOpen(false)}
+            message="This platform is in beta. Feedback is very much appreciated!"
+            action={action}
+            anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+        />
         <div className={props.useDarkTheme ? styles.darkThemeBackground : styles.lightThemeBackground}>
             <Grid container justifyContent="center" alignItems="center" spacing={4} className={styles.projectListingIntroGrid}>
                 <Grid item lg={8} md={10} sm={10} xs={12} className={styles.headerTextGrid}>
@@ -60,8 +72,18 @@ function ProjectInsights(props) {
   );
 }
 
+const projectSort = (project1, project2) => {
+    const marketCap1 = project1.marketCap ? parseInt(project1.marketCap) : 0;
+    const marketCap2 = project2.marketCap ? parseInt(project2.marketCap) : 0;
+    return marketCap2 - marketCap1;
+}
+
 export async function getStaticProps() {
-    const projects = await getProjects();
+    const projects = (await getProjects()).sort(projectSort);
+
+    for (let i = 0; i < projects.length; i++) {
+        projects[i].marketCapNumber = i + 1;
+    }
 
     const tagSet = new Set();
     const chainSet = new Set();
