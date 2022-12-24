@@ -73,16 +73,18 @@
     padding-right: 2rem !important;
 }
 
-.projectLogo {
-    width: 50px !important;
-    height: 50px !important;
-    border-radius: 50% !important;
+.sticky {
+    min-width: 200px !important;
 }
 
-.sticky {
-    position: sticky !important;
-    left: 0 !important;
-    background: var(--education-center-secondary) !important;
+.cellWidth {
+    min-width: 120px !important;
+}
+
+.projectLogo {
+    width: 40px !important;
+    height: 40px !important;
+    border-radius: 50% !important;
 }
 
 .bigBtnGrid {
@@ -656,11 +658,19 @@
     .desktopImage {
         display: none !important;
     }
+
+    .largeScreenCell {
+        display: none !important;
+    }
 }
 
 
 @media (min-width: 900px) {
     .mobileImage {
+        display: none !important;
+    }
+
+    .smallScreenCell {
         display: none !important;
     }
 }
@@ -695,6 +705,17 @@
         width: 40px !important;
         height: 40px !important;
     }
+
+    .projectNameText {
+        font-size: 14px !important;
+    }
+
+    .sticky {
+        min-width: 175px !important;
+        position: sticky !important;
+        left: 0 !important;
+        background: var(--education-center-secondary) !important;
+    }
 }
 
 @media (min-width: 750px) {
@@ -722,5 +743,12 @@
         color: white !important;
         border-radius: 12px !important;
         padding: 8% 14% !important;
+    }
+}
+
+@media (max-width: 500px) {
+    .projectLogo {
+        width: 30px !important;
+        height: 30px !important;        
     }
 }

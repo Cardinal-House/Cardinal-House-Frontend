@@ -45,8 +45,9 @@ function ProjectInsights(props) {
 
                 <Grid item lg={10} md={10} sm={12} xs={12} className="mb-3">
                     <Typography variant="h3">
-                        Welcome to the Cardinal House crypto insights! Here you can get the latest updates on your favorite
-                        projects from all of their different socials in one place! Etc Etc Etc
+                        Welcome to the Cardinal House crypto insights! Here you can get the latest updates on how your favorite projects
+                        and doing through market data and social feeds all in one place! This platform is in beta, so any feedback is much appreciated
+                        and many more features will be added in the upcoming months.
                     </Typography>
                 </Grid>
 

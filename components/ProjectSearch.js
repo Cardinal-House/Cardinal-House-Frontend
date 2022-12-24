@@ -3,7 +3,7 @@ import clsx from 'clsx';
 
 import { 
     Grid, Typography, Button, InputBase, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper,
-    MenuItem, Checkbox, ListItemText, Menu, ButtonGroup, TableFooter, TablePagination, Box
+    MenuItem, Checkbox, ListItemText, Menu, ButtonGroup, TableFooter, TablePagination, Box, Hidden
 } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
@@ -85,7 +85,7 @@ export default function ProjectSearch(props) {
         const cachedRowsPerPage = localStorage.getItem("CardinalHouseProjectSearchRowsPerPage");
 
         if (cachedRowsPerPage) {
-            setRowsPerPage(cachedRowsPerPage);
+            setRowsPerPage(parseInt(cachedRowsPerPage));
         }
     }, [])
 
@@ -179,7 +179,7 @@ export default function ProjectSearch(props) {
             return true;
         }
     
-        return project.name.toLowerCase().includes(search.toLowerCase());
+        return project.name.toLowerCase().includes(search.toLowerCase()) || project.tokenSymbol.toLowerCase().includes(search.toLowerCase());
       }
 
       const categoryFilter = (project) => {
@@ -221,7 +221,9 @@ export default function ProjectSearch(props) {
       }
 
       const handleChangePage = (event, newPage) => {
-        setPage(newPage);
+        setPage(parseInt(newPage));
+        console.log(newPage);
+        console.log(rowsPerPage);
       };
     
       const handleChangeRowsPerPage = (event) => {
@@ -245,6 +247,11 @@ export default function ProjectSearch(props) {
 
         const numZeros = decimalsStr.split("0").length - 1;
         return numZeros + 2;
+    }
+
+    const updateSearch = (newSearch) => {
+        setPage(0);
+        setSearch(newSearch);
     }
 
     const projectsFiltered = props.projects ? props.projects.filter(categoryFilter).filter(tagFilter).filter(chainFilter).filter(searchFilter).sort(projectSort) : [];
@@ -339,7 +346,7 @@ export default function ProjectSearch(props) {
 
                 <Paper component="form" className={clsx(styles.optionMargin, styles.search, styles.searchDesktop)} onSubmit={(e) => e.preventDefault()}>
                     <InputBase sx={{ ml: 1, flex: 1 }} placeholder="Search..." value={search}
-                        onChange={(e) => setSearch(e.target.value)} />
+                        onChange={(e) => updateSearch(e.target.value)} />
                     <IconButton sx={{ p: '10px' }}>
                         <SearchIcon />
                     </IconButton>
@@ -366,8 +373,8 @@ export default function ProjectSearch(props) {
                                 <TableHead>
                                 <TableRow className={styles.projectTableRow}>
                                     <TableCell className={styles.sticky}>Project</TableCell>
-                                    <TableCell align="left">Price</TableCell>
-                                    <TableCell align="left">24h %</TableCell>
+                                    <TableCell align="left" className={styles.cellWidth}>Price&nbsp;&nbsp;&nbsp;</TableCell>
+                                    <TableCell align="left" className={styles.cellWidth}>24h %</TableCell>
                                     <TableCell align="left">Networks</TableCell>
                                     <TableCell align="left">Market Cap</TableCell>
                                     <TableCell align="left">Tags</TableCell>
@@ -384,12 +391,24 @@ export default function ProjectSearch(props) {
                                         key={project.name}
                                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                         >
-                                        <TableCell className={clsx(styles.projectNameText, styles.sticky)}>
+                                        <TableCell className={clsx(styles.projectNameText, styles.sticky, styles.smallScreenCell)}>
+                                            <Grid container justifyContent="center" alignItems="center">
+                                                <Grid item lg={4} md={4} sm={4} xs={4}>
+                                                    <img alt="" src={project.logoUrl} className={styles.projectLogo} />
+                                                </Grid>
+                                                <Grid item lg={8} md={8} sm={8} xs={8}>
+                                                    {project.name}
+                                                </Grid>
+                                            </Grid>
+                                        </TableCell>
+                                        <TableCell className={clsx(styles.projectNameText, styles.sticky, styles.largeScreenCell)}>
                                             <img alt="" src={project.logoUrl} className={styles.projectLogo} />
                                             &nbsp;&nbsp;&nbsp;{project.name}
                                         </TableCell>
-                                        <TableCell align="left">{project.tokenPrice ? `$${project.tokenPrice.toLocaleString(undefined, {minimumFractionDigits: computeMinimumFractionDigits(project.tokenPrice)})}` : ""}</TableCell>
-                                        <TableCell align="left">
+                                        <TableCell align="left" className={styles.cellWidth}>
+                                            {project.tokenPrice ? `$${project.tokenPrice.toLocaleString(undefined, {minimumFractionDigits: computeMinimumFractionDigits(project.tokenPrice)})}` : ""}
+                                        </TableCell>
+                                        <TableCell align="left" className={styles.cellWidth}>
                                             {
                                                 project.tokenPriceChangePercentage24hr != undefined && project.tokenPriceChangePercentage24hr >= 0 && (
                                                     <span className={styles.percentageText} style={{color: 'green'}}>
@@ -413,34 +432,38 @@ export default function ProjectSearch(props) {
                                         </TableRow>
                                     ))
                                 }
-                                {emptyRows > 0 && (
-                                    <TableRow style={{ height: 53 * emptyRows }}>
-                                    <TableCell colSpan={6} />
-                                    </TableRow>
-                                )}
                                 </TableBody>
-                                <TableFooter>
-                                    <TableRow>
-                                        <TablePagination
-                                        rowsPerPageOptions={[10, 25, 50, 100, { label: 'All', value: -1 }]}
-                                        count={projectsFiltered.length}
-                                        rowsPerPage={rowsPerPage}
-                                        page={page}
-                                        className={styles.tablePagination}
-                                        SelectProps={{
-                                            inputProps: {
-                                            'aria-label': 'rows per page',
-                                            },
-                                            native: true,
-                                        }}
-                                        onPageChange={handleChangePage}
-                                        onRowsPerPageChange={handleChangeRowsPerPage}
-                                        ActionsComponent={TablePaginationActions}
-                                        />
-                                    </TableRow>
-                                </TableFooter>
                             </Table>
-                        </TableContainer>            
+                        </TableContainer> 
+                        <Hidden smDown>  
+                            <TablePagination
+                                rowsPerPageOptions={[10, 25, 50, 100, { label: 'All', value: -1 }]}
+                                count={projectsFiltered.length}
+                                rowsPerPage={rowsPerPage}
+                                page={page}
+                                className={styles.tablePagination}
+                                SelectProps={{
+                                    inputProps: {
+                                    'aria-label': 'rows per page',
+                                    },
+                                    native: true,
+                                }}
+                                onPageChange={handleChangePage}
+                                onRowsPerPageChange={handleChangeRowsPerPage}
+                                ActionsComponent={TablePaginationActions}
+                            />      
+                        </Hidden>                           
+                        <Hidden smUp>  
+                            <TablePagination
+                                rowsPerPageOptions={[]}
+                                count={projectsFiltered.length}
+                                rowsPerPage={rowsPerPage}
+                                page={page}
+                                className={styles.tablePagination}
+                                onPageChange={handleChangePage}
+                                ActionsComponent={TablePaginationActions}
+                            />      
+                        </Hidden>                           
                     </Grid>
                 )
             }
