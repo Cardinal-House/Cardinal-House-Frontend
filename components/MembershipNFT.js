@@ -28,7 +28,11 @@ export default function MembershipNFT(props) {
 
     const currMembershipTokenURI = await nftContractReadOnly.membershipTokenURI();
     if (currMembershipTokenURI != "") {
-      const membershipTokenURIData = await axios.get(currMembershipTokenURI);
+      const membershipTokenURIData = await axios.get(currMembershipTokenURI, {
+        headers: {
+          'Accept': '*/*'
+        }
+      });
       setMembershipTokenURI(membershipTokenURIData.data);
     }
   }

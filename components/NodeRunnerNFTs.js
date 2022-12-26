@@ -117,7 +117,11 @@ export default function NodeRunnerNFTs(props) {
             if (NFTOwner == account) {
                 if (currContractTokenURI == "") {
                   currContractTokenURI = await nodeRunnerContractReadOnly.tokenURI(id);
-                  metaData = await axios.get(currContractTokenURI);
+                  metaData = await axios.get(currContractTokenURI, {
+                    headers: {
+                      'Accept': '*/*'
+                    }
+                  });
                 }
                 
                 currNFTDataList.push(Object.assign({}, metaData.data, {tokenId: id, contract: nodeRunnerContracts[i].Address}));
@@ -153,7 +157,11 @@ export default function NodeRunnerNFTs(props) {
         const nodeRunnerContractReadOnly = new ethers.Contract(currNFTAddress, nodeRunnerABI, provider);
 
         const currTokenURI = await nodeRunnerContractReadOnly.tokenURI(currTokenId);
-        const metaData = await axios.get(currTokenURI);
+        const metaData = await axios.get(currTokenURI, {
+          headers: {
+            'Accept': '*/*'
+          }
+        });
         const price = (+ethers.utils.formatEther((BigInt(userMarketItemsResult[i].price._hex) * BigInt(Math.pow(10, 12))).toString(10))).toFixed(1).toString();
         const itemId = BigInt(userMarketItemsResult[i].itemId._hex).toString(10);
         userMarketplaceNFTArray.push(Object.assign({}, metaData.data, {price: price, tokenId: currTokenId, itemId: itemId, contract: currNFTAddress}));

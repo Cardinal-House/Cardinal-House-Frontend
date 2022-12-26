@@ -112,7 +112,11 @@ export default function ViewMarketplaceNFTs(props) {
             const requiresCardinalCrew = await marketplaceContractReadOnly.NFTContractToRequireCardinalCrew(currNFTAddress);
             const tokenToBuy = await marketplaceContractReadOnly.NFTContractToTokenAddress(currNFTAddress);
             const currTokenURI = await nftContractReadOnly.tokenURI(currTokenId);
-            const metaData = await axios.get(currTokenURI);
+            const metaData = await axios.get(currTokenURI, {
+                headers: {
+                  'Accept': '*/*'
+                }
+              });
 
             let price = (+ethers.utils.formatEther(BigInt(marketItemsResult[i].price._hex).toString(10))).toFixed(1).toString();
             let priceUnrounded = (+ethers.utils.formatEther(BigInt(marketItemsResult[i].price._hex).toString(10))).toString();

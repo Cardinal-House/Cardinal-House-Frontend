@@ -58,7 +58,11 @@ export default function ClaimNodeRewards(props) {
     const nodeRunnerContractReadOnly = new ethers.Contract(nodeRunnerContracts[0].Address, nodeRunnerABI, provider);
 
     const currNodeRunnerTokenURILink = await nodeRunnerContractReadOnly.nodeRunnerTokenURI();
-    const currNodeRunnerTokenURIData = await axios.get(currNodeRunnerTokenURILink);
+    const currNodeRunnerTokenURIData = await axios.get(currNodeRunnerTokenURILink, {
+      headers: {
+        'Accept': '*/*'
+      }
+    });
     setNodeRunnerTokenURI(currNodeRunnerTokenURIData.data);
   }
 
@@ -103,7 +107,11 @@ export default function ClaimNodeRewards(props) {
       
       if (currNodeUserNFTs.length > 0) {
         for (let j = 0; j < currNodeUserNFTs.length; j++) {
-          const currNodeRunnerTokenURIData = await axios.get(currNodeUserNFTs[j]);
+          const currNodeRunnerTokenURIData = await axios.get(currNodeUserNFTs[j], {
+            headers: {
+              'Accept': '*/*'
+            }
+          });
           currNFTDataList.push(currNodeRunnerTokenURIData.data);
         }
 

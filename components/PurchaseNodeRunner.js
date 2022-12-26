@@ -85,7 +85,11 @@ export default function PurchaseNodeRunner(props) {
     setNumNFTsPurchased(currNumNFTsPurchased);
 
     const currNodeRunnerTokenURILink = await nodeRunnerContractReadOnly.nodeRunnerTokenURI();
-    const currNodeRunnerTokenURIData = await axios.get(currNodeRunnerTokenURILink);
+    const currNodeRunnerTokenURIData = await axios.get(currNodeRunnerTokenURILink, {
+      headers: {
+        'Accept': '*/*'
+      }
+    });
     setNodeRunnerTokenURI(currNodeRunnerTokenURIData.data);
   }
 

@@ -81,7 +81,11 @@ export default function OriginalCardinalNFT(props) {
     const originalCardinalNFTs = await nftContractReadOnly.getUserOriginalCardinalTokenURIs(account);
 
     if (originalCardinalNFTs.length > 0) {
-      const originalCardinalNFTData = await axios.get(originalCardinalNFTs[0]);
+      const originalCardinalNFTData = await axios.get(originalCardinalNFTs[0], {
+        headers: {
+          'Accept': '*/*'
+        }
+      });
 
       const tokenIdCounter = await nftContractReadOnly._tokenIds();
       for (let id = 1; id <= tokenIdCounter; id++) {
@@ -121,7 +125,11 @@ export default function OriginalCardinalNFT(props) {
 
         if (currTokenTypeId == originalCardinalTypeId) {
           const currTokenURI = await nftContractReadOnly.tokenURI(currTokenId);
-          const metaData = await axios.get(currTokenURI);
+          const metaData = await axios.get(currTokenURI, {
+            headers: {
+              'Accept': '*/*'
+            }
+          });
           const price = (+ethers.utils.formatEther(BigInt(userMarketItemsResult[i].price._hex).toString(10)) * Math.pow(10, 12)).toFixed(1).toString();
           const itemId = BigInt(userMarketItemsResult[i].itemId._hex).toString(10);
           setListedOriginalCardinalNFT(Object.assign({}, metaData.data, {price: price, itemId: itemId}));

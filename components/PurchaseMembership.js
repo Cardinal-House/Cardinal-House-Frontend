@@ -65,7 +65,11 @@ export default function PurchaseMembership(props) {
     setMembershipPrice(currMembershipPrice * Math.pow(10, 12));
 
     const currMembershipTokenURILink = await cardinalNFTContractReadOnly.membershipTokenURI();
-    const currMembershipTokenURIData = await axios.get(currMembershipTokenURILink);
+    const currMembershipTokenURIData = await axios.get(currMembershipTokenURILink, {
+      headers: {
+        'Accept': '*/*'
+      }
+    });
     setMembershipTokenURI(currMembershipTokenURIData.data);
   }
 
@@ -94,7 +98,11 @@ export default function PurchaseMembership(props) {
     let membershipTokenURIs = [];
 
     for (let i = 0; i < membershipTokenURILinks.length; i++) {
-      const membershipTokenURIData = await axios.get(membershipTokenURILinks[i]);
+      const membershipTokenURIData = await axios.get(membershipTokenURILinks[i], {
+        headers: {
+          'Accept': '*/*'
+        }
+      });
       membershipTokenURIs.push(membershipTokenURIData.data);
     }
 
