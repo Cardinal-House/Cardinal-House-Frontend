@@ -786,8 +786,8 @@ export default function ProjectAbout({ project }) {
                 <Typography variant="h2" className="mb-4" style={{textAlign: 'left !important'}}>
                     What is {project.name} ({project.tokenSymbol})?
                 </Typography>
-                <Typography variant="h3" style={{textAlign: 'left !important', fontSize: '16px !important'}}>
-                    {project.description.replace("&amp;", "&")}
+                <Typography variant="h3" style={{textAlign: 'left !important', fontSize: '16px !important', whiteSpace: 'pre-line !important'}}>
+                    {project.description.replace("&amp;", "&").replaceAll(" NEWLINE ", "\n\n")}
                 </Typography>
             </Grid>
         </Grid>
