@@ -78,11 +78,11 @@ a {
 }
 
 .MuiButton-outlinedPrimary {
-  border: 2px solid var(--red-primary-color) !important;
+  border: 2px solid var(--mint-primary-color) !important;
 }
 
 .MuiButton-outlinedPrimary:hover {
-  color: var(--red-primary-color) !important;
+  color: var(--mint-primary-color) !important;
 }
 
 .vertical-timeline-element-right span.vertical-timeline-element-date {
@@ -98,7 +98,7 @@ a {
 }
 
 .vertical-timeline-element-content {
-  box-shadow: 0 3px 0 var(--red-primary-color) !important;
+  box-shadow: 0 3px 0 var(--mint-primary-color) !important;
 }
 
 .timeLineNoBottomLine .vertical-timeline-element-content {
@@ -106,16 +106,16 @@ a {
 }
 
 .timeline-dark-theme::before, .timeline-light-theme::before {
-  background: var(--red-primary-color) !important;
+  background: var(--mint-primary-color) !important;
 }
 
 .timeline-dark-theme .vertical-timeline-element-icon {
-  box-shadow: 0 0 0 4px var(--red-primary-color) !important;
+  box-shadow: 0 0 0 4px var(--mint-primary-color) !important;
   background-color: rgba(29, 38, 59, 0.98) !important;
 }
 
 .timeline-light-theme .vertical-timeline-element-icon {
-  box-shadow: 0 0 0 4px var(--red-primary-color) !important;
+  box-shadow: 0 0 0 4px var(--mint-primary-color) !important;
   background-color: rgba(142, 238, 255) !important;
 }
 
@@ -211,7 +211,7 @@ a {
 }
 
 .MuiOutlinedInput-notchedOutline {
-  border-color: var(--red-primary-color);
+  border-color: var(--mint-primary-color);
 }
 
 .boldText {

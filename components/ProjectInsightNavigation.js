@@ -35,11 +35,6 @@ export default function ProjectInsightNavigation(props) {
                                 Home Page
                             </Typography>
                         </Nav.Link>
-                        <Nav.Link href="/educationcenter" className={styles.navPadding} >
-                            <Typography variant="h6" className={clsx(styles.navbarDarkCustom, styles.navText)}>
-                                Education Center
-                            </Typography>
-                        </Nav.Link>
                         {
                             props.projectSearchClick && (
                                 <Nav.Link onClick={props.projectSearchClick} className={styles.navPadding}>
@@ -48,20 +43,26 @@ export default function ProjectInsightNavigation(props) {
                                     </Typography>
                                 </Nav.Link>                                
                             )
-                        }                        
-                        {
-                            !props.projectSearchClick && (
-                                <Nav.Link href="/cryptoinsights" className={styles.navPadding}>
-                                    <Typography variant="h6" className={clsx(styles.navbarDarkCustom, styles.navText)}>
-                                        Project Search
-                                    </Typography>
-                                </Nav.Link>                            
-                            )
-                        }   
+                        }  
+                        <Nav.Link href="/educationcenter" className={styles.navPadding} >
+                            <Typography variant="h6" className={clsx(styles.navbarDarkCustom, styles.navText)}>
+                                Education Center
+                            </Typography>
+                        </Nav.Link>
+                        <Nav.Link href="https://cardinal-house.gitbook.io/cardinal-house-whitepaper-v2/" target="_blank" className={styles.navPadding}>
+                            <Typography variant="h6" className={clsx(styles.navbarDarkCustom, styles.navText)}>
+                                White Paper
+                            </Typography>
+                        </Nav.Link>
+                        <Nav.Link href="/dapp" className={styles.navPadding} >
+                            <Typography variant="h6" className={clsx(styles.navbarDarkCustom, styles.navText)}>
+                                DApp
+                            </Typography>
+                        </Nav.Link>                                              
                         <Nav.Link className={styles.navPadding} >
                             <Typography variant="h6" className={clsx(styles.navbarDarkCustom, styles.navText, styles.desktopSpacing)}>
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             </Typography>
                         </Nav.Link>                     
                             <IconContext.Provider value={{ color: "#00FFC8" }} className={styles.socialIcons}>

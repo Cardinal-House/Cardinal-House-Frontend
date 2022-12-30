@@ -17,10 +17,10 @@ function MyApp({ Component, pageProps }) {
         paper: '#5decff',
       },
       primary: {
-        main: '#ff0000',
+        main: '#00FFC8',
       },
       secondary: {
-        main: '#ff0000',
+        main: '#00FFC8',
       },
     },
     typography: {
@@ -51,10 +51,10 @@ function MyApp({ Component, pageProps }) {
         paper: '#0f1220', //0f1220 // #020119
       },
       primary: {
-        main: '#c50a0a',
+        main: '#00FFC8',
       },
       secondary: {
-        main: '#cfcfcf',
+        main: '#00FFC8',
       },
     },
     typography: {

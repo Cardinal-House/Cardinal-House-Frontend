@@ -387,7 +387,7 @@ export default function ProjectSearch(props) {
                                     projectsFiltered.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((project, index) => (
                                         <TableRow
                                         className={clsx(styles.projectTableRow, styles.projectTableRowHover)}
-                                        onClick={() => {window.location.href = `${window.location.origin}/cryptoinsights/${project.id}`}}
+                                        onClick={() => {window.location.href = `${window.location.origin}/${project.id}`}}
                                         hover
                                         key={project.name}
                                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}

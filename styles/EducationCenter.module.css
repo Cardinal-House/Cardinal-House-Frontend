@@ -149,7 +149,7 @@
 
 .headerText {
     padding-bottom: 1% !important;
-    border-bottom: 5px solid var(--red-primary-color) !important;
+    border-bottom: 5px solid var(--mint-primary-color) !important;
     font-size: 3rem !important;
     font-family: 'Source Serif Pro', Nunito Sans, Kanit, Merriweather Sans, sans-serif !important;
 }
@@ -664,23 +664,26 @@
     }
 }
 
-@media (max-width: 900px) {
-    .desktopImage {
-        display: none !important;
-    }
-
+@media (max-width: 1100px) {
     .largeScreenCell {
         display: none !important;
     }
 }
 
+@media (min-width: 1100px) {
+    .smallScreenCell {
+        display: none !important;
+    }
+}
+
+@media (max-width: 900px) {
+    .desktopImage {
+        display: none !important;
+    }
+}
 
 @media (min-width: 900px) {
     .mobileImage {
-        display: none !important;
-    }
-
-    .smallScreenCell {
         display: none !important;
     }
 }

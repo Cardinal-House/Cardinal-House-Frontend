@@ -22,21 +22,21 @@ import ListItemText from '@mui/material/ListItemText';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 
-import { getProjects } from '../api/projects';
-import { getProjectById } from '../api/projectbyid';
-import { getProjectFeed } from '../api/projectfeed';
+import { getProjects } from './api/projects';
+import { getProjectById } from './api/projectbyid';
+import { getProjectFeed } from './api/projectfeed';
 
-import ProjectInsightNavigation from '../../components/ProjectInsightNavigation';
-import ProjectSearch from '../../components/ProjectSearch';
-import HomeFooter from '../../components/HomeFooter';
-import TwitterFeedItem from '../../components/TwitterFeedItem';
-import YouTubeFeedItem from '../../components/YouTubeFeedItem';
-import DiscordFeedItem from '../../components/DiscordFeedItem';
-import TelegramFeedItem from '../../components/TelegramFeedItem';
-import MediumFeedItem from '../../components/MediumFeedItem';
-import ProjectAbout from '../../components/ProjectAbout';
+import ProjectInsightNavigation from '../components/ProjectInsightNavigation';
+import ProjectSearch from '../components/ProjectSearch';
+import HomeFooter from '../components/HomeFooter';
+import TwitterFeedItem from '../components/TwitterFeedItem';
+import YouTubeFeedItem from '../components/YouTubeFeedItem';
+import DiscordFeedItem from '../components/DiscordFeedItem';
+import TelegramFeedItem from '../components/TelegramFeedItem';
+import MediumFeedItem from '../components/MediumFeedItem';
+import ProjectAbout from '../components/ProjectAbout';
 
-import styles from '../../styles/EducationCenter.module.css';
+import styles from '../styles/EducationCenter.module.css';
 
 const drawerWidth = 275;
 const skipNumIncrement = 5;

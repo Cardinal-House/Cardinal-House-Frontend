@@ -276,11 +276,6 @@ export default function DApp(props) {
                     )
                 }
 
-                <div className={styles.changeThemeDiv}>
-                    {props.useDarkTheme ? <DarkModeIcon className={clsx(styles.darkModeIcon, styles.iconSizeTheme)} /> : <LightModeIcon className={styles.lightModeIcon} fontSize="large" />}
-                    <Switch checked={props.useDarkTheme} color="primary" onChange={e => props.setUseDarkTheme(e.target.checked)} />
-                </div>
-
                 {isConnected && (
                     <Button size="small" variant="contained" color="primary" onClick={deactivate}
                         className={clsx(styles.connectBtn, styles.largeScreenConnectBtn, props.useDarkTheme ? styles.connectBtnDark : styles.connectBtnLight)}>

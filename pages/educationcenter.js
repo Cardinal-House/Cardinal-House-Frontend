@@ -34,7 +34,7 @@ import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 
-import Navigation from '../components/Navigation';
+import ProjectInsightNavigation from '../components/ProjectInsightNavigation';
 import EducationCenterIntro from '../components/EducationCenterIntro';
 import transform from '../components/HtmlParseTransform';
 import Footer from '../components/Footer';
@@ -554,7 +554,7 @@ export default function EducationCenter(props) {
     <div className={styles.navDrawer}>
       <Grid container justifyContent="center" alignItems="center" spacing={2} className={styles.toolbarDiv}>
           <Grid item xs={2}>
-            <Image alt="" src="/CardinalLogoLight.png" width="50" height="50" className={clsx(styles.logoImage, "mt-1")} />
+            <img alt="" src="/NewCardinalHouseLogo.png" width="45" height="45" className={clsx(styles.logoImage)} />
           </Grid>
           <Grid item xs={8}>
             <Typography variant="h5" className={styles.toolbarText}>
@@ -725,7 +725,7 @@ export default function EducationCenter(props) {
     {
         viewingIntro && (
             <>
-                <Navigation useDarkTheme={props.useDarkTheme} setUseDarkTheme={props.setUseDarkTheme} hideThemeToggle={false} />
+                <ProjectInsightNavigation />
                 <EducationCenterIntro useDarkTheme={props.useDarkTheme} sectionSelected={sectionSelected} />
             </>
         )
