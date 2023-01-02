@@ -168,6 +168,7 @@ export default function NodeRunnerNFTs(props) {
       }
     }
 
+    console.log(userMarketplaceNFTArray);
     setUserMarketNFTs(JSON.parse(JSON.stringify(userMarketplaceNFTArray)));
     setMarketNFTsLoaded(true);
   }
@@ -561,7 +562,7 @@ export default function NodeRunnerNFTs(props) {
                                         <Grid container justifyContent="center" alignItems="center" className={clsx(props.useDarkTheme ? styles.NFTTextDark : styles.NFTTextLight, "p-4")}>
                                             <Grid item xs={8} className={styles.nftNameAndDesc}>
                                                 <Typography variant="p" component="div" className={clsx(styles.NFTName, "text-2xl font-bold")}>
-                                                    {nft.NFTName} {nft.tokenId}
+                                                    {nft.NFTName} {parseInt(nft.tokenId.hex, 16)}
                                                 </Typography>
                                                 {
                                                     currListedNFTViewed != `${nft.contract}-${nft.itemId}` && currNFTCanceling != `${nft.contract}-${nft.itemId}` && (
