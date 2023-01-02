@@ -164,7 +164,7 @@
 }
 
 .colorfulText {
-    background: -webkit-linear-gradient(#eb175a, #c90202) !important;
+    background: -webkit-linear-gradient(#00FFC8, #03e2b2) !important;
     -webkit-background-clip: text !important;
     background-clip: text !important;
     -webkit-text-fill-color: transparent !important;
