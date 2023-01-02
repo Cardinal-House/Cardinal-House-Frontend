@@ -32,10 +32,11 @@ export default function ClaimNodeRewards(props) {
   const isConnected = account !== undefined && chainId == polygonChainId;
 
   const [nodeRunnerContracts, setNodeRunnerContracts] = useState([]);
-  const [currNodeRunnerContract, setCurrNodeRunnerContract] = useState({});
+  const [currNodeRunnerContractAddress, setCurrNodeRunnerContractAddress] = useState("");
   const [userNodeRunnerData, setUserNodeRunnerData] = useState({});
   const [maticBalance, setMaticBalance] = useState(-1);
   const [loadingNodeRunnerContracts, setLoadingNodeRunnerContracts] = useState(true);
+  const [startingClaim, setStartingClaim] = useState(false);
   const [isCardinalMember, setIsCardinalMember] = useState(undefined);
   const [nodeRunnerTokenURI, setNodeRunnerTokenURI] = useState("");
   const [claimingNodeRewards, setClaimingNodeRewards] = useState(false);
@@ -46,7 +47,7 @@ export default function ClaimNodeRewards(props) {
   const [transactionHash, setTransactionHash] = useState("");
 
   const nodeRunnerInterface = new utils.Interface(nodeRunnerABI);
-  const nodeRunnerContract = new Contract(currNodeRunnerContract.Address ? currNodeRunnerContract.Address : NodeRunnerAddress, nodeRunnerInterface);
+  const nodeRunnerContract = new Contract(currNodeRunnerContractAddress ? currNodeRunnerContractAddress : NodeRunnerAddress, nodeRunnerInterface);
 
   const { send: claimNodeRunnerRewards, state: claimNodeRunnerRewardsState } =
   useContractFunction(nodeRunnerContract, "claimNodeRewards", {
@@ -104,6 +105,7 @@ export default function ClaimNodeRewards(props) {
 
       const currNodeIsActive = nodeRunnerContracts[i].StartDate && nodeRunnerContracts[i].StartDate != "";
       const currNodeNextDeposit = nodeRunnerContracts[i].NextDeposit;
+      const currNodeAddress = nodeRunnerContracts[i].Address;
       
       if (currNodeUserNFTs.length > 0) {
         for (let j = 0; j < currNodeUserNFTs.length; j++) {
@@ -120,6 +122,7 @@ export default function ClaimNodeRewards(props) {
           "NFTsLeft": currMaxNFT - currNumNFTsPurchased,
           "IsActive": currNodeIsActive,
           "NextDeposit": currNodeNextDeposit,
+          "Address": currNodeAddress,
           "NodeRewardsCanClaim": currNodeRewards,
           "NodeRewardsClaimed": currNodeRewardsClaimed
         };
@@ -158,8 +161,16 @@ export default function ClaimNodeRewards(props) {
     }
   }, [isConnected, account]);
 
-  const startNodeRunnerRewardsClaim = () => {
-    claimNodeRunnerRewards();
+  useEffect(() => {
+    if (startingClaim) {
+      setStartingClaim(false);
+      claimNodeRunnerRewards();
+    }
+  }, [startingClaim])
+
+  const startNodeRunnerRewardsClaim = (nodeRunnerAddress) => {
+    setCurrNodeRunnerContractAddress(nodeRunnerAddress);
+    setStartingClaim(true);
   }
 
   useEffect(() => {
@@ -346,7 +357,7 @@ export default function ClaimNodeRewards(props) {
                               </Card>
                           </Grid>
                           <Grid item lg={6} md={8} sm={10} xs={12}>
-                            <Button variant="contained" color="primary" onClick={startNodeRunnerRewardsClaim} className={styles.largeBtn}
+                            <Button variant="contained" color="primary" onClick={() => startNodeRunnerRewardsClaim(userNodeRunnerData[nodeRunnerContractName].Address)} className={styles.largeBtn}
                               disabled={userNodeRunnerData[nodeRunnerContractName].NodeRewardsCanClaim <= 0}>
                               {!claimingNodeRewards && (userNodeRunnerData[nodeRunnerContractName].NodeRewardsCanClaim > 0 ? `Claim Node Rewards (${userNodeRunnerData[nodeRunnerContractName].NodeRewardsCanClaim.toFixed(3)} Matic)` : "No Rewards to Claim Currently")}
                               {claimingNodeRewards && <CircularProgress size={30} color="secondary"/>}
