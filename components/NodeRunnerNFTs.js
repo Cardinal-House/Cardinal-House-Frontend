@@ -110,22 +110,18 @@ export default function NodeRunnerNFTs(props) {
       const currNodeUserNFTs = await nodeRunnerContractReadOnly.getUserTokenURIs(account);   
       
       if (currNodeUserNFTs.length > 0) {
-        const tokenIdCounter = await nodeRunnerContractReadOnly._tokenIds();
-        for (let id = 1; id <= tokenIdCounter; id++) {
-            const NFTOwner = await nodeRunnerContractReadOnly.ownerOf(id);
+        for (let j = 0; j < currNodeUserNFTs.length; j++) {
+            const id = await nodeRunnerContractReadOnly.tokenOfOwnerByIndex(account, j);
     
-            if (NFTOwner == account) {
-                if (currContractTokenURI == "") {
-                  currContractTokenURI = await nodeRunnerContractReadOnly.tokenURI(id);
-                  metaData = await axios.get(currContractTokenURI, {
-                    headers: {
-                      'Accept': '*/*'
-                    }
-                  });
+            if (currContractTokenURI == "") {
+              currContractTokenURI = await nodeRunnerContractReadOnly.tokenURI(id);
+              metaData = await axios.get(currContractTokenURI, {
+                headers: {
+                  'Accept': '*/*'
                 }
-                
-                currNFTDataList.push(Object.assign({}, metaData.data, {tokenId: id, contract: nodeRunnerContracts[i].Address}));
+              });
             }
+            currNFTDataList.push(Object.assign({}, metaData.data, {tokenId: parseInt(id._hex, 16), contract: nodeRunnerContracts[i].Address}));
         }   
         currUserNodeRunnerNFTs[nodeRunnerContracts[i].Name] = JSON.parse(JSON.stringify(currNFTDataList));
       }
