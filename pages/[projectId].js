@@ -313,13 +313,16 @@ export async function getStaticProps(context) {
             const currTags = currTagsStr.split(",");
             for (let j = 0; j < currTags.length; j++) {
                 const currTag = currTags[j];
-                tagSet.add(currTag);
 
-                if (!Object.keys(tagCount).includes(currTag)) {
-                    tagCount[currTag] = 1;
-                }
-                else {
-                    tagCount[currTag] += 1;
+                if (currTag != "" && currTag != " ") {
+                    tagSet.add(currTag);
+
+                    if (!Object.keys(tagCount).includes(currTag)) {
+                        tagCount[currTag] = 1;
+                    }
+                    else {
+                        tagCount[currTag] += 1;
+                    }
                 }
             }
         }
@@ -328,13 +331,16 @@ export async function getStaticProps(context) {
             const currChains = currChainsStr.split(",");
             for (let j = 0; j < currChains.length; j++) {
                 const currChain = currChains[j];
-                chainSet.add(currChain);
 
-                if (!Object.keys(chainCount).includes(currChain)) {
-                    chainCount[currChain] = 1;
-                }
-                else {
-                    chainCount[currChain] += 1;
+                if (currChain != "" && currChain != " ") {
+                    chainSet.add(currChain);
+
+                    if (!Object.keys(chainCount).includes(currChain)) {
+                        chainCount[currChain] = 1;
+                    }
+                    else {
+                        chainCount[currChain] += 1;
+                    }
                 }
             }
         }
