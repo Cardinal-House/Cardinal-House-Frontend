@@ -1,0 +1,13 @@
+{
+  "projects": {
+    "default": "cardinal-house-community"
+  },
+  "targets": {},
+  "etags": {
+    "cardinal-house-community": {
+      "extensionInstances": {
+        "moralis-auth": "8b3459e1a999b6464bc0ffca08f50a51240062f65680a51982b5cc39c7dad4bd"
+      }
+    }
+  }
+}

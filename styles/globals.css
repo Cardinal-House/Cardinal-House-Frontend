@@ -181,7 +181,7 @@ a {
   margin-bottom: 3% !important;
 }
 
-.videoBtn .MuiListItemText-primary {
+.videoBtn .MuiListItemText-primary, .channelBtn .MuiListItemText-primary {
   margin-bottom: 3% !important;
 }
 
@@ -208,6 +208,11 @@ a {
 
 .modal-content {
   background-color: rgba(0, 0, 0, 0) !important;
+}
+
+.signInModal {
+  border-radius: 3% !important;
+  overflow: hidden !important;
 }
 
 .MuiOutlinedInput-notchedOutline {
@@ -243,6 +248,10 @@ a {
 
 .modebar-container {
   display: none !important;
+}
+
+.Mui-focused {
+  border: none !important;
 }
 
 @media (max-width: 650px) {

@@ -1,0 +1,371 @@
+.mainContent {
+    min-height: 100vh !important;
+    background-color: var(--education-center-primary) !important;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05)) !important;
+    color: white !important;
+}
+
+.navDrawer {
+    color: white !important;
+}
+
+.toolbarDiv {
+    background-color: var(--education-center-primary) !important;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.09)) !important;
+    color: white !important;
+    height: 80px !important;
+    box-shadow: 0 4px 10px -2px #000000 !important;
+    position: sticky !important;
+    top: -16px !important;
+    z-index: 100000 !important;
+}
+
+.introBtnText {
+    margin-top: 4% !important;
+    margin-bottom: 4% !important;
+}
+
+.navIcons {
+    font-size: 20px !important;
+    color: white !important;
+}
+
+.toolbar {
+    /*background-color: #5decff !important;*/
+    background-color: black !important;
+    color: white !important;
+}
+
+.loginModal {
+  background-color: rgba(0, 0, 0, 0) !important;
+  border: none !important;
+}
+
+.modalDark {
+  background-color: #1d263b !important;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05));
+}
+
+.backArrow {
+  cursor: pointer !important;
+}
+
+.forgotPasswordHeader {
+  margin-top: -10% !important;
+}
+
+.darkText {
+  color: white !important;
+}
+
+.loginModalGrid {
+  margin-top: 0.2% !important;
+  padding-top: 0.5% !important;
+  padding-bottom: 6% !important;
+  text-align: center !important;
+  padding-left: 2rem !important;
+  padding-right: 2rem !important;
+}
+
+.signInTypeGrid {
+  margin-top: -15% !important;
+  display: flex !important;
+  justify-content: center !important;
+  margin-bottom: 5% !important;
+}
+
+.signInType {
+  padding: 5px !important;
+  background-color: #575757 !important;
+  margin-right: 1.5% !important;
+  border-radius: 10px !important;
+  width: 50% !important;
+  display: flex !important;
+  justify-content: center !important;
+}
+
+.signInTypeBtn {
+  background-color: #575757 !important;
+  color: white !important;   
+  border-right: none !important;
+  border-left: none !important;
+  margin-right: 1% !important;
+  margin-left: 1% !important;
+  border-radius: 10px !important;
+  padding-top: 8px !important;
+  padding-bottom: 8px !important;
+  width: 50% !important;
+}
+
+.selectedSignInType {
+  background-color: rgba(0, 255, 200, 0.7) !important;
+}
+
+.twitterIcon {
+  color: #00acee !important;
+}
+
+.walletIcon {
+  color: rgb(235, 186, 158) !important;
+}
+
+.loginIcon {
+  font-size: 1.75rem !important;
+}
+
+.separator {
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+
+.separator::before,
+.separator::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid #000;
+}
+
+.separator:not(:empty)::before {
+  margin-right: .5em;
+}
+
+.separator:not(:empty)::after {
+  margin-left: .5em;
+}
+
+.loginField {
+  width: 100% !important;
+}
+
+.loginBtn {
+  width: 100% !important;
+  padding-top: 2.5% !important;
+  padding-bottom: 2.5% !important;
+}
+
+.signInBtn {
+  width: 100% !important;
+}
+
+.forgotPasswordBtn {
+  border: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.categoryText {
+  color: white !important;
+}
+
+.currSelected {
+  background-color: rgba(0, 0, 0, 0.5) !important;
+}
+
+.bigBtn {
+  padding-top: 5% !important;
+  padding-bottom: 5% !important;
+}
+
+@media (max-width: 1500px) {
+  .optionMargin {
+      margin: 2% !important;
+  }
+}
+
+  
+/*
+  .App {
+    text-align: center;
+    max-width: 728px;
+    margin: 0 auto;
+  }
+  
+  .App header {
+    background-color: #181717;
+    height: 10vh;
+    min-height: 50px;
+    color: white;
+    position: fixed;
+    width: 100%;
+    max-width: 728px;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 99;
+    padding: 10px;
+    box-sizing: border-box;
+  }
+  
+  .App section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: rgb(40, 37, 53);
+  }
+  */
+  
+  .messageDiv {
+    position: fixed;
+    bottom: 12vh;
+    padding: 10px;
+    max-height: 80vh;
+    max-width: 80vw;
+    overflow-y: scroll;
+  }
+  
+  .messageDiv::-webkit-scrollbar {
+    width: 0.25rem;
+  }
+  
+  .messageDiv::-webkit-scrollbar-track {
+    background: #1e1e24 !important;
+  }
+  
+  .messageDiv::-webkit-scrollbar-thumb {
+    background: #6649b8;
+  }
+
+  
+  
+  .chatForm {
+    min-width: calc(97vw - 320px);
+    height: 6.8vh;
+    position: fixed;
+    bottom: 3vh;
+    background-color: rgb(58, 58, 58) !important;
+    display: flex;
+    font-size: 1.5rem;
+    margin-left: 10px !important;
+    border: none !important;
+  }
+  
+  
+  .chatInput {
+    line-height: 1.5;
+    width: 100% !important;
+    font-size: 1.5rem;
+    color: white;
+    outline: none !important;
+    border: none !important;
+    padding: 0 10px;
+  }
+  
+  .submitBtn {
+    background: rgb(58, 58, 58);
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    font-size: 1.25rem;
+    height: 6.8vh;
+    width: 10%;
+    position: fixed;
+  }
+
+  .submitIcon {
+    margin-top: 15px !important;
+    margin-right: 10px !important;
+    cursor: pointer !important;
+  }
+
+  .emojiIcon {
+    margin-top: 15px !important;
+    margin-right: 8px !important;
+    cursor: pointer !important;    
+  }
+
+  .emojiBtn {
+    background-color: rgba(0, 0, 0, 0) !important;
+    box-shadow: none !important;
+    font-size: 20px !important;
+    width: 30px !important;
+    min-width: 30px !important;
+    padding-top: 2px !important;
+    padding-bottom: 2px !important;
+  }
+
+  .emojiBtn:hover {
+    background-color: gray !important;
+  }
+
+  .emojiMenuGrid {
+    padding-left: 25px !important;
+    padding-right: 50px !important;
+    max-width: 500px !important;
+  }
+
+  .submitBtn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
+  .signIn, .signOut {
+    margin-left: 1% !important;
+    margin-right: 1% !important;
+  }
+  
+  .chatElement {
+    min-width: 50vw !important;
+    margin-bottom: 12px;
+    line-height: 24px;
+    padding: 15px 25px;
+    margin-right: 50px !important;
+    border-radius: 25px;
+    position: relative;
+    color: white;
+    text-align: center;
+    text-align: left;
+    white-space: pre-line !important;
+  }
+
+  .userText {
+
+  }
+
+  .dateText {
+    margin-left: 1% !important;
+    color: rgb(174, 174, 174) !important;
+    font-size: 13px !important;
+  }
+
+  .messageText {
+    color: rgb(211, 210, 210) !important;
+  }
+  
+  .message {
+    display: flex;
+  }
+  
+  /*
+  .sentMessage {
+    flex-direction: row-reverse;
+  }
+  */
+  
+  .sentMessage .chatElement {
+    color: white;
+    text-align: left;
+    /* background: #0b93f6; */
+  }
+  .receivedMessage .chatElement {
+    color: white;
+    text-align: left;
+    /* background: #e5e5ea; */
+    /* color: black; */
+  }
+  
+  .chatImg {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin: 2px 5px;
+    margin-top: 1% !important;
+  }
+  
+  
