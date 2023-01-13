@@ -22,7 +22,7 @@ import dynamic from 'next/dynamic'
 
 const VideoCall = dynamic(() => import('../components/VideoCall'), { ssr: false });
 
-import styles from '../styles/Chat.module.css';
+import styles from '../styles/Community.module.css';
 const drawerWidth = 300;
 
 export default function Chat(props) {
