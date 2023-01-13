@@ -123,7 +123,7 @@ export default function ChatRoom(props) {
     return (
         <>
             <Grid container spacing={2} id="messageDiv" className={styles.messageDiv}>
-                {messages && messages.reverse().map(msg => (
+                {messages && [...messages].reverse().map(msg => (
                     <Grid item xs={12}>
                         <ChatMessage key={msg.id} message={msg} />
                     </Grid>
