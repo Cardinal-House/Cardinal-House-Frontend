@@ -13,6 +13,13 @@ import { firestore } from '../../firebase-vars';
 
 import ChatMessage from './ChatMessage';
 
+const useFocus = () => {
+    const htmlElRef = useRef(null)
+    const setFocus = () => {htmlElRef.current &&  htmlElRef.current.focus()}
+
+    return [ htmlElRef, setFocus ] 
+}
+
 export default function ChatRoom(props) {
     const { currentUser } = useAuth();
 
@@ -21,13 +28,15 @@ export default function ChatRoom(props) {
 
     const [messages, loading] = useCollectionData(messageQuery, {idField: 'id'});
     const [emojiAnchorEl, setEmojiAnchorEl] = useState(null);
+    const [atBottom, setAtBottom] = useState(true);
+    const [inputRef, setInputFocus] = useFocus();
 
     const dummy = useRef();
     const [formValue, setFormValue] = useState("");
 
     const emojiSelectionOpen = Boolean(emojiAnchorEl);
 
-    const handleEmojiSelectionOepn = (e) => {
+    const handleEmojiSelectionOpen = (e) => {
         setEmojiAnchorEl(e.currentTarget);
     };
 
@@ -104,6 +113,18 @@ export default function ChatRoom(props) {
     }, [formValue])
 
     useEffect(() => {
+        if (emojiAnchorEl == null) {
+            setInputFocus();
+        }
+    }, [emojiAnchorEl])
+
+    useEffect(() => {
+        if (atBottom) {
+            scrollToBottomSmooth();
+        }
+    }, [messages ? messages.length : messages])
+
+    useEffect(() => {
         const userInputBox = document.getElementById("userInput");
         userInputBox.setAttribute("style", "height:" + (userInputBox.scrollHeight) + "px;overflow-y:hidden;");
         userInputBox.addEventListener("input", OnInput, false);
@@ -120,9 +141,19 @@ export default function ChatRoom(props) {
         setFormValue(e.target.value);
     }
 
+    const messageDivScroll = () => {
+        const messageDiv = document.getElementById("messageDiv");
+        if (Math.abs(Math.ceil(messageDiv.scrollHeight - messageDiv.scrollTop) - messageDiv.clientHeight) < 50 && !atBottom) {
+            setAtBottom(true);
+        }
+        else if (Math.abs(Math.ceil(messageDiv.scrollHeight - messageDiv.scrollTop) - messageDiv.clientHeight) >= 50 && atBottom) {
+            setAtBottom(false);
+        }
+    }
+
     return (
         <>
-            <Grid container spacing={2} id="messageDiv" className={styles.messageDiv}>
+            <Grid container spacing={2} id="messageDiv" className={styles.messageDiv} onScroll={messageDivScroll}>
                 {messages && [...messages].reverse().map(msg => (
                     <Grid item xs={12}>
                         <ChatMessage key={msg.id} message={msg} />
@@ -135,11 +166,11 @@ export default function ChatRoom(props) {
 
             <Paper component="form" id="chatForm" onSubmit={sendMessage} className={clsx(styles.chatForm)}>
                 <TextField multiline variant="outlined" maxRows={1} id="userInput" placeholder="Type here..." value={formValue}
-                    onChange={updateFormValue} className={styles.chatInput} onKeyDown={chatEnterPressed}
+                    onChange={updateFormValue} className={styles.chatInput} onKeyDown={chatEnterPressed} inputRef={inputRef}
                     sx={{
                         "& fieldset": { border: 'none' },
                         }} />
-                <BsFillEmojiSunglassesFill onClick={handleEmojiSelectionOepn} className={styles.emojiIcon} />
+                <BsFillEmojiSunglassesFill onClick={handleEmojiSelectionOpen} className={styles.emojiIcon} />
                 <AiOutlineSend onClick={sendMessage} className={styles.submitIcon} />       
             </Paper>   
             <Menu

@@ -127,11 +127,6 @@ export default function Navigation({useDarkTheme, setUseDarkTheme, hideThemeTogg
                                         <FaYoutube className={styles.iconSize} />
                                     </a>
                                 </div>
-                                <div className={clsx(styles.socialIcon, styles.socialIconSpacing)}>
-                                    <a href="https://t.me/CardinalHousechat" target="_blank" rel="noreferrer">
-                                        <FaTelegram className={styles.iconSize} />
-                                    </a>
-                                </div>
                             </div>
                         </IconContext.Provider>
                     </Nav>

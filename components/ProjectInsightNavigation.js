@@ -62,7 +62,7 @@ export default function ProjectInsightNavigation(props) {
                         <Nav.Link className={styles.navPadding} >
                             <Typography variant="h6" className={clsx(styles.navbarDarkCustom, styles.navText, styles.desktopSpacing)}>
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             </Typography>
                         </Nav.Link>                     
                             <IconContext.Provider value={{ color: "#00FFC8" }} className={styles.socialIcons}>
@@ -80,11 +80,6 @@ export default function ProjectInsightNavigation(props) {
                                     <div className={clsx(styles.socialIcon, styles.socialIconSpacing)}>
                                         <a href="https://www.youtube.com/channel/UC1dUX-MzSWJ046vYP2215-g" target="_blank" rel="noreferrer">
                                             <FaYoutube className={styles.iconSize} />
-                                        </a>
-                                    </div>
-                                    <div className={clsx(styles.socialIcon, styles.socialIconSpacing)}>
-                                        <a href="https://t.me/CardinalHousechat" target="_blank" rel="noreferrer">
-                                            <FaTelegram className={styles.iconSize} />
                                         </a>
                                     </div>
                                 </div>

@@ -139,7 +139,7 @@ export default function Chat(props) {
     <div className={styles.navDrawer}>
       <Grid container justifyContent="center" alignItems="center" spacing={2} className={styles.toolbarDiv}>
           <Grid item xs={2}>
-            <Image alt="" src="/NewCardinalHouseLogo.png" width="50" height="50" className={clsx(styles.logoImage, "mt-1")} />
+            <img alt="" src="/NewCardinalHouseLogo.png" width="45" height="45" className={clsx(styles.logoImage)} />
           </Grid>
           <Grid item xs={8}>
             <Typography variant="h5" className={styles.toolbarText}>

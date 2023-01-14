@@ -9,6 +9,10 @@
     color: white !important;
 }
 
+.logoImage {
+  display: inline-block!important;
+}
+
 .toolbarDiv {
     background-color: var(--education-center-primary) !important;
     background-image: linear-gradient(rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.09)) !important;

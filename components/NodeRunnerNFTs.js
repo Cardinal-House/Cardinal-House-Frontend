@@ -490,10 +490,10 @@ export default function NodeRunnerNFTs(props) {
             isConnected && Object.keys(userNodeRunnerNFTs).map((nodeRunnerContractName) => {
               return (
                 <Grid item xs={12}>
-                  <Typography variant="h3" className={clsx("text-center mt-2", styles.yourNFTsHeader)}>
+                  <Typography variant="h3" className={clsx("text-center mt-5", styles.yourNFTsHeader)}>
                     Your Node Runner NFTs for - {nodeRunnerContractName}
                   </Typography>
-                  <Grid container justifyContent="center" alignItems="center" spacing={4} className="mt-5">
+                  <Grid container justifyContent="center" alignItems="center" spacing={4} className="mt-5 mb-5">
                     {
                       userNodeRunnerNFTs[nodeRunnerContractName].map((nodeRunnerNFT) => {
                         return (
