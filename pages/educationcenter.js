@@ -563,7 +563,6 @@ export default function EducationCenter(props) {
           </Grid>
       </Grid>
 
-      <Divider />
       <List>
         <ListItem key="Introduction" disablePadding>
             <ListItemButton className={clsx("introBtn", viewingIntro ? styles.currSelected : "")} onClick={() => updateViewingSectionIntro(true)}>

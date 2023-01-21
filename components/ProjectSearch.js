@@ -3,7 +3,7 @@ import clsx from 'clsx';
 
 import { 
     Grid, Typography, Button, InputBase, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper,
-    MenuItem, Checkbox, ListItemText, Menu, ButtonGroup, TableFooter, TablePagination, Box, Hidden
+    MenuItem, Checkbox, ListItemText, Menu, ButtonGroup, TablePagination, Box, Hidden
 } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';

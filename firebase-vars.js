@@ -2,6 +2,7 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFunctions } from "firebase/functions"
 import { getFirestore } from "firebase/firestore";
+import { getStorage } from "firebase/storage";
 import { getMoralisAuth } from "@moralisweb3/client-firebase-auth-utils";
 
 const app = initializeApp({
@@ -21,4 +22,5 @@ export const moralisAuth = getMoralisAuth(app, {
     functions
 });
 export const firestore = getFirestore(app);
+export const storage = getStorage(app);
 export default app;

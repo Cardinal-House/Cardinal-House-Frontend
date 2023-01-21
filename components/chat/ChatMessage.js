@@ -8,7 +8,7 @@ import { useAuth } from "../../contexts/AuthContext";
 export default function ChatMessage(props) {
     const { currentUser } = useAuth();
 
-    const { text, uid, photoURL, createdAt } = props.message;
+    const { text, uid, photoURL, createdAt, username } = props.message;
 
     const messageClass = uid === currentUser.uid ? "sent" : "received";
 
@@ -61,7 +61,7 @@ export default function ChatMessage(props) {
         <div className={clsx(styles.message, messageClass == "sent" ? styles.sentMessage : styles.receivedMessage)}>
             <img src={photoURL ? photoURL : `/Original Cardinal NFT ${imageIndex}.png`} className={styles.chatImg} />
             <Typography variant="p" className={styles.chatElement}>
-                <span className={styles.userText}>User </span><span className={styles.dateText}>{toDateString(createdAt)}</span>
+                <span className={styles.userText}>{username ? username : "Username"} </span><span className={styles.dateText}>{toDateString(createdAt)}</span>
                 <br/>
                 <span className={styles.messageText}>{text.replaceAll("NEWLINE", "\n")}</span>
             </Typography>

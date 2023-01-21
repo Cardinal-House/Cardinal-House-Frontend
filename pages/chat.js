@@ -29,9 +29,10 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import Footer from '../components/Footer';
 import SignIn from '../components/auth/SignIn';
 import SignOut from '../components/auth/SignOut';
+import ProfileDropdown from '../components/auth/ProfileDropdown';
 import ChatRoom from '../components/chat/ChatRoom';
 
-import { auth } from '../firebase-vars';
+import { useAuth } from "../contexts/AuthContext";
 import { firestore } from '../firebase-vars';
 
 import styles from '../styles/Community.module.css';
@@ -44,7 +45,7 @@ export default function Chat(props) {
   const [expandedCategories, setExpandedCategories] = useState(["Cardinal Info"]);
   const [selectedTextChannel, setSelectedTextChannel] = useState({name: "Announcements", id: "9lNxSA0wSoRkaiEUybf0"});
 
-  const [user] = useAuthState(auth);  
+  const { currentUser, settingUpAccount } = useAuth();
 
   const channelsRef = collection(firestore, "textChannels");
   const channelsQuery = query(channelsRef);
@@ -148,7 +149,6 @@ export default function Chat(props) {
           </Grid>
       </Grid>
 
-      <Divider />
       <List>
         <ListItem key="Back to Homepage" button className={styles.bigBtn} onClick={() => {window.location.href = `${window.location.origin}`}}>
             <ListItemIcon>
@@ -219,7 +219,8 @@ export default function Chat(props) {
                 <Typography variant="h5" noWrap component="div" sx={{ flexGrow: 1 }}>
                     Chat Prototype
                 </Typography>
-                {user ? <SignOut /> : <SignIn />}
+                {(!currentUser || settingUpAccount) && <SignIn />}
+                <ProfileDropdown />
                 </Toolbar>
             </AppBar>            
             <Box
@@ -263,13 +264,7 @@ export default function Chat(props) {
             >
                 <Toolbar />
 
-                {user && <ChatRoom selectedTextChannel={selectedTextChannel} />}
-                
-                <Grid container justifyContent="center" alignItems="center" spacing={4}>
-                    <Grid item xs={12}>
-
-                    </Grid>
-                </Grid>
+                {currentUser && <ChatRoom selectedTextChannel={selectedTextChannel} />}
             </Box>
         </Box>
     </>

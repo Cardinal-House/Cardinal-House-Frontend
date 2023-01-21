@@ -21,7 +21,7 @@ const useFocus = () => {
 }
 
 export default function ChatRoom(props) {
-    const { currentUser } = useAuth();
+    const { currentUser, currentUserData } = useAuth();
 
     const messageRef = collection(firestore, "textChannels", props.selectedTextChannel.id, "messages");
     const messageQuery = query(messageRef, orderBy("createdAt", "desc"), limit(25));
@@ -90,6 +90,7 @@ export default function ChatRoom(props) {
         addDoc(messageRef, {
             text: formValue.replaceAll("\n", "NEWLINE"),
             createdAt: serverTimestamp(),
+            username: currentUserData && currentUserData.username ? currentUserData.username : "User",
             uid,
             photoURL
         }).then((response) => {

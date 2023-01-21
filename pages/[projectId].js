@@ -357,7 +357,7 @@ export async function getStaticPaths() {
         params: { projectId: project.id },
     }))
 
-    return { paths, fallback: 'blocking' }
+    return { paths, fallback: false }
 }
 
 export default ProjectInsight;

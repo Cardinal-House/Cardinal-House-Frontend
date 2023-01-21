@@ -12,9 +12,13 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import styles from '../../styles/Community.module.css';
 
 import { useAuth } from "../../contexts/AuthContext";
+import ManageAccount from '../profile/ManageAccount';
 
 export default function SignIn() {
-    const { signInWithGoogle, signInWithTwitter, signInMoralis, login, signup, resetPassword } = useAuth();
+    const { 
+        signInWithGoogle, signInWithTwitter, signInMoralis, login, signup, 
+        resetPassword, settingUpAccount, setSettingUpAccount 
+    } = useAuth();
 
     const [signInModalOpen, setSignInModalOpen] = useState(false);
     const [forgotPasswordModal, setForgotPasswordModal] = useState(false);
@@ -80,6 +84,8 @@ export default function SignIn() {
         signup(email, password).then((response) => {
             setShowInvalidLogin(false);
             setLoggingIn(false);
+            setSettingUpAccount(true);
+            hideSignInModal();
         })
         .catch((error) => {
             console.log(error);
@@ -119,6 +125,10 @@ export default function SignIn() {
         setForgotPasswordModal(false);        
     }
 
+    const hideSettingUpAccountModal = () => {
+        setSettingUpAccount(false);
+    }
+
     const showForgotPassword = () => {
         setSignInModalOpen(false);
         setForgotPasswordModal(true);
@@ -135,6 +145,26 @@ export default function SignIn() {
 
     return (
         <>
+            <Modal aria-labelledby="SetUpAccountModal" centered size="lg" show={settingUpAccount} onHide={hideSettingUpAccountModal} dialogClassName="finishAccountCreationModal" contentClassName="signInModal">
+                <Modal.Body className={styles.modalDark}>
+                    <Grid container justifyContent="center" alignItems="top" spacing={3} className={styles.accountFinishGrid}>
+                        <Grid item xs={12}>
+                            <Typography variant="h3" className={styles.finishAccountCreation}>
+                                Finish Account Creation
+                            </Typography>
+                        </Grid>
+                    </Grid>
+                    <div className={styles.finishAccountDetailsDiv}>
+                        <ManageAccount />
+                    </div>
+                    <div className="text-center mt-2 pb-3">
+                        <Button variant="contained" className={styles.finishAccountSetupBtn} onClick={hideSettingUpAccountModal}>
+                            Finish
+                        </Button>
+                    </div>
+                </Modal.Body>
+            </Modal> 
+
             <Modal aria-labelledby="SignInModal" centered size="md" show={signInModalOpen} onHide={hideSignInModal} contentClassName="signInModal">
                 <Modal.Header closeButton closeVariant="white" className={clsx(styles.loginModal, styles.modalDark)} />
                 <Modal.Body className={styles.modalDark}>
@@ -312,12 +342,18 @@ export default function SignIn() {
                 </Modal.Body>
             </Modal>    
 
-            <Button variant="contained" onClick={() => {setSigningUp(false);setSignInModalOpen(true)}} className={styles.signIn}>
-                Log in
-            </Button>
-            <Button variant="contained" onClick={() => {setSigningUp(true);setSignInModalOpen(true)}} className={styles.signIn}>
-                Sign Up
-            </Button>
+            {
+                !settingUpAccount && (
+                    <>
+                        <Button variant="contained" onClick={() => {setSigningUp(false);setSignInModalOpen(true)}} className={styles.signIn}>
+                            Log in
+                        </Button>
+                        <Button variant="contained" onClick={() => {setSigningUp(true);setSignInModalOpen(true)}} className={styles.signIn}>
+                            Sign Up
+                        </Button>
+                    </>
+                )
+            }
         </>
     )
 }

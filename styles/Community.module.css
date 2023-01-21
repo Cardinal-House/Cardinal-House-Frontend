@@ -18,7 +18,7 @@
     background-image: linear-gradient(rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.09)) !important;
     color: white !important;
     height: 80px !important;
-    box-shadow: 0 4px 10px -2px #000000 !important;
+    box-shadow: 0 4px 4px -4px black !important;
     position: sticky !important;
     top: -16px !important;
     z-index: 100000 !important;
@@ -32,6 +32,77 @@
 .navIcons {
     font-size: 20px !important;
     color: white !important;
+}
+
+.iconSize {
+  font-size: 2.3rem !important;
+  color: var(--mint-primary-color) !important;
+  cursor: pointer !important;
+}
+
+.dropDownAccountIcon {
+  margin-top: 15px !important;
+  margin-bottom: 15px !important;
+  font-size: 2.5rem !important;
+  color: var(--mint-primary-color) !important;
+}
+
+.profileAccountIcon {
+  font-size: 4rem !important;
+  color: var(--mint-primary-color) !important;  
+}
+
+.profileImage {
+  border-radius: 50% !important;
+}
+
+.smallProfileImage {
+  margin-top: 15px !important;
+  margin-bottom: 15px !important;
+}
+
+.hoverProfileImage {
+  cursor: pointer !important;
+}
+
+.profileTableRow {
+  background-color: var(--education-center-secondary) !important;
+}
+
+.accountVariableDiv {
+  display: inline-block !important;
+}
+
+.accountValueDiv {
+  display: inline-block !important;
+  float: right !important;
+}
+
+.accountSubmitBtn {
+  float: right !important;
+  padding-bottom: 8px !important;
+}
+
+.accountSubmitBtnWidth {
+  width: 100px !important;
+}
+
+.accountCancelBtn {
+  float: right !important;
+  width: 100px !important;
+  margin-right: 10px !important;
+}
+
+.progress {
+  color: black !important;
+}
+
+.profileTableNoHover, .profileTableRowHover {
+  cursor: pointer !important;
+}
+
+.profileTableRowHover:hover {
+  background-color: #3a3c4a !important;
 }
 
 .toolbar {
@@ -71,6 +142,19 @@
   padding-right: 2rem !important;
 }
 
+.finishAccountCreation {
+  margin-top: 0.2% !important;
+  padding-top: 0.5% !important;
+  text-align: center !important;
+  padding-left: 2rem !important;
+  padding-right: 2rem !important;
+}
+
+.finishAccountSetupBtn {
+  width: 200px !important;
+  font-size: 16px !important;
+}
+
 .signInTypeGrid {
   margin-top: -15% !important;
   display: flex !important;
@@ -103,6 +187,14 @@
 
 .selectedSignInType {
   background-color: rgba(0, 255, 200, 0.7) !important;
+}
+
+.finishAccountDetailsDiv {
+  margin-bottom: 2% !important;
+}
+
+.finishAccountCreation {
+  font-size: 30px !important;
 }
 
 .twitterIcon {
@@ -304,6 +396,41 @@
     max-width: 500px !important;
   }
 
+  .accountMenuGrid {
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+    text-align: center !important;
+    width: 250px !important;
+    padding-bottom: 0 !important;
+    margin-bottom: 15px !important;
+  }
+
+  .customDivider {
+    margin: 0 !important;
+  }
+
+  .profileInfoHeader {
+    font-size: 22px !important;
+  }
+
+  .fieldLabel {
+    font-size: 18px !important;
+  }
+
+  .fieldValue {
+    font-size: 16px !important;
+    color: rgb(240, 237, 237) !important;
+  }
+
+  .accountDropDownMenu {
+    padding-bottom: 0 !important;
+  }
+
+  .accountDropdownMenuItem {
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+  }
+  
   .submitBtn:disabled {
     opacity: 0.5;
     cursor: not-allowed;

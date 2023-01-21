@@ -219,6 +219,10 @@ a {
   border-color: var(--mint-primary-color);
 }
 
+.MuiAppBar-root {
+  box-shadow: 0 6px 6px -6px black !important;
+}
+
 .boldText {
   font-weight: 800 !important;
 }
@@ -238,6 +242,12 @@ a {
   max-width: 95vw !important;
 }
 
+.finishAccountCreationModal {
+  z-index: 1000000000 !important;
+  width: 80vw !important;
+  max-width: 80vw !important;
+}
+
 .modal {
   z-index: 100000000 !important;
 }
@@ -252,6 +262,10 @@ a {
 
 .Mui-focused {
   border: none !important;
+}
+
+.accountDropDownMenu .MuiList-padding {
+  padding-bottom: 0 !important;
 }
 
 @media (max-width: 650px) {
@@ -305,7 +319,7 @@ a {
 }
 
 @media (max-width: 500px) {
-  .projectSearchModal {
+  .projectSearchModal, .finishAccountCreationModal {
       width: 100vw !important;
       max-width: 100vw !important;
       margin: 0 !important;

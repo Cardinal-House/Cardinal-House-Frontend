@@ -1,18 +1,22 @@
 import React, { useContext, useState, useEffect } from "react";
-import { auth, moralisAuth } from "../firebase-vars";
+import { auth, moralisAuth, firestore } from "../firebase-vars";
 import { GoogleAuthProvider, TwitterAuthProvider, signInWithPopup, 
-    signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
+    signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail,
+    updateProfile } from "firebase/auth";
 import { signInWithMoralis } from "@moralisweb3/client-firebase-evm-auth";
+import { doc, getDoc, setDoc, writeBatch } from "firebase/firestore";
 
 const AuthContext = React.createContext()
 
 export function useAuth() {
-  return useContext(AuthContext)
+  return useContext(AuthContext);
 }
 
 export function AuthProvider({ children }) {
-  const [currentUser, setCurrentUser] = useState()
-  const [loading, setLoading] = useState(true)
+  const [currentUser, setCurrentUser] = useState();
+  const [currentUserData, setCurrentUserData] = useState({});
+  const [settingUpAccount, setSettingUpAccount] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   function signup(email, password) {
     return createUserWithEmailAndPassword(auth, email, password)
@@ -44,12 +48,54 @@ export function AuthProvider({ children }) {
     return sendPasswordResetEmail(auth, email);
   }
 
+  function updateProfilePicture(profilePictureURL) {
+    return updateProfile(currentUser, {photoURL: profilePictureURL});
+  }
+
   function updateEmail(email) {
     return currentUser.updateEmail(email)
   }
 
   function updatePassword(password) {
     return currentUser.updatePassword(password)
+  }
+
+  async function updateUserData(field, newFieldValue) {
+    const docRef = doc(firestore, "users", currentUser.uid);
+
+    if (field == "username") {
+      const docSnap = await getDoc(docRef);
+      const batch = writeBatch(firestore);
+
+      const usernameDocRef = doc(firestore, "usernames", newFieldValue);
+
+      batch.set(docRef, { [field]: newFieldValue }, { merge: true });
+      batch.set(usernameDocRef, { uid: currentUser.uid });
+
+      if (docSnap.exists() && docSnap.data().username) {
+        const oldUsernameDocRef = doc(firestore, "usernames", docSnap.data().username);
+        batch.delete(oldUsernameDocRef);
+      }
+
+      return batch.commit();
+    }
+    else {
+      return setDoc(docRef, { [field]: newFieldValue }, { merge: true });
+    }
+  }
+
+  async function getLatestUserData() {
+    const docRef = doc(firestore, "users", currentUser.uid);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      console.log("Document data:", docSnap.data());
+      setCurrentUserData(docSnap.data());
+    } else {
+      console.log(`User with UID ${currentUser.uid} not found.`);
+      setCurrentUserData({});
+      setSettingUpAccount(true);
+    }
   }
 
   useEffect(() => {
@@ -61,8 +107,17 @@ export function AuthProvider({ children }) {
     return unsubscribe
   }, [])
 
+  useEffect(() => {
+    if (currentUser && currentUser.uid) {
+      getLatestUserData();
+    }
+  }, [currentUser])
+
   const value = {
     currentUser,
+    currentUserData,
+    getLatestUserData,
+    updateUserData,
     login,
     signup,
     logout,
@@ -71,7 +126,10 @@ export function AuthProvider({ children }) {
     updatePassword,
     signInWithGoogle,
     signInWithTwitter,
-    signInMoralis
+    signInMoralis,
+    updateProfilePicture,
+    settingUpAccount,
+    setSettingUpAccount
   }
 
   return (
