@@ -1,19 +1,17 @@
 import { useState, useEffect } from 'react';
-import Image from 'next/image';
-import axios from 'axios';
+import dynamic from 'next/dynamic';
 import clsx from 'clsx';
-import { useAuthState } from 'react-firebase-hooks/auth';
 import { AiFillHome } from "react-icons/ai";
 import { BiCategory } from "react-icons/bi";
 import { BsFillChatSquareTextFill } from "react-icons/bs";
+import { GiSpeaker } from "react-icons/gi";
 import { collection, query } from "firebase/firestore";
 import { useCollectionData, useCollection } from 'react-firebase-hooks/firestore';
 
-import { Grid, Typography, Collapse } from '@mui/material';
+import { Grid, Typography, Collapse, Button } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
-import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
 import List from '@mui/material/List';
@@ -25,10 +23,15 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import HeadphonesIcon from '@mui/icons-material/Headphones';
+import HeadsetOffIcon from '@mui/icons-material/HeadsetOff';
+import MicIcon from "@mui/icons-material/Mic";
+import MicOffIcon from "@mui/icons-material/MicOff";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import { doc, setDoc } from "firebase/firestore";
 
 import Footer from '../components/Footer';
 import SignIn from '../components/auth/SignIn';
-import SignOut from '../components/auth/SignOut';
 import ProfileDropdown from '../components/auth/ProfileDropdown';
 import ChatRoom from '../components/chat/ChatRoom';
 
@@ -37,6 +40,8 @@ import { firestore } from '../firebase-vars';
 
 import styles from '../styles/Community.module.css';
 
+const VoiceCall = dynamic(() => import('../components/voice/VoiceCall'), { ssr: false });
+
 const drawerWidth = 300;
 
 export default function Chat(props) {
@@ -44,17 +49,23 @@ export default function Chat(props) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [expandedCategories, setExpandedCategories] = useState(["Cardinal Info"]);
   const [selectedTextChannel, setSelectedTextChannel] = useState({name: "Announcements", id: "9lNxSA0wSoRkaiEUybf0"});
+  const [joinedVoiceChannel, setJoinedVoiceChannel] = useState({});
+  const [muted, setMuted] = useState(false);
+  const [deafened, setDeafened] = useState(false);
+  const [controlsDisabled, setControlsDisabled] = useState(false);
+  const [inVoiceChannel, setInVoiceChannel] = useState(false);
 
-  const { currentUser, settingUpAccount } = useAuth();
+  const { currentUser, settingUpAccount, logoutRequested, isConnected, setIsConnected } = useAuth();
 
-  const channelsRef = collection(firestore, "textChannels");
-  const channelsQuery = query(channelsRef);
+  const textChannelsRef = collection(firestore, "textChannels");
+  const textChannelsQuery = query(textChannelsRef);
+
+  const voiceChannelsRef = collection(firestore, "voiceChannels");
+  const voiceChannelsQuery = query(voiceChannelsRef);
 
   // const [textChannels] = useCollectionData(channelsQuery);
-  const [textChannels, loading, error] = useCollection(channelsQuery);
-
-  // console.log(textChannels ? textChannels.docs[0] : "")
-  // console.log(textChannels ? textChannels.docs[0].id : "")
+  const [textChannels, textChannelsLoading, textChannelsError] = useCollection(textChannelsQuery);
+  const [voiceChannels, voiceChannelsLoading, voiceChannelsError] = useCollection(voiceChannelsQuery);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -109,35 +120,97 @@ export default function Chat(props) {
       return 0;    
   }
 
-  const getTextChannels = () => {
-    const currTextChannels = {"Cardinal Info": []};
+  const joinVoiceChannel = async (voiceChannel) => {
+    const agoraVoiceChannelName = voiceChannel.agoraName;
+
+    setJoinedVoiceChannel(voiceChannel);
+    setInVoiceChannel(true);
+    setIsConnected(true);
+
+    const docRef = doc(firestore, "voiceChannels", voiceChannel.id, "users", currentUser.uid);
+    await setDoc(docRef, { muted: muted, deafened: deafened, joined: true }, { merge: true });
+  }
+
+  const enableControlsAfterWait = () => {
+    setTimeout(() => {
+        setControlsDisabled(false);
+      }, "1000")
+  }
+
+  const updateMuted = () => {
+    setMuted(!muted);
+
+    if (deafened) {
+        setDeafened(false);
+    }
+
+    setControlsDisabled(true);
+    enableControlsAfterWait();
+  }
+
+  const updateDeafened = () => {
+    if (deafened) {
+        setMuted(false);
+    }
+    else {
+        setMuted(true);
+    }
+
+    setDeafened(!deafened);
+    setControlsDisabled(true);
+    enableControlsAfterWait();
+  }
+
+  const getChannels = () => {
+    const currChannels = {"Cardinal Info": []};
 
     if (!textChannels || !textChannels?.docs) {
-        return currTextChannels;
+        return currChannels;
     }
 
     textChannels.docs.forEach(textChannel => {
         const currCategory = getAttribute(textChannel, "category");
 
-        if (Object.keys(currTextChannels).includes(currCategory)) {
-            currTextChannels[currCategory].push({name: getAttribute(textChannel, "name"), id: textChannel.id});
+        if (Object.keys(currChannels).includes(currCategory)) {
+            currChannels[currCategory].push({name: getAttribute(textChannel, "name"), type: "text", id: textChannel.id});
         }
         else {
-            currTextChannels[currCategory] = [{name: getAttribute(textChannel, "name"), id: textChannel.id}];
+            currChannels[currCategory] = [{name: getAttribute(textChannel, "name"), type: "text", id: textChannel.id}];
         }
     });
 
-    Object.keys(currTextChannels).forEach((category) => {
-        currTextChannels[category].sort(alphSort);
+    Object.keys(currChannels).forEach((category) => {
+        currChannels[category].sort(alphSort);
     });
 
-    return currTextChannels;
+    if (!voiceChannels || !voiceChannels?.docs) {
+        return currChannels;
+    }
+
+    voiceChannels.docs.forEach(voiceChannel => {
+        const currCategory = getAttribute(voiceChannel, "category");
+
+        if (Object.keys(currChannels).includes(currCategory)) {
+            currChannels[currCategory].push({name: getAttribute(voiceChannel, "name"), agoraName: getAttribute(voiceChannel, "agoraName"), type: "voice", id: voiceChannel.id});
+        }
+        else {
+            currChannels[currCategory] = [{name: getAttribute(voiceChannel, "name"), agoraName: getAttribute(voiceChannel, "agoraName"), type: "voice", id: voiceChannel.id}];
+        }
+    });    
+
+    return currChannels;
   }
 
-  const currTextChannels = getTextChannels();
+  useEffect(() => {
+    if (logoutRequested) {
+        setJoinedVoiceChannel({});
+    }
+  }, [logoutRequested])
+
+  const currChannels = getChannels();
 
   const drawer = (
-    <div className={styles.navDrawer}>
+    <div className={clsx("communityDrawer", styles.navDrawer)}>
       <Grid container justifyContent="center" alignItems="center" spacing={2} className={styles.toolbarDiv}>
           <Grid item xs={2}>
             <img alt="" src="/NewCardinalHouseLogo.png" width="45" height="45" className={clsx(styles.logoImage)} />
@@ -157,7 +230,7 @@ export default function Chat(props) {
             <ListItemText primary="Back to Home Page" />
         </ListItem>
         {
-            Object.keys(currTextChannels).map((category) => (
+            Object.keys(currChannels).map((category) => (
                 <div key={category}>
                 <ListItem disablePadding>
                     <ListItemButton className="categoryBtn" onClick={() => updateCategory(category)}>
@@ -172,24 +245,75 @@ export default function Chat(props) {
                 </ListItem>
                 <Collapse in={expandedCategories.includes(category)} timeout="auto" unmountOnExit>
                     {
-                        currTextChannels[category].map((currTextChannel) => (
-                            <ListItem key={currTextChannel.id} className={clsx(selectedTextChannel.id == currTextChannel.id ? styles.currSelected : "")} disablePadding>
-                                <ListItemButton className="channelBtn" onClick={() => updateSelectedTextChannel(currTextChannel)}>
-                                    <ListItemText primary={
-                                        <Typography variant="p">
-                                            <BsFillChatSquareTextFill /> &nbsp;&nbsp;&nbsp;
-                                            {currTextChannel.name}
-                                        </Typography>
-                                    }/>
-                                </ListItemButton>
-                            </ListItem>
+                        currChannels[category].map((currChannel) => (
+                            <>
+                                {
+                                    currChannel.type == "text" && (
+                                        <ListItem key={currChannel.id} className={clsx(selectedTextChannel.id == currChannel.id ? styles.currSelected : "")} disablePadding>
+                                            <ListItemButton className="channelBtn" onClick={() => updateSelectedTextChannel(currChannel)}>
+                                                <ListItemText primary={
+                                                    <Typography variant="p">
+                                                        <BsFillChatSquareTextFill /> &nbsp;&nbsp;&nbsp;
+                                                        {currChannel.name}
+                                                    </Typography>
+                                                }/>
+                                            </ListItemButton>
+                                        </ListItem>
+                                    )
+                                }
+                                {
+                                    currChannel.type == "voice" && (
+                                        <ListItem key={currChannel.id} className={clsx(joinedVoiceChannel.id == currChannel.id ? styles.currSelected : "")} disablePadding>
+                                            <Grid container justifyContent="center" alignItems="center">
+                                                <Grid item xs={12}>
+                                                    <ListItemButton className="channelBtn" onClick={() => joinVoiceChannel(currChannel)}>
+                                                        <ListItemText primary={
+                                                            <Typography variant="p">
+                                                                <GiSpeaker style={{fontSize: '25px'}} /> &nbsp;&nbsp;&nbsp;
+                                                                {currChannel.name}
+                                                            </Typography>
+                                                        }/>
+                                                    </ListItemButton>
+                                                </Grid>
+                                                {
+                                                joinedVoiceChannel.id == currChannel.id && isConnected && currentUser && currentUser.uid && (
+                                                    <Grid item xs={12}>
+                                                        <VoiceCall channelName={currChannel.agoraName} channelId={currChannel.id} setJoinedVoiceChannel={setJoinedVoiceChannel}
+                                                            muted={muted} deafened={deafened} inVoiceChannel={inVoiceChannel} setInVoiceChannel={setInVoiceChannel} />
+                                                    </Grid>
+                                                )
+                                                }   
+                                            </Grid>
+                                        </ListItem>
+                                    )
+                                }
+                            </>
                         ))
                     }
                 </Collapse>
                 </div>
             ))
-        }        
+        }     
       </List>
+        {
+            <div className={styles.voiceControlsDiv}>
+                <Button variant="contained" onClick={updateMuted} disabled={controlsDisabled}
+                    className={clsx(styles.emojiBtn, styles.voiceControlBtn, controlsDisabled ? styles.voiceControlBtnDisabled : "")}>
+                    {muted ? <MicOffIcon /> : <MicIcon />}
+                </Button> 
+                <Button variant="contained" onClick={updateDeafened} disabled={controlsDisabled}
+                    className={clsx(styles.emojiBtn, styles.voiceControlBtn, controlsDisabled ? styles.voiceControlBtnDisabled : "")}>
+                    {deafened ? <HeadsetOffIcon /> : <HeadphonesIcon />}
+                </Button>
+                {
+                    inVoiceChannel && (
+                        <Button variant="contained" className={clsx(styles.emojiBtn, styles.voiceControlBtn)} onClick={() => setInVoiceChannel(false)}>
+                            <ExitToAppIcon />
+                        </Button> 
+                    )
+                }
+            </div>  
+        }    
     </div>
   );
 

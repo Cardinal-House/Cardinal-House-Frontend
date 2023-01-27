@@ -263,6 +263,15 @@
   padding-bottom: 5% !important;
 }
 
+.voiceControlsDiv {
+  position: absolute !important;
+  bottom: 40px !important;
+  left: 0 !important;
+  width: 100% !important;
+  display: flex !important;
+  justify-content: center !important;
+}
+
 @media (max-width: 1500px) {
   .optionMargin {
       margin: 2% !important;
@@ -390,6 +399,20 @@
     background-color: gray !important;
   }
 
+  .voiceControlBtn {
+    color:rgb(192, 192, 192) !important;
+    margin-left: 2% !important;
+    margin-right: 2% !important;
+  }
+
+  .voiceControlBtn:hover {
+    background-color: rgb(117, 117, 117) !important;
+  }
+
+  .voiceControlBtnDisabled {
+    color:rgb(155, 155, 155) !important;
+  }
+
   .emojiMenuGrid {
     padding-left: 25px !important;
     padding-right: 50px !important;
@@ -497,6 +520,31 @@
     border-radius: 50%;
     margin: 2px 5px;
     margin-top: 1% !important;
+  }
+
+  .voiceImg {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    margin: 2px 5px;
+    margin-top: 1% !important;
+    margin-left: 4% !important;
+  }
+
+  .speakingImg {
+    border: 3px solid rgb(141, 212, 34);
+  }
+
+  .voiceUsername {
+    font-size: 13px !important;
+    margin-left: 2% !important;
+  }
+
+  .voiceUserIcon {
+    font-size: 18px !important;
+    float: right !important;
+    margin-top: 3% !important;
+    margin-right: 2% !important;
   }
   
   

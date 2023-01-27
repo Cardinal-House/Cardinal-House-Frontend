@@ -16,6 +16,8 @@ export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState();
   const [currentUserData, setCurrentUserData] = useState({});
   const [settingUpAccount, setSettingUpAccount] = useState(false);
+  const [isConnected, setIsConnected] = useState(false);
+  const [logoutRequested, setLogoutRequested] = useState(false);
   const [loading, setLoading] = useState(true);
 
   function signup(email, password) {
@@ -41,7 +43,12 @@ export function AuthProvider({ children }) {
   }
 
   function logout() {
-    return auth.signOut();
+    if (isConnected) {
+      setLogoutRequested(true);
+    }
+    else {
+      return auth.signOut();
+    }
   }
 
   function resetPassword(email) {
@@ -113,6 +120,14 @@ export function AuthProvider({ children }) {
     }
   }, [currentUser])
 
+  useEffect(() => {
+    if (!isConnected && logoutRequested) {
+      setLogoutRequested(false);
+      auth.signOut();
+      location.reload();
+    }
+  }, [isConnected])
+
   const value = {
     currentUser,
     currentUserData,
@@ -129,7 +144,10 @@ export function AuthProvider({ children }) {
     signInMoralis,
     updateProfilePicture,
     settingUpAccount,
-    setSettingUpAccount
+    setSettingUpAccount,
+    isConnected,
+    setIsConnected,
+    logoutRequested
   }
 
   return (

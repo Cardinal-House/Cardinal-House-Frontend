@@ -20,7 +20,7 @@ import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
 import dynamic from 'next/dynamic'
 
-const VideoCall = dynamic(() => import('../components/VideoCall'), { ssr: false });
+const VideoCall = dynamic(() => import('../components/voice/VideoCall'), { ssr: false });
 
 import styles from '../styles/Community.module.css';
 const drawerWidth = 300;
