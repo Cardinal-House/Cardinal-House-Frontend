@@ -64,6 +64,20 @@ export default function HomeFooter(props) {
                     </Typography>
                 </a>
               </Grid>
+              <Grid item lg={2} md={2} sm={3} xs={12}>
+                <a href="/terms-of-service" target="_blank" rel="noreferrer" className={styles.footerLink}>
+                    <Typography variant="h6">
+                        Terms of Service
+                    </Typography>
+                </a>
+              </Grid>
+              <Grid item lg={2} md={2} sm={3} xs={12}>
+                <a href="/privacy-policy" target="_blank" rel="noreferrer" className={styles.footerLink}>
+                    <Typography variant="h6">
+                        Privacy Policy
+                    </Typography>
+                </a>
+              </Grid>
               <Grid item xs={12} className={styles.footerBottomText}>
                 <Typography variant="p">
                   Copyright Cardinal House 2022

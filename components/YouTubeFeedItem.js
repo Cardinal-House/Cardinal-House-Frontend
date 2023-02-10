@@ -6,7 +6,7 @@ import moment from 'moment';
 
 import styles from '../styles/EducationCenter.module.css';
 
-export default function YouTubeFeedItem({ feed, project }) {
+export default function YouTubeFeedItem({ feed, project, videoPlaying, setVideoPlaying }) {
     return (
         <>
             <Typography variant="p">
@@ -14,7 +14,8 @@ export default function YouTubeFeedItem({ feed, project }) {
             </Typography>
             <br/>
             <div className={clsx(styles.reactPlayerContainer, "mt-3 mb-3")}>
-                <ReactPlayer url={feed.link} controls={true} width="100%" height="100%" className={styles.reactPlayer} />
+                <ReactPlayer url={feed.link} controls={true} width="100%" height="100%" className={styles.reactPlayer}
+                    onPlay={() => setVideoPlaying(feed.link)} playing={videoPlaying == feed.link} />
             </div>   
             <br/>
             <div className="mt-3 mb-3">
