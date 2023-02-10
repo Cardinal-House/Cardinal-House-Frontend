@@ -59,6 +59,7 @@ function ProjectInsight(props) {
   const [additionalFeed, setAdditionalFeed] = useState([]);
   const [allFeedItemsLoaded, setAllFeedItemsLoaded] = useState(false);
   const [showProjectSearchModal, setShowProjectSearchModal] = useState(false);
+  const [videoPlaying, setVideoPlaying] = useState("");
 
   const [socialSpecificFeeds, setSocialSpecificFeeds] = useState({
     twitter: {skipNum: props.projectFeed.filter(f => f.social == "twitter").length, feed: [], allFeedLoaded: false},
@@ -232,7 +233,8 @@ function ProjectInsight(props) {
                                             }
                                             {
                                                 feed.social == "youtube" && (
-                                                    <YouTubeFeedItem feed={feed} project={props.project} />
+                                                    <YouTubeFeedItem feed={feed} project={props.project} 
+                                                        videoPlaying={videoPlaying} setVideoPlaying={setVideoPlaying} />
                                                 )
                                             }
                                         </div>
