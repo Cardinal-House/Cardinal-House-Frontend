@@ -14,7 +14,7 @@ import { useAuth } from "../../contexts/AuthContext";
 import { storage } from '../../firebase-vars';
 
 export default function ManageAccount() {
-    const { currentUser, currentUserData, getLatestUserData, updateUserData, updateProfilePicture } = useAuth();
+    const { currentUser, currentUserData, updateUserData, updateProfilePicture } = useAuth();
 
     const fields = ["Username", "Email", "Wallet Address", "Discord Username"];
 
@@ -75,7 +75,6 @@ export default function ManageAccount() {
             setUpdateFail("");
             setUpdateSuccess(`Successfully updated ${field.toLowerCase()} to ${newFields[field]}`);
             setNewFields({...newFields, [field]: ""});
-            await getLatestUserData();
         })
         .catch((error) => {
             console.log(error);

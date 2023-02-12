@@ -5,7 +5,7 @@ import { AiFillHome } from "react-icons/ai";
 import { BiCategory } from "react-icons/bi";
 import { BsFillChatSquareTextFill } from "react-icons/bs";
 import { GiSpeaker } from "react-icons/gi";
-import { collection, query } from "firebase/firestore";
+import { collection, collectionGroup, query, where, onSnapshot } from "firebase/firestore";
 import { useCollectionData, useCollection } from 'react-firebase-hooks/firestore';
 
 import { Grid, Typography, Collapse, Button } from '@mui/material';
@@ -34,6 +34,8 @@ import Footer from '../components/Footer';
 import SignIn from '../components/auth/SignIn';
 import ProfileDropdown from '../components/auth/ProfileDropdown';
 import ChatRoom from '../components/chat/ChatRoom';
+import UnjoinedVoiceCall from '../components/voice/UnjoinedVoiceCall';
+import VoiceCallRoom from '../components/voice/VoiceCallRoom';
 
 import { useAuth } from "../contexts/AuthContext";
 import { firestore } from '../firebase-vars';
@@ -48,14 +50,16 @@ export default function Chat(props) {
   const { window2 } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
   const [expandedCategories, setExpandedCategories] = useState(["Cardinal Info"]);
-  const [selectedTextChannel, setSelectedTextChannel] = useState({name: "Announcements", id: "9lNxSA0wSoRkaiEUybf0"});
+  const [selectedTextChannel, setSelectedTextChannel] = useState({name: "Announcements", id: "9lNxSA0wSoRkaiEUybf0", type: "text"});
   const [joinedVoiceChannel, setJoinedVoiceChannel] = useState({});
+  const [users, setUsers] = useState({});
   const [muted, setMuted] = useState(false);
   const [deafened, setDeafened] = useState(false);
   const [controlsDisabled, setControlsDisabled] = useState(false);
   const [inVoiceChannel, setInVoiceChannel] = useState(false);
+  const [voiceChannelUsers, setVoiceChannelUsers] = useState({});
 
-  const { currentUser, settingUpAccount, logoutRequested, isConnected, setIsConnected } = useAuth();
+  const { currentUser, currentUserData, settingUpAccount, logoutRequested, isConnected, setIsConnected } = useAuth();
 
   const textChannelsRef = collection(firestore, "textChannels");
   const textChannelsQuery = query(textChannelsRef);
@@ -63,9 +67,32 @@ export default function Chat(props) {
   const voiceChannelsRef = collection(firestore, "voiceChannels");
   const voiceChannelsQuery = query(voiceChannelsRef);
 
+  const voiceChannelUsersRef = collectionGroup(firestore, "voiceChannelUsers");
+  const voiceChannelUsersQuery = query(voiceChannelUsersRef, where("joined", "==", true));
+
   // const [textChannels] = useCollectionData(channelsQuery);
   const [textChannels, textChannelsLoading, textChannelsError] = useCollection(textChannelsQuery);
   const [voiceChannels, voiceChannelsLoading, voiceChannelsError] = useCollection(voiceChannelsQuery);
+
+  useEffect(() => {
+    const unsubscribe = onSnapshot(voiceChannelUsersQuery, (querySnapshot) => {
+        const newVoiceChannelUsers = {};
+
+        querySnapshot.forEach((doc) => {
+            const currUserData = doc.data();
+            const currChannelId = currUserData.room;
+
+            if (Object.keys(newVoiceChannelUsers).includes(currChannelId)) {
+                newVoiceChannelUsers[currChannelId].push({...currUserData, id: doc.id});
+            }
+            else {
+                newVoiceChannelUsers[currChannelId] = [{...currUserData, id: doc.id}];
+            }
+        })
+
+        setVoiceChannelUsers(newVoiceChannelUsers);
+    });
+  }, [])
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -124,11 +151,13 @@ export default function Chat(props) {
     const agoraVoiceChannelName = voiceChannel.agoraName;
 
     setJoinedVoiceChannel(voiceChannel);
+    updateSelectedTextChannel(voiceChannel);
     setInVoiceChannel(true);
     setIsConnected(true);
 
-    const docRef = doc(firestore, "voiceChannels", voiceChannel.id, "users", currentUser.uid);
-    await setDoc(docRef, { muted: muted, deafened: deafened, joined: true }, { merge: true });
+    const docRef = doc(firestore, "voiceChannels", voiceChannel.id, "voiceChannelUsers", currentUser.uid);
+    await setDoc(docRef, { muted: muted, deafened: deafened, joined: true, room: voiceChannel.id, photoURL: currentUser.photoURL, username: currentUserData.username, adminKicked: false }, 
+        { merge: true, mergeFields: ["muted", "deafened", "joined", "room", "photoURL", "username", "adminKicked"] });
   }
 
   const enableControlsAfterWait = () => {
@@ -266,23 +295,45 @@ export default function Chat(props) {
                                         <ListItem key={currChannel.id} className={clsx(joinedVoiceChannel.id == currChannel.id ? styles.currSelected : "")} disablePadding>
                                             <Grid container justifyContent="center" alignItems="center">
                                                 <Grid item xs={12}>
-                                                    <ListItemButton className="channelBtn" onClick={() => joinVoiceChannel(currChannel)}>
+                                                    <ListItemButton className="channelBtn" 
+                                                        onClick={joinedVoiceChannel.id == currChannel.id ? () => updateSelectedTextChannel(currChannel) : () => joinVoiceChannel(currChannel)}>
                                                         <ListItemText primary={
                                                             <Typography variant="p">
                                                                 <GiSpeaker style={{fontSize: '25px'}} /> &nbsp;&nbsp;&nbsp;
                                                                 {currChannel.name}
+                                                                {
+                                                                    currentUser && currentUser.uid && joinedVoiceChannel.id == currChannel.id && voiceChannelUsers[currChannel.id] && Object.keys(users).length >= voiceChannelUsers[currChannel.id].length &&
+                                                                    <Typography variant="p" className="text-success">
+                                                                        &nbsp;- Connected to Voice
+                                                                    </Typography>
+                                                                }
+                                                                {
+                                                                    currentUser && currentUser.uid && joinedVoiceChannel.id == currChannel.id && voiceChannelUsers[currChannel.id] && Object.keys(users).length < voiceChannelUsers[currChannel.id].length &&
+                                                                    <Typography variant="p" className="text-warning">
+                                                                        &nbsp;- Connecting to Voice...
+                                                                    </Typography>                                                                 
+                                                                }
                                                             </Typography>
                                                         }/>
                                                     </ListItemButton>
                                                 </Grid>
                                                 {
-                                                joinedVoiceChannel.id == currChannel.id && isConnected && currentUser && currentUser.uid && (
-                                                    <Grid item xs={12}>
-                                                        <VoiceCall channelName={currChannel.agoraName} channelId={currChannel.id} setJoinedVoiceChannel={setJoinedVoiceChannel}
-                                                            muted={muted} deafened={deafened} inVoiceChannel={inVoiceChannel} setInVoiceChannel={setInVoiceChannel} />
-                                                    </Grid>
-                                                )
+                                                    joinedVoiceChannel.id == currChannel.id && isConnected && currentUser && currentUser.uid && (
+                                                        <Grid item xs={12}>
+                                                            <VoiceCall channelName={currChannel.agoraName} channelId={currChannel.id} setJoinedVoiceChannel={setJoinedVoiceChannel}
+                                                                muted={muted} deafened={deafened} inVoiceChannel={inVoiceChannel} setInVoiceChannel={setInVoiceChannel}
+                                                                users={users} setUsers={setUsers} />
+                                                        </Grid>
+                                                    )
                                                 }   
+                                                {
+                                                    currentUser && currentUser.uid && voiceChannelUsers[currChannel.id] 
+                                                    && (joinedVoiceChannel.id != currChannel.id || Object.keys(users).length < voiceChannelUsers[currChannel.id].length) && (
+                                                        <Grid item xs={12}>
+                                                            <UnjoinedVoiceCall users={voiceChannelUsers[currChannel.id]} />
+                                                        </Grid>
+                                                    )
+                                                }
                                             </Grid>
                                         </ListItem>
                                     )
@@ -388,7 +439,8 @@ export default function Chat(props) {
             >
                 <Toolbar />
 
-                {currentUser && <ChatRoom selectedTextChannel={selectedTextChannel} />}
+                {currentUser && (selectedTextChannel.type != "voice" || !inVoiceChannel) && <ChatRoom selectedTextChannel={selectedTextChannel} />}
+                {currentUser && selectedTextChannel.type == "voice" && inVoiceChannel && <VoiceCallRoom muted={muted} deafened={deafened} inVoiceChannel={inVoiceChannel} users={users} selectedTextChannel={selectedTextChannel} />}
             </Box>
         </Box>
     </>

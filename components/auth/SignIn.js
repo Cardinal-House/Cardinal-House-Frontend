@@ -126,7 +126,9 @@ export default function SignIn() {
     }
 
     const hideSettingUpAccountModal = () => {
-        setSettingUpAccount(false);
+        if (!loggingIn && !loggingInWithWeb3) {
+            setSettingUpAccount(false);
+        }
     }
 
     const showForgotPassword = () => {

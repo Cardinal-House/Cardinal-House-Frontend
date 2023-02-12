@@ -320,6 +320,10 @@
     max-width: 80vw;
     overflow-y: scroll;
   }
+
+  .messageDivSmall {
+    max-height: 32vh !important;
+  }
   
   .messageDiv::-webkit-scrollbar {
     width: 0.25rem;
@@ -531,13 +535,43 @@
     margin-left: 4% !important;
   }
 
+  .voiceImgLarge {
+    width: 60px !important;
+    height: 60px !important;
+    border-radius: 50%;
+  }
+
   .speakingImg {
     border: 3px solid rgb(141, 212, 34);
+  }
+
+  .voiceUserGrid {
+    background-color: rgba(0, 255, 200, 0.7) !important;
+    height: 250px !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    border-radius: 10px !important;
+    margin: 0.6% !important;
+    box-shadow: -1px 1px 5px 4px rgba(0,0,0,0.75) !important;
+    position: relative !important;
   }
 
   .voiceUsername {
     font-size: 13px !important;
     margin-left: 2% !important;
+  }
+
+  .voiceRoomUsername {
+    position: absolute !important;
+    left: 10px !important;
+    bottom: 10px !important;
+    background-color: rgba(75, 75, 75, 0.8) !important;
+    padding-top: 3px !important;
+    padding-bottom: 3px !important;
+    padding-right: 5px !important;
+    padding-left: 5px !important;
+    border-radius: 5px !important;
   }
 
   .voiceUserIcon {
@@ -546,5 +580,64 @@
     margin-top: 3% !important;
     margin-right: 2% !important;
   }
-  
+
+  .voiceRoomUserIcon {
+    position: absolute !important;
+    bottom: 10px !important;
+    font-size: 26px !important;
+    margin-top: 3% !important;
+    margin-right: 2% !important;
+    padding: 3px !important;
+    background-color: rgba(75, 75, 75, 0.8) !important;
+    border-radius: 10px !important;
+  }
+
+  .voiceRoomuserMute {
+    right: 35px !important;
+  }
+
+  .voiceRoomuserDeafen {
+    right: 5px !important;
+  }
+
+  .voiceUserGridItem {
+    cursor: pointer !important;
+  }
+
+  .voiceUserGridItem:hover {
+    background-color: #171b2d !important;
+  }
+
+  .voiceRoomBtnGrid {
+    display: flex !important;
+    justify-content: center !important;
+    z-index: 100000 !important;
+  }
+
+  .voiceRoomUsersHideBtn {
+    padding: 0px !important;
+    border-top-left-radius: 500px 300px !important;
+    border-top-right-radius: 500px 300px !important;
+    margin-bottom: 0.1% !important;
+  }
+
+  .voiceRoomChatHideBtn {
+    padding: 0px !important;
+    border-bottom-left-radius: 500px 300px !important;
+    border-bottom-right-radius: 500px 300px !important;
+    margin-top: 0.1% !important;
+  }
+
+  .smallVoiceRoomDiv {
+    max-height: 32vh !important;
+    overflow-y: auto !important;
+    margin-right: 2% !important;
+    margin-left: 2% !important;
+  }
+
+  .largeVoiceRoomDiv {
+    min-height: 80vh !important;
+    max-height: 80vh !important;
+    overflow-y: auto !important;
+  }
   

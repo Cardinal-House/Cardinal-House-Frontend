@@ -5,6 +5,7 @@ import { GoogleAuthProvider, TwitterAuthProvider, signInWithPopup,
     updateProfile } from "firebase/auth";
 import { signInWithMoralis } from "@moralisweb3/client-firebase-evm-auth";
 import { doc, getDoc, setDoc, writeBatch } from "firebase/firestore";
+import { useDocumentData } from 'react-firebase-hooks/firestore';
 
 const AuthContext = React.createContext()
 
@@ -14,11 +15,15 @@ export function useAuth() {
 
 export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState();
-  const [currentUserData, setCurrentUserData] = useState({});
   const [settingUpAccount, setSettingUpAccount] = useState(false);
   const [isConnected, setIsConnected] = useState(false);
   const [logoutRequested, setLogoutRequested] = useState(false);
   const [loading, setLoading] = useState(true);
+
+  const docRef = currentUser ? doc(firestore, "users", currentUser.uid) : null;
+  const [currentUserDataResult, loadingCurrentUserData, currentUserDataError] = useDocumentData(docRef);
+
+  const currentUserData = currentUserDataResult ? currentUserDataResult : {};
 
   function signup(email, password) {
     return createUserWithEmailAndPassword(auth, email, password)
@@ -91,20 +96,6 @@ export function AuthProvider({ children }) {
     }
   }
 
-  async function getLatestUserData() {
-    const docRef = doc(firestore, "users", currentUser.uid);
-    const docSnap = await getDoc(docRef);
-
-    if (docSnap.exists()) {
-      console.log("Document data:", docSnap.data());
-      setCurrentUserData(docSnap.data());
-    } else {
-      console.log(`User with UID ${currentUser.uid} not found.`);
-      setCurrentUserData({});
-      setSettingUpAccount(true);
-    }
-  }
-
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(user => {
       setCurrentUser(user)
@@ -115,12 +106,6 @@ export function AuthProvider({ children }) {
   }, [])
 
   useEffect(() => {
-    if (currentUser && currentUser.uid) {
-      getLatestUserData();
-    }
-  }, [currentUser])
-
-  useEffect(() => {
     if (!isConnected && logoutRequested) {
       setLogoutRequested(false);
       auth.signOut();
@@ -128,10 +113,15 @@ export function AuthProvider({ children }) {
     }
   }, [isConnected])
 
+  useEffect(() => {
+    if (currentUserDataResult && Object.keys(currentUserDataResult).includes("isBanned") && currentUserDataResult["isBanned"]) {
+      logout();
+    }
+  }, [currentUserDataResult])
+
   const value = {
     currentUser,
     currentUserData,
-    getLatestUserData,
     updateUserData,
     login,
     signup,

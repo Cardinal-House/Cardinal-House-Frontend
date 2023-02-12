@@ -154,7 +154,7 @@ export default function ChatRoom(props) {
 
     return (
         <>
-            <Grid container spacing={2} id="messageDiv" className={styles.messageDiv} onScroll={messageDivScroll}>
+            <Grid container spacing={2} id="messageDiv" className={clsx(styles.messageDiv, props.smallChat ? styles.messageDivSmall : "")} onScroll={messageDivScroll}>
                 {messages && [...messages].reverse().map(msg => (
                     <Grid item xs={12}>
                         <ChatMessage key={msg.id} message={msg} />

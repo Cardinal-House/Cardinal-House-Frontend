@@ -92,7 +92,9 @@ export default function ProjectAbout({ project }) {
 		fetchData().then((chartData) => {
 			setIsLoading(false);
 			setPriceData(chartData);
-            initChart(chartData);
+            setTimeout(() => {
+                initChart(chartData);
+            }, "2000")
 		});
 		const timerID = setInterval(() => {
 			fetchData().then((chartData) => {
