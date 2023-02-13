@@ -114,7 +114,7 @@ export default function NodeRunnerNFTs(props) {
             const id = await nodeRunnerContractReadOnly.tokenOfOwnerByIndex(account, j);
     
             if (currContractTokenURI == "") {
-              currContractTokenURI = await nodeRunnerContractReadOnly.tokenURI(id);
+              currContractTokenURI = await nodeRunnerContractReadOnly.nodeRunnerTokenURI();
               metaData = await axios.get(currContractTokenURI, {
                 headers: {
                   'Accept': '*/*'
