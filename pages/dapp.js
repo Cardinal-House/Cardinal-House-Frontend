@@ -68,7 +68,7 @@ const networkData = [
     {
       chainId: "0x89",  // Polygon is chain ID 137 which is 0x89 in hex
       chainName: "POLYGON",
-      rpcUrls: ["https://rpc-mainnet.maticvigil.com"],
+      rpcUrls: ["https://polygon-rpc.com"],
       nativeCurrency: {
         name: "MATIC",
         symbol: "MATIC",
@@ -78,7 +78,7 @@ const networkData = [
     },
 ];
 
-const rpcEndpoint = "https://rpc-mainnet.maticvigil.com";
+const rpcEndpoint = "https://polygon-rpc.com";
 // const rpcEndpoint = "https://rpc-mumbai.matic.today";
 const polygonChainId = 137;
 // const polygonChainId = 80001;
