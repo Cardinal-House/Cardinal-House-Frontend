@@ -38,6 +38,7 @@ import PurchaseNodeRunner from '../components/PurchaseNodeRunner';
 import NodeRunnerNFTs from '../components/NodeRunnerNFTs';
 import ClaimNodeRewards from '../components/ClaimNodeRewards';
 import ViewMarketplaceNFTs from '../components/ViewMarketplaceNFTs';
+import CryptoLink from '../components/CryptoLink';
 
 const drawerWidth = 240;
 
@@ -209,6 +210,9 @@ export default function DApp(props) {
         else if (hash == "#viewmarketplacenfts") {
             setCurrPage("ViewMarketplaceNFTs");
         }
+        else if (hash == "#cryptolink") {
+            setCurrPage("CryptoLink");
+        }
     }
 
     useEffect(() => {
@@ -366,7 +370,14 @@ export default function DApp(props) {
                         <GiReceiveMoney className={styles.navIcons} />
                     </ListItemIcon>
                     <ListItemText primary="Claim Node Runner Rewards" />
-                </ListItem>                
+                </ListItem>  
+                <ListItem button onClick={() => updatePage("CryptoLink", "cryptolink")}
+                    className={currPage == "CryptoLink" ? styles.currSection : ""}>
+                    <ListItemIcon>
+                        <GiCoins className={styles.navIcons} />
+                    </ListItemIcon>
+                    <ListItemText primary="CryptoLink Bridge Miner" />
+                </ListItem>                              
                 <ListItem button onClick={() => updatePage("OriginalCardinalNFT", "originalcardinalnft")}
                     className={currPage == "OriginalCardinalNFT" ? styles.currSection : ""}>
                     <ListItemIcon>
@@ -472,6 +483,11 @@ export default function DApp(props) {
             {
                 currPage == "ViewMarketplaceNFTs" && (
                     <ViewMarketplaceNFTs useDarkTheme={props.useDarkTheme} updateTempTokenBalance={updateTempTokenBalance} />
+                )
+            }
+            {
+                currPage == "CryptoLink" && (
+                    <CryptoLink useDarkTheme={props.useDarkTheme} updateTempTokenBalance={updateTempTokenBalance} />
                 )
             }
         </div>

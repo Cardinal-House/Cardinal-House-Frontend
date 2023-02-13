@@ -19,7 +19,7 @@ import NodeRunner from "../contracts/NodeRunner.json";
 import CardinalNFT from "../contracts/CardinalNFT.json";
 import CardinalHouseMarketplace from "../contracts/CardinalHouseMarketplace.json";
 
-const rpcEndpoint = "https://rpc-mainnet.maticvigil.com";
+const rpcEndpoint = "https://polygon-rpc.com";
 // const rpcEndpoint = "https://rpc-mumbai.matic.today";
 const polygonChainId = 137;
 // const polygonChainId = 80001;

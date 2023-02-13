@@ -14,7 +14,7 @@ import chainConfig from "../chain-config.json";
 import ERC20 from "../contracts/ERC20.json";
 import CardinalNFT from "../contracts/CardinalNFT.json";
 
-const rpcEndpoint = "https://rpc-mainnet.maticvigil.com";
+const rpcEndpoint = "https://polygon-rpc.com";
 const polygonChainId = 137;
 
 export default function PurchaseMembership(props) {

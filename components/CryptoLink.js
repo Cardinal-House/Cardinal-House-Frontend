@@ -21,7 +21,7 @@ const rpcEndpoint = "https://polygon-rpc.com";
 const polygonChainId = 137;
 // const polygonChainId = 80001;
 
-export default function PurchaseNodeRunner(props) {
+export default function CrytoLink(props) {
   const { account, chainId } = useEthers();
   const networkName = "polygon";
   const ERC20ABI = ERC20.abi;
@@ -36,7 +36,6 @@ export default function PurchaseNodeRunner(props) {
   const [currNodeRunnerContract, setCurrNodeRunnerContract] = useState({});
   const [loadingNodeRunnerContracts, setLoadingNodeRunnerContracts] = useState(true);
   const [USDCBalance, setUSDCBalance] = useState(-1);
-  const [isCardinalMember, setIsCardinalMember] = useState(undefined);
   const [nodeRunnerTokenURI, setNodeRunnerTokenURI] = useState("");
   const [nodeRunnerNFTPrice, setNodeRunnerNFTPrice] = useState(0);
   const [numNFTsToPurchase, setNumNFTsToPurchase] = useState(1);
@@ -60,12 +59,12 @@ export default function PurchaseNodeRunner(props) {
 
   const { send: approveUSDC, state: approveUSDCState } =
   useContractFunction(USDCContract, "approve", {
-      transactionName: "Approve USDC for Purchasing Node Runner NFT(s).",
+      transactionName: "Approve USDC for Purchasing Bridge Miner NFT(s).",
   })
 
   const { send: purchaseNodeRunnerNFT, state: purchasingNodeRunnerNFTState } =
   useContractFunction(nodeRunnerContract, "mintNodeRunnerNFT", {
-      transactionName: "Mint Node Runner NFT(s).",
+      transactionName: "Mint Bridge Miner NFT(s).",
   })
 
   async function getInitialContractValues() {
@@ -100,12 +99,7 @@ export default function PurchaseNodeRunner(props) {
       })
     const connection = await web3Modal.connect();
     const provider = new ethers.providers.Web3Provider(connection);
-    const nodeRunnerContractReadOnly = new ethers.Contract(currNodeRunnerContract.Address, nodeRunnerABI, provider);
     const USDCContractReadOnly = new ethers.Contract(USDCAddress, ERC20ABI, provider);
-    const cardinalNFTContractReadOnly = new ethers.Contract(CardinalNFTAddress, cardinalNFTABI, provider);
-
-    const currIsCardinalMember = await cardinalNFTContractReadOnly.addressIsMember(account);
-    setIsCardinalMember(currIsCardinalMember);
 
     const currUSDCBalanceObj = await USDCContractReadOnly.balanceOf(account);
     const currUSDCBalance = +ethers.utils.formatEther(BigInt(parseInt(currUSDCBalanceObj._hex, 16)).toString(10));
@@ -123,11 +117,13 @@ export default function PurchaseNodeRunner(props) {
     
     for (let i = 0; i < nodeRunnerContracts.length; i++) {
       const currentNodeRunnerContract = nodeRunnerContracts[i];
-      if (currentNodeRunnerContract.IsPrimary) {
+      if (currentNodeRunnerContract.IsCryptoLinkPrimary) {
+      // if (currentNodeRunnerContract.IsCryptoLinkPrimary) {
         setCurrNodeRunnerContract(currentNodeRunnerContract);
       }
 
-      if (currentNodeRunnerContract.IsOpen) {
+      if (currentNodeRunnerContract.IsCryptoLinkOpen) {
+      // if (currentNodeRunnerContract.IsCryptoLinkOpen) {
         currNodeRunnerContracts.push(currentNodeRunnerContract);
       }
     }
@@ -176,7 +172,7 @@ export default function PurchaseNodeRunner(props) {
       setShowSubmissionPending(false);
       setShowSubmissionFailure(false);
       setApprovingUSDC(false);
-      setSubmissionMessage("USDC approved successfully! Click the \"Mint Node Runner NFT(s)\" button to finalize your buy!");
+      setSubmissionMessage("USDC approved successfully! Click the \"Mint Bridge Miner NFT(s)\" button to finalize your buy!");
       setUSDCApproved(true);
       setTransactionHash(approveUSDCState.transaction.hash);
     }
@@ -215,7 +211,7 @@ export default function PurchaseNodeRunner(props) {
       getInitialContractValues();
       getAccountInfo();
       props.updateTempTokenBalance();
-      setSubmissionMessage("Node Runner NFT(s) Minted Successfully!");
+      setSubmissionMessage("Bridge Miner NFT(s) Minted Successfully!");
       setTransactionHash(purchasingNodeRunnerNFTState.transaction.hash);
     }
     else if (purchasingNodeRunnerNFTState.status === "Exception") {
@@ -223,14 +219,14 @@ export default function PurchaseNodeRunner(props) {
       setShowSubmissionPending(false);
       setShowSubmissionFailure(true);
       setPurchasingNodeRunnerNFT(false);
-      setSubmissionMessage(`Failed to Buy Node Runner NFT(s): ${purchasingNodeRunnerNFTState.errorMessage}`);
+      setSubmissionMessage(`Failed to Buy Bridge Miner NFT(s): ${purchasingNodeRunnerNFTState.errorMessage}`);
     }
     else if (purchasingNodeRunnerNFTState.status === "Mining") {
       setShowSubmissionSuccess(false);
       setShowSubmissionPending(true);
       setShowSubmissionFailure(false);
       setPurchasingNodeRunnerNFT(true);
-      setSubmissionMessage("Minting Node Runner NFT(s)...");
+      setSubmissionMessage("Minting Bridge Miner NFT(s)...");
       setTransactionHash(purchasingNodeRunnerNFTState.transaction.hash);
     }
     else if (purchasingNodeRunnerNFTState.status === "PendingSignature") {
@@ -260,7 +256,7 @@ export default function PurchaseNodeRunner(props) {
     setNumNFTsToPurchase(newAmount);
 
     if (newAmount > maxNFTCount - numNFTsPurchased) {
-      setRevertWarning(`Transaction will revert: there are only ${maxNFTCount - numNFTsPurchased} NFTs left to purchase for this node! Another node will be available soon.`);
+      setRevertWarning(`Transaction will revert: there are only ${maxNFTCount - numNFTsPurchased} NFTs left to purchase for this Bridge Miner!`);
     }
     else {
       setRevertWarning("");
@@ -278,6 +274,9 @@ export default function PurchaseNodeRunner(props) {
       }
     }
   }
+
+  const approvalDisabled = approvingUSDC || USDCApproved || !isConnected || numNFTsToPurchase < 1 || approvedAmount >= Number(+ethers.utils.parseEther(BigInt(numNFTsToPurchase * nodeRunnerNFTPrice).toString(10)));
+  const mintDisabled = purchasingNodeRunnerNFT || numNFTsToPurchase < 1 || (!USDCApproved && approvedAmount < Number(+ethers.utils.parseEther(BigInt(numNFTsToPurchase * nodeRunnerNFTPrice).toString(10))));
 
   return (
     <div className={clsx("mt-5 mb-5", props.useDarkTheme ? styles.backgroundDark : styles.backgroundLight)}>
@@ -300,9 +299,10 @@ export default function PurchaseNodeRunner(props) {
         <Grid container justifyContent="center" alignItems="center" spacing={4}>
           <Grid item lg={3} md={2} sm={1} xs={0}></Grid>
           <Grid item lg={5} md={8} sm={10} xs={12} className={styles.headerTextGrid}>
-            <Typography variant="h2" className={styles.headerText}>
-              Purchase Node Runner NFTs
+            <Typography variant="h2" className={clsx(styles.headerText, styles.CryptoLinkHeaderText)}>
+              Purchase Bridge Miner NFTs
             </Typography>
+            <div className={styles.CryptoLinkHeaderBottom}></div>
           </Grid>
           <Grid item lg={3} md={2} sm={1} xs={0}></Grid>
 
@@ -310,8 +310,9 @@ export default function PurchaseNodeRunner(props) {
           <Grid item xs={12} sm={10} md={10} lg={8} className={styles.NFTGrid}>
             <Card className={clsx(styles.customCard, props.useDarkTheme ? styles.customCardTransparentDark : styles.customCardTransparentLight)}>
                 <CardContent>
-                  <Typography variant="h2">
-                    Purchase Node Runner NFTs for {currNodeRunnerContract.Name}
+                  <Image src="/CryptoLink.webp" width="115" height="100" />
+                  <Typography variant="h2" className="mt-4">
+                    Purchase Bridge Miner NFTs - A CryptoLink Raise
                   </Typography>
                   {
                     loadingNodeRunnerContracts && (
@@ -321,29 +322,15 @@ export default function PurchaseNodeRunner(props) {
                   {
                     !loadingNodeRunnerContracts && (
                       <>
-                        {isCardinalMember != undefined && (
-                          <Typography variant="h3" className="mt-5">
-                            Crew Membership Status: {isCardinalMember ? <b className="text-success">Crew Membership Active!</b> : "Not a Crew Member"}
-                          </Typography>
-                        )}
                         {nodeRunnerNFTPrice > 0 && (
                           <Typography variant="h3" className="mt-4">
-                            Node Runner NFT Price: 
+                            Bridge Miner NFT Price: 
                             <b>
                               &nbsp;{nodeRunnerNFTPrice.toFixed(3)}&nbsp;
                             </b>
                             USDC
                           </Typography>
                         )}
-                        {/* USDCBalance > -1 && (
-                          <Typography variant="h3" className="mt-4">
-                            Your USDC Balance: 
-                            <b>
-                              &nbsp;{(USDCBalance * Math.pow(10, 12)).toFixed(3)}&nbsp;
-                            </b>
-                            USDC
-                          </Typography>
-                        ) */}
                         <Grid container justifyContent="center" alignItems="center" spacing={4} className="mt-4 text-center">
                           <Grid item lg={4} md={5} xs={12} className="mt-2">
                             <TextField label="NFT Count" variant="outlined" value={numNFTsToPurchase} onChange={(e) => updateNumNFTsToPurchase(e)} />
@@ -367,37 +354,26 @@ export default function PurchaseNodeRunner(props) {
                             </Grid>
                           )}
                           {
-                            (!isConnected || isCardinalMember) && (
-                              <>
-                                <Grid item xs={12}>
-                                  <Button size="large" variant="contained" color="primary"
-                                    disabled={approvingUSDC || USDCApproved || !isConnected || numNFTsToPurchase < 1 || approvedAmount >= Number(+ethers.utils.parseEther(BigInt(numNFTsToPurchase * nodeRunnerNFTPrice).toString(10)))} 
-                                    onClick={startApproveUSDC}>
-                                    {approvingUSDC && <CircularProgress size={18} color="secondary"/>}
-                                    {isConnected ? approvingUSDC ? <>&nbsp; Approving USDC...</> : "Approve USDC" : "Connect Wallet in Navigation"}
-                                  </Button>
-                                </Grid>
-                                <Grid item xs={12}>
-                                  {isConnected && (
-                                    <Button size="large" variant="contained" color="primary"
-                                      disabled={purchasingNodeRunnerNFT || numNFTsToPurchase < 1 || (!USDCApproved && approvedAmount < Number(+ethers.utils.parseEther(BigInt(numNFTsToPurchase * nodeRunnerNFTPrice).toString(10))))} 
-                                      onClick={startNodeRunnerNFTMint}>
-                                      {purchasingNodeRunnerNFT && <CircularProgress size={18} color="secondary"/>}
-                                      {purchasingNodeRunnerNFT ? <>&nbsp; Minting Node Runner NFT(s)...</> : "Mint Node Runner NFT(s)"}
-                                    </Button>
-                                  )}
-                                </Grid>
-                              </>
-                            )
-                          }
-                          {
-                            isConnected && !isCardinalMember && (
+                            <>
                               <Grid item xs={12}>
-                                <Button size="large" variant="contained" color="primary" disabled={true}>
-                                  You Must be a Cardinal Crew Member!
+                                <Button size="large" variant="outlined" color="primary"
+                                  disabled={approvalDisabled} 
+                                  onClick={startApproveUSDC} className={clsx(styles.CryptoLinkButtonPurple, !approvalDisabled ? styles.CryptoLinkButtonPurpleActive : "")}>
+                                  {approvingUSDC && <CircularProgress size={18} color="secondary"/>}
+                                  {isConnected ? approvingUSDC ? <>&nbsp; Approving USDC...</> : "Approve USDC" : "Connect Wallet in Navigation"}
                                 </Button>
                               </Grid>
-                            )
+                              <Grid item xs={12}>
+                                {isConnected && (
+                                  <Button size="large" variant="outlined" color="primary"
+                                    disabled={mintDisabled} 
+                                    onClick={startNodeRunnerNFTMint} className={clsx(styles.CryptoLinkButtonGreen, !mintDisabled ? styles.CryptoLinkButtonGreenActive : "")}>
+                                    {purchasingNodeRunnerNFT && <CircularProgress size={18} color="secondary"/>}
+                                    {purchasingNodeRunnerNFT ? <>&nbsp; Minting Bridge Miner NFT(s)...</> : "Mint Bridge Miner NFT(s)"}
+                                  </Button>
+                                )}
+                              </Grid>
+                            </>
                           }
                         </Grid>                      
                       </>
@@ -411,81 +387,30 @@ export default function PurchaseNodeRunner(props) {
           <Grid item lg={2} md={2} sm={1} xs={0}></Grid>
           <Grid item lg={8} md={8} sm={10} xs={12} className="text-center">
             <Typography variant="h3">
-              Here is where you mint Node Runner NFTs to own a portion of a validator node!
-              You must be a Cardinal Crew Member to mint a Node Runner NFT, and there are only
-              so many NFTs that can be minted per node depending on how much the node is split up.
-              You can also mint more than one NFT per node as long as there are enough NFTs
-              left to be minted!
+              Here is where you mint Bridge Miner NFTs for CryptoLink's Bridge Miner raise!
+              There are only so many NFTs that can be minted for this Bridge Miner.
+              You can also mint more than one NFT as long as there are enough NFTs
+              left to be minted! This Bridge Miner raise is powered by the Node Runner technology
+              developed by Cardinal House, but the raise itself is put on by the CryptoLink team.
             </Typography>
             <br/>
             <Typography variant="h3" className="mt-3">
-              When you mint one or more Node Runner NFTs, the USDC you send into the Node Runner
-              contract will be used along with other Node Runner NFT minters to purchase a validator
-              node on a network that changes from node to node (DAG, Ethereum, etc.). Then, each month,
-              the Cardinal House team will deposit the rewards from the node back into the Node Runner
-              contract for the node for you and the other NFT holders to claim. For example, if a node
-              is split into 20 NFTs and you mint 2 of them, each month you will be able to claim 10%
-              of the node rewards.
+              When you mint one or more Bridge Miner NFTs, the USDC you send into the
+              contract will be used along with other Bridge Miner NFT minters to purchase a CryptoLink
+              Bridge Miner on the Binance Smart Chain. Then, each month,
+              the rewards from the Bridge Miner will be put back into the
+              contract for you and the other NFT holders to claim on Polygon.
+              The NFT purchasing and reward claiming is on Polygon while the Bridge Miner itself is
+              on Binance simply because the underlying Node Runner technology is on Polygon.
             </Typography>
-            {
-              nodeRunnerContracts.length > 1 && (
-                <>
-                  <br/>
-                  <Typography variant="h3" className="mt-3">
-                    First, select the node below that you want to mint NFTs for. When Node Runner first launches
-                    there will just be one node to mint NFTs for, but in the future and as demand increases,
-                    there will be multiple Node Runner NFT collections at the same time. The dropdown below
-                    defaults to the most recent node the Cardinal House team has made available for NFT minting.
-                    After selecting the node or keeping the most recent one, scroll down to mint one or more NFTs
-                    for the node!
-                  </Typography>   
-                </>
-              )
-            }
           </Grid>
           <Grid item lg={2} md={2} sm={1} xs={0}></Grid>
-
-          {
-            nodeRunnerContracts.length > 1 && (
-              <>
-                <Grid item lg={3} md={2} sm={1} xs={0}></Grid>
-                <Grid item lg={6} md={8} sm={10} xs={12} className={styles.selectContract}>
-                  <FormControl fullWidth>
-                    <InputLabel id="contractSelection">Select Node Runner Node</InputLabel>
-                    <Select
-                      labelId="contractSelection"
-                      value={currNodeRunnerContract.Name ? currNodeRunnerContract.Name : "Primary Node Runner Contract"}
-                      label="Select Node Runner Node"
-                      onChange={updateCurrNodeRunnerContract}
-                    >
-                      {
-                        nodeRunnerContracts.map((contract) => {
-                          return (
-                            <MenuItem value={contract.Name}>{contract.Name}</MenuItem>
-                          )
-                        })
-                      }
-                    </Select>
-                  </FormControl>
-                </Grid>
-                <Grid item lg={3} md={2} sm={1} xs={0}></Grid>  
-                <Grid item lg={2} md={2} sm={1} xs={0}></Grid>
-                  <Grid item lg={8} md={8} sm={10} xs={12} className="mt-2 text-center">
-                    <Typography variant="h3">
-                      {currNodeRunnerContract.Description}
-                    </Typography>
-                    <br/>
-                  </Grid>
-                <Grid item lg={2} md={2} sm={1} xs={0}></Grid> 
-              </>
-            )
-          }
 
           {nodeRunnerTokenURI != "" && (
             <>
               <Grid item xs={12} className="mt-4">
                   <Typography variant="h3" className="text-center">
-                    Example Node Runner NFT
+                    Example Bridge Miner NFT
                   </Typography>
               </Grid>
 

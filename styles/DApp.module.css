@@ -668,3 +668,40 @@
         margin-top: -15% !important;
     }
 }
+
+.CryptoLinkHeaderText {
+    border-bottom: none !important;
+}
+
+.CryptoLinkHeaderBottom {
+    margin-top: 2% !important;
+    width: 100% !important;
+    height: 4px !important;
+    background-image: linear-gradient(to right, #C51162 0%, #6200ea 50%, #6200ea 80%, #1de9b6) !important;
+}
+
+.CryptoLinkButtonPurple {
+    border: 3px solid #6200ea !important;
+}
+
+.CryptoLinkButtonPurpleActive {
+    color: white !important;
+}
+
+.CryptoLinkButtonPurple:hover {
+    color: white !important;
+    border: 3px solid #6200ea !important;
+}
+
+.CryptoLinkButtonGreen {
+    border: 3px solid #1de9b6 !important;
+}
+
+.CryptoLinkButtonGreenActive {
+    color: white !important;
+}
+
+.CryptoLinkButtonGreen:hover {
+    color: #1de9b6 !important;
+    border: 3px solid #1de9b6 !important;
+}
