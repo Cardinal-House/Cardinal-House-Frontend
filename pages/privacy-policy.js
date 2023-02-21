@@ -30,6 +30,8 @@ export default function privacypolicy(props) {
                 <div className="mb-3">
                     <Typography variant="p">
                         <b>Personal Information:</b> We may collect personal information such as your name, email address, Discord username, and wallet address when you register an account with us or update your account information.
+                        We <b>do not</b> collect any information directly from your device such as your IP address. The only personal information we collect
+                        is information tied to your account through the profile you create yourself.
                     </Typography>
                 </div>
                 <div className="mb-3">
