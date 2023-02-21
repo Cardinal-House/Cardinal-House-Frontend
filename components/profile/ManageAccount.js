@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button, Grid, Typography, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow,
-        FormControl, InputLabel, OutlinedInput, CircularProgress } from '@mui/material';
+        FormControl, InputLabel, OutlinedInput, CircularProgress, Box } from '@mui/material';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 import clsx from "clsx";
@@ -164,35 +164,38 @@ export default function ManageAccount() {
                     {updateFail}
                 </MuiAlert>
             </Snackbar>
-            <Grid item xs={1}>
-                {!profileImage && (currentUser.photoURL ? <img src={currentUser.photoURL} className={styles.profileImage} width="75" height="75" /> : <VscAccount className={styles.profileAccountIcon} />)}
-                {profileImage && <img src={URL.createObjectURL(profileImage)} className={styles.profileImage} width="75" height="75" />}
+            <Grid item xs={12} sm={5} md={5} lg={3} xl={3} className={styles.profileInfoGridItem}>
+                <div className={styles.profileImageDiv}>
+                    {!profileImage && (currentUser.photoURL ? <img src={currentUser.photoURL} className={styles.profileImage} width="75" height="75" /> : <VscAccount className={styles.profileAccountIcon} />)}
+                    {profileImage && <img src={URL.createObjectURL(profileImage)} className={styles.profileImage} width="75" height="75" />}
+                </div>
+                <div className={styles.profileUsernameDiv}>
+                    <Typography variant="h3" className={styles.profileUsername}>
+                        {currentUserData && currentUserData["username"] ? currentUserData["username"] : "Username Not Set"}
+                    </Typography>
+                    <Typography variant="p">
+                        {currentUserData && currentUserData["email"] ? currentUserData["email"] : "Email Not Set"}
+                    </Typography>
+                </div>
             </Grid>
-            <Grid item xs={2}>
-                <Typography variant="h3">
-                    {currentUserData && currentUserData["username"] ? currentUserData["username"] : "Username Not Set"}
-                </Typography>
-                <Typography variant="p">
-                    {currentUserData && currentUserData["email"] ? currentUserData["email"] : "Email Not Set"}
-                </Typography>
-            </Grid>
-            <Grid item xs={1}></Grid>
             {
                 !profileImage && (
-                    <Grid item xs={2}>
-                        <input
-                            accept="image/*"
-                            style={{ display: 'none' }}
-                            id="change-profile-picture"
-                            multiple={false}
-                            type="file"
-                            onChange={profileImageUpdated}
-                        />
-                        <label htmlFor="change-profile-picture">
-                            <Button variant="contained" component="span">
-                                Change Profile Picture
-                            </Button>
-                        </label>                 
+                    <Grid item xs={12} sm={6} md={6} lg={6} xl={4} >
+                        <Box className={styles.profileBtnBox}>
+                            <input
+                                accept="image/*"
+                                style={{ display: 'none' }}
+                                id="change-profile-picture"
+                                multiple={false}
+                                type="file"
+                                onChange={profileImageUpdated}
+                            />
+                            <label htmlFor="change-profile-picture">
+                                <Button variant="contained" component="span">
+                                    Change Profile Picture
+                                </Button>
+                            </label>   
+                        </Box>           
                     </Grid>
                 )
             }
@@ -219,9 +222,9 @@ export default function ManageAccount() {
                 )
             }
             <Grid item xs={12}></Grid>
-            <Grid item xs={6} className="mt-5">
+            <Grid item xs={12} sm={12} md={12} lg={10} xl={8} className={clsx(styles.manageAccountGrid, "mt-5")}>
                 <TableContainer component={Paper} style={{ borderRadius: 18}}>
-                    <Table sx={{ minWidth: 650 }}>
+                    <Table sx={{ minWidth: { md: 300, lg: 650 } }}>
                         <TableHead>
                         <TableRow className={styles.profileTableRow}>
                             <TableCell align="left" className="pb-4 pt-4">
@@ -245,12 +248,15 @@ export default function ManageAccount() {
                                                     <Typography variant="h3" className={styles.fieldLabel}>
                                                         {field}
                                                     </Typography>
+                                                    <span className={clsx(styles.fieldValue, styles.fieldValueSmall)}>
+                                                        {Object.keys(currentUserData).includes(fieldToDBName[field]) ? currentUserData[fieldToDBName[field]] : "Not Set"}
+                                                    </span>
                                                 </div>
                                                 {
                                                     openSetting != field && (
                                                         <div className={styles.accountValueDiv}>
                                                             <Typography variant="h3">
-                                                                <span className={styles.fieldValue}>
+                                                                <span className={clsx(styles.fieldValue, styles.fieldValueLarge)}>
                                                                     {Object.keys(currentUserData).includes(fieldToDBName[field]) ? currentUserData[fieldToDBName[field]] : "Not Set"}
                                                                 </span>
                                                                 &nbsp;&nbsp;&nbsp; 

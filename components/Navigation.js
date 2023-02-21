@@ -53,7 +53,7 @@ export default function Navigation({useDarkTheme, setUseDarkTheme, hideThemeTogg
                         <Navbar.Brand className={styles.navBarBrand}>
                             <img alt="" src="/CardinalLogoLight.png" width="50" height="50" className={clsx(styles.logoImage)} />
                             <Typography variant="p" className={styles.navBrandText}>
-                                <b>Cardinal House</b>
+                                <b>Coin Cardinal</b>
                             </Typography>
                         </Navbar.Brand>
                     </Container>

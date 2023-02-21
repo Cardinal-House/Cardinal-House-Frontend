@@ -181,10 +181,7 @@ export default function VoiceCall(props) {
 
           const agoraToken = response.data.token;
 
-          console.error(agoraToken);
-
           try {
-            console.error(agoraUid);
             await client.join(config.appId, name, agoraToken, agoraUid);
           } catch (error) {
             console.log(`Error joining ${name}: ${error}`);

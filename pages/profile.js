@@ -107,8 +107,8 @@ export default function Profile(props) {
             <AppBar
                 position="fixed"
                 sx={{
-                width: { sm: `calc(100% - ${drawerWidth}px)` },
-                ml: { sm: `${drawerWidth}px` },
+                width: { md: `calc(100% - ${drawerWidth}px)` },
+                ml: { md: `${drawerWidth}px` },
                 }}
             >
                 <Toolbar className={styles.toolbar}>
@@ -117,7 +117,7 @@ export default function Profile(props) {
                     aria-label="open drawer"
                     edge="start"
                     onClick={handleDrawerToggle}
-                    sx={{ mr: 2, display: { sm: 'none' } }}
+                    sx={{ mr: 2, display: { md: 'none' } }}
                 >
                     <MenuIcon />
                 </IconButton>
@@ -130,7 +130,7 @@ export default function Profile(props) {
             </AppBar>            
             <Box
                 component="nav"
-                sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+                sx={{ width: { md: drawerWidth }, flexShrink: { md: 0 } }}
                 className={styles.drawerContainer}
             >
                 <Drawer
@@ -142,7 +142,7 @@ export default function Profile(props) {
                     keepMounted: true, // Better open performance on mobile.
                 }}
                 sx={{
-                    display: { xs: 'block', sm: 'none' },
+                    display: { xs: 'block', sm: 'block', md: 'none' },
                     '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
                 }}
                 className={styles.drawerContainer}
@@ -152,7 +152,7 @@ export default function Profile(props) {
                 <Drawer
                 variant="permanent"
                 sx={{
-                    display: { xs: 'none', sm: 'block' },
+                    display: { xs: 'none', sm: 'none', md: 'block' },
                     '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth, border: 'none' },
                 }}
                 className={styles.drawerContainer}

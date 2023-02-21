@@ -246,7 +246,7 @@ export default function Chat(props) {
           </Grid>
           <Grid item xs={8}>
             <Typography variant="h5" className={styles.toolbarText}>
-                Cardinal House
+                Coin Cardinal
             </Typography>
           </Grid>
       </Grid>
@@ -377,8 +377,8 @@ export default function Chat(props) {
             <AppBar
                 position="fixed"
                 sx={{
-                width: { sm: `calc(100% - ${drawerWidth}px)` },
-                ml: { sm: `${drawerWidth}px` },
+                width: { md: `calc(100% - ${drawerWidth}px)` },
+                ml: { md: `${drawerWidth}px` },
                 }}
             >
                 <Toolbar className={styles.toolbar}>
@@ -387,12 +387,12 @@ export default function Chat(props) {
                     aria-label="open drawer"
                     edge="start"
                     onClick={handleDrawerToggle}
-                    sx={{ mr: 2, display: { sm: 'none' } }}
+                    sx={{ mr: 2, display: { md: 'none' } }}
                 >
                     <MenuIcon />
                 </IconButton>
                 <Typography variant="h5" noWrap component="div" sx={{ flexGrow: 1 }}>
-                    Chat Prototype
+                    Coin Cardinal Community
                 </Typography>
                 {(!currentUser || settingUpAccount) && <SignIn />}
                 <ProfileDropdown />
@@ -400,7 +400,7 @@ export default function Chat(props) {
             </AppBar>            
             <Box
                 component="nav"
-                sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+                sx={{ width: { md: drawerWidth }, flexShrink: { md: 0 } }}
                 className={styles.drawerContainer}
             >
                 <Drawer
@@ -412,7 +412,7 @@ export default function Chat(props) {
                     keepMounted: true, // Better open performance on mobile.
                 }}
                 sx={{
-                    display: { xs: 'block', sm: 'none' },
+                    display: { xs: 'block', sm: 'block', md: 'none' },
                     '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
                 }}
                 className={styles.drawerContainer}
@@ -422,7 +422,7 @@ export default function Chat(props) {
                 <Drawer
                 variant="permanent"
                 sx={{
-                    display: { xs: 'none', sm: 'block' },
+                    display: { xs: 'none', sm: 'none', md: 'block' },
                     '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth, border: 'none' },
                 }}
                 className={styles.drawerContainer}

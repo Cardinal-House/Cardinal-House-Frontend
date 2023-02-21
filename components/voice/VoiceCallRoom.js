@@ -52,7 +52,7 @@ export default function VoiceCall(props) {
         <Grid container justifyContent="center" alignItems="center" className="mt-4">
             <Grid item xs={12} className={clsx(showUsers ? showTextChannels ? styles.smallVoiceRoomDiv : styles.largeVoiceRoomDiv : "hide", "mb-3")}>
                 <Grid container justifyContent="center" alignItems="center" spacing={0}>
-                    <Grid item xs={3} className={clsx(styles.voiceUserGrid, users[currentUser.uid]?.speaking && !muted ? styles.speakingImg : "")}>
+                    <Grid item xs={5} sm={5} md={5} lg={3} className={clsx(styles.voiceUserGrid, users[currentUser.uid]?.speaking && !muted ? styles.speakingImg : "")}>
                         <img src={currentUser.photoURL ? currentUser.photoURL : `/Original Cardinal NFT ${imageIndex}.png`} className={styles.voiceImgLarge} />
                         <span className={styles.voiceRoomUsername}>{currentUserData.username}</span>
                         {deafened && !users[currentUser.uid]?.adminDeafened && <HeadsetOffIcon className={clsx(styles.voiceRoomUserIcon, styles.voiceRoomuserMute)} />}
@@ -64,7 +64,7 @@ export default function VoiceCall(props) {
                     {
                         Object.keys(users).filter((userUid) => userUid != currentUser.uid).map((userUid) => {
                             return (
-                              <Grid item xs={3} className={clsx(styles.voiceUserGrid, users[userUid]?.speaking && !users[userUid]?.muted && !users[userUid].userMuted ? styles.speakingImg : "")}>
+                              <Grid item xs={5} sm={5} md={5} lg={3} className={clsx(styles.voiceUserGrid, users[userUid]?.speaking && !users[userUid]?.muted && !users[userUid].userMuted ? styles.speakingImg : "")}>
                                 <img src={users[userUid].photoURL} className={styles.voiceImgLarge} />
                                 <span className={styles.voiceRoomUsername}>{users[userUid].username}</span>
                                 {users[userUid]?.deafened && !users[userUid]?.adminDeafened && <HeadsetOffIcon className={clsx(styles.voiceRoomUserIcon, styles.voiceRoomuserMute)} />}

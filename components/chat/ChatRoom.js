@@ -155,9 +155,9 @@ export default function ChatRoom(props) {
     return (
         <>
             <Grid container spacing={2} id="messageDiv" className={clsx(styles.messageDiv, props.smallChat ? styles.messageDivSmall : "")} onScroll={messageDivScroll}>
-                {messages && [...messages].reverse().map(msg => (
-                    <Grid item xs={12}>
-                        <ChatMessage key={msg.id} message={msg} />
+                {messages && [...messages].reverse().map((msg, ind) => (
+                    <Grid item xs={12} key={ind}>
+                        <ChatMessage message={msg} />
                     </Grid>
                 ))}
                 <Grid item xs={12}>
@@ -198,7 +198,7 @@ export default function ChatRoom(props) {
                             "💩", "🤖", "👽", "🙈", "💕", "💯", "👌", "👍", "👀",
                         ].map((emoji) => {
                             return (
-                                <Grid item xs={1}>
+                                <Grid item xs={1} key={emoji}>
                                     <Button variant="contained" className={styles.emojiBtn} onClick={() => handleEmojiSelectionClose(emoji)}>
                                         {emoji}
                                     </Button>

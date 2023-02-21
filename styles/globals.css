@@ -273,6 +273,12 @@ a {
   overflow-y: auto !important;
 }
 
+@media (max-width: 800px) {
+  .communityDrawer .MuiList-root {
+    max-height: 80vh !important;
+  }
+}
+
 @media (max-width: 650px) {
   .mobileSnackbarTextSize {
       font-size: 12px !important;

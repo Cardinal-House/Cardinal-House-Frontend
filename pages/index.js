@@ -50,14 +50,14 @@ function ProjectInsights(props) {
             <Grid container justifyContent="center" alignItems="center" spacing={4} className={styles.projectListingIntroGrid}>
                 <Grid item lg={8} md={10} sm={10} xs={12} className={styles.headerTextGrid}>
                     <Typography variant="h1" className={clsx(styles.insightsHeaderText, props.useDarkTheme ? styles.headerTextDark : styles.headerTextLight)}>
-                        Cardinal House Crypto Insights
+                        Coin Cardinal Crypto Insights
                     </Typography>
                 </Grid>
                 <Grid item xs={12}></Grid>
 
                 <Grid item lg={10} md={10} sm={12} xs={12} className="mb-3">
                     <Typography variant="h3">
-                        Welcome to the Cardinal House crypto insights! Here you can get the latest updates on how your favorite projects
+                        Welcome to the Coin Cardinal crypto insights by Cardinal House! Here you can get the latest updates on how your favorite projects
                         and doing through market data and social feeds all in one place! This platform is in beta, so any feedback is much appreciated
                         and many more features will be added in the upcoming months.
                     </Typography>

@@ -558,7 +558,7 @@ export default function EducationCenter(props) {
           </Grid>
           <Grid item xs={8}>
             <Typography variant="h5" className={styles.toolbarText}>
-                Cardinal House
+                Coin Cardinal
             </Typography>
           </Grid>
       </Grid>
