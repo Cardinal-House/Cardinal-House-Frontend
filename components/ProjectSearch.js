@@ -266,7 +266,7 @@ export default function ProjectSearch(props) {
                 <ButtonGroup variant="contained" className={clsx(styles.projectCategories, styles.optionMargin)}>
                     {
                         ["Tokens", "NFTs", "Businesses"].map((category) => (
-                            <Button key={category} className={clsx(styles.projectCategoryBtn, categorySelected == category ? styles.selectedProjectCategoryBtn : "")}
+                            <Button key={category} className={clsx(styles.projectCategoryBtn, categorySelected == category ? styles.selectedProjectCategoryBtn : "")} data-testid={`category-${category}`}
                                 onClick={() => categoryChosen(category)}>
                                 {category}
                             </Button>
@@ -274,7 +274,7 @@ export default function ProjectSearch(props) {
                     }
                 </ButtonGroup>
 
-                <Button varian="contained" className={clsx(styles.tagBtn, tagsSelected.length == 0 ? styles.selectedTagBtn : "", styles.optionMargin)} 
+                <Button varian="contained" className={clsx(styles.tagBtn, tagsSelected.length == 0 ? styles.selectedTagBtn : "", styles.optionMargin)} data-testid="tagFilterBtn"
                     onClick={(e) => setTagMenuAnchor(e.currentTarget)}>
                     &nbsp;&nbsp;Filter Tags <ArrowDropDownIcon/>
                 </Button>  
@@ -285,17 +285,17 @@ export default function ProjectSearch(props) {
                     },
                 }}>
                     <MenuItem key="Unselect All" onClick={() => selectTag("All")}>
-                        <ListItemText style={{textAlign: 'center'}} primary="Unselect All" />
+                        <ListItemText style={{textAlign: 'center'}} primary="Unselect All" data-testid="unselect-all-tags" />
                     </MenuItem>                              
                     {props.tags && props.tags.map((tag) => (
-                        <MenuItem key={tag} onClick={() => selectTag(tag)}>
+                        <MenuItem key={tag} onClick={() => selectTag(tag)} data-testid={`tagOption-${tag}`}>
                             <Checkbox checked={tagsSelected.includes(tag)}/>
                             <ListItemText primary={`${tag} (${props.tagCount[tag]})`} />
                         </MenuItem>
                     ))}               
                 </Menu>     
 
-                <Button varian="contained" className={clsx(styles.tagBtn, chainsSelected.length == 0 ? styles.selectedTagBtn : "", styles.optionMargin)} 
+                <Button varian="contained" className={clsx(styles.tagBtn, chainsSelected.length == 0 ? styles.selectedTagBtn : "", styles.optionMargin)} data-testid="chainFilterBtn"
                     onClick={(e) => setChainMenuAnchor(e.currentTarget)}>
                     &nbsp;&nbsp;Filter Chains <ArrowDropDownIcon/>
                 </Button>  
@@ -306,17 +306,17 @@ export default function ProjectSearch(props) {
                     },
                 }}>
                     <MenuItem key="Unselect All" onClick={() => selectChain("All")}>
-                        <ListItemText style={{textAlign: 'center'}} primary="Unselect All" />
+                        <ListItemText style={{textAlign: 'center'}} primary="Unselect All" data-testid="unselect-all-chains" />
                     </MenuItem>                        
                     {props.chains && props.chains.map((chain) => (
-                        <MenuItem key={chain} onClick={() => selectChain(chain)}>
+                        <MenuItem key={chain} onClick={() => selectChain(chain)} data-testid={`chainOption-${chain}`}>
                             <Checkbox checked={chainsSelected.includes(chain)}/>
                             <ListItemText primary={`${chain} (${props.chainCount[chain]})`} />
                         </MenuItem>
                     ))}             
                 </Menu>                                             
 
-                <Button varian="contained" className={clsx(styles.tagBtn, styles.optionMargin)} 
+                <Button varian="contained" className={clsx(styles.tagBtn, styles.optionMargin)} data-testid="sortByBtn"
                     onClick={(e) => setSortMenuAnchor(e.currentTarget)}>
                     &nbsp;&nbsp;Sort by: {sortBy}<ArrowDropDownIcon/>
                 </Button>  
@@ -324,29 +324,29 @@ export default function ProjectSearch(props) {
                 <Menu anchorEl={sortMenuAnchor} className={styles.filterDropdown} open={sortMenuOpen} onClose={() => setSortMenuAnchor(null)}>
                     {
                         categorySelected == "Tokens" && (
-                            <MenuItem onClick={() => selectSort("Market Cap - $$$ to $")}>
+                            <MenuItem onClick={() => selectSort("Market Cap - $$$ to $")} data-testid="sortOption-Market Cap - $$$ to $">
                                 <ListItemText style={{textAlign: 'center'}} primary="Market Cap - $$$ to $" />
                             </MenuItem>         
                         )
                     }                         
                     {
                         categorySelected == "Tokens" && (
-                            <MenuItem onClick={() => selectSort("Market Cap - $ to $$$")}>
+                            <MenuItem onClick={() => selectSort("Market Cap - $ to $$$")} data-testid="sortOption-Market Cap - $ to $$$">
                                 <ListItemText style={{textAlign: 'center'}} primary="Market Cap - $ to $$$" />
                             </MenuItem>         
                         )
                     }                         
-                    <MenuItem onClick={() => selectSort("Alphabetical - A to Z")}>
+                    <MenuItem onClick={() => selectSort("Alphabetical - A to Z")} data-testid="sortOption-Alphabetical - A to Z">
                         <ListItemText style={{textAlign: 'center'}} primary="Alphabetical - A to Z" />
                     </MenuItem>                                  
-                    <MenuItem onClick={() => selectSort("Alphabetical - Z to A")}>
+                    <MenuItem onClick={() => selectSort("Alphabetical - Z to A")} data-testid="sortOption-Alphabetical - Z to A">
                         <ListItemText style={{textAlign: 'center'}} primary="Alphabetical - Z to A" />
                     </MenuItem>                                  
                 </Menu>                                             
 
                 <Paper component="form" className={clsx(styles.optionMargin, styles.search, styles.searchDesktop)} onSubmit={(e) => e.preventDefault()}>
                     <InputBase sx={{ ml: 1, flex: 1 }} placeholder="Search..." value={search}
-                        onChange={(e) => updateSearch(e.target.value)} />
+                        onChange={(e) => updateSearch(e.target.value)} data-testid="project-search" />
                     <IconButton sx={{ p: '10px' }}>
                         <SearchIcon />
                     </IconButton>
@@ -390,6 +390,7 @@ export default function ProjectSearch(props) {
                                         onClick={() => {window.location.href = `${window.location.origin}/${project.id}`}}
                                         hover
                                         key={project.name}
+                                        data-testid={`cryptoProject-${project.name}`}
                                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                         >
                                         <TableCell align="left" className={styles.marketCapNumber}>
@@ -409,13 +410,13 @@ export default function ProjectSearch(props) {
                                             <img alt="" src={project.logoUrl} className={styles.projectLogo} />
                                             &nbsp;&nbsp;&nbsp;{project.name}
                                         </TableCell>
-                                        <TableCell align="left" className={styles.cellWidth}>
+                                        <TableCell align="left" className={styles.cellWidth} data-testid={`${project.name}-tokenPrice`}>
                                             {project.tokenPrice ? `$${project.tokenPrice.toLocaleString(undefined, {minimumFractionDigits: computeMinimumFractionDigits(project.tokenPrice)})}` : ""}
                                         </TableCell>
                                         <TableCell align="left" className={styles.cellWidth}>
                                             {
                                                 project.tokenPriceChangePercentage24hr != undefined && project.tokenPriceChangePercentage24hr >= 0 && (
-                                                    <span className={styles.percentageText} style={{color: 'green'}}>
+                                                    <span className={styles.percentageText} style={{color: 'green'}} data-testid={`${project.name}-change24Hr`}>
                                                         <ArrowDropUpIcon/> 
                                                         {project.tokenPriceChangePercentage24hr?.toFixed(2)}%
                                                     </span>
@@ -423,16 +424,22 @@ export default function ProjectSearch(props) {
                                             }
                                             {
                                                 project.tokenPriceChangePercentage24hr != undefined && project.tokenPriceChangePercentage24hr < 0 && (
-                                                    <span className={styles.percentageText} style={{color: 'red'}}>
+                                                    <span className={styles.percentageText} style={{color: 'red'}} data-testid={`${project.name}-change24Hr`}>
                                                         <ArrowDropDownIcon/> 
                                                         {project.tokenPriceChangePercentage24hr?.toFixed(2) * -1}%
                                                     </span>
                                                 )
                                             }
                                         </TableCell>
-                                        <TableCell align="left">{project.chains.replaceAll(",", ", ")}</TableCell>
-                                        <TableCell align="left">{project.marketCap || project.marketCap == 0 ? "$" : "NA"}{project.marketCap?.toLocaleString()}</TableCell>
-                                        <TableCell align="left">{project.tags.replaceAll(",", " | ")}</TableCell>
+                                        <TableCell align="left" data-testid={`${project.name}-chains`}>
+                                            {project.chains.replaceAll(",", ", ")}
+                                        </TableCell>
+                                        <TableCell align="left" data-testid={`${project.name}-marketCap`}>
+                                            {project.marketCap || project.marketCap == 0 ? "$" : "NA"}{project.marketCap?.toLocaleString()}
+                                            </TableCell>
+                                        <TableCell align="left" data-testid={`${project.name}-tags`}>
+                                            {project.tags.replaceAll(",", " | ")}
+                                            </TableCell>
                                         </TableRow>
                                     ))
                                 }
