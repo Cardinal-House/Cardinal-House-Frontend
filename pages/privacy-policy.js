@@ -92,7 +92,7 @@ export default function privacypolicy(props) {
                     YouTube Services:
                 </Typography>
                 <Typography variant="p">
-                    Coin Cardinal leverages the YouTube Data API to retrieve YouTube videos displayed on all the individual project pages on the listing platform for projects that have a YouTube channel. This means as a user of the Coin Cardinal platform it is beneficial to read the <a href="http://www.google.com/policies/privacy" target="_blank" rel="noreferrer">YouTube privacy policy page.</a>                  
+                    Coin Cardinal leverages the YouTube Data API to retrieve YouTube videos displayed on all the individual project pages on the listing platform for projects that have a YouTube channel. This means as a user of the Coin Cardinal platform it is beneficial to read the <a href="http://www.google.com/policies/privacy" target="_blank" rel="noreferrer">Google Privacy Policy.</a>                  
                 </Typography>
             </Grid>            
             <Grid item xs={10} className="mt-5">
