@@ -324,7 +324,7 @@
   
   .messageDiv {
     position: fixed !important;
-    bottom: 12vh !important;
+    bottom: 12vh;
     padding: 10px !important;
     max-height: 80vh !important;
     max-width: 80vw !important;
@@ -349,14 +349,23 @@
   }
   
   .chatForm {
-    min-width: calc(97vw - 320px);
-    height: 6.8vh;
-    position: fixed;
-    bottom: 3vh;
+    min-width: calc(97vw - 320px) !important;
+    height: 60px;
+    position: fixed !important;
+    bottom: 3vh !important;
     background-color: rgb(58, 58, 58) !important;
-    display: flex;
-    font-size: 1.5rem;
+    display: flex !important;
+    font-size: 1.5rem !important;
     margin-left: 10px !important;
+    border: none !important;
+  }
+  
+  .chatEditForm {
+    min-width: 105% !important;
+    height: 60px;
+    background-color: rgb(58, 58, 58) !important;
+    display: flex !important;
+    font-size: 1.5rem !important;
     border: none !important;
   }
   
@@ -369,6 +378,10 @@
     outline: none !important;
     border: none !important;
     padding: 0 10px;
+  }
+
+  .disabledChatSend {
+    color: rgb(114, 114, 114) !important;
   }
   
   .submitBtn {
@@ -406,6 +419,23 @@
     min-width: 30px !important;
     padding-top: 2px !important;
     padding-bottom: 2px !important;
+  }
+
+  .messageOptionBtn {
+    font-size: 12px !important;
+  }
+
+  .deleteBtn {
+    margin-left: 5px !important;
+    background-color: red !important;
+  }
+
+  .deleteBtn:hover {
+    background-color: rgb(206, 6, 6) !important;
+  }
+
+  .confirmDelete {
+    font-size: 13px !important;
   }
 
   .emojiBtn:hover {
@@ -514,6 +544,26 @@
   
   .message {
     display: flex !important;
+  }
+
+  .message:hover {
+    background-color: rgba(0, 0, 0, 0.15) !important;
+  }
+
+  .chatOptionsDiv {
+    position: absolute !important;
+    right: 25px !important;
+    margin-top: -1% !important;
+    background-color: rgb(41, 41, 41) !important;
+    padding: 4px !important;
+    border-radius: 5px !important;
+    display: none !important;
+    z-index: 1000 !important;
+  }
+
+  .message:hover .chatOptionsDiv {
+    display: inline !important;
+    cursor: pointer !important;
   }
   
   /*
@@ -721,5 +771,9 @@
     .messageText {
       max-width: 100% !important;
     }
+  }
+
+  .hide {
+    display: none !important;
   }
   

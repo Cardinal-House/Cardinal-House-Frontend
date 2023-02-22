@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Button, InputBase, Paper, Grid, TextField, Menu, MenuItem, Typography } from '@mui/material';
 import { collection, addDoc, query, serverTimestamp, orderBy, limit } from "firebase/firestore";
-import { useCollectionData } from 'react-firebase-hooks/firestore';
+import { useCollection } from 'react-firebase-hooks/firestore';
 import clsx from 'clsx';
 import { AiOutlineSend } from "react-icons/ai";
 import { BsFillEmojiSunglassesFill } from "react-icons/bs";
@@ -26,9 +26,11 @@ export default function ChatRoom(props) {
     const messageRef = collection(firestore, "textChannels", props.selectedTextChannel.id, "messages");
     const messageQuery = query(messageRef, orderBy("createdAt", "desc"), limit(25));
 
-    const [messages, loading] = useCollectionData(messageQuery, {idField: 'id'});
+    const [messages, loading] = useCollection(messageQuery);
     const [emojiAnchorEl, setEmojiAnchorEl] = useState(null);
     const [atBottom, setAtBottom] = useState(true);
+    const [chatDisabled, setChatDisabled] = useState(false);
+    const [messageEditing, setMessageEditing] = useState(null);
     const [inputRef, setInputFocus] = useFocus();
 
     const dummy = useRef();
@@ -78,8 +80,14 @@ export default function ChatRoom(props) {
         updateHeights(this);
     }
 
+    const enableChatAfterWait = () => {
+        setTimeout(() => {
+            setChatDisabled(false);
+          }, "1000")
+      }
+
     const sendMessage = async() => {
-        if (formValue == '') {
+        if (formValue == '' || chatDisabled) {
             return;
         }
 
@@ -95,6 +103,8 @@ export default function ChatRoom(props) {
             photoURL
         }).then((response) => {
             scrollToBottomSmooth();
+            setChatDisabled(true);
+            enableChatAfterWait();
         })
         .catch((error) => {
             console.log(error);
@@ -123,7 +133,7 @@ export default function ChatRoom(props) {
         if (atBottom) {
             scrollToBottomSmooth();
         }
-    }, [messages ? messages.length : messages])
+    }, [messages ? messages.docs.length : messages])
 
     useEffect(() => {
         const userInputBox = document.getElementById("userInput");
@@ -155,9 +165,10 @@ export default function ChatRoom(props) {
     return (
         <>
             <Grid container spacing={2} id="messageDiv" className={clsx(styles.messageDiv, props.smallChat ? styles.messageDivSmall : "")} onScroll={messageDivScroll}>
-                {messages && [...messages].reverse().map((msg, ind) => (
-                    <Grid item xs={12} key={ind}>
-                        <ChatMessage message={msg} />
+                {messages && messages.docs && [...messages.docs].reverse().map((msg) => (
+                    <Grid item xs={12} key={msg.id}>
+                        <ChatMessage message={{...msg.data(), msgId: msg.id}} messageEditing={messageEditing} setMessageEditing={setMessageEditing}
+                            textChannelId={props.selectedTextChannel.id} />
                     </Grid>
                 ))}
                 <Grid item xs={12}>
@@ -165,14 +176,15 @@ export default function ChatRoom(props) {
                 </Grid>
             </Grid>
 
-            <Paper component="form" id="chatForm" onSubmit={sendMessage} className={clsx(styles.chatForm)}>
+            <Paper component="form" id="chatForm" onSubmit={sendMessage} className={clsx(styles.chatForm, chatDisabled ? "disabledChat" : "")}>
                 <TextField multiline variant="outlined" maxRows={1} id="userInput" placeholder="Type here..." value={formValue}
-                    onChange={updateFormValue} className={styles.chatInput} onKeyDown={chatEnterPressed} inputRef={inputRef}
+                    onChange={updateFormValue} className={clsx(styles.chatInput, chatDisabled ? styles.disabledChatSend : "")} 
+                    onKeyDown={chatEnterPressed} inputRef={inputRef}
                     sx={{
-                        "& fieldset": { border: 'none' },
+                        "& fieldset": { border: 'none' }
                         }} />
                 <BsFillEmojiSunglassesFill onClick={handleEmojiSelectionOpen} className={styles.emojiIcon} />
-                <AiOutlineSend onClick={sendMessage} className={styles.submitIcon} />       
+                <AiOutlineSend onClick={sendMessage} className={clsx(styles.submitIcon, chatDisabled ? styles.disabledChatSend : "")} />       
             </Paper>   
             <Menu
                 anchorEl={emojiAnchorEl}

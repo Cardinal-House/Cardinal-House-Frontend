@@ -273,6 +273,10 @@ a {
   overflow-y: auto !important;
 }
 
+.disabledChat textarea {
+  color: rgb(114, 114, 114) !important;
+}
+
 @media (max-width: 800px) {
   .communityDrawer .MuiList-root {
     max-height: 80vh !important;
