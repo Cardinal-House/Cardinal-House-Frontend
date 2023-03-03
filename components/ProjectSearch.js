@@ -94,7 +94,7 @@ export default function ProjectSearch(props) {
             setTagsSelected([]);
         }
         else {
-            const newTagsSelected = tagsSelected;
+            let newTagsSelected = tagsSelected;
             if (tagsSelected.includes(tag)) {
                 newTagsSelected = newTagsSelected.filter(t => t != tag);
             }
@@ -119,7 +119,7 @@ export default function ProjectSearch(props) {
             setChainsSelected([]);
         }
         else {
-            const newChainsSelected = chainsSelected;
+            let newChainsSelected = JSON.parse(JSON.stringify(chainsSelected));
             if (chainsSelected.includes(chain)) {
                 newChainsSelected = newChainsSelected.filter(c => c != chain);
             }

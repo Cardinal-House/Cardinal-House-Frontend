@@ -361,14 +361,18 @@
   }
   
   .chatEditForm {
-    min-width: 105% !important;
+    min-width: 100% !important;
     height: 60px;
     background-color: rgb(58, 58, 58) !important;
     display: flex !important;
     font-size: 1.5rem !important;
     border: none !important;
   }
-  
+
+  .chatMessageImage {
+    width: 20% !important;
+    height: auto !important;
+  }
   
   .chatInput {
     line-height: 1.5;
@@ -460,6 +464,10 @@
     padding-left: 25px !important;
     padding-right: 50px !important;
     max-width: 500px !important;
+  }
+
+  .hideEmojiPicker {
+    display: none !important;
   }
 
   .accountMenuGrid {
@@ -707,7 +715,7 @@
     overflow-y: auto !important;
   }
 
-  @media (min-width: 800px) {
+  @media (max-width: 800px) {
     .userText {
       font-size: 13px !important;
     }

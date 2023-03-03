@@ -128,6 +128,7 @@ export default function SignIn() {
     const hideSettingUpAccountModal = () => {
         if (!loggingIn && !loggingInWithWeb3) {
             setSettingUpAccount(false);
+            location.reload();
         }
     }
 
@@ -347,10 +348,10 @@ export default function SignIn() {
             {
                 !settingUpAccount && (
                     <>
-                        <Button variant="contained" onClick={() => {setSigningUp(false);setSignInModalOpen(true)}} className={styles.signIn}>
+                        <Button variant="contained" onClick={() => {setSigningUp(false);setSignInModalOpen(true)}} className={styles.signIn} data-testid="loginBtn">
                             Log in
                         </Button>
-                        <Button variant="contained" onClick={() => {setSigningUp(true);setSignInModalOpen(true)}} className={styles.signIn}>
+                        <Button variant="contained" onClick={() => {setSigningUp(true);setSignInModalOpen(true)}} className={styles.signIn} data-testid="signUpBtn">
                             Sign Up
                         </Button>
                     </>

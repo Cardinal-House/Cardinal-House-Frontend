@@ -455,10 +455,10 @@ export default function ProjectAbout({ project }) {
                                     <b className={styles.projectTokenText}>&nbsp;{project.name} ({project.tokenSymbol})</b>
                                 </div>
                                 <Typography variant="p">
-                                    <b className={styles.tokenPriceText}>${project.tokenPrice.toLocaleString(undefined, {minimumFractionDigits: computeMinimumFractionDigits(project.tokenPrice)})}</b>&nbsp;&nbsp;&nbsp;
+                                    <b className={styles.tokenPriceText} data-testid="tokenPrice">${project.tokenPrice.toLocaleString(undefined, {minimumFractionDigits: computeMinimumFractionDigits(project.tokenPrice)})}</b>&nbsp;&nbsp;&nbsp;
                                     {
                                         project.tokenPriceChangePercentage24hr != undefined && project.tokenPriceChangePercentage24hr >= 0 && (
-                                            <b className={styles.percentageTextLarge} style={{color: 'green'}}>
+                                            <b className={styles.percentageTextLarge} style={{color: 'green'}} data-testid="24HrPriceChange">
                                                 <ArrowDropUpIcon/> 
                                                 {project.tokenPriceChangePercentage24hr?.toFixed(2)}%
                                             </b>
@@ -466,7 +466,7 @@ export default function ProjectAbout({ project }) {
                                     }
                                     {
                                         project.tokenPriceChangePercentage24hr != undefined && project.tokenPriceChangePercentage24hr < 0 && (
-                                            <b className={styles.percentageTextLarge} style={{color: 'red'}}>
+                                            <b className={styles.percentageTextLarge} style={{color: 'red'}} data-testid="24HrPriceChange">
                                                 <ArrowDropDownIcon/> 
                                                 {project.tokenPriceChangePercentage24hr?.toFixed(2) * -1}%
                                             </b>
@@ -483,7 +483,7 @@ export default function ProjectAbout({ project }) {
                                             <Typography variant="p" className={styles.marketDataTitleText}>
                                                 Market Cap
                                             </Typography>
-                                            <Typography variant="p" className={styles.marketDataText}>
+                                            <Typography variant="p" className={styles.marketDataText} data-testid="marketCap">
                                                 {project.marketCap > 0 ? `$${Number(project.marketCap).toLocaleString()}` : "?"}
                                             </Typography>
                                         </div>
@@ -497,7 +497,7 @@ export default function ProjectAbout({ project }) {
                                             <Typography variant="p" className={styles.marketDataTitleText}>
                                                 24 Hour Trading Volume
                                             </Typography>
-                                            <Typography variant="p" className={styles.marketDataText}>
+                                            <Typography variant="p" className={styles.marketDataText} data-testid="24HrTradingVolume">
                                                 {project.tradingVolume24hr > 0 ? `$${Number(project.tradingVolume24hr).toLocaleString()}` : "?"}                                    
                                             </Typography>
                                         </div>
@@ -511,7 +511,7 @@ export default function ProjectAbout({ project }) {
                                             <Typography variant="p" className={styles.marketDataTitleText}>
                                                 Fully Diluted Market Cap
                                             </Typography>
-                                            <Typography variant="p" className={styles.marketDataText}>
+                                            <Typography variant="p" className={styles.marketDataText} data-testid="fullyDilutedMarketCap">
                                                 {project.fullyDilutedMarketCap > 0 ? `$${Number(project.fullyDilutedMarketCap).toLocaleString()}` : "?"}
                                             </Typography>
                                         </div>
@@ -525,7 +525,7 @@ export default function ProjectAbout({ project }) {
                                             <Typography variant="p" className={styles.marketDataTitleText}>
                                                 Circulating Supply
                                             </Typography>
-                                            <Typography variant="p" className={styles.marketDataText}>
+                                            <Typography variant="p" className={styles.marketDataText} data-testid="circulatingSupply">
                                                 {project.circulatingSupply > 0 ? `${Number(project.circulatingSupply.toFixed(2)).toLocaleString()}` : "?"}                                               
                                             </Typography>
                                         </div>
@@ -539,7 +539,7 @@ export default function ProjectAbout({ project }) {
                                             <Typography variant="p" className={styles.marketDataTitleText}>
                                                 Total Supply
                                             </Typography>
-                                            <Typography variant="p" className={styles.marketDataText}>
+                                            <Typography variant="p" className={styles.marketDataText} data-testid="totalSupply">
                                                 {project.totalSupply > 0 ? `${Number(project.totalSupply.toFixed(2)).toLocaleString()}` : "?"}
                                             </Typography>
                                         </div>
@@ -763,11 +763,11 @@ export default function ProjectAbout({ project }) {
 
             <Grid item xs={12} className={styles.chartBtnGrid}>
                 <Button onClick={() => setChartViewing("price")} size="medium" variant="contained" 
-                    className={clsx(chartViewing == "price" ? styles.selectedChartBtn : "", styles.chartBtn)}>
+                    className={clsx(chartViewing == "price" ? styles.selectedChartBtn : "", styles.chartBtn)} data-testid="priceChartBtn">
                     Price
                 </Button>
                 <Button onClick={() => setChartViewing("candle")} size="medium" variant="contained"
-                    className={clsx(chartViewing == "candle" ? styles.selectedChartBtn : "", styles.chartBtn)}>
+                    className={clsx(chartViewing == "candle" ? styles.selectedChartBtn : "", styles.chartBtn)} data-testid="candleChartBtn">
                     Candle
                 </Button>
             </Grid>
@@ -788,7 +788,7 @@ export default function ProjectAbout({ project }) {
                 <Typography variant="h2" className="mb-4" style={{textAlign: 'left !important'}}>
                     What is {project.name} ({project.tokenSymbol})?
                 </Typography>
-                <Typography variant="h3" style={{textAlign: 'left !important', fontSize: '16px !important', whiteSpace: 'pre-line !important'}}>
+                <Typography variant="h3" style={{textAlign: 'left !important', fontSize: '16px !important', whiteSpace: 'pre-line !important'}} data-testid="description">
                     {project.description.replace("&amp;", "&").replaceAll(" NEWLINE ", "\n\n")}
                 </Typography>
             </Grid>

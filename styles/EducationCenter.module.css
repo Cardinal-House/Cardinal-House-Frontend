@@ -642,6 +642,10 @@
     height: 500px !important;
 }
 
+.hideChartDiv {
+    display: none !important;
+}
+
 @media (max-width: 1500px) {
     .optionMargin {
         margin: 2% !important;

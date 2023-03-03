@@ -76,6 +76,7 @@ export function AuthProvider({ children }) {
     const docRef = doc(firestore, "users", currentUser.uid);
 
     if (field == "username") {
+      console.log(`Setting username to ${newFieldValue}`)
       const docSnap = await getDoc(docRef);
       const batch = writeBatch(firestore);
 
@@ -85,6 +86,7 @@ export function AuthProvider({ children }) {
       batch.set(usernameDocRef, { uid: currentUser.uid });
 
       if (docSnap.exists() && docSnap.data().username) {
+        console.log("Deleting old username")
         const oldUsernameDocRef = doc(firestore, "usernames", docSnap.data().username);
         batch.delete(oldUsernameDocRef);
       }

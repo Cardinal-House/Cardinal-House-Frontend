@@ -61,6 +61,10 @@ a {
   display: none !important;
 }
 
+.hideEmojiPicker .EmojiPickerReact {
+  display: none !important;
+}
+
 .dropdown-toggle {
   margin-top: 2% !important;
 }

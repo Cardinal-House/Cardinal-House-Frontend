@@ -5,6 +5,12 @@ import { within } from '@testing-library/dom';
 
 import ProjectInsightNavigation from '../components/ProjectInsightNavigation';
 import ProjectSearch from '../components/ProjectSearch';
+import ProjectAbout from '../components/ProjectAbout';
+import TwitterFeedItem from '../components/TwitterFeedItem';
+import DiscordFeedItem from '../components/DiscordFeedItem';
+import YouTubeFeedItem from '../components/YouTubeFeedItem';
+import TelegramFeedItem from '../components/TelegramFeedItem';
+import MediumFeedItem from '../components/MediumFeedItem';
 
 class ResizeObserver {
     observe() {}
@@ -266,7 +272,184 @@ describe("Listing Platform Tests", () => {
 
         expect(actualProjects.length).toBe(expectedProjects.length);
         expect(expectedProjects.length).toBeLessThan(mockProjects.length);
-    })
+    }),
+
+    test("Project About Page Renders Properly", async () => {
+        const project = mockProjects[0];
+        const dummyPriceData = {"prices":[[1645574400000,38337.2038554348],[1645660800000,37372.2926803477],[1645747200000,38363.345488570165],[1645833600000,39316.16207578596],[1645920000000,39090.202153609054],[1646006400000,37803.59016044929],[1646092800000,43225.404677435734],[1646179200000,44459.59162774341],[1646265600000,43980.707382090906],[1646352000000,42491.97839335905],[1646438400000,39200.29973557414],[1646524800000,39463.14681149058],[1646611200000,38442.99174588676],[1646697600000,38076.49382252028],[1646784000000,38732.93701302586],[1646870400000,41986.03444607623],[1646956800000,39468.35477300189],[1647043200000,38775.17558840679],[1647129600000,38903.69354800599],[1647216000000,37852.52514106289],[1647302400000,39669.423812004505]]};
+        global.fetch = jest.fn(() =>
+            Promise.resolve({
+                json: () => Promise.resolve(dummyPriceData),
+                ok: true
+            })
+        );
+
+        const screen = render(
+            <ProjectAbout project={project} />
+        );
+
+        const projectTitle = await screen.findAllByText(new RegExp(project.name, "i"));
+        expect(projectTitle.length).toBeGreaterThan(0);
+
+        const marketCap = await screen.findByTestId("marketCap");
+        expect(marketCap).toBeInTheDocument();
+        expect(marketCap.textContent).toBe(`$${project.marketCap?.toLocaleString()}`);
+
+        const tradingVolume = await screen.findByTestId("24HrTradingVolume");
+        expect(tradingVolume).toBeInTheDocument();
+        expect(tradingVolume.textContent).toBe(`$${project.tradingVolume24hr?.toLocaleString()}`);
+
+        const fullyDilutedMarketCap = await screen.findByTestId("fullyDilutedMarketCap");
+        expect(fullyDilutedMarketCap).toBeInTheDocument();
+        expect(fullyDilutedMarketCap.textContent).toBe("?");
+
+        const circulatingSupply = await screen.findByTestId("circulatingSupply");
+        expect(circulatingSupply).toBeInTheDocument();
+        expect(circulatingSupply.textContent).toBe(`${Number(project.circulatingSupply.toFixed(2)).toLocaleString()}`);
+
+        const totalSupply = await screen.findByTestId("totalSupply");
+        expect(totalSupply).toBeInTheDocument();
+        expect(totalSupply.textContent).toBe(`${Number(project.totalSupply.toFixed(2)).toLocaleString()}`);
+
+        const description = await screen.findByTestId("description");
+        expect(description).toBeInTheDocument();
+        expect(description.textContent).toBe(project.description.replace("&amp;", "&").replaceAll(" NEWLINE ", "\n\n"));
+
+        const educationAndTutorials = await screen.findByText(/Education and Tutorials/i);
+        expect(educationAndTutorials).toBeInTheDocument();
+
+        const purchaseTokens = await screen.findByText(/Purchase Tokens Here/i);
+        expect(purchaseTokens).toBeInTheDocument();
+
+        const website = await screen.findByText(/Website/i);
+        expect(website).toBeInTheDocument();
+
+        const whitePaper = await screen.findByText(/White Paper/i);
+        expect(whitePaper).toBeInTheDocument();
+    }),
+
+    test("Twitter Feed Item Renders Properly", async () => {
+        const project = mockProjects[1];
+        const feed = {
+            timestamp: (new Date()).toISOString(),
+            text: "&amp;&amp;Test Twitter Post&amp;&amp;",
+            link: "https://twitter.com"
+        };
+
+        const screen = render(
+            <TwitterFeedItem feed={feed} project={project} />
+        );
+
+        const timestampText = await screen.findByText(/a few seconds ago/i);
+        expect(timestampText).toBeInTheDocument();
+
+        const projectNames = await screen.findAllByText(new RegExp(project.name, "i"));
+        expect(projectNames.length).toBeGreaterThan(0);
+
+        const projectTwitterHandle = await screen.findByText(new RegExp(`@${project.twitter.split("/").at(-1)}`, "i"));
+        expect(projectTwitterHandle).toBeInTheDocument();
+
+        const feedText = await screen.findByText(feed.text.replace("&amp;", "&"));
+        expect(feedText).toBeInTheDocument();
+
+        expect(await screen.getByText('View on Twitter').closest('a')).toHaveAttribute('href', feed.link);
+    }), 
+
+    test("Discord Feed Item Renders Properly", async () => {
+        const project = mockProjects[2];
+        const feed = {
+            timestamp: (new Date()).toISOString(),
+            text: "Test Discord Announcement",
+            link: "https://discord.com"
+        };
+
+        const screen = render(
+            <DiscordFeedItem feed={feed} project={project} />
+        );
+
+        const timestampText = await screen.findByText(/a few seconds ago/i);
+        expect(timestampText).toBeInTheDocument();
+
+        const projectNames = await screen.findAllByText(new RegExp(project.name, "i"));
+        expect(projectNames.length).toBeGreaterThan(0);
+
+        const feedText = await screen.findByText(feed.text);
+        expect(feedText).toBeInTheDocument();
+
+        expect(await screen.getByText('View on Discord').closest('a')).toHaveAttribute('href', feed.link);
+    }),
+    
+    test("YouTube Feed Item Renders Properly", async () => {
+        const project = mockProjects[2];
+        const feed = {
+            timestamp: (new Date()).toISOString(),
+            text: "Test YouTube Video",
+            link: "https://youtube.com"
+        };
+
+        const screen = render(
+            <YouTubeFeedItem feed={feed} project={project} />
+        );
+
+        const timestampText = await screen.findByText(/a few seconds ago/i);
+        expect(timestampText).toBeInTheDocument();
+
+        const projectNames = await screen.findAllByText(new RegExp(project.name, "i"));
+        expect(projectNames.length).toBeGreaterThan(0);
+
+        const feedText = await screen.findByText(feed.text);
+        expect(feedText).toBeInTheDocument();
+
+        expect(await screen.getByText('View on YouTube').closest('a')).toHaveAttribute('href', feed.link);
+    }),
+
+    test("Telegram Feed Item Renders Properly", async () => {
+        const project = mockProjects[0];
+        const feed = {
+            timestamp: (new Date()).toISOString(),
+            text: "Test Telegram Announcement"
+        };
+
+        const screen = render(
+            <TelegramFeedItem feed={feed} project={project} />
+        );
+
+        const timestampText = await screen.findByText(/a few seconds ago/i);
+        expect(timestampText).toBeInTheDocument();
+
+        const projectNames = await screen.findAllByText(new RegExp(project.name, "i"));
+        expect(projectNames.length).toBeGreaterThan(0);
+
+        const feedText = await screen.findByText(feed.text);
+        expect(feedText).toBeInTheDocument();
+    }),
+    
+    test("Medium Feed Item Renders Properly", async () => {
+        const project = mockProjects[2];
+        const feed = {
+            timestamp: (new Date()).toISOString(),
+            text: "Test Medium Post",
+            link: "https://medium.com"
+        };
+
+        const screen = render(
+            <MediumFeedItem feed={feed} project={project} />
+        );
+
+        const timestampText = await screen.findByText(/a few seconds ago/i);
+        expect(timestampText).toBeInTheDocument();
+
+        const projectNames = await screen.findAllByText(new RegExp(project.name, "i"));
+        expect(projectNames.length).toBeGreaterThan(0);
+
+        const projectMediumHandle = await screen.findByText(new RegExp(`@${project.mediumUsername.split("/").at(-1)}`, "i"));
+        expect(projectMediumHandle).toBeInTheDocument();        
+
+        const feedText = await screen.findByText(feed.text);
+        expect(feedText).toBeInTheDocument();
+
+        expect(await screen.getByText('View on Medium').closest('a')).toHaveAttribute('href', feed.link);
+    })    
 })
 
 const mockProjects = [

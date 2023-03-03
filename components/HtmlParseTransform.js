@@ -1,5 +1,6 @@
 import { convertNodeToElement, processNodes } from "react-html-parser";
 import { Tooltip } from '@mui/material';
+import { Emoji, EmojiStyle } from "emoji-picker-react";
 
 export default function transform(node, index) {
     // all links must open in a new window
@@ -25,6 +26,12 @@ export default function transform(node, index) {
                 </i>
             </span>
         </Tooltip>
+      );
+    }
+
+    if (node.type === "tag" && node.name === "emoji") {
+      return (
+        <Emoji key={index} unified={node.attribs['title']} emojiStyle={EmojiStyle.APPLE} size={22} />
       );
     }
   }

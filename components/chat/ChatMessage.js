@@ -1,14 +1,27 @@
 import { Typography, TextField, Paper, Button } from '@mui/material';
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, memo } from "react";
 import { doc, setDoc, deleteDoc, serverTimestamp } from "firebase/firestore";
 import clsx from 'clsx';
+import sanitizeHtml from 'sanitize-html';
+import ReactHtmlParser from "react-html-parser";
 import { AiOutlineSend } from "react-icons/ai";
 import { BsFillEmojiSunglassesFill } from "react-icons/bs";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import {
+    EmojiStyle,
+    SkinTones,
+    Theme,
+    Categories,
+    EmojiClickData,
+    Emoji,
+    SuggestionMode,
+    SkinTonePickerLocation
+  } from "emoji-picker-react";
 
 import styles from '../../styles/Community.module.css';
 
+import transform from '../HtmlParseTransform';
 import { useAuth } from "../../contexts/AuthContext";
 import { firestore } from '../../firebase-vars';
 
@@ -25,20 +38,27 @@ const useFocus = () => {
 
 const defaultScrollHeight = 25;
 
+const options = {
+    decodeEntities: true,
+    transform
+};
+
 /**
 Props:
     - message - contains the text, uid, photoURL, createdAt, username, msgId
-    - messageEditing - the UID of the message currently being edited - null if no message is currently being edited.
-    - setMessageEditing - updates the UID of the message being updated
+    - messageEditing - the ID of the message currently being edited - null if no message is currently being edited.
+    - setMessageEditing - updates the ID of the message being updated
     - textChannelId - the Firebase ID for the text channel the message is from
 */
-export default function ChatMessage(props) {
+export default memo(function ChatMessage(props) {
     const { currentUser, currentUserData } = useAuth();
 
     const { text, uid, photoURL, createdAt, username, msgId } = props.message;
 
     const [editedMessage, setEditedMessage] = useState(text.replaceAll("NEWLINE", "\n"));
     const [confirmDelete, setConfirmDelete] = useState(false);
+    const [justImageOverride, setJustImageOverride] = useState(false);
+    const [justLinkOverride, setJustLinkOverride] = useState(false);
     const [inputRef, setInputFocus] = useFocus();
 
     const messageClass = uid === currentUser.uid ? "sent" : "received";
@@ -145,8 +165,43 @@ export default function ChatMessage(props) {
     useEffect(() => {
         if (props.messageEditing == msgId) {
             setInputFocus();
+            const userInputBox = document.getElementById(`userInputEdit-${msgId}`);
+            setTimeout(() => {
+                userInputBox.dispatchEvent(new Event('input', {bubbles:true}));
+            }, "10")
         }
     }, [props.messageEditing])
+
+    const getImages = (text) => {
+        const imageExtensions = ["png", "jpg", "jpeg", "gfif", "gif", "jfif", "pjpeg", "pjp", "svg", "webp", "tif", "tiff", "avif", "apng"];
+        const matches = text.replace("NEWLINE", " ").match(/\bhttps?:\/\/\S+/gi);
+
+        if (matches) {
+            return matches.filter(img => imageExtensions.includes(img.split(".").at(-1)));
+        }
+        else {
+            return [];
+        }
+    }
+
+    const getLinks = (text) => {
+        const imageExtensions = ["png", "jpg", "jpeg", "gfif", "gif", "jfif", "pjpeg", "pjp", "svg", "webp", "tif", "tiff", "avif", "apng"];
+        const matches = text.replace("NEWLINE", " ").match(/\bhttps?:\/\/\S+/gi);
+
+        if (matches) {
+            return matches.filter(img => !imageExtensions.includes(img.split(".").at(-1)));
+        }
+        else {
+            return [];
+        }
+    }
+
+    const imageArr = getImages(text);
+    const linkArr = getLinks(text);
+    const justImage = (imageArr.length == 1 && imageArr[0] == text && !justImageOverride);
+    const justLink = (linkArr.length == 1 && linkArr[0] == text && !justLinkOverride);
+
+    console.log("Component rerendered")
 
     return (
         <div className={clsx(styles.message, messageClass == "sent" ? styles.sentMessage : styles.receivedMessage)} onMouseLeave={() => setConfirmDelete(false)}>
@@ -182,7 +237,29 @@ export default function ChatMessage(props) {
                 <span className={styles.userText}>{username ? username : "Username"} </span>
                 <span className={styles.dateText}>{toDateString(createdAt)}</span>
                 <br/>
-                <span className={clsx(styles.messageText, props.messageEditing == msgId ? styles.hide : "")}>{text.replaceAll("NEWLINE", "\n")}</span>
+                {
+                    !justImage && (
+                        <span className={clsx(styles.messageText, props.messageEditing == msgId ? styles.hide : "")}>
+                            {ReactHtmlParser(
+                                sanitizeHtml(text.replaceAll("NEWLINE", "\n")
+                                    .replaceAll(/((http(s)?(\:\/\/))?(www\.)?([\w\-\.\/])*(\.[a-zA-Z]{2,3}\/?))(?!(.*a>)|(\'|\"))/g, '<a href="$1" target="_blank" rel="noreferrer">$1</a>')
+                                    .replaceAll(/#~#(.*)#~#/g, `<emoji title="$1"></emoji>`),
+                                    {
+                                        allowedTags: sanitizeHtml.defaults.allowedTags.concat([ 'emoji' ]),
+                                        allowedAttributes: {
+                                            'a': [ 'href', 'name', 'target', 'rel' ],
+                                            'emoji': [ 'title' ]
+                                        }
+                                    }
+                                ),
+                                options
+                                )}
+                            {
+                                /*text.replaceAll("NEWLINE", "\n")*/
+                            }
+                        </span>
+                    )
+                }
                 <Paper component="form" id={`chatEditForm-${msgId}`} onSubmit={updateMessage} className={clsx(styles.chatEditForm, props.messageEditing != msgId ? styles.hide : "")}>
                     <TextField multiline variant="outlined" maxRows={1} id={`userInputEdit-${msgId}`} value={editedMessage}
                     onChange={e => setEditedMessage(e.target.value)} className={styles.chatInput} 
@@ -190,10 +267,22 @@ export default function ChatMessage(props) {
                     sx={{
                         "& fieldset": { border: 'none' }
                     }} />
-                <BsFillEmojiSunglassesFill onClick={handleEmojiSelectionOpen} className={styles.emojiIcon} />
-                <AiOutlineSend onClick={updateMessage} className={styles.submitIcon} />       
-            </Paper> 
+                    <BsFillEmojiSunglassesFill onClick={handleEmojiSelectionOpen} className={styles.emojiIcon} />
+                    <AiOutlineSend onClick={updateMessage} className={styles.submitIcon} />       
+                </Paper> 
+                <br />
+                {
+                    imageArr.map(imageURL => (
+                        <>
+                            <img src={imageURL} alt="" className={clsx(!justImage ? "mt-3" : "", styles.chatMessageImage)} onError={() => setJustImageOverride(true)} />
+                            <br/>
+                        </>
+                    ))
+                }
             </Typography>
         </div>
     )
-}
+}, (prevProps, nextProps) => {
+        return prevProps.message.text == nextProps.message.text && nextProps.messageEditing != nextProps.message.msgId && prevProps.messageEditing == nextProps.messageEditing;
+    }
+)

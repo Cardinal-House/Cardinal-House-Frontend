@@ -47,7 +47,7 @@ function useVisibility(offset = 0,) {
     }, [])
   
     return [isVisible, currentElement]
-  }
+}
 
 function ProjectInsight(props) {
   const { window2 } = props;
@@ -187,7 +187,7 @@ function ProjectInsight(props) {
                     ["about", "all", "twitter", "discord", "youtube", "telegram", "medium"].map((social) => (
                         <Grid item xs={4} sm={3} md={2} lg={1}>
                             <Button variant="text" className={clsx(styles.socialOptionBtn, socialSelected == social ? styles.selectedSocialBtn : "")}
-                                onClick={() => setSocialSelected(social)}>
+                                onClick={() => setSocialSelected(social)} data-testid={`socialFilter-${social}`}>
                                 {social}
                             </Button>
                         </Grid>
@@ -203,6 +203,11 @@ function ProjectInsight(props) {
                         </Grid>
                     )
                 }
+                {
+                    socialSelected != "about" && (
+                        <div className={clsx(styles.hideChartDiv)} id="tradingview_309d5"></div>
+                    )
+                }
 
                 {
                     socialSelected != "about" && projectFeed.map((feed, index) => (
@@ -210,10 +215,10 @@ function ProjectInsight(props) {
                             ref={index == projectFeed.length - 1 ? lastFeedItemRef : null}>
                                 {
                                     feed.text && (
-                                        <div className={styles.feedItem}>
+                                        <div className={styles.feedItem} data-testid={`feeditem-${feed.social}-${index}`}>
                                             {
                                                 feed.social == "twitter" && (
-                                                    <TwitterFeedItem feed={feed} project={props.project}  />
+                                                    <TwitterFeedItem feed={feed} project={props.project} />
                                                 )
                                             }
                                             {

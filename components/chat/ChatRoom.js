@@ -1,10 +1,12 @@
 import { useState, useEffect, useRef } from 'react';
-import { Button, InputBase, Paper, Grid, TextField, Menu, MenuItem, Typography } from '@mui/material';
+import { Button, Paper, Grid, TextField, Menu, CircularProgress } from '@mui/material';
 import { collection, addDoc, query, serverTimestamp, orderBy, limit } from "firebase/firestore";
 import { useCollection } from 'react-firebase-hooks/firestore';
 import clsx from 'clsx';
 import { AiOutlineSend } from "react-icons/ai";
 import { BsFillEmojiSunglassesFill } from "react-icons/bs";
+import data from '@emoji-mart/data';
+import Picker from '@emoji-mart/react';
 
 import styles from '../../styles/Community.module.css';
 
@@ -12,6 +14,29 @@ import { useAuth } from '../../contexts/AuthContext';
 import { firestore } from '../../firebase-vars';
 
 import ChatMessage from './ChatMessage';
+
+const chatIncrement = 25;
+
+function useVisibility(offset = 0,) {
+    const [isVisible, setIsVisible] = useState(false);
+    const currentElement = useRef(null);
+  
+    const onScroll = () => {
+      if (!currentElement.current) {
+        setIsVisible(false);
+        return;
+      }
+      const top = currentElement.current.getBoundingClientRect().top;
+      setIsVisible(top + offset >= 0 && top - offset <= window.innerHeight);
+    }
+  
+    useEffect(() => {
+      document.addEventListener('scroll', onScroll, true);
+      return () => document.removeEventListener('scroll', onScroll, true);
+    }, [])
+  
+    return [isVisible, currentElement]
+}
 
 const useFocus = () => {
     const htmlElRef = useRef(null)
@@ -23,23 +48,33 @@ const useFocus = () => {
 export default function ChatRoom(props) {
     const { currentUser, currentUserData } = useAuth();
 
-    const messageRef = collection(firestore, "textChannels", props.selectedTextChannel.id, "messages");
-    const messageQuery = query(messageRef, orderBy("createdAt", "desc"), limit(25));
-
-    const [messages, loading] = useCollection(messageQuery);
     const [emojiAnchorEl, setEmojiAnchorEl] = useState(null);
+    const [showEmojiPicker, setShowEmojiPicker] = useState(false);
     const [atBottom, setAtBottom] = useState(true);
+    const [hitBottom, setHitBottom] = useState(-1);
+    const [formValue, setFormValue] = useState("");
     const [chatDisabled, setChatDisabled] = useState(false);
     const [messageEditing, setMessageEditing] = useState(null);
-    const [inputRef, setInputFocus] = useFocus();
+    const [counter, setCounter] = useState(1);
+    const [currNumMessages, setCurrNumMessages] = useState(chatIncrement);
+    const [messages, setMessages] = useState(undefined);
 
+    const [lastChatShown, lastChatShownRef] = useVisibility();
+    const [inputRef, setInputFocus] = useFocus();
     const dummy = useRef();
-    const [formValue, setFormValue] = useState("");
+
+    const messageRef = collection(firestore, "textChannels", props.selectedTextChannel.id, "messages");
+    const messageQuery = query(messageRef, orderBy("createdAt", "desc"), limit(currNumMessages));
+
+    const [messagesData, loading] = useCollection(messageQuery);
 
     const emojiSelectionOpen = Boolean(emojiAnchorEl);
 
     const handleEmojiSelectionOpen = (e) => {
         setEmojiAnchorEl(e.currentTarget);
+        setTimeout(() => {
+            setShowEmojiPicker(true);
+        }, "25");
     };
 
     const handleEmojiSelectionClose = (emoji) => {
@@ -47,10 +82,21 @@ export default function ChatRoom(props) {
         setFormValue(formValue + emoji);
       }
       setEmojiAnchorEl(null);
+      setShowEmojiPicker(false);
     };
+
+    const handleEmojiSelection = (emojiData, e) => {
+        setFormValue(formValue + "#~#" + emojiData.unified + "#~#");
+        setEmojiAnchorEl(null);
+        setShowEmojiPicker(false);        
+    }
 
     const scrollToBottomFast = () => {
         dummy.current.scrollIntoView();
+        setHitBottom(-1);
+        setTimeout(() => {
+            setHitBottom(props.selectedTextChannel.id);
+        }, "1000")
     }
 
     const scrollToBottomSmooth = () => {
@@ -112,10 +158,13 @@ export default function ChatRoom(props) {
     }
 
     useEffect(() => {
-        if (!loading) {
-            scrollToBottomFast();
+        if (messagesData) {
+            setMessages(messagesData);
         }
-    }, [loading, props.selectedTextChannel.id]) 
+        if (hitBottom != props.selectedTextChannel.id) {
+            setCurrNumMessages(chatIncrement);
+        }
+    }, [messagesData, loading, props.selectedTextChannel.id]) 
     
     useEffect(() => {
         if (formValue == '') {
@@ -130,8 +179,11 @@ export default function ChatRoom(props) {
     }, [emojiAnchorEl])
 
     useEffect(() => {
-        if (atBottom) {
+        if (atBottom && hitBottom == props.selectedTextChannel.id) {
             scrollToBottomSmooth();
+        }
+        else if (hitBottom != props.selectedTextChannel.id) {
+            scrollToBottomFast();
         }
     }, [messages ? messages.docs.length : messages])
 
@@ -140,6 +192,16 @@ export default function ChatRoom(props) {
         userInputBox.setAttribute("style", "height:" + (userInputBox.scrollHeight) + "px;overflow-y:hidden;");
         userInputBox.addEventListener("input", OnInput, false);
     }, [])
+
+    useEffect(() => {
+        if (lastChatShown && messages && messages.docs.length >= currNumMessages && hitBottom == props.selectedTextChannel.id) {
+            setCurrNumMessages(currNumMessages + chatIncrement);
+            setTimeout(() => {
+                setCounter(counter + 1);
+            }, "1000")
+
+        }
+    }, [lastChatShown, lastChatShownRef.current])
 
     const chatEnterPressed = (e) => {
         if (e.keyCode == 13 && e.shiftKey == false) {
@@ -165,8 +227,15 @@ export default function ChatRoom(props) {
     return (
         <>
             <Grid container spacing={2} id="messageDiv" className={clsx(styles.messageDiv, props.smallChat ? styles.messageDivSmall : "")} onScroll={messageDivScroll}>
-                {messages && messages.docs && [...messages.docs].reverse().map((msg) => (
-                    <Grid item xs={12} key={msg.id}>
+                {
+                    loading && hitBottom == props.selectedTextChannel.id && (
+                        <Grid item xs={12} className="mb-5 text-center">
+                            <CircularProgress size={80} />
+                        </Grid>
+                    )
+                }
+                {messages && messages.docs && [...messages.docs].reverse().map((msg, index) => (
+                    <Grid item xs={12} key={msg.id} ref={index == 5 ? lastChatShownRef : null}>
                         <ChatMessage message={{...msg.data(), msgId: msg.id}} messageEditing={messageEditing} setMessageEditing={setMessageEditing}
                             textChannelId={props.selectedTextChannel.id} />
                     </Grid>
@@ -192,10 +261,14 @@ export default function ChatRoom(props) {
                 onClose={handleEmojiSelectionClose}
                 anchorOrigin={{vertical: 'top', horizontal: 'left'}}
                 transformOrigin={{vertical: 'bottom', horizontal: 'center'}}
+                className={!showEmojiPicker ? "hideEmojiPicker" : ""}
                 sx={{
                     marginTop: '-18px',
                   }}
             >
+                <Picker data={data} onEmojiSelect={(emojiData) => handleEmojiSelectionClose(emojiData.native)} theme="dark" />
+                {
+                    /*
                 <Grid container spacing={4} className={styles.emojiMenuGrid}>
                     {
                         [
@@ -219,6 +292,8 @@ export default function ChatRoom(props) {
                         })
                     }
                 </Grid>
+                    */
+                }
             </Menu>           
         </>
     )
