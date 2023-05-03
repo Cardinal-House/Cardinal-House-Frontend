@@ -16,7 +16,7 @@ import ERC20 from "../contracts/ERC20.json";
 import NodeRunner from "../contracts/NodeRunner.json";
 import CardinalNFT from "../contracts/CardinalNFT.json";
 
-const rpcEndpoint = "https://rpc-mainnet.maticvigil.com";
+const rpcEndpoint = "https://polygon-rpc.com";
 // const rpcEndpoint = "https://rpc-mumbai.matic.today";
 const polygonChainId = 137;
 // const polygonChainId = 80001;
@@ -90,7 +90,6 @@ export default function ClaimNodeRewards(props) {
       currNFTDataList = [];
 
       const currNodeUserNFTs = await nodeRunnerContractReadOnly.getUserTokenURIs(account);
-
       const currNodeRewardsObj = await nodeRunnerContractReadOnly.addressToMaticCanClaim(account);
       const currNodeRewards = +ethers.utils.formatEther(BigInt(parseInt(currNodeRewardsObj._hex, 16)).toString(10));
 
